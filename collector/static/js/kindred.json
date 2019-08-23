@@ -1,0 +1,142 @@
+{
+   "name":"Caine",
+   "clan":"Kindred",
+   "generation":1,
+   "children":[
+      {
+         "name":"Enoch the Wise",
+         "generation":2,
+         "children":[
+            {
+               "name":"Arikel",
+               "generation":3,
+               "clan":"Toreador",
+               "children":[
+
+               ]
+            },
+            {
+               "name":"Malkav",
+               "generation":3,
+               "clan":"Malkavian",
+               "children":[
+
+               ]
+            },
+            {
+               "name":"Saulot",
+               "generation":3,
+               "clan":"Salubri",
+               "children":[
+                  {
+                     "name":"Tremere",
+                     "generation":4,
+                     "clan":"Tremere",
+                     "children":[
+
+                     ]
+                  }
+               ]
+            },
+            {
+               "name":"Ennoia",
+               "generation":3,
+               "clan":"Gangel",
+               "children":[
+
+               ]
+            }
+         ]
+      },
+      {
+         "name":"Irad the Strong",
+         "generation":2,
+         "children":[
+            {
+               "name":"Ventru",
+               "generation":3,
+               "clan":"Ventrue",
+               "children":[
+
+               ]
+            },
+            {
+               "name":"Brujah",
+               "generation":3,
+               "clan":"True Brujah",
+               "children":[
+                  {
+                     "name":"Troile",
+                     "generation":4,
+                     "clan":"Brujah",
+                     "children":[
+
+                     ]
+                  }
+               ]
+            },
+            {
+               "name":"Cappadocius",
+               "generation":3,
+               "clan":"Cappadocian",
+               "children":[
+                  {
+                     "name":"Augustus Giovanni",
+                     "generation":4,
+                     "clan":"Giovanni",
+                     "children":[
+
+                     ]
+                  }
+               ]
+            },
+            {
+               "name":"Lasombra",
+               "clan":"Lasombra",
+               "generation":3,
+               "children":[
+
+               ]
+            },
+            {
+               "name":"The Eldest",
+               "clan":"Tzimisce",
+               "generation":3,
+               "children":[
+
+               ]
+            }
+         ]
+      },
+      {
+         "name":"Zillah the Beautiful",
+         "generation":2,
+         "children":[
+            {
+               "name":"Absimiliard",
+               "clan":"Nosferatu",
+               "generation":3,
+               "children":[
+
+               ]
+            },
+            {
+               "name":"Set",
+               "generation":3,
+               "clan":"Setite",
+               "children":[
+
+               ]
+            },
+            {
+               "name":"Haqim",
+               "clan":"Assamite",
+               "generation":3,
+               "children":[
+
+               ]
+            }
+         ]
+      }
+   ]
+}

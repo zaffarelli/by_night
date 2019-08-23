@@ -1,0 +1,18 @@
+<!--
+           /       '_ /_/ 
+          ()(/__/)/(//)/  
+            /     _/      
+-->
+{% load wod_filters %}
+<div class='avatar_link {% if c.is_locked %}locked{%endif%} {{c.faction}}'>
+  <em>{{ c.name }}</em>
+  <div class="creature_actions">
+    <span class="view_creature" id="{{c.id}}"><i class="fas fa-user"></i></span>&nbsp;&nbsp;
+    {% if c.freebiedif == c.expectedfreebies %}<span><i class="fas fa-star"></i></span>&nbsp;&nbsp;{% endif %}
+    {% if c.freebiedif > c.expectedfreebies %}<span><i class="fas fa-star golden"></i></span>&nbsp;&nbsp;{% endif %}
+  </div>
+  <br/>{{ c.background3|as_generation }} generation {{c.family}} {% if c.condition != '-OK-' %}(<b>{{c.condition}}</b>){% endif %}
+  <br/>{{ c.faction|safe }} {{c.group}} {{c.groupspec}}</b>
+  <br/>{%if c.player != '' %}Played by {{c.player|safe}}{% endif %}
+  
+</div>

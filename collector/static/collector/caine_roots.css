@@ -1,0 +1,41 @@
+
+#caine_roots{
+  text-align:center;
+}
+
+
+svg {
+  background:#808080;
+  height:800px;
+  width:1200px;
+  border: 1px solid #aaa;
+}
+
+rect {
+  fill: #303030;
+  stroke: #808080;
+  stroke-width: 1px;
+}
+
+
+
+.name{
+  font-size: 13px;
+  font-family: "Titre";
+  cursor: pointer;
+  fill: #CCC;
+  stroke:#AAA;
+  stroke-width: 0.5px;
+}
+
+.property{
+  fill: #FFF;
+  stroke-width: 1px;
+  font: 11px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #A22;
+  stroke-width: 2px;
+}
