@@ -5,37 +5,77 @@
 
 
 svg {
-  background:#808080;
-  height:800px;
-  width:1200px;
+  background:transparent;
+  height:920px;
+  width:1220px;
   border: 1px solid #aaa;
 }
 
 rect {
-  fill: #303030;
-  stroke: #808080;
+  fill: #B0B0B0;
+  stroke: #303030;
+  stroke-width: 0px;
+  cursor:pointer;
+}
+
+.Sabbat {
+  fill: #F0C0C0;
+  stroke-width: 1px;
+}
+
+.Camarilla {
+  fill: #C0F0C0;
   stroke-width: 1px;
 }
 
 
+
+
+.Anarchs {
+  fill: #C0C0F0;
+  stroke-width: 1px;
+}
+
+.Inconnu {
+  fill: #E0E0E0;
+  stroke-width: 1px;
+}
+
+.ghost {
+  stroke:#CCC;  
+  fill: #CCC;
+  opacity:0.4;
+}
 
 .name{
   font-size: 13px;
   font-family: "Titre";
-  cursor: pointer;
-  fill: #CCC;
-  stroke:#AAA;
-  stroke-width: 0.5px;
+  stroke:#ddd;  
+  fill: #fff;
+  stroke-width: 0.6px;
+}
+.property{
+  font-family: "TexteLibre";
+  font-size: 11px;
+  stroke:#ccc;  
+  fill: #fff;
+  stroke-width: 0.8px;
 }
 
-.property{
-  fill: #FFF;
-  stroke-width: 1px;
-  font: 11px sans-serif;
+text.ghost {
+  fill: #000;
+  stroke:#666;
+  opacity:0.8;
 }
+
+
+
 
 .link {
   fill: none;
   stroke: #A22;
   stroke-width: 2px;
+  opacity: 0.5;
 }
+
+

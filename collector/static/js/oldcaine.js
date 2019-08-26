@@ -89,6 +89,10 @@ function draw(source){
         width: 0,
         height: 0
       });
+  nodes.filter(function(d,i){
+    return d.status == "myth";
+  }).append('rect')
+  .attr('class', 'myth');      
   nodeEnter.append("text")
       .attr('class', 'name')
       .append('tspan')      

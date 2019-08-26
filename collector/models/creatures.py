@@ -9,8 +9,7 @@ from django.contrib import admin
 from datetime import datetime
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
-
-
+import json
 
 bloodpool ={
   13: 10,
@@ -23,6 +22,9 @@ bloodpool ={
   6: 30,
   5: 50,
   4: 70,
+  3: 100,
+  2: 100,
+  1: 100,
 }
 
 class Creature(models.Model):
@@ -66,6 +68,7 @@ class Creature(models.Model):
   disciplinepoints = models.IntegerField(default=0)
   experience = models.IntegerField(default=0)
   hidden = models.BooleanField(default=False)
+  ghost = models.BooleanField(default=False)
   source = models.CharField(max_length=64, blank=True,default='Great Quail')
   attribute0 = models.PositiveIntegerField(default=1)
   attribute1 = models.PositiveIntegerField(default=1)
@@ -177,6 +180,12 @@ class Creature(models.Model):
   rite18 = models.CharField(max_length=64, blank=True, default='')
   rite19 = models.CharField(max_length=64, blank=True, default='')  
 
+  def root_family(self):
+    if self.creature == 'kindred':
+      return self.family.replace(' Antitribu','')
+    else:
+      return self.family
+
   def __str__(self):
     return "%s (%s | %s | %s)"%(self.name, self.family, self.group, self.player)
 
@@ -190,9 +199,9 @@ class Creature(models.Model):
     for key,val in freebies_by_age.items():
       if int(key) <= time_awake:
         self.expectedfreebies = val
-        print("%s => %d"%(key,val))
+        #print("%s => %d"%(key,val))
       else:
-        print("out ---> %s => %d"%(key,val))
+        #print("out ---> %s => %d"%(key,val))
         break
         
     # Willpower
@@ -206,7 +215,7 @@ class Creature(models.Model):
     # Current Freebies
     freebies = 0
     freebies -= 120 + 54 + 21 + 5 + 20 + 10 + 15 
-    print("freebies: %d"%(freebies))
+    #print("freebies: %d"%(freebies))
     for n in range(9):
       freebies += getattr(self,'attribute%d'%(n))*5
     for n in range(10):
@@ -242,32 +251,32 @@ class Creature(models.Model):
     for disc in disciplines:
       setattr(self,"gift%d"%(x),disc)
       x += 1
-      print(disc)
+      #print(disc)
     # Lineage
     if self.creature=='kindred':
       self.find_lineage()
 
-  def find_lineage(self):
-    """ Find the full lineage for this character """
-    lineage = {
-      '9':[],
-      '8':[],
-      '7':[],
-      '6':[],
-      '5':[],
-      '4':[],
-      '3':[],
-      '2':[],
-      '1':[],
-      '0':[]
-    }
-    sire = Creature.objects.filter(name=self.sire)
-    for s in sire:
-      #lineage[str(s.background3)].append({ 'name': s.name, 'sire': s.sire, 'generation': str((13-s.background3)), 'condition': s.condition})
-      print("Sire .... %s (%dth generation / embrace: %d )"%(s.name,(13-s.background3), s.embrace))
-      x = s.find_lineage()
-    #print(lineage)
-    return sire
+  def json_str(self):
+    return {'name':self.name,'clan':self.family,'sire':self.sire,'generation':(13-self.background3),'ghost':self.ghost,'faction':self.faction,'children':[]}    
+
+  def find_lineage(self,lockup=False):
+    """ Find the full lineage for this character """    
+    # if lockup == False:
+      # sire = Creature.objects.filter(name=self.sire).first()
+      # print("--> n:%s s:[%s]"%(self.name,self.sire))
+      # if sire:
+        # lineage = sire.find_lineage(False)
+    # print("***********")
+    # print("==> n:%s s:[%s]"%(self.name,self.sire))
+    lineage = self.json_str()
+    infans = Creature.objects.filter(creature='kindred',sire=self.name)
+    if infans:  
+      for childer in infans:
+        lineage['children'].append(childer.find_lineage(True))
+    return lineage
+
+    
+    
     
 @receiver(pre_save, sender=Creature, dispatch_uid='update_creature')
 def update_creature(sender, instance, **kwargs):
