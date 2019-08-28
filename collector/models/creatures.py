@@ -257,7 +257,7 @@ class Creature(models.Model):
       self.find_lineage()
 
   def json_str(self):
-    return {'name':self.name,'clan':self.family,'sire':self.sire,'generation':(13-self.background3),'ghost':self.ghost,'faction':self.faction,'children':[]}    
+    return {'name':self.name,'clan':self.family,'sire':self.sire,'generation':(13-self.background3),'ghost':self.ghost,'faction':self.faction,'id':self.id,'children':[]}    
 
   def find_lineage(self,lockup=False):
     """ Find the full lineage for this character """    

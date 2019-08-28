@@ -1,19 +1,22 @@
+
+
+
 @charset "UTF-8";
  @font-face {
      font-family: 'Titre';
-     src: url("MarcellusSC-Regular.ttf");
+     src: url('../fonts/marcellus_sc_regular.ttf');
 }
  @font-face {
      font-family: 'Texte';
-     src: url("Balthazar-Regular.ttf");
+     src: url("../fonts/Balthazar-Regular.ttf");
 }
  @font-face {
      font-family: 'TexteLibre';
-     src: url("WorkSans-Regular.ttf");
+     src: url("../fonts/Lato-Regular.ttf");
 }
  @font-face {
      font-family: 'Emphase';
-     src: url("Eczar-Regular.ttf");
+     src: url("../fonts/Eczar-Regular.ttf");
 }
  .fixed {
      position: fixed;
@@ -30,7 +33,7 @@
      background: #C0C0C0;
 }
  body .logo {
-     background: transparent url("nybn_wawwod.png") center center no-repeat;
+     background: transparent url('../nybn_wawwod.png') center center no-repeat;
      position:fixed;
      display:block;
      left:auto;
@@ -339,81 +342,75 @@ svg {
   height:950px;
   width:100%;
   border: 1px ridge #aaa;
+  rect{
+    &.overlay{
+      cursor: move;
+      border:none;
+      fill:transparent;
+      opacity:0.2;
+    }
+    &.band{
+      fill: #AAA;
+      stroke:#505050;
+      stroke-width: 0px;
+      opacity:0.3;
+    }
+    &.frame{
+      fill:transparent;
+      stroke: #888;
+      stroke-width: 0.5px;
+    }
+    &.plate {
+      fill:#333;
+      stroke: #888;
+      stroke-width: 0.5px;     
+      &.Sabbat {
+        fill:#201010;
+      }
+      &.Camarilla {
+        fill:#102010;
+      }
+      &.Anarchs {
+        fill:#101020;  
+      }
+      &.Inconnu {
+        fill:#201020;
+      }
+    }
+  }
+
+  & .ghost {
+    fill: #111;
+    stroke:#666;
+    stroke-width: 0px;
+    opacity:0.2;
+  }
+
+  & .link {
+    fill: none;
+    stroke: #A22;
+    stroke-width: 6px;
+    opacity: 0.2;
+  }
+  & .name{
+    font-size: 1em;
+    font-family: "Titre";
+    stroke:#666;  
+    fill: #000;
+    stroke-width: 0.7px;
+    cursor:pointer;
+  }
+  & .property{
+    font-family: "TexteLibre";
+    font-size: 0.9em;
+    stroke:#888;  
+    fill: #fff;
+    stroke-width: 0.6px;
+  }
+
+
 }
 
-rect{
-  fill:#ccc;
-  stroke:#333;
-}
 
-rect.plate {
-  fill:#333;
-  stroke: #888;
-  stroke-width: 0.5px;
-  cursor:pointer;
-}
-
-rect.band{
-  fill: #B0B0B0;
-  stroke:#505050;
-  stroke-width: 0px;
-}
-
-rect.plate.Sabbat {
-  fill:#301010;
-}
-
-rect.plate.Camarilla {
-  fill:#103010;
-}
-
-rect.plate.Anarchs {
-  fill:#101030;
-  
-}
-
-rect.plate.Inconnu {
-  fill:#101010;
-}
-
-image.ghost,
-rect.ghost {
-  stroke:#CCC;  
-  fill: #BBB;  
-}
-
-
-
-.name{
-  font-size: 1em;
-  font-family: "Titre";
-  stroke:#888;  
-  fill: #fff;
-  stroke-width: 0.7px;
-}
-.property{
-  font-family: "TexteLibre";
-  font-size: 0.9em;
-  stroke:#888;  
-  fill: #fff;
-  stroke-width: 0.6px;
-}
-
-.ghost {
-  fill: #111;
-  stroke:#666;
-  stroke-width: 0px;
-  opacity:0.8;
-}
-
-
-
-
-.link {
-  fill: none;
-  stroke: #A22;
-  stroke-width: 2px;
-  opacity: 0.5;
-}
 
 

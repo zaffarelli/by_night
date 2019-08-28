@@ -1,19 +1,22 @@
+
+
+
 @charset "UTF-8";
  @font-face {
      font-family: 'Titre';
-     src: url("MarcellusSC-Regular.ttf");
+     src: url('{% static "marscellus_sc_regular.ttf" %}');
 }
  @font-face {
      font-family: 'Texte';
-     src: url("Balthazar-Regular.ttf");
+     src: url("fonts/Balthazar-Regular.ttf");
 }
  @font-face {
      font-family: 'TexteLibre';
-     src: url("WorkSans-Regular.ttf");
+     src: url("fonts/WorkSans-Regular.ttf");
 }
  @font-face {
      font-family: 'Emphase';
-     src: url("Eczar-Regular.ttf");
+     src: url("fonts/Eczar-Regular.ttf");
 }
  .fixed {
      position: fixed;
@@ -30,7 +33,7 @@
      background: #C0C0C0;
 }
  body .logo {
-     background: transparent url("nybn_wawwod.png") center center no-repeat;
+     background: transparent url("{% static '../nybn_wawwod.png' %}") center center no-repeat;
      position:fixed;
      display:block;
      left:auto;
@@ -274,19 +277,19 @@ body .wrapper .list{
      line-height:1.4em;
 }
  .creature.Sabbat table th{
-     background: #A09090 ;#url('colorful-grunge-texture-3.jpg') center center;
+     background: #A09090; //url('colorful-grunge-texture-3.jpg') center center;
 }
  .creature.Camarilla table th{
-     background: #90A090;# url('colorful-grunge-texture-13.jpg')  center center;
+     background: #90A090; // url('colorful-grunge-texture-13.jpg')  center center;
 }
  .creature.Independant table th{
-     background: #A090A0;# url('colorful-grunge-texture-24.jpg') center center;
+     background: #A090A0; // url('colorful-grunge-texture-24.jpg') center center;
 }
  .creature.Inconnu table th{
-     background: #A0A0A0;# url('colorful-grunge-texture-10.jpg') center center;
+     background: #A0A0A0; // url('colorful-grunge-texture-10.jpg') center center;
 }
  .creature.Anarchs table th{
-     background: #90A0A0;# url('colorful-grunge-texture-20.jpg')center center;
+     background: #90A0A0; // url('colorful-grunge-texture-20.jpg')center center;
 }
 
 .avatar_link.Sabbat{
@@ -324,7 +327,7 @@ body .wrapper .list{
 
 
 
-}
+
 
 
 
