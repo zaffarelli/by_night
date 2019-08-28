@@ -1,0 +1,279 @@
+{
+  "name": "Caine",
+  "status":"myth",
+  "generation": 1,
+  "children": [
+    {
+      "name": "Enoch the Wise",
+      "status":"myth",
+      "generation": 2,
+      "children": [
+        {
+          "name": "Arikel",
+          "status":"myth",
+          "generation": 3,
+          "clan": "Toreador",
+          "children": []
+        },
+        {
+          "name": "Malkav",
+          "status":"myth",
+          "generation": 3,
+          "clan": "Malkavian",
+          "children": [
+{
+          "name": "???",
+          "status":"myth",
+          "generation": 4,
+          "clan": "Malkavian",
+          "children": [
+
+{
+          "name": "???",
+          "status":"myth",
+          "generation": 5,
+          "clan": "Malkavian",
+          "children": [
+{
+          "name": "???",
+          "status":"myth",
+          "generation": 6,
+          "clan": "Malkavian",
+          "children": [
+{
+          "name": "???",
+          "status":"myth",
+          "generation": 7,
+          "clan": "Malkavian",
+          "children": [
+{
+          "name": "Luther Governor Bates III",
+          "generation": 8,
+          "clan": "Malkavian",
+          "children": [
+{
+          "name": "Ashley In Crimson",
+          "status":"myth",
+          "generation": 9,
+          "clan": "Malkavian",
+          "children": [
+{
+          "name": "Jeff T. Peterson",
+          "generation": 10,
+          "clan": "Malkavian",
+          "children": []
+        }
+          ]
+        }
+
+          ]
+        }
+
+          ]
+        }
+          ]
+        }
+          ]
+        }
+          ]
+        }
+
+
+          ]
+        },
+        {
+          "name": "Saulot",
+          "status":"myth",
+          "generation": 3,
+          "clan": "Salubri",
+          "children": [
+            {
+              "name": "Tremere",
+              "status":"myth",
+              "generation": 4,
+              "clan": "Tremere",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Ennoia",
+          "status":"myth",
+          "generation": 3,
+          "clan": "Gangel",
+          "children": [
+            {
+              "name": "Rufus",
+              "generation": 4,
+              "clan": "Gangel",
+              "children": [
+                {
+                  "name": "Ikkenai",
+                  "generation": 5,
+                  "clan": "Gangel",
+                  "children": [
+                    {
+                      "name": "Thomas",
+                      "generation": 6,
+                      "clan": "Gangel",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Irad the Strong",
+      "status":"myth",
+      "generation": 2,
+      "children": [
+        {
+          "name": "Ventru",
+          "status":"myth",
+          "generation": 3,
+          "clan": "Ventrue",
+          "children": [
+            {
+              "name": "Meneleus",
+              "status":"myth",
+              "generation": 4,
+              "clan": "Ventrue",
+              "children": [
+                {
+                  "name": "Marius Flavius Vespasianus",
+                  "generation": 5,
+                  "clan": "Ventrue",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Mithras",
+              "generation": 4,
+              "clan": "Ventrue",
+              "children": [
+                {
+                  "name": "Marcus Verus",
+                  "generation": 5,
+                  "clan": "Ventrue",
+                  "children": [
+                    {
+                      "name": "Peter Van der Waals",
+                      "generation": 6,
+                      "clan": "Ventrue",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Brujah",
+          "status":"myth",
+          "generation": 3,
+          "clan": "True Brujah",
+          "children": [
+            {
+              "name": "Troile",
+              "status":"myth",
+              "generation": 4,
+              "clan": "Brujah",
+              "children": [
+                {
+                  "name": "???",
+                  "generation": 5,
+                  "clan": "Brujah",
+                  "children": [
+                    {
+                      "name": "???",
+                      "generation": 6,
+                      "clan": "Brujah",
+                      "children": [
+                        {
+                          "name": "Lucifage",
+                          "generation": 7,
+                          "clan": "Brujah",
+                          "children": [
+                            {
+                              "name": "Lukas Greski",
+                              "generation": 8,
+                              "clan": "Brujah",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Cappadocius",
+          "status":"myth",
+          "generation": 3,
+          "clan": "Cappadocian",
+          "children": [
+            {
+              "name": "Augustus Giovanni",
+              "status":"myth",
+              "generation": 4,
+              "clan": "Giovanni",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Lasombra",
+          "status":"myth",
+          "clan": "Lasombra",
+          "generation": 3,
+          "children": []
+        },
+        {
+          "name": "The Eldest",
+          "status":"myth",
+          "clan": "Tzimisce",
+          "generation": 3,
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Zillah the Beautiful",
+      "status":"myth",
+      "generation": 2,
+      "children": [
+        {
+          "name": "Absimiliard",
+          "status":"myth",
+          "clan": "Nosferatu",
+          "generation": 3,
+          "children": []
+        },
+        {
+          "name": "Set",
+          "status":"myth",
+          "generation": 3,
+          "clan": "Setite",
+          "children": []
+        },
+        {
+          "name": "Haqim",
+          "status":"myth",
+          "clan": "Assamite",
+          "generation": 3,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,87 +1,92 @@
 from collector.models.creatures import Creature
 import json
 
+action = 0
 
-print("=> Removing Ghosts with no infans")      
-all = Creature.objects.filter(name__contains='Unknown')
-for x in all:
-  x.ghost = True
-  x.save()
-  infans = Creature.objects.filter(sire=x.name)
+print("=> Removing 'Unknown...' without infans")      
+all = Creature.objects.filter(creature='kindred',name__contains='Unknown')
+for kindred in all:
+  infans = Creature.objects.filter(sire=kindred.name)
   if infans is None:
-    print(" ooo-> Deleting %s"%(x.name))      
-    x.delete()
-  if x.background3 >= 10:
-    print(" oxo-> Deleting %s"%(x.name))      
-    x.delete()
+    print(" --> Deleting [%s]: No infans."%(kindred.name))      
+    kindred.delete()
+    action += 1
+  if kindred.background3 >= 10:
+    print(" --> Deleting [%s]: Generation is too low"%(kindred.name))      
+    kindred.delete()
+    action += 1
 
-print("Checking orphans")
-all = Creature.objects.filter(sire__contains='Unknown')
-for x in all:
-  sire = Creature.objects.filter(name=x.sire).first()
+print("=> Removing 'Unknown...' sire if they don't exist")
+all = Creature.objects.filter(creature='kindred',sire__contains='Unknown')
+for kindred in all:
+  sire = Creature.objects.filter(name=kindred.sire).first()
   if sire is None:
-    print(" oxr-> No sire found for %s (%s)"%(x.name,x.sire))      
-    x.sire = ''
-    x.save()
+    print(" --> No sire [%s] found for [%s]: Updating kindred."%(kindred.sire,kindred.name))      
+    kindred.sire = ''
+    kindred.save()
+    action += 1
 
-print("=> Creating Unknown Sires")      
-all = Creature.objects.exclude(sire='').exclude(background3__gte=8)
-for x in all:
-  sire = Creature.objects.filter(creature='kindred',name=x.sire).first()
+print("=> Creating Sires")      
+all = Creature.objects.filter(creature='kindred').exclude(sire='').exclude(background3__gte=8)
+for kindred in all:
+  sire = Creature.objects.filter(creature='kindred',name=kindred.sire).first()
   if sire is None:
-    y = Creature()
-    y.background3 = x.background3+1
-    y.family = x.family
-    y.name = x.sire
-    y.ghost = True
-    y.save()
-    print(" x--> %s [%s]"%(y.name,y.sire))    
+    embracer = Creature()
+    embracer.background3 = kindred.background3+1
+    embracer.family = kindred.family
+    embracer.name = kindred.sire
+    embracer.ghost = True
+    embracer.save()
+    print(" --> Sire [%s] created for [%s]"%(embracer.name,kindred.name))
+    action += 1
 
-print("=> Siring Ghosts")      
-all_no_sire = Creature.objects.filter(creature='kindred',sire='',background3__lte=7)
+print("=> Siring 'Unknown...'")      
+all_sireless = Creature.objects.filter(creature='kindred',sire='',background3__lte=7)
 ghost_sires = {}
-for n in all_no_sire:
-  str = "Unknown %dth generation %s"%(13-(n.background3+1),n.root_family())
-  grandsire= "Unknown %dth generation %s"%(13-(n.background3+2),n.root_family())
-  if (n.background3+2 == 10):
-    if n.root_family() in ['Toreador','Daughter of Cacophony'] :
+for kindred in all_sireless:
+  str = "Unknown %dth generation %s"%(13-(kindred.background3+1),kindred.root_family())
+  grandsire= "Unknown %dth generation %s"%(13-(kindred.background3+2),kindred.root_family())
+  if (kindred.background3+2 == 10):
+    if kindred.root_family() in ['Toreador','Daughter of Cacophony'] :
       grandsire = 'Arikel'
-    elif n.root_family() == 'Malkavian':
+    elif kindred.root_family() == 'Malkavian':
       grandsire = 'Malkav'
-    elif n.root_family() == 'Salubri':
+    elif kindred.root_family() == 'Salubri':
       grandsire = 'Saulot'
-    elif n.root_family() == 'Gangrel':
+    elif kindred.root_family() == 'Gangrel':
       grandsire = 'Ennoia'
-    elif n.root_family() == 'Ventrue':
+    elif kindred.root_family() == 'Ventrue':
       grandsire = 'Ventru'
-    elif n.root_family() == 'Cappadocian':
+    elif kindred.root_family() == 'Cappadocian':
       grandsire = 'Cappadocius'
-    elif n.root_family() == 'Nosferatu':
+    elif kindred.root_family() == 'Nosferatu':
       grandsire = 'Absimiliard'
-    elif n.root_family() == 'Ravnos':
+    elif kindred.root_family() == 'Ravnos':
       grandsire = 'Dracian'
-    elif n.root_family() == 'Setite':
+    elif kindred.root_family() == 'Setite':
       grandsire = 'Set'
-    elif n.root_family() == 'Assamite':
+    elif kindred.root_family() == 'Assamite':
       grandsire = 'Haqim'
-    elif n.root_family() in ['Lasombra','Kiasyd']:
+    elif kindred.root_family() in ['Lasombra','Kiasyd']:
       grandsire = 'Lasombra'
-    elif n.root_family() == 'Tzimisce':
+    elif kindred.root_family() == 'Tzimisce':
       grandsire = 'The Eldest'
-    elif n.root_family() == 'Brujah':
+    elif kindred.root_family() == 'Brujah':
       grandsire = 'Brujah'      
-  elif (n.background3+2 == 9):
-    if n.root_family() == 'Giovanni':
+  elif (kindred.background3+2 == 9):
+    if kindred.root_family() == 'Giovanni':
       grandsire = 'Augustus Giovanni'
-    elif n.root_family() == 'Tremere':
+    elif kindred.root_family() == 'Tremere':
       grandsire = 'Tremere'
-    if n.root_family() == 'Brujah':
+    elif kindred.root_family() == 'Brujah':
       grandsire = 'Troile'      
-  j = {"ghost":True,"family":n.root_family(),"background3":n.background3+1,"name":str,"sire":grandsire}    
+  j = {"ghost":True,"family":kindred.root_family(),"background3":kindred.background3+1,"name":str,"sire":grandsire}    
   ghost_sires[str] = j
-  n.sire = str
-  n.save()  
-  print(json.dumps(ghost_sires,indent=2))
+  kindred.sire = str
+  kindred.save()
+  action += 1
+print("=> Kindred sires to be created")
+print(json.dumps(ghost_sires,indent=2))
 
 print("=> Creating Linked Ghosts")  
 for key in ghost_sires:
@@ -97,4 +102,14 @@ for key in ghost_sires:
     t.sire = gs['sire']
     t.save()
     print(" --> Adding ghost %s"%(t.name))
+    action += 1
+
+
+print("Number of actions executed: %d"%(action))
+if action ==0:
+  x = Creature.objects.filter(creature='kindred',name="Caine").first()
+  data = x.find_lineage()
+  with open('/home/zaffarelli/Projects/by_night/collector/static/js/kindred.json', 'w') as fp:
+    json.dump(data, fp)
+  print("--> Lineage Done")
 
