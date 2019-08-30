@@ -20,6 +20,7 @@ function loadajax(){
     success: function(answer) {            
       $('.charlist').html(answer)
       rebootlinks();
+      $('.more').addClass('hidden');
     },
   });
 }
@@ -73,6 +74,19 @@ function rebootlinks(){
       },
     });  
   });
+
+  $('.toggle_more').off();
+  $('.toggle_more').on('click',function(event){
+    console.log('Toggle more');
+    event.preventDefault();
+    $('.more').addClass('hidden');
+    zid = $(this).attr('id');
+    x = zid.split("_");
+    $('.more#m_'+x[1]).toggleClass('hidden');
+    rebootlinks();
+  });
+
+
 
   $('#add_creature').off();
   $('#add_creature').on('click',function(event){

@@ -112,13 +112,37 @@ body .wrapper .list{
  .avatar_link {
      margin: 0.5em 1ex 0.5em 1ex;
      box-shadow: 2px 2px 8px #040404;
-     padding: 5px;
+     padding: 2px;
      border: 1px solid black;
-     font-size: 0.83em;
-     border-radius: 5px;
-     background: #E0E0E0;
-     color:#202020;
+     font-size: 0.73em;
+     border-radius: 0 0 5px 0;
+     background: #303030;
+     color:#FFF;
+     
 }
+.toggle_name{
+  font-weight: bold;
+  font-style:normal;
+  font-family: Titre;
+  width:70%;
+  display:inline-block;
+}
+.toggle_more{
+  width:25%;
+  display:inline-block;
+  text-align:right;
+  cursor:help;
+}
+
+.more {
+ background:#606060;
+}
+
+.hidden{
+  display:none;
+}
+
+
  .avatar_link a {
      color: white;
      text-decoration: none;
@@ -131,9 +155,7 @@ body .wrapper .list{
 }
  .avatar_link em {
   
-     font-weight: bold;
-     font-style:normal;
-     font-family: Titre;
+
 }
  .avatar_link.locked {
      background: #221a00;
@@ -169,6 +191,9 @@ body .wrapper .list{
  .noPDF:before {
      content: '(x) ';
 }
+
+
+
 
 /* Normal --------------------------------------------------------------------*/
  @media all and (min-width: 1024px) {

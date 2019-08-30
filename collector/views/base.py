@@ -22,7 +22,7 @@ def get_list(request,pid):
   """ Update the list of characters on the page """  
   if request.is_ajax:
     creature_items = Creature.objects.all().filter(chronicle='NYBN').order_by('family','background3').exclude(ghost=True)
-    paginator = Paginator(creature_items,10)
+    paginator = Paginator(creature_items,30)
     creature_items = paginator.get_page(pid)
     context = {'creature_items': creature_items}
     template = get_template('collector/list.html')
