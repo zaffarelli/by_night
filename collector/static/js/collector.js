@@ -39,6 +39,7 @@ function rebootlinks(){
       success: function(answer) {
         $('.charlist').html(answer)
         rebootlinks();
+        $('.more').addClass('hidden');
       },
     });   
   });
@@ -84,6 +85,18 @@ function rebootlinks(){
     x = zid.split("_");
     $('.more#m_'+x[1]).toggleClass('hidden');
     rebootlinks();
+  });
+
+
+  $('#toggle_list').off();
+  $('#toggle_list').on('click',function(event){
+    console.log('toggle_list');
+    $('.charlist').toggleClass('hidden');
+  });
+
+  $('#toggle_details').off();
+  $('#toggle_details').on('click',function(event){
+    $('.details').toggleClass('hidden');
   });
 
 

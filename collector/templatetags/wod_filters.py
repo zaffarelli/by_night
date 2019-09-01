@@ -31,7 +31,7 @@ def modulo(num, val):
 @register.filter(name='to_logo')
 def modulo(val):
   logo_str = '_'.join(val.lower().split(' '))
-  res = '<img class="clan_logo" src="http://localhost:8000/static/collector/clans/%s.webp"> '%(logo_str)
+  res = '<img src="/static/collector/clans/%s.webp"> '%(logo_str)
   return res
 
 @register.filter(name='as_bullets')

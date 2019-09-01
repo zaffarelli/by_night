@@ -4,57 +4,42 @@
           ()(/__/)/(//)/  
             /     _/      
 -->
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
     <title>{% block title %}By Night{% endblock %}</title>
     {% load static %}        
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/solid.css" integrity="sha384-Rw5qeepMFvJVEZdSo1nDQD5B6wX0m7c5Z/pLNvjkB14W6Yki1hKbSEQaX9ffUbWe" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css" integrity="sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.0.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/solid.css' integrity='sha384-Rw5qeepMFvJVEZdSo1nDQD5B6wX0m7c5Z/pLNvjkB14W6Yki1hKbSEQaX9ffUbWe' crossorigin='anonymous'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css' integrity='sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV' crossorigin='anonymous'>
+    <script src='https://code.jquery.com/jquery-3.3.0.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
     {% load compress %}
     {% compress css %}
-    <link rel="stylesheet" type="text/x-scss" href="{% static "collector/css/main.scss" %}" />
+    <link rel='stylesheet' type='text/x-scss' href='{% static "collector/css/main.scss" %}' />
     {% endcompress %}
-
-    
-        
   </head>
   <body>
-    <div class="logo">
-      {% block logo %}
-      {% endblock %}
-    </div>
-    <div class='messenger'>
-      {% if messages %}
-        <ul class='messages'>
-          {% for message in messages %}
-          <li{% if message.tags %} class='{{ message.tags }}'{% endif %}>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
+    <div class='bar'>
+      <i id='toggle_list' class='fa fa-arrow-circle-down'></i>
+      <i id='toggle_lineage' class='fa fa-sitemap'></i>
+      <i id='toggle_details' class='fa fa-arrow-circle-right'></i>
     </div>
     <div class='wrapper'>
-      <div class='list'>
-        <div class='charlist'>
+      <div class='charlist'>
         {% block list %}
         {% endblock list %}
-        </div>
       </div>
-      
+      <div id='caine_roots'>
+      </div>      
       <div class='details'>
-        {% block details %}
-          <div id='caine_roots'></div>
-          {% block creature %}
-          {% endblock creature %}
-        {% endblock details%}
+        {% block creature %}
+        {% endblock creature %}
       </div>
     </div>
-    <script src="{% static 'js/collector.js' %}"></script>
-    <script src="{% static 'js/caine_roots.js' %}"></script>
+    <script src='{% static "js/collector.js" %}'></script>
+    <script src='{% static "js/caine_roots.js" %}'></script>
     {% block javascript %}
     {% endblock %}
   </body>

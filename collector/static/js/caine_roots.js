@@ -9,7 +9,7 @@ d3.json('static/js/kindred.json', function(error, treedata) {
     var boxWidth = 100;
     var boxHeight = 140;
     var m = [10, 10, 10, 10],
-        fw = 640,
+        fw = 1024,
         fh = 1280,
         h = fh - m[1] - m[3],
         w = fw - m[0] - m[2],
@@ -22,12 +22,12 @@ d3.json('static/js/kindred.json', function(error, treedata) {
         .attr("height", h + m[0] + m[2])
         .append("svg:g")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")")
-        .call(d3.behavior.zoom().x(x).y(y).scaleExtent([1, 4]).on("zoom", zoom));
+        .call(d3.behavior.zoom().x(x).y(y).scaleExtent([0.125, 4]).on("zoom", zoom));
 
     vis.append("rect")
         .attr("class", "overlay")
-        .attr("width", w*2 + m[1] + m[3])
-        .attr("height", h*0.5 + m[0] + m[2]);
+        .attr("width", w + m[1] + m[3])
+        .attr("height", h + m[0] + m[2]);
 
 
     var tree = d3.layout.cluster()
@@ -113,6 +113,10 @@ d3.json('static/js/kindred.json', function(error, treedata) {
         nodeEnter.selectAll("rect.band")
             .attr('class', function(d) {
               return 'band '+(d.ghost?' ghost':'');
+            });
+        nodeEnter.selectAll("rect.frame")
+            .attr('class', function(d) {
+              return 'frame '+(d.ghost?' ghost':'');
             });
         nodeEnter.selectAll("rect.plate")
             .attr('class', function(d) {
@@ -235,7 +239,13 @@ d3.json('static/js/kindred.json', function(error, treedata) {
             });
 
         link.enter().insert("svg:path", "g")
-            .attr("class", "link")
+            .attr("class", function(d){
+              c = 'link ';
+              if ((d.target.ghost)||(d.target.parent.ghost)){
+                c += ' ghost';
+              }
+              return c;
+              })
             .attr("d", function(d) {
                 var o = {
                     x: source.x0,
@@ -344,13 +354,14 @@ d3.json('static/js/kindred.json', function(error, treedata) {
     }
 
     // Links translation
-    function translate(d) {
+    function translate(d) {      
+        var result = '';
         var sourceX = x(d.target.parent.x);
         var sourceY = y(d.target.parent.y);
         var targetX = x(d.target.x);
         var targetY = y(d.target.y);
         var halfY = sourceY + (targetY - sourceY) / 2
-        var result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
+        result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
         return result;
 
     }

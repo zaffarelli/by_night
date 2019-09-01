@@ -15,9 +15,10 @@
 
 <table cellspacing=0 cellpadding=0>
 <tr>
-  <td>{{c.family|to_logo|safe}}</td>
-  <td colspan=7><strong>{{ c.name }}</strong> {% if c.nickname != '' %}({{c.nickname}}){%endif%}<br>{{ c.background3|as_generation }} generation {{ c.family }} {% if c.player != '' %}({{c.player}}){%endif%}
-  </td></tr>
+  <th class='clan_logo'>{{c.family|to_logo|safe}}</th>
+  <th colspan=7 align='left'><strong>{{ c.name }}</strong> {% if c.nickname != '' %}({{c.nickname}}){%endif%}<br>{{ c.background3|as_generation }} generation {{ c.family }} {% if c.player != '' %}({{c.player}}){%endif%}
+  </th>
+</tr>
 <tr>
   <th>Age</th><td  class='editable userinput' id='{{c.id}}_age'>{{c.age}}</td>  
   <th>Embrace</th><td>{{ c.embrace }}</td>
@@ -60,7 +61,7 @@
   <th>Strength</th><td class='editable updown' id='{{c.id}}_attribute0'>{{ c.attribute0|as_bullets|safe }}</td>
   <th>Charisma</th><td class='editable updown' id='{{c.id}}_attribute3'>{{ c.attribute3|as_bullets|safe }}</td>
   <th>Perception</th><td class='editable updown' id='{{c.id}}_attribute6'>{{c.attribute6|as_bullets|safe }}</td>
-  <td rowspan=3 colspan=2>{{c.topic}}</td>
+  <td rowspan=3 colspan=2 class='topic'>{{c.topic|safe}}</td>
 </tr>
 <tr>
   <th>Dexterity</th><td class='editable updown' id='{{c.id}}_attribute1'>{{ c.attribute1|as_bullets|safe }}</td>
@@ -141,9 +142,6 @@
   <th>Science</th><td class='editable updown' id='{{c.id}}_knowledge9'>{{c.knowledge9|as_bullets|safe }}</td>
   {{ c.merit9|param_stack:c.id|as_discipline2:"merit9"|safe }}
 </tr>
-</table>
-
-<table cellspacing=0 cellpadding=0>
   <tr>
     <td colspan=2>Backgrounds</td>
     <td colspan=2>Disciplines</td>
@@ -374,9 +372,7 @@
   <th>Science</th><td class='editable updown' id='{{c.id}}_knowledge9'>{{c.knowledge9|as_bullets|safe }}</td>
   {{c.merit9|as_discipline|safe}}
 </tr>
-</table>
 
-<table cellspacing=0 cellpadding=0>
   <tr>
     <td colspan=2>Backgrounds</td>
     <td colspan=2>Disciplines</td>
