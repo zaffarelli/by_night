@@ -99,6 +99,10 @@ function rebootlinks(){
     $('.details').toggleClass('hidden');
   });
 
+  $('#toggle_details2').off();
+  $('#toggle_details2').on('click',function(event){
+    $('.details').toggleClass('hidden');
+  });
 
 
   $('#add_creature').off();
@@ -132,7 +136,6 @@ function rebootlinks(){
 
   $('.view_creature').off();
   $('.view_creature').on('click',function(event){
-    console.log('View: '+$(this).attr('id'));
     event.preventDefault();
     event.stopPropagation();
     var dad = $(this).parents('li');
@@ -143,10 +146,11 @@ function rebootlinks(){
       success: function(answer) {
         $('.details').html(answer)
         $('li').removeClass('selected');
+        $('.details').removeClass('hidden');
         rebootlinks();
       },
       error: function(answer){
-        console.log('Vew error...'+answer);
+        console.log('View error...'+answer);
       }
     });
   });
@@ -155,6 +159,7 @@ function rebootlinks(){
   $('td.editable.userinput').hover(
     function(event){
       $(this).addClass('focus');
+      $('#userinput').focus();
       rebootlinks();
       },
     function(event){

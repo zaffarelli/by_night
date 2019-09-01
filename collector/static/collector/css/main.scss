@@ -1,66 +1,60 @@
-
-
+/*
+ *         /       '_ /_/ 
+ *        ()(/__/)/(//)/  
+ *          /     _/      
+ */
 
 @charset "UTF-8";
- @font-face {
-     font-family: 'Titre';
-     src: url('../fonts/marcellus_sc_regular.ttf');
+
+$body_background: #C0C0C0;
+$body_color: #101010;
+$plate_color: #F0F0F0;
+$plate_highlight: #FFCC44;
+$plate: #606060;
+$dark_plate: #303030;
+$very_dark_plate: #101010;
+$list_width: 300px;
+
+@font-face {
+  font-family: 'Titre';
+  src: url('../fonts/marcellus_sc_regular.ttf');
 }
- @font-face {
-     font-family: 'Texte';
-     src: url("../fonts/Balthazar-Regular.ttf");
+
+@font-face {
+  font-family: 'TexteLibre';
+  src: url("../fonts/Lato-Regular.ttf");
 }
- @font-face {
-     font-family: 'TexteLibre';
-     src: url("../fonts/Lato-Regular.ttf");
+
+body {
+  font-family: Texte;
+  background: $body_background;
+  color: $body_color;
 }
- @font-face {
-     font-family: 'Emphase';
-     src: url("../fonts/Eczar-Regular.ttf");
-}
- .fixed {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 99%;
-}
- h1, h2, h3, h4, h5, h6 {
-     font-family: Titre;
-     font-weight: normal;
-}
- body {
-     font-family: Texte;
-     background: #C0C0C0;
-}
- body .logo {
-     background: transparent url('../nybn_wawwod.png') center center no-repeat;
-     position:fixed;
-     display:block;
-     left:auto;
-     right:0px;
-     width:600px;
-     top:-50px;
-     height:100px;
-     z-index:50;
-}
+
 
 body .wrapper .charlist{
   & .pagination {
     text-align: center;
     margin-top: 1em;
-    width:250px;
+    width:$list_width;
     & a, & strong, & span.nav {
       margin: 0 0.1em;
       display: inline-block;
-      padding: 0.5em;
-      color: white;
-      font-size: 0.77em;
-      background: #1d1d1d;
+      padding: 0.31em;
+      color: $plate_highlight;
+      font-size: 0.83em;
+      font-family:'TexteLibre';
       padding: 0.5em 0.8em;
       border-radius: 2px;
       text-decoration: none;
       cursor: pointer;
-    }  
+      background: $very_dark_plate;
+    }
+    & span.nav{
+    color: $plate_color;
+      background: $dark_plate;
+      font-size: 0.77em;
+    }
   }
   & .creature_actions {
      display: inline-block;
@@ -75,7 +69,7 @@ body .wrapper .charlist{
      }
   }
   & ul, & ol{
-    width:250px;
+    width:$list_width;
     text-indent: 0;
     margin-left: 0;
     padding-left: 0;
@@ -110,13 +104,13 @@ body .wrapper .charlist{
   border: 1px solid black;
   font-size: 0.73em;
   border-radius: 0 0 5px 0;
-  background: #303030;
-  color:#FFF;
+  background: $dark_plate;
+  color:$plate_color;
   & a {
-    color: white;
+    color: $plate_color;
     text-decoration: none;
     &:hover{
-      color: #6a6a6a;
+      color: $plate;
     }
     & .small{
       font-size: 0.75em;
@@ -128,18 +122,24 @@ body .wrapper .charlist{
   font-weight: bold;
   font-style:normal;
   font-family: Titre;
-  width:70%;
+  width:60%;
   display:inline-block;
 }
 .toggle_more{
-  width:25%;
+  width:40%;
   display:inline-block;
   text-align:right;
   cursor:help;
+  font-size:0.73em;
 }
 
 .more {
-  background:#606060;
+  font-family:"TexteLibre";
+  background:$plate;
+  color:$plate_color;
+  text-align:left;
+  word-wrap:normal;
+  padding:2px;
   &.hidden{
     display:none;
   }
@@ -203,27 +203,25 @@ body .wrapper .charlist{
         display:block;
         position:fixed;
         margin:0;
-        border:2px solid #C0C0C0;
         color:white;
         z-index: 100;
       }
       & .wrapper {
         z-index: 60;
-        margin-left: 0;
         width: 100%;
-        height:100%;
-        
-        padding-top:36px;
+        padding-top:0;
         margin:0;
         
 
         
         & .charlist {          
-          background:transparent;
-          width:250px;
+          background:$plate;
+          border-radius:0 0 5px 5px;
+          width:$list_width;
           display:block;
           position:absolute;
           z-index:70;
+          padding-top:36px;
           transition: all 0.3s ease;          
           &.hidden{
             transform: translateY(-980px);
@@ -235,6 +233,8 @@ body .wrapper .charlist{
           width:100%;
           display:block;
           z-index:60;
+          padding:0;
+          margin:0;
         }    
         & .details {
           background:transparent;
@@ -311,20 +311,23 @@ body .wrapper .charlist{
         border:2px solid transparent;
         padding:1px;
 
-        &[colspan='7']{
-          background:#101010;
+        &[colspan='6']{
+          background:$very_dark_plate;
           height:90px;
           padding:0;
           padding-left:3ex;
         }
         &.clan_logo{
-          background:#101010;
+          background:$very_dark_plate;
           overflow:hidden;
           padding:0;
           & img{
             height:80px;
             filter:invert(75%);
           }
+        }
+        &.back{
+          background:$very_dark_plate;
         }
       }
 
@@ -430,21 +433,24 @@ body .wrapper .charlist{
 svg {
   background:transparent;
   margin-top:50px;
-  height:950px;
+  height:auto;
   width:100%;
-  border: 1px ridge #aaa;
+  
   rect{
     &.overlay{
       cursor: move;
       border:none;
-      fill:transparent;
-      opacity:0.2;
+      fill:#C0D0E0;
+      
+      opacity:0.0;
     }
     &.band{
       fill: #AAA;
       stroke:#505050;
       stroke-width: 0px;
-      opacity:0.3;
+      &.ghost{
+        opacity:0.1;
+      }
     }
     &.frame{
       fill:transparent;
@@ -455,7 +461,7 @@ svg {
       }
     }
     &.plate {
-      fill:#333;
+      fill:$dark_plate;
       stroke: #888;
       stroke-width: 0.5px;     
       &.Sabbat {
@@ -503,6 +509,10 @@ svg {
     fill: #000;
     stroke-width: 0.7px;
     cursor:pointer;
+    &:hover{
+      fill: $plate_highlight;
+      stroke:#000;  
+    }
   }
   & .property{
     font-family: "TexteLibre";

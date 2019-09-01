@@ -16,8 +16,9 @@
 <table cellspacing=0 cellpadding=0>
 <tr>
   <th class='clan_logo'>{{c.family|to_logo|safe}}</th>
-  <th colspan=7 align='left'><strong>{{ c.name }}</strong> {% if c.nickname != '' %}({{c.nickname}}){%endif%}<br>{{ c.background3|as_generation }} generation {{ c.family }} {% if c.player != '' %}({{c.player}}){%endif%}
+  <th colspan=6 align='left'><strong>{{ c.name }}</strong> {% if c.nickname != '' %}({{c.nickname}}){%endif%}<br>{{ c.background3|as_generation }} generation {{ c.family }} {% if c.player != '' %}({{c.player}}){%endif%}
   </th>
+  <th class='back'><strong><i class='fa fa-arrow-right ' id='toggle_details2'></i></strong></th>
 </tr>
 <tr>
   <th>Age</th><td  class='editable userinput' id='{{c.id}}_age'>{{c.age}}</td>  
