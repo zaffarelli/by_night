@@ -5,7 +5,7 @@
 
 '''
 from django.urls import path, re_path
-from collector.views.base import index, get_list, updown, userinput
+from collector.views.base import index, get_list, updown, userinput, update_lineage
 from collector.views.creature_views import CreatureUpdateView,CreatureDetailView
 
 urlpatterns = [
@@ -16,4 +16,5 @@ urlpatterns = [
   re_path('^ajax/update/creature/(?P<id>\d+)/$', CreatureUpdateView.as_view(), name='update_creature'),
   re_path('^ajax/editable/updown$', updown, name='updown'),
   re_path('^ajax/editable/userinput$', userinput, name='userinput'),
+  re_path('^ajax/update/lineage$', update_lineage, name='update_lineage'),
 ]

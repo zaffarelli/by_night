@@ -4,7 +4,8 @@
             /     _/      
 */
 var treedata;
-d3.json('static/js/kindred.json', function(error, treedata) {
+   
+d3.json('static/js/kindred.json',function(error, treedata) {
     var root;
     var boxWidth = 100;
     var boxHeight = 140;
@@ -405,3 +406,5 @@ d3.json('static/js/kindred.json', function(error, treedata) {
 
 
 });
+
+

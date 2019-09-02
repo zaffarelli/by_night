@@ -115,16 +115,17 @@ def create_sires():
   return action
 
 def check_caine_roots():
-  action = 0
+  action = 1
   while action>0:
-    action = cleanup_spare_unknown():
-    action += cleanup_false_unknown_reference():
-    action += create_named_sires():
-    action += create_sires():
+    action = cleanup_spare_unknown()
+    action = cleanup_false_unknown_reference()
+    action = create_named_sires()
+    action = create_sires()
     print("Number of actions executed: %d"%(action))
   x = Creature.objects.filter(creature='kindred',name="Caine").first()
   data = x.find_lineage()
   with open('/home/zaffarelli/Projects/by_night/collector/static/js/kindred.json', 'w') as fp:
     json.dump(data, fp)
   print("--> Lineage Done")
+  return {'responseText':'Ok'}
 

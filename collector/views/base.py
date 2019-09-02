@@ -12,6 +12,7 @@ from django.template.loader import get_template, render_to_string
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from collector.templatetags.wod_filters import as_bullets
+from collector.models.kindred_stuff import check_caine_roots
 import json
 
 def index(request):
@@ -81,3 +82,9 @@ def userinput(request):
       answer['new_value'] = x
     return JsonResponse(answer)
   return Http404
+
+def update_lineage(request):
+  """ Check Caine Lineage """
+  answer = {}
+  answer = check_caine_roots()
+  return JsonResponse(answer)

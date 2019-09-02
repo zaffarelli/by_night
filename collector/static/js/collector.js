@@ -88,6 +88,25 @@ function rebootlinks(){
   });
 
 
+  $('#toggle_lineage').off();
+  $('#toggle_lineage').on('click',function(event){
+    console.log('toggle_lineage');
+    $.ajax({
+      url: 'ajax/update/lineage',
+      success: function(answer) {
+        //$('.details').html('done')
+        console.log(anwser);
+        rebootlinks();
+      },
+      error: function(answer) {
+        //$('.details').html('oops, broken')
+        console.log(answer);
+        rebootlinks();
+      },
+
+    });
+  });
+
   $('#toggle_list').off();
   $('#toggle_list').on('click',function(event){
     console.log('toggle_list');
