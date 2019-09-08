@@ -13,6 +13,7 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from collector.templatetags.wod_filters import as_bullets
 from collector.models.kindred_stuff import check_caine_roots
+from collector.utils.wod_reference import get_current_chronicle
 import json
 
 def index(request):
@@ -22,7 +23,8 @@ def index(request):
 def get_list(request,pid):
   """ Update the list of characters on the page """  
   if request.is_ajax:
-    creature_items = Creature.objects.all().filter(chronicle='NYBN').order_by('name').exclude(ghost=True)
+    chronicle = get_current_chronicle()
+    creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym).order_by('name').exclude(ghost=True)
     paginator = Paginator(creature_items,25)
     creature_items = paginator.get_page(pid)
     context = {'creature_items': creature_items}

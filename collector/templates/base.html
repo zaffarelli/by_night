@@ -21,14 +21,15 @@
     {% endcompress %}
   </head>
   <body>
+    
     <div class='bar'>
       <i id='toggle_chronicle' class='fa fa-building'></i>&nbsp;
       <i id='toggle_lineage' class='fa fa-sitemap'></i>&nbsp;
       <i id='toggle_list' class='fa fa-users'></i>&nbsp;
       <i id='toggle_details' class='fa fa-user'></i>
-      <input type='text' id='userinput' placeholder='user input'>
+      <input type='text' id='userinput' placeholder='user input'>      
     </div>
-    <div class='wrapper'>
+    <div class='wrapper' style="background-image: url('{% static chronicle_logo %}')">
       <div class='charlist'>
         {% block list %}
         {% endblock list %}

@@ -21,6 +21,8 @@ function loadajax(){
       $('.charlist').html(answer)
       rebootlinks();
       $('.more').addClass('hidden');
+      $('.charlist').addClass('hidden');
+      $('.details').addClass('hidden');
     },
   });
 }

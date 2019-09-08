@@ -192,6 +192,10 @@ class Creature(models.Model):
   def fix(self):
     freebies_by_age = {'0': 15,'50':30,'100':60,'150':90,'200':120,'250':150,'300':190,'400':240,'500':280,'700':320,'900':360,'1100':400,'1300':425,'1500':495,'1700':565,'2000':645,'2500':735,'3000':825}
     # Embrace and Age
+    condi = self.condition.split('-')
+    if condi.count == 2:
+      if condi[0] == 'DEAD':
+        self.finaldeath == int(condi[1])
     if (int(self.age)>0) and (int(self.trueage)>=int(self.age)):
       self.embrace = 2006-(int(self.trueage)-int(self.age))
     # Activity as a vampire
