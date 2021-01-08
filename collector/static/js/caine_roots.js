@@ -7,7 +7,7 @@ var treedata;
    
 d3.json('static/js/kindred.json',function(error, treedata) {
     var root;
-    var boxWidth = 100;
+    var boxWidth = 120;
     var boxHeight = 140;
     var m = [0, 0, 0, 0],
         fw = 2048,
@@ -81,7 +81,7 @@ d3.json('static/js/kindred.json',function(error, treedata) {
             .attr('class', 'band')
             .attr({
                 x: -boxWidth*0.5,
-                y: -boxHeight*0.5,
+                y: -boxHeight*0.55,
                 width: boxWidth*1,
                 height: boxHeight*0.3
             });
@@ -89,7 +89,7 @@ d3.json('static/js/kindred.json',function(error, treedata) {
             .attr('class', 'plate')
             .attr({
                 x: -boxWidth*0.5,
-                y: -boxHeight*0.2,
+                y: -boxHeight*0.25,
                 width: boxWidth * 1,
                 height: boxHeight*0.5,
             });
@@ -98,7 +98,7 @@ d3.json('static/js/kindred.json',function(error, treedata) {
             .attr('class', 'frame')
             .attr({
                 x: -boxWidth*0.5,
-                y: -boxHeight*0.5,
+                y: -boxHeight*0.55,
                 width: boxWidth * 1,
                 height: boxHeight*0.8,
             });

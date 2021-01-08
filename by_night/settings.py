@@ -1,9 +1,9 @@
-'''
+"""
            /       '_ /_/ 
           ()(/__/)/(//)/  
             /     _/      
 
-'''
+"""
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,9 +43,7 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-
 ROOT_URLCONF = 'by_night.urls'
-
 
 TEMPLATES = [
     {
@@ -64,10 +62,53 @@ TEMPLATES = [
     },
 ]
 
+LOGPATH = os.path.join(BASE_DIR, 'logs/')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(message)s",
+            'datefmt': "%d:%H%M%S"
+        },
+    },
+    'handlers': {
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOGPATH + "by_night.log",
+            'maxBytes': 1000000000,
+            'backupCount': 3,
+            'formatter': 'standard',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        # 'django': {
+        #     'handlers': ['console'],
+        #     'propagate': True,
+        #     'level': 'INFO',
+        # },
+        # 'django.db.backends': {
+        #     'handlers': ['console'],
+        #     'level': 'ERROR',
+        #     'propagate': False,
+        # },
+        'collector': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+        },
+    }
+}
 WSGI_APPLICATION = 'by_night.wsgi.application'
 
 DATABASES = {
-    'default': {        
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nybn',
         'USER': 'root',
@@ -76,7 +117,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -4,17 +4,17 @@
             /     _/      
 */
 var treedata;
-d3.json('static/js/kindred.json', function(error, treedata) {
+   
+d3.json('static/js/kindred.json',function(error, treedata) {
     var root;
-    var boxWidth = 140;
-    var boxHeight = 70;
-    var m = [10, 10, 10, 10],
-        fh = 1024,
-        fw = 780,
+    var boxWidth = 120;
+    var boxHeight = 140;
+    var m = [0, 0, 0, 0],
+        fw = 2048,
+        fh = 2048,
         h = fh - m[1] - m[3],
         w = fw - m[0] - m[2],
         i = 0,
-        //r = 1200,
         x = d3.scale.linear().domain([0, w]).range([0, w]),
         y = d3.scale.linear().domain([0, h]).range([0, h]);
     var vis = d3.select("#caine_roots").append("svg:svg")
@@ -23,16 +23,15 @@ d3.json('static/js/kindred.json', function(error, treedata) {
         .attr("height", h + m[0] + m[2])
         .append("svg:g")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")")
-        .call(d3.behavior.zoom().x(x).y(y).scaleExtent([1, 2]).on("zoom", zoom));
+        .call(d3.behavior.zoom().x(x).y(y).scaleExtent([0.125,4]).on("zoom", zoom));
 
     vis.append("rect")
         .attr("class", "overlay")
         .attr("width", w + m[1] + m[3])
-        .attr("height", h + m[0] + m[2])
-        .attr("opacity", 0);
+        .attr("height", h + m[0] + m[2]);
 
-    var tree = d3.layout.tree()
-        .size([h, w]);
+    var tree = d3.layout.cluster()
+        .size([fh,fw]);
 
     var diagonal = d3.svg.diagonal()
         .projection(function(d) {
@@ -41,7 +40,7 @@ d3.json('static/js/kindred.json', function(error, treedata) {
 
     root = treedata;
     root.x0 = 0;
-    root.y0 = fw / 2;
+    root.y0 = 0;
 
     function toggleAll(d) {
         if (d.children) {
@@ -62,7 +61,7 @@ d3.json('static/js/kindred.json', function(error, treedata) {
         var duration = d3.event && d3.event.altKey ? 5000 : 500;
         var nodes = tree.nodes(root).reverse();
         nodes.forEach(function(d) {            
-            d.y = d.depth * boxHeight*1.25;
+            d.y = d.depth * boxHeight*1.5;
         });
 
         var node = vis.selectAll("g.node")
@@ -76,51 +75,46 @@ d3.json('static/js/kindred.json', function(error, treedata) {
             .attr("class", "node")
             .attr("transform", function(d) {
                 return "translate(" + source.x0 + "," + source.y0 + ")";
-            })
-            .on("click", function(d) {
-                if (d.depth!=4){
-                  if (d3.event.ctrlKey) {
-                      toggleSimple(d);
-                  } else {
-                      toggle(d);
-                  }
-                  update(d);
-                }
             });
+
         nodeEnter.append("rect")
             .attr('class', 'band')
             .attr({
                 x: -boxWidth*0.5,
-                y: -boxHeight*0.5,
-                width: boxWidth*0.3,
-                height: boxHeight
+                y: -boxHeight*0.55,
+                width: boxWidth*1,
+                height: boxHeight*0.3
             });
         nodeEnter.append("rect")
             .attr('class', 'plate')
             .attr({
-                x: -boxWidth*0.2,
-                y: -boxHeight*0.5,
-                width: boxWidth * 0.725,
-                height: boxHeight,
+                x: -boxWidth*0.5,
+                y: -boxHeight*0.25,
+                width: boxWidth * 1,
+                height: boxHeight*0.5,
+            });
+            
+        nodeEnter.append("rect")
+            .attr('class', 'frame')
+            .attr({
+                x: -boxWidth*0.5,
+                y: -boxHeight*0.55,
+                width: boxWidth * 1,
+                height: boxHeight*0.8,
             });
         nodeEnter.selectAll("rect.band")
             .attr('class', function(d) {
-                c = 'band ';
-                if (d.ghost) {
-                    c += 'ghost'
-                } else {
-                    //c += d.faction;
-                }
-                return c;
+              return 'band '+(d.ghost?' ghost':'');
+            });
+        nodeEnter.selectAll("rect.frame")
+            .attr('class', function(d) {
+              return 'frame '+(d.ghost?' ghost':'');
             });
         nodeEnter.selectAll("rect.plate")
             .attr('class', function(d) {
-                c = 'plate '+d.faction;
-                if (d.ghost) {
-                    c += ' ghost';
-                }
-                return c;
+              return 'plate '+d.faction+(d.ghost?' ghost':'');
             });
+           
         // IMAGE 
         nodeEnter.append("image")
             .attr("xlink:href", function(d) {
@@ -133,29 +127,35 @@ d3.json('static/js/kindred.json', function(error, treedata) {
                 return s;
             })
             .attr('class', function(d) {
-                c = ''
-                if (d.ghost) {
-                    c = 'ghost'
-                } 
-                return c;
+                return (d.ghost ? 'creature_img ghost': 'creature_img');
             })
-            .attr("x", (-boxWidth * 0.475) )
-            .attr("y", (-boxHeight * 0.475) )
-            .attr("width", boxWidth * 0.25 )
-            .attr("height", boxHeight*0.45 );
+            .attr('id', function(d) {
+                return d.id;
+            })
+            .attr("x", (-boxWidth * 0.7) )
+            .attr("y", (-boxHeight * 0.6) )
+            .attr("width", boxWidth * 0.30 )
+            .attr("height", boxHeight*0.30 )
+            .on("click", function(d) {
+              if (d3.event.ctrlKey) {
+                      toggleSimple(d);
+                  } else {
+                      toggle(d);
+                  }
+                  update(d);
+ 
+            });
         // TEXT 
         nodeEnter.append("text")
             .attr('class', function(d) {
                 c = 'name';
-                if (d.ghost) {
-                    c += ' ghost';
-                }
+                if (d.ghost) c += ' ghost';
                 return c;
             })
             .append('tspan')
             .attr('text-anchor', 'start')
-            .attr('x', -boxWidth * 0.15)
-            .attr('y', -boxHeight*0.35)
+            .attr('x', -boxWidth * 0.3)
+            .attr('y', -boxHeight*0.4)
             .attr('dx', '0')
             .attr('dy', '0')
             .text(function(d) {
@@ -165,15 +165,33 @@ d3.json('static/js/kindred.json', function(error, treedata) {
                 }
                 return n;
             })
-            .call(wrap,boxWidth*0.7);
+            .call(wrap,boxWidth*0.7)
+            .on("click", function(d) {
+                if (d3.event.ctrlKey) {
+                console.log("Just ctrl+clicked on "+d.id+" ["+d.name+"]!");
+                  
+                $.ajax({      
+                  url: 'ajax/view/creature/'+d.id+'/',
+                  success: function(answer) {
+                    $('.details').html(answer)
+                    $('li').removeClass('selected');
+                    $('.details').removeClass('hidden');
+                    rebootlinks();
+                  },
+                  error: function(answer){
+                    console.log('View error...'+answer);
+                  }
+                });
+              }
+            });
 
         // Display of the properties
         nodeEnter.selectAll("text")
             .append('tspan')
             .attr('class', 'property')
             .attr('text-anchor', 'start')
-            .attr('x', -boxWidth*0.15)
-            .attr('y', boxHeight*0.1)
+            .attr('x', -boxWidth*0.45)
+            .attr('y', -boxHeight*0.10)
             .attr('dx', '0')
             .attr('dy', '0')
             .text(function(d) {
@@ -191,7 +209,7 @@ d3.json('static/js/kindred.json', function(error, treedata) {
                 }
                 return str
             })
-            .call(wrap, boxWidth*0.6);
+            .call(wrap, boxWidth*0.9);
 
         // *** NODE UPDATE ***
         var nodeUpdate = node.transition()
@@ -227,7 +245,13 @@ d3.json('static/js/kindred.json', function(error, treedata) {
             });
 
         link.enter().insert("svg:path", "g")
-            .attr("class", "link")
+            .attr("class", function(d){
+              c = 'link ';
+              if ((d.target.ghost)||(d.target.parent.ghost)){
+                c += ' ghost';
+              }
+              return c;
+              })
             .attr("d", function(d) {
                 var o = {
                     x: source.x0,
@@ -301,14 +325,15 @@ d3.json('static/js/kindred.json', function(error, treedata) {
         });
     }
 
-/*
+
     function zoom(d) {
         var nodes = vis.selectAll("g.node");
         nodes.attr("transform", transform);
         var link = vis.selectAll("path.link");
         link.attr("d", translate);
-    }*/
-
+    }
+    
+/*
    function zoom(d) {
         var scale = d3.event.scale,
             translation = d3.event.translate,
@@ -326,26 +351,23 @@ d3.json('static/js/kindred.json', function(error, treedata) {
         d3.select("g")
             .attr("transform", "translate(" + translation + ")" +
             " scale(" + scale + ")");
-        /*
-        var nodes = vis.selectAll("g.node");
-        nodes.attr("transform", transform);
-        var link = vis.selectAll("path.link");
-        link.attr("d", translate);
-        */
-    } 
+
+    }
+    */
 
     function transform(d) {
         return "translate(" + x(d.x) + "," + y(d.y) + ")";
     }
 
     // Links translation
-    function translate(d) {
+    function translate(d) {      
+        var result = '';
         var sourceX = x(d.target.parent.x);
         var sourceY = y(d.target.parent.y);
         var targetX = x(d.target.x);
         var targetY = y(d.target.y);
         var halfY = sourceY + (targetY - sourceY) / 2
-        var result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
+        result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
         return result;
 
     }
@@ -384,3 +406,5 @@ d3.json('static/js/kindred.json', function(error, treedata) {
 
 
 });
+
+

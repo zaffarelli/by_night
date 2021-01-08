@@ -20,6 +20,9 @@ function loadajax(){
     success: function(answer) {            
       $('.charlist').html(answer)
       rebootlinks();
+      $('.more').addClass('hidden');
+      $('.charlist').addClass('hidden');
+      $('.details').addClass('hidden');
     },
   });
 }
@@ -38,6 +41,7 @@ function rebootlinks(){
       success: function(answer) {
         $('.charlist').html(answer)
         rebootlinks();
+        $('.more').addClass('hidden');
       },
     });   
   });
@@ -74,6 +78,54 @@ function rebootlinks(){
     });  
   });
 
+  $('.toggle_more').off();
+  $('.toggle_more').on('click',function(event){
+    console.log('Toggle more');
+    event.preventDefault();
+    $('.more').addClass('hidden');
+    zid = $(this).attr('id');
+    x = zid.split("_");
+    $('.more#m_'+x[1]).toggleClass('hidden');
+    rebootlinks();
+  });
+
+
+  $('#toggle_lineage').off();
+  $('#toggle_lineage').on('click',function(event){
+    console.log('toggle_lineage');
+    $.ajax({
+      url: 'ajax/update/lineage',
+      success: function(answer) {
+        //$('.details').html('done')
+        console.log(anwser);
+        rebootlinks();
+      },
+      error: function(answer) {
+        //$('.details').html('oops, broken')
+        console.log(answer);
+        rebootlinks();
+      },
+
+    });
+  });
+
+  $('#toggle_list').off();
+  $('#toggle_list').on('click',function(event){
+    console.log('toggle_list');
+    $('.charlist').toggleClass('hidden');
+  });
+
+  $('#toggle_details').off();
+  $('#toggle_details').on('click',function(event){
+    $('.details').toggleClass('hidden');
+  });
+
+  $('#toggle_details2').off();
+  $('#toggle_details2').on('click',function(event){
+    $('.details').toggleClass('hidden');
+  });
+
+
   $('#add_creature').off();
   $('#add_creature').on('click',function(event){
     event.preventDefault();
@@ -105,7 +157,6 @@ function rebootlinks(){
 
   $('.view_creature').off();
   $('.view_creature').on('click',function(event){
-    console.log('View: '+$(this).attr('id'));
     event.preventDefault();
     event.stopPropagation();
     var dad = $(this).parents('li');
@@ -116,10 +167,11 @@ function rebootlinks(){
       success: function(answer) {
         $('.details').html(answer)
         $('li').removeClass('selected');
+        $('.details').removeClass('hidden');
         rebootlinks();
       },
       error: function(answer){
-        console.log('Vew error...'+answer);
+        console.log('View error...'+answer);
       }
     });
   });
@@ -128,6 +180,7 @@ function rebootlinks(){
   $('td.editable.userinput').hover(
     function(event){
       $(this).addClass('focus');
+      $('#userinput').focus();
       rebootlinks();
       },
     function(event){

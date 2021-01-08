@@ -1,98 +1,86 @@
-
-
+/*
+ *         /       '_ /_/ 
+ *        ()(/__/)/(//)/  
+ *          /     _/      
+ */
 
 @charset "UTF-8";
- @font-face {
-     font-family: 'Titre';
-     src: url('{% static "marscellus_sc_regular.ttf" %}');
-}
- @font-face {
-     font-family: 'Texte';
-     src: url("fonts/Balthazar-Regular.ttf");
-}
- @font-face {
-     font-family: 'TexteLibre';
-     src: url("fonts/WorkSans-Regular.ttf");
-}
- @font-face {
-     font-family: 'Emphase';
-     src: url("fonts/Eczar-Regular.ttf");
-}
- .fixed {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 99%;
-}
- h1, h2, h3, h4, h5, h6 {
-     font-family: Titre;
-     font-weight: normal;
-}
- body {
-     font-family: Texte;
-     background: #C0C0C0;
-}
- body .logo {
-     background: transparent url("{% static '../nybn_wawwod.png' %}") center center no-repeat;
-     position:fixed;
-     display:block;
-     left:auto;
-     right:0px;
-     width:600px;
-     top:-50px;
-     height:100px;
-     z-index:50;
+
+$body_background: #C0C0C0;
+$body_color: #101010;
+$plate_color: #F0F0F0;
+$plate_highlight: #FFCC44;
+$plate: #606060;
+$dark_plate: #303030;
+$very_dark_plate: #101010;
+$list_width: 300px;
+
+@font-face {
+  font-family: 'Titre';
+  src: url('../fonts/marcellus_sc_regular.ttf');
 }
 
-body .wrapper .list{
-  
+@font-face {
+  font-family: 'TexteLibre';
+  src: url("../fonts/Lato-Regular.ttf");
 }
 
- body .wrapper .list .pagination {
-     text-align: center;
-     margin-top: 1em;
-  
+body {
+  font-family: Texte;
+  background: $body_background;
+  color: $body_color;
 }
- body .wrapper .list .pagination a,
- body .wrapper .list .pagination strong,
- body .wrapper .list .pagination span.nav {
-     margin: 0 0.1em;
-     display: inline-block;
-     padding: 0.5em;
-     color: white;
-     font-size: 0.77em;
-     background: #1d1d1d;
-     padding: 0.5em 0.8em;
-     border-radius: 2px;
-     text-decoration: none;
-     cursor: pointer;
-}
- body .wrapper .list .creature_actions {
+
+
+body .wrapper .charlist{
+  & .pagination {
+    text-align: center;
+    margin-top: 1em;
+    width:$list_width;
+    & a, & strong, & span.nav {
+      margin: 0 0.1em;
+      display: inline-block;
+      padding: 0.31em;
+      color: $plate_highlight;
+      font-size: 0.83em;
+      font-family:'TexteLibre';
+      padding: 0.5em 0.8em;
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      background: $very_dark_plate;
+    }
+    & span.nav{
+    color: $plate_color;
+      background: $dark_plate;
+      font-size: 0.77em;
+    }
+  }
+  & .creature_actions {
      display: inline-block;
      cursor:pointer;
      color: black;
      padding: 2px;
      border: 1px solid transparent;
      border-radius: 2px;
-     
+     & a, & span.nav{
+      cursor: pointer;
+      color: #6a6a6a;
+     }
+  }
+  & ul, & ol{
+    width:$list_width;
+    text-indent: 0;
+    margin-left: 0;
+    padding-left: 0;
+    list-style-type: none;
+    & li{
+      margin: 0;
+    }
+  }
 }
- body .wrapper .list .creature_actions a, body .wrapper .list .character_actions span.nav {
-     cursor: pointer;
-}
- body .wrapper .list .creature_actions a:hover, body .wrapper .list .character_actions span.nav:hover {
-     color: #6a6a6a;
-}
- body .wrapper .list ul, body .wrapper .list ol {
-     text-indent: 0;
-     margin-left: 0;
-     padding-left: 0;
-     list-style-type: none;
-     
-}
- body .wrapper .list ul li, body .wrapper .list ol li {
-     margin: 0;
-     
-}
+
+
 
  .subsection {
      font-weight: bold;
@@ -110,31 +98,55 @@ body .wrapper .list{
      background: orange;
 }
  .avatar_link {
-     margin: 0.5em 1ex 0.5em 1ex;
-     box-shadow: 2px 2px 8px #040404;
-     padding: 5px;
-     border: 1px solid black;
-     font-size: 0.83em;
-     border-radius: 5px;
-     background: #E0E0E0;
-     color:#202020;
+  margin: 0.5em 1ex 0.5em 1ex;
+  box-shadow: 2px 2px 8px #040404;
+  padding: 2px;
+  border: 1px solid black;
+  font-size: 0.73em;
+  border-radius: 0 0 5px 0;
+  background: $dark_plate;
+  color:$plate_color;
+  & a {
+    color: $plate_color;
+    text-decoration: none;
+    &:hover{
+      color: $plate;
+    }
+    & .small{
+      font-size: 0.75em;
+    }
+  }
+     
 }
- .avatar_link a {
-     color: white;
-     text-decoration: none;
+.toggle_name{
+  font-weight: bold;
+  font-style:normal;
+  font-family: Titre;
+  width:60%;
+  display:inline-block;
 }
- .avatar_link a:hover {
-     color: #6a6a6a;
+.toggle_more{
+  width:40%;
+  display:inline-block;
+  text-align:right;
+  cursor:help;
+  font-size:0.73em;
 }
- .avatar_link small {
-     font-size: 0.75em;
+
+.more {
+  font-family:"TexteLibre";
+  background:$plate;
+  color:$plate_color;
+  text-align:left;
+  word-wrap:normal;
+  padding:2px;
+  &.hidden{
+    display:none;
+  }
 }
- .avatar_link em {
-  
-     font-weight: bold;
-     font-style:normal;
-     font-family: Titre;
-}
+
+
+
  .avatar_link.locked {
      background: #221a00;
      border-color: #DBCA86;
@@ -170,126 +182,210 @@ body .wrapper .list{
      content: '(x) ';
 }
 
+
+
+
 /* Normal --------------------------------------------------------------------*/
  @media all and (min-width: 1024px) {
-     body {
-         margin: 0;
-         padding: 0;
-         overflow-x: hidden;
-         overflow-y: scroll;
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      
+      & .bar{
+        width:100%;
+        background:#606060;
+        top:0;
+        height:32px;
+        font-height:16px;
+        padding:8px;
+        display:block;
+        position:fixed;
+        margin:0;
+        color:white;
+        z-index: 100;
+      }
+      & .wrapper {
+        z-index: 60;
+        width: 100%;
+        padding-top:0;
+        margin:0;
+        background: transparent url() 99% 1% no-repeat  fixed;
+
+        
+        & .charlist {          
+          background:$plate;
+          border-radius:0 0 5px 5px;
+          width:$list_width;
+          display:block;
+          position:absolute;
+          z-index:70;
+          padding-top:36px;
+          transition: all 0.3s ease;          
+          &.hidden{
+            transform: translateY(-980px);
+            transition: all 0.3s ease;         
+          }
+        }
+        & .caine_roots {
+          background:transparent;
+          width:100%;
+          display:block;
+          z-index:60;
+          padding:0;
+          margin:0;
+        }    
+        & .details {
+          background:transparent;
+          width:auto;
+          right:0px;
+          left:auto;
+          top:auto;
+          bottom:0px;
+          display:block;
+          position:absolute;
+          z-index:110;
+          transition: all 0.3s ease;          
+          &.hidden{
+            transition: all 0.3s ease;          
+            transform: translateX(1000px);
+          }
+        }
     }
-     body .wrapper {
-         z-index: 60;
-         margin-left: 0;
-         width: 99%;
-         min-height: 1000px;
-         display: grid;
-         grid-template-columns: 0.5% 250px 1fr 200px 0.5%;
-         grid-column-gap: 5px;
-         justify-content: center;
-         align-content: stretch;
-    }
-     body .wrapper .list {
-         grid-column: 1 / 3;
-    }
-     body .wrapper .details {
-         grid-column: 3 / 3;
-         min-height: 1000px;
-    }
-     body .wrapper .menuright {
-         grid-column: 4 / 6;
-    }
-}
- .creature a:visited, .creature a:link, .creature a:hover, .creature a:active{
-     color:black;
-}
- .creature {
-     font-size:9pt;
-     border-radius:8px;
-     background:transparent;
-     
-}
- .creature table{
-     font-family:Texte;
-     color:black;
-     background:#FFFFFF;
-     margin:auto;
-     top:50px;
-     padding:5px;
-}
- .creature table tr{
-     padding:0;
-     margin:0;
-}
- .creature table th{
-     background:silver;
-     color:black;
-     //text-shadow: 0px 0px 4px white;
-     font-size:10pt;
-     font-family:Titre;
-     margin:0;
-     border:none;
-     width:110px;
-     border:2px solid transparent;
-     padding:3px;
-}
- .creature table tr:last-child th{
-     border-radius: 0 0 6px 6px;
-}
- .creature table tr:first-child td{
-     border-radius: 5px 5px 0 0 ;
-     background: #F0F0F0;
-}
- .creature .navigator {
-     background:#C0C0C0;
-     text-align:center;
-     font-family:TexteLibre;
-     font-size:16px;
-}
- .creature table td{
-     font-size:8pt;
-     font-family:TexteLibre;
-     text-align:left;
-     margin:0;
-     padding:3px;
-     width:110px;
-     background:transparent;
-     border:2px solid transparent;
+  }
 }
 
- 
+/* Details - Creature Block */
+.creature {
+  font-size:9pt;
+  border-radius:8px;
+  background:transparent;
 
- .creature table td.editable.updown.focus{
-  border:2px solid green;
- }
+  &.navigator {
+    background:#101010;
+    color:#D0D0D0;
+    text-align:center;
+    font-family:TexteLibre;
+    font-size:16px;
+  }
 
- .creature table td.editable.userinput.focus{
-  border:2px solid orange;
- }
+  & a{
+    &:visited, &:link, &:hover, &:active{
+      color:black;
+    }
+  }
 
- .clan_logo{
-     width:80px;
-}
- .creature strong{
-     font-family:Titre;
-     font-weight: normal;
-     font-size:2em;
-     line-height:1.4em;
-}
- .creature.Sabbat table th{
-     background: #A09090; //url('colorful-grunge-texture-3.jpg') center center;
-}
- .creature.Camarilla table th{
-     background: #90A090; // url('colorful-grunge-texture-13.jpg')  center center;
-}
- .creature.Independant table th{
-     background: #A090A0; // url('colorful-grunge-texture-24.jpg') center center;
-}
- .creature.Inconnu table th{
-     background: #A0A0A0; // url('colorful-grunge-texture-10.jpg') center center;
-}
- .creature.Anarchs table th{
-     background: #90A0A0; // url('colorful-grunge-texture-20.jpg')center center;
+
+  
+  
+  & strong{
+    font-family:Titre;
+    font-weight: normal;
+    font-size:2em;
+    line-height:1.4em;
+  }
+
+  & table{
+    font-family:Texte;
+    color:black;
+    background:#303030;
+    border:1px solid #F0F0F0;
+    border-radius: 10px 0 0 0;
+    box-shadow: -2px -2px 8px #040404;
+    margin:auto;
+
+    & tr{
+      padding:0;
+      margin:0;
+
+      & th{
+        background:#303030;
+        color:#fff;
+        font-size:9pt;
+        font-family:TexteLibre;
+        font-weight:normal;
+        margin:0;
+        border:none;
+        width:110px;
+        border:2px solid transparent;
+        padding:1px;
+
+        &[colspan='6']{
+          background:$very_dark_plate;
+          height:90px;
+          padding:0;
+          padding-left:3ex;
+        }
+        &.clan_logo{
+          background:$very_dark_plate;
+          overflow:hidden;
+          padding:0;
+          & img{
+            height:80px;
+            filter:invert(75%);
+          }
+        }
+        &.back{
+          background:$very_dark_plate;
+        }
+      }
+
+      &:last-child th{
+        border-radius: 0 0 6px 6px;
+      }
+
+      & td{
+        font-size:8pt;
+        font-family:TexteLibre;
+        text-align:left;
+        margin:0;
+        padding:1px;
+        width:110px;
+        background:transparent;
+        border:2px solid transparent;
+        color:#E0E0E0;
+
+
+        
+        &[colspan='2']{
+            border-radius: 5px;
+            background: #303030;
+            color:#E0E0E0;
+            text-align:center;
+            font-family:Titre;
+            font-size:12pt;
+
+        }
+
+        &.topic{
+          background:transparent;
+          font-size:8pt;
+          font-family:TexteLibre;
+          text-align:left;
+          margin:0;
+          padding:1px;
+        }
+
+        &.editable{
+          &.updown.focus{
+            border:2px solid yellow;
+          }
+          &.userinput.focus{
+            border:2px solid orange;
+          }
+        }
+      }
+    }
+    &.freewidth tr td{
+      width:auto;
+    }
+  }
+  &.Sabbat table th{ background: #602020; }
+  &.Camarilla table th{ background: #103010; }
+  &.Independant table th{ background: #603020; }
+  &.Inconnu table th{ background: #303030; }
+  &.Anarchs table th{ background: #102060; }
 }
 
 .avatar_link.Sabbat{
@@ -308,9 +404,7 @@ body .wrapper .list{
      background: #90A0A0;
 }
 
-.creature table.freewidth tr td{
-  width:auto;
-}
+
 
 .list .goodies{
   width:auto;
@@ -333,90 +427,105 @@ body .wrapper .list{
 
 #caine_roots{
   text-align:center;
-  font-size:12px;
+  font-size:14px;
 }
 
 svg {
   background:transparent;
   margin-top:50px;
-  height:950px;
+  height:auto;
   width:100%;
-  border: 1px ridge #aaa;
-}
-
-rect{
-  fill:#ccc;
-  stroke:#333;
-}
-
-rect.plate {
-  fill:#333;
-  stroke: #888;
-  stroke-width: 0.5px;
-  cursor:pointer;
-}
-
-rect.band{
-  fill: #B0B0B0;
-  stroke:#505050;
-  stroke-width: 0px;
-}
-
-rect.plate.Sabbat {
-  fill:#301010;
-}
-
-rect.plate.Camarilla {
-  fill:#103010;
-}
-
-rect.plate.Anarchs {
-  fill:#101030;
   
+  rect{
+    &.overlay{
+      cursor: move;
+      border:none;
+      fill:#C0D0E0;
+      
+      opacity:0.0;
+    }
+    &.band{
+      fill: #AAA;
+      stroke:#505050;
+      stroke-width: 0px;
+      &.ghost{
+        opacity:0.1;
+      }
+    }
+    &.frame{
+      fill:transparent;
+      stroke: #888;
+      stroke-width: 0.5px;
+      &.ghost{
+        opacity:0.1;
+      }
+    }
+    &.plate {
+      fill:$dark_plate;
+      stroke: #888;
+      stroke-width: 0.5px;     
+      &.Sabbat {
+        fill:#201010;
+      }
+      &.Camarilla {
+        fill:#102010;
+      }
+      &.Anarchs {
+        fill:#101020;  
+      }
+      &.Inconnu {
+        fill:#201020;
+      }
+    }
+    &.ghost {
+    opacity:0.1;
+    }
+  }
+
+  & .ghost {
+    fill: none;
+    stroke:#666;
+    stroke-width: 0.25px;
+    opacity: 0.3;
+    stroke-dasharray: "10";    
+  }
+
+  & .link {
+    fill: none;
+    stroke: #611;
+    stroke-width: 6px;
+    opacity: 0.5;
+    &.ghost{
+      stroke: #C44;
+      stroke-width: 6px;
+      opacity: 0.3;
+      stroke-dasharray: "10";    
+    }
+  }
+  & .name{
+    font-size: 1em;
+    font-family: "Titre";
+    stroke:#666;  
+    fill: #000;
+    stroke-width: 0.7px;
+    cursor:pointer;
+    &:hover{
+      fill: $plate_highlight;
+      stroke:#000;  
+    }
+  }
+  & .property{
+    font-family: "TexteLibre";
+    font-size: 0.9em;
+    stroke:#888;  
+    fill: #fff;
+    stroke-width: 0.6px;
+  }
+
+
 }
 
-rect.plate.Inconnu {
-  fill:#101010;
-}
-
-image.ghost,
-rect.ghost {
-  stroke:#CCC;  
-  fill: #BBB;  
-}
 
 
-
-.name{
-  font-size: 1em;
-  font-family: "Titre";
-  stroke:#888;  
-  fill: #fff;
-  stroke-width: 0.7px;
-}
-.property{
-  font-family: "TexteLibre";
-  font-size: 0.9em;
-  stroke:#888;  
-  fill: #fff;
-  stroke-width: 0.6px;
-}
-
-.ghost {
-  fill: #111;
-  stroke:#666;
-  stroke-width: 0px;
-  opacity:0.8;
-}
-
-
-
-
-.link {
-  fill: none;
-  stroke: #A22;
-  stroke-width: 2px;
-  opacity: 0.5;
-}
 
 
