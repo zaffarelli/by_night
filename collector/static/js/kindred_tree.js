@@ -4,6 +4,9 @@
             /     _/
 */
 
+
+let line_jump_code = 'N*L';
+
 /* Callback functions */
 function toggleAll(d) {
     if (d.children) {
@@ -45,6 +48,8 @@ function closeSiblings(d) {
     });
 }
 
+
+
 function wrap(text, width) {
     text.each(function() {
         let text = d3.select(this),
@@ -59,18 +64,30 @@ function wrap(text, width) {
             dy = parseFloat(text.attr("dy")),
             tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dx", dx).attr("dy", dy + "em");
         while (word = words.pop()) {
-            line.push(word);
-            tspan.text(line.join(" "));
-            if (tspan.node().getComputedTextLength() > width) {
-                line.pop();
+            if (word == line_jump_code){
                 tspan.text(line.join(" "));
-                line = [word];
+                line= [];
                 tspan = text.append("tspan")
                     .attr("x", x)
                     .attr("dx", dx)
                     .attr("y", y)
                     .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                    .text(word);
+                    .text('');
+
+            }else{
+                line.push(word);
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > width) {
+                    line.pop();
+                    tspan.text(line.join(" "));
+                    line = [word];
+                    tspan = text.append("tspan")
+                        .attr("x", x)
+                        .attr("dx", dx)
+                        .attr("y", y)
+                        .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                        .text(word);
+                }
             }
         }
     });
@@ -87,8 +104,8 @@ class KindredTree {
     init(data) {
         let me = this;
         me.root = data[0];
-        me.boxWidth = 120;
-        me.boxHeight = 140;
+        me.boxWidth = 140;
+        me.boxHeight = 160;
         me.m = [0, 0, 0, 0];
         me.fw = 2048;
         me.fh = 2048;
@@ -103,7 +120,7 @@ class KindredTree {
             .attr("height", me.h + me.m[0] + me.m[2])
             .append("svg:g")
             .attr("transform", "translate(" + me.m[3] + "," + me.m[0] + ")")
-            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([1, 8]).on("zoom", function(d){
+            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([1, 4]).on("zoom", function(d){
                 let nodes = me.vis.selectAll("g.node");
                 nodes.attr("transform", function(d){
                     return "translate(" + me.x(d.x) + "," + me.y(d.y) + ")"
@@ -116,7 +133,7 @@ class KindredTree {
                     let targetX = me.x(d.target.x);
                     let targetY = me.y(d.target.y);
                     let halfY = sourceY + (targetY - sourceY) / 2
-                    result = "M" + sourceX + "," + sourceY + " L" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
+                    result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
                     return result;
                 });
             }));
@@ -138,11 +155,11 @@ class KindredTree {
 
     perform() {
         let me = this;
-        me.root.children.forEach(function(d) {
-            if (d.children) {
-                d.children.forEach(toggleAll)
-            }
-        });
+//        me.root.children.forEach(function(d) {
+//            if (d.children) {
+//                d.children.forEach(toggleAll)
+//            }
+//        });
         me.update(me.root);
     }
 
@@ -291,9 +308,13 @@ class KindredTree {
                             str += d.clan + " Antediluvian"
                         } else {
                             str = d.generation + 'th gen.';
-                            str += " " + d.clan;
+                            str += ' ' + d.clan;
                         }
-                        str += ' ' + d.faction;
+                        str += " "+line_jump_code+' ' + d.faction;
+                        if (d.condition != 'OK')
+                            str += " "+line_jump_code+' ' + d.condition;
+                        if (d.status != 'OK')
+                            str += " "+line_jump_code+' ' + d.status;
                     }
                 }
                 return str

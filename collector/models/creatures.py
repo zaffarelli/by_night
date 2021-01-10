@@ -46,6 +46,7 @@ class Creature(models.Model):
     family = models.CharField(max_length=32, blank=True, default='')
     auspice = models.PositiveIntegerField(default=0)
     breed = models.PositiveIntegerField(default=0)
+    domitor = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='Domitor', limit_choices_to={'chronicle':chronicle.acronym, 'creature':'kindred'})
     group = models.CharField(max_length=128, blank=True, default='')
     groupspec = models.CharField(max_length=128, blank=True, default='')
     concept = models.CharField(max_length=128, blank=True, default='')
@@ -61,16 +62,6 @@ class Creature(models.Model):
     timeintorpor = models.PositiveIntegerField(default=0)
     picture = models.CharField(max_length=128, blank=True, default='')
     sire = models.CharField(max_length=64, blank=True, default='')
-    path = models.CharField(max_length=64, default='Humanity')
-    nature = models.CharField(max_length=32, blank=True, default='')
-    demeanor = models.CharField(max_length=32, blank=True, default='')
-    condition = models.CharField(max_length=32, blank=True, default='OK')
-    power1 = models.PositiveIntegerField(default=1)
-    power2 = models.PositiveIntegerField(default=1)
-    willpower = models.PositiveIntegerField(default=1)
-    level0 = models.PositiveIntegerField(default=0)
-    level1 = models.PositiveIntegerField(default=0)
-    level2 = models.PositiveIntegerField(default=0)
     rank = models.CharField(max_length=32, blank=True, default='')
     topic = models.TextField(max_length=1024, blank=True, default='')
     status = models.CharField(max_length=32, blank=True, default='OK')
@@ -81,7 +72,18 @@ class Creature(models.Model):
     experience = models.IntegerField(default=0)
     hidden = models.BooleanField(default=False)
     ghost = models.BooleanField(default=False)
-    source = models.CharField(max_length=64, blank=True, default='Great Quail')
+    source = models.CharField(max_length=64, blank=True, default='zaffarelli')
+    path = models.CharField(max_length=64, default='Humanity')
+    nature = models.CharField(max_length=32, blank=True, default='')
+    demeanor = models.CharField(max_length=32, blank=True, default='')
+    condition = models.CharField(max_length=32, blank=True, default='OK')
+    power1 = models.PositiveIntegerField(default=1)
+    power2 = models.PositiveIntegerField(default=1)
+    willpower = models.PositiveIntegerField(default=1)
+    level0 = models.PositiveIntegerField(default=0)
+    level1 = models.PositiveIntegerField(default=0)
+    level2 = models.PositiveIntegerField(default=0)
+
 
 
     attribute0 = models.PositiveIntegerField(default=1)
@@ -287,7 +289,7 @@ class Creature(models.Model):
             self.find_lineage()
 
     def json_str(self):
-        return {'name': self.name, 'clan': self.family,'condition': self.condition, 'sire': self.sire, 'generation': (13 - self.background3),
+        return {'name': self.name, 'clan': self.family,'condition': self.condition,'status': self.status, 'sire': self.sire, 'generation': (13 - self.background3),
                 'ghost': self.ghost, 'faction': self.faction, 'id': self.id, 'children': []}
 
     def find_lineage(self, lockup=False):
@@ -314,7 +316,7 @@ class Creature(models.Model):
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [
-        'name','mythic', 'primogen', 'family', 'faction', 'chronicle', 'sire', 'condition', 'status', 'embrace', 'finaldeath',
+        'name','mythic', 'primogen', 'family', 'faction', 'chronicle', 'domitor','sire', 'condition', 'status', 'embrace', 'finaldeath',
         'age', 'source', 'generation']
     ordering = ['name', 'group', 'creature']
     list_filter = ['chronicle', 'family', 'creature']

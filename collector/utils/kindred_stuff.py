@@ -145,7 +145,7 @@ def check_caine_roots():
 
 
 def blank_str(str,gen,id,sire):
-    return {'name': str, 'clan': '', 'sire': sire, 'condition': 'OK', 'generation': gen,
+    return {'name': str, 'clan': '', 'sire': sire, 'condition': 'OK', 'status':'OK', 'generation': gen,
             'ghost': True, 'faction': '', 'id': id, 'children': []}
 
 

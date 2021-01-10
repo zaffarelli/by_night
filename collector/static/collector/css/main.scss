@@ -14,6 +14,7 @@ $plate: #606060;
 $dark_plate: #303030;
 $very_dark_plate: #101010;
 $list_width: 300px;
+$ghost_opacity: 0.0;
 
 @font-face {
   font-family: 'Titre';
@@ -449,7 +450,7 @@ svg {
       stroke:#505050;
       stroke-width: 0px;
       &.ghost{
-        opacity:0.1;
+        opacity:$ghost_opacity;
       }
       &.dead{
         fill:#909090;
@@ -460,7 +461,7 @@ svg {
       stroke: #888;
       stroke-width: 0.5px;
       &.ghost{
-        opacity:0.1;
+        opacity:$ghost_opacity;
       }
       &.dead{
 
@@ -488,7 +489,7 @@ svg {
       }
     }
     &.ghost {
-    opacity:0.1;
+    opacity:$ghost_opacity;
     }
   }
 
@@ -496,7 +497,7 @@ svg {
     fill: none;
     stroke:#666;
     stroke-width: 0.25px;
-    opacity: 0.1;
+    opacity: $ghost_opacity;
     stroke-dasharray: "10";    
   }
 
@@ -508,7 +509,7 @@ svg {
     &.ghost{
       stroke: #C44;
       stroke-width: 6px;
-      opacity: 0.1;
+      opacity: $ghost_opacity;
       stroke-dasharray: "10";    
     }
   }
@@ -526,7 +527,7 @@ svg {
   }
   & .property{
     font-family: "TexteLibre";
-    font-size: 0.9em;
+    font-size: 0.8em;
     stroke:#888;  
     fill: #fff;
     stroke-width: 0.6px;
