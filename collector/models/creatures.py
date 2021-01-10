@@ -46,7 +46,7 @@ class Creature(models.Model):
     family = models.CharField(max_length=32, blank=True, default='')
     auspice = models.PositiveIntegerField(default=0)
     breed = models.PositiveIntegerField(default=0)
-    domitor = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='Domitor', limit_choices_to={'chronicle':chronicle.acronym, 'creature':'kindred'})
+    domitor = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='Domitor', limit_choices_to={'chronicle':chronicle.acronym, 'creature':'kindred'})
     group = models.CharField(max_length=128, blank=True, default='')
     groupspec = models.CharField(max_length=128, blank=True, default='')
     concept = models.CharField(max_length=128, blank=True, default='')
@@ -211,7 +211,7 @@ class Creature(models.Model):
             return self.family
 
     def __str__(self):
-        return "%s (%s | %s | %s)" % (self.name, self.family, self.group, self.player)
+        return "%s (%s %s of %s)" % (self.name, self.family, self.creature, self.faction)
 
     def fix(self):
         logger.info(f'Fixing ............ [{self.name}]')
@@ -284,12 +284,20 @@ class Creature(models.Model):
             setattr(self, "gift%d" % (x), disc)
             x += 1
             # print(disc)
+        if self.creature == 'ghoul':
+            if self.domitor:
+                if self.family == '':
+                    self.family = self.domitor.family
+                    self.faction = self.domitor.faction
         # Lineage
-        if self.creature == 'kindred':
-            self.find_lineage()
+        #if self.creature == 'kindred':
+        #    self.find_lineage()
 
     def json_str(self):
-        return {'name': self.name, 'clan': self.family,'condition': self.condition,'status': self.status, 'sire': self.sire, 'generation': (13 - self.background3),
+        sire = ''
+        if self.domitor:
+            sire = self.domitor.name
+        return {'name': self.name, 'clan': self.family, 'condition': self.condition,'status': self.status, 'sire': sire, 'generation': (13 - self.background3),
                 'ghost': self.ghost, 'faction': self.faction, 'id': self.id, 'children': []}
 
     def find_lineage(self, lockup=False):

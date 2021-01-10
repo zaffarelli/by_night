@@ -110,7 +110,7 @@ WSGI_APPLICATION = 'by_night.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nybn',
+        'NAME': 'new_york_by_night',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '',

@@ -250,3 +250,20 @@ def build_per_primogen():
     # with open(f'{settings.STATICFILES_DIRS}/js/kindred.json', 'w') as fp:
     #     json.dump(cainites['1'], fp)
     return str #cainites['1']
+
+
+def domitor_from_sire():
+    kindreds = Creature.objects.filter(chronicle=chronicle.acronym)
+    for k in kindreds:
+        if k.sire != '':
+            s = Creature.objects.get(name=k.sire)
+            if s:
+                k.domitor = s
+                print(f'--> {k.name} has sire {k.sire} so domitor must be {s.name}')
+                k.save()
+            else:
+                print(f'XX> {k.name} has sire {k.sire} was not found...')
+                k.domitor = None
+                k.save()
+        else:
+            print(f'X-> {k.name} has no sire {k.sire}.')
