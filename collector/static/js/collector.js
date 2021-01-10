@@ -126,22 +126,7 @@ function rebootlinks(){
   });
 
 
-  $('#add_creature').off();
-  $('#add_creature').on('click',function(event){
-    event.preventDefault();
-    $.ajax({
-      url: 'ajax/add/creature/',
-      success: function(answer) {
-        $('.details').html('done')
-        rebootlinks();
-      },
-      error: function(answer) {
-        $('.details').html('oops, broken')
-        rebootlinks();
-      },
 
-    });
-  });
 
   $('#build_config_pdf').off();
   $('#build_config_pdf').on('click',function(event){
@@ -258,6 +243,35 @@ function rebootlinks(){
       });
     }
   });
+
+
+  $('#add_creature').off().on('click',function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    let val = $('#userinput').val();
+    let keys_set = { creature: val}
+    $.ajax({
+        url: 'ajax/add/creature/',
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        dataType:'json',
+        data: keys_set,
+      success: function(answer) {
+        $('.details').html(answer)
+        rebootlinks();
+      },
+      error: function(answer) {
+        $('.details').html('oops, broken')
+        rebootlinks();
+      },
+
+    });
+  });
+
+
 }
 
 rebootlinks();

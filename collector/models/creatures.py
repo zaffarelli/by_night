@@ -35,12 +35,13 @@ bloodpool = {
 
 class Creature(models.Model):
     class Meta:
-        verbose_name = 'Creatures'
+        verbose_name = 'Creature'
         ordering = ['name']
 
     player = models.CharField(max_length=32, blank=True, default='')
     name = models.CharField(max_length=128, default='')
     nickname = models.CharField(max_length=128, blank=True, default='')
+    primogen = models.BooleanField(default=False)
     mythic = models.BooleanField(default=False)
     family = models.CharField(max_length=32, blank=True, default='')
     auspice = models.PositiveIntegerField(default=0)
@@ -286,20 +287,13 @@ class Creature(models.Model):
             self.find_lineage()
 
     def json_str(self):
-        return {'name': self.name, 'clan': self.family, 'sire': self.sire, 'generation': (13 - self.background3),
+        return {'name': self.name, 'clan': self.family,'condition': self.condition, 'sire': self.sire, 'generation': (13 - self.background3),
                 'ghost': self.ghost, 'faction': self.faction, 'id': self.id, 'children': []}
 
     def find_lineage(self, lockup=False):
-        """ Find the full lineage for this character """
-        # if lockup == False:
-        # sire = Creature.objects.filter(name=self.sire).first()
-        # print("--> n:%s s:[%s]"%(self.name,self.sire))
-        # if sire:
-        # lineage = sire.find_lineage(False)
-        # print("***********")
-        # print("==> n:%s s:[%s]"%(self.name,self.sire))
+        """ Find the full lineage for this character
+        """
         lineage = self.json_str()
-        print(chronicle.acronym)
         infans = Creature.objects.filter(creature='kindred', sire=self.name)
         if infans:
             for childer in infans:
@@ -317,10 +311,11 @@ class Creature(models.Model):
         else:
             return 0
 
+
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [
-        'name','mythic', 'family', 'faction', 'chronicle', 'group', 'groupspec', 'condition', 'status', 'embrace', 'finaldeath',
+        'name','mythic', 'primogen', 'family', 'faction', 'chronicle', 'sire', 'condition', 'status', 'embrace', 'finaldeath',
         'age', 'source', 'generation']
     ordering = ['name', 'group', 'creature']
-    list_filter = ['chronicle', 'family']
+    list_filter = ['chronicle', 'family', 'creature']
     search_fields = ['name']

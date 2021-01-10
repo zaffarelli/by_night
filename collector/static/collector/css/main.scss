@@ -451,6 +451,9 @@ svg {
       &.ghost{
         opacity:0.1;
       }
+      &.dead{
+        fill:#909090;
+      }
     }
     &.frame{
       fill:transparent;
@@ -459,6 +462,10 @@ svg {
       &.ghost{
         opacity:0.1;
       }
+      &.dead{
+
+      }
+
     }
     &.plate {
       fill:$dark_plate;
@@ -476,6 +483,9 @@ svg {
       &.Inconnu {
         fill:#201020;
       }
+      &.dead{
+        fill:#606060;
+      }
     }
     &.ghost {
     opacity:0.1;
@@ -486,7 +496,7 @@ svg {
     fill: none;
     stroke:#666;
     stroke-width: 0.25px;
-    opacity: 0.3;
+    opacity: 0.1;
     stroke-dasharray: "10";    
   }
 
@@ -498,7 +508,7 @@ svg {
     &.ghost{
       stroke: #C44;
       stroke-width: 6px;
-      opacity: 0.3;
+      opacity: 0.1;
       stroke-dasharray: "10";    
     }
   }

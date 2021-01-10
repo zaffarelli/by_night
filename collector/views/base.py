@@ -4,6 +4,7 @@
             /     _/      
 
 """
+
 from django.http import HttpResponse, Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from collector.models.creatures import Creature
@@ -11,14 +12,14 @@ from django.core.paginator import Paginator
 from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
 from collector.templatetags.wod_filters import as_bullets
-from collector.utils.kindred_stuff import check_caine_roots
+from collector.utils.kindred_stuff import build_per_primogen
 from collector.utils.wod_reference import get_current_chronicle
 chronicle = get_current_chronicle()
 
+
 def index(request):
-    """ The basic page for the application
-    """
-    return render(request, 'collector/index.html')
+    context = {'data': build_per_primogen() }
+    return render(request, 'collector/index.html', context=context)
 
 
 def get_list(request, pid):
@@ -94,5 +95,24 @@ def userinput(request):
 def update_lineage(request):
     """ Check Caine Lineage
     """
-    answer = check_caine_roots()
+    answer = {}#build_per_primogen()
     return JsonResponse(answer)
+
+@csrf_exempt
+def add_creature(request):
+    """ Add creature to the current chronicle
+    """
+    if request.is_ajax:
+        slug = request.POST['creature']
+    chronicle = get_current_chronicle()
+    item = Creature()
+    item.name = " ".join(slug.split("-"))
+    item.chronicle = chronicle.acronym
+    item.creature = 'kindred'
+    item.source = 'zaffarelli'
+    item.ghost = False
+    item.save()
+    context = {'answer':'creature added'}
+    return JsonResponse(context)
+
+

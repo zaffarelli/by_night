@@ -1,0 +1,14 @@
+{% load static %}
+
+<script src='{% static "js/kindred_tree.js" %}'></script>
+<script>
+    let data = {{c|safe}};
+    console.log('Get Tree Data');
+    console.log(data);
+    console.log('Build tree');
+    kt = new KindredTree(data);
+    kt.perform();
+</script>
+
+
+

@@ -2,11 +2,13 @@ from collector.models.creatures import Creature
 import json
 import logging
 import os
+from django.conf import settings
+from collector.utils.wod_reference import get_current_chronicle
 
+chronicle = get_current_chronicle()
 logger = logging.Logger(__name__)
 
-PROJECT_DIR = os.path.dirname(__file__)
-STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static/'),)
+
 
 def cleanup_spare_unknown():
     action = 0
@@ -127,8 +129,6 @@ def create_sires():
 
 
 def check_caine_roots():
-    from collector.utils.wod_reference import get_current_chronicle
-    chronicle = get_current_chronicle()
     action = 1
     while action > 0:
         action = cleanup_spare_unknown()
@@ -138,9 +138,115 @@ def check_caine_roots():
         logger.info("Number of actions executed: %d" % (action))
     x = Creature.objects.filter(creature='kindred', name="Caine").first()
     data = x.find_lineage()
-
-
-    with open(f'{STATICFILES_DIRS}js/kindred.json', 'w') as fp:
+    with open(f'{settings.STATICFILES_DIRS}/js/kindred.json', 'w') as fp:
         json.dump(data, fp)
     logger.info("--> Lineage Done")
     return {'responseText': 'Ok'}
+
+
+def blank_str(str,gen,id,sire):
+    return {'name': str, 'clan': '', 'sire': sire, 'condition': 'OK', 'generation': gen,
+            'ghost': True, 'faction': '', 'id': id, 'children': []}
+
+
+def build_per_primogen():
+    # kindreds = Creature.objects.filter(creature='kindred', chronicle=chronicle.acronym)
+    # for kindred in kindreds:
+    #     if kindred.ghost:
+    #         kindred.delete()
+        # else:
+        #
+        #     kindred.sire = ''
+        #     kindred.save()
+    cainites = {
+        '1': [],
+        '2': [],
+        '3': [],
+        '4': [],
+        '5': [],
+        '6': [],
+        '7': [],
+        '8': [],
+        '9': [],
+        '10': [],
+        '11': [],
+        '12': [],
+        '13': [],
+    }
+    for gen in range(1, 14):
+        sire = ''
+        if gen > 1:
+            sire = f'cainite_{gen-1}'
+        cainites[f'{gen}'] = [blank_str(f'cainite_{gen}', gen, gen+1000000, sire)]
+    # STARTING_GENERATION = 6
+    kindreds = Creature.objects.filter(creature='kindred', ghost=False, mythic=False, chronicle=chronicle.acronym).order_by('family')
+
+    for kindred in kindreds:
+        gen = 13 - kindred.background3
+        print(cainites[f'{gen}'])
+        k = kindred.json_str()
+        if kindred.sire == '':
+            k['sire'] = f'cainite_{gen -1}'
+        else:
+            if not kindred.ghost:
+                k['sire'] = kindred.sire
+            else:
+                k['sire'] = f'cainite_{gen - 1}'
+
+        sk = json.dumps(k, indent=4, sort_keys=False)
+        print(f'---> {sk}')
+        cainites[f'{gen}'].append(k)
+
+    #str = json.dumps(cainites,indent=4, sort_keys=False)
+    #print(str)
+
+    for gen in range(13, 0, -1):
+        print("")
+        print(f'--- Handling {gen} generation: ')
+        for k in cainites[f'{gen}']:
+            if not k['ghost']:
+                print("")
+                print(f' -- Handling {k["name"]}: ')
+            if gen > 1:
+                if k['sire'] == '':
+                    if not k['ghost']:
+                        print("No sire")
+                    sire_name = f'cainite_{gen}'
+                    if not k['ghost']:
+                        print(f"Sire name for {k['name']} is {sire_name}")
+                    sire = None
+                    for item in cainites[f'{gen-1}']:
+                        if item.get('sire') == sire_name:
+                            sire = item
+                    if sire:
+                        if not k['ghost']:
+                            print(sire)
+                        sire['children'].append(k)
+                        if not k['ghost']:
+                            print(k)
+                else:
+                    if not k['ghost']:
+                        print("Sire is not blank")
+                    sire_name = k['sire']
+                    if not k['ghost']:
+                        print(f"  - Sire name for {k['name']} is {sire_name}")
+                    sire = None
+                    for item in cainites[f'{gen-1}']:
+                        # if not k['ghost']:
+                        #     print(f'    :checking: {item}')
+                        if item['name'] == sire_name:
+                            sire = item
+                    if sire:
+                        if not k['ghost']:
+                            print(f'    --> Adding {k["name"]} to {sire["name"]} children.')
+                        sire['children'].append(k)
+                if not k['ghost']:
+                    print(sire)
+
+    str = json.dumps(cainites['1'], indent=4, sort_keys=False)
+    #print(str)
+
+    # print(settings.STATICFILES_DIRS)
+    # with open(f'{settings.STATICFILES_DIRS}/js/kindred.json', 'w') as fp:
+    #     json.dump(cainites['1'], fp)
+    return str #cainites['1']

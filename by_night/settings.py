@@ -143,3 +143,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = 'by_night_static/'
 MEDIA_ROOT = 'by_night_media'
+
+# PROJECT_DIR = os.path.dirname(__file__)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
