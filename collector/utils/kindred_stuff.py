@@ -256,14 +256,19 @@ def domitor_from_sire():
     kindreds = Creature.objects.filter(chronicle=chronicle.acronym)
     for k in kindreds:
         if k.sire != '':
-            s = Creature.objects.get(name=k.sire)
-            if s:
+            print(f'Searching sire [{k.sire}]...')
+            sires = Creature.objects.filter(name=k.sire)
+            if len(sires)==1:
+                s = sires.first()
+            else:
+                s = None
+            if s is not None:
                 k.domitor = s
                 print(f'--> {k.name} has sire {k.sire} so domitor must be {s.name}')
                 k.save()
             else:
                 print(f'XX> {k.name} has sire {k.sire} was not found...')
-                k.domitor = None
-                k.save()
+                #k.domitor = None
+                #k.save()
         else:
             print(f'X-> {k.name} has no sire {k.sire}.')

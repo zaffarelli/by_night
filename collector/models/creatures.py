@@ -297,6 +297,9 @@ class Creature(models.Model):
         sire = ''
         if self.domitor:
             sire = self.domitor.name
+        # else:
+        #     if self.sire != '':
+        #         sire = self.sire
         return {'name': self.name, 'clan': self.family, 'condition': self.condition,'status': self.status, 'sire': sire, 'generation': (13 - self.background3),
                 'ghost': self.ghost, 'faction': self.faction, 'id': self.id, 'children': []}
 
@@ -323,8 +326,8 @@ class Creature(models.Model):
 
 
 class CreatureAdmin(admin.ModelAdmin):
-    list_display = [
-        'name','mythic', 'primogen', 'family', 'faction', 'chronicle', 'domitor','sire', 'condition', 'status', 'embrace', 'finaldeath',
+    list_display = [ #'domitor',
+        'name','mythic', 'primogen', 'family', 'faction', 'chronicle', 'sire', 'domitor','condition', 'status', 'embrace', 'finaldeath',
         'age', 'source', 'generation']
     ordering = ['name', 'group', 'creature']
     list_filter = ['chronicle', 'family', 'creature']
