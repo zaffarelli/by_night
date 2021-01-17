@@ -120,7 +120,7 @@ class KindredTree {
             .attr("height", me.h + me.m[0] + me.m[2])
             .append("svg:g")
             .attr("transform", "translate(" + me.m[3] + "," + me.m[0] + ")")
-            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([1, 16]).on("zoom", function(d){
+            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([1, 4]).on("zoom", function(d){
                 let nodes = me.vis.selectAll("g.node");
                 nodes.attr("transform", function(d){
                     return "translate(" + me.x(d.x) + "," + me.y(d.y) + ")"
