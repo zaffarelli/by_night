@@ -97,12 +97,12 @@ function rebootlinks(){
       url: 'ajax/update/lineage',
       success: function(answer) {
         //$('.details').html('done')
-        console.log(anwser);
+        console.log(answer);
         rebootlinks();
       },
       error: function(answer) {
         //$('.details').html('oops, broken')
-        console.log(answer);
+        console.error(answer);
         rebootlinks();
       },
 
