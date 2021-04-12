@@ -34,6 +34,7 @@ body {
 
 
 body .wrapper .charlist{
+
   & .pagination {
     text-align: center;
     margin-top: 1em;
@@ -220,7 +221,7 @@ body .wrapper .charlist{
           border-radius:0 0 5px 5px;
           width:$list_width;
           display:block;
-          position:absolute;
+          position:fixed;
           z-index:70;
           padding-top:36px;
           transition: all 0.3s ease;          
@@ -245,7 +246,7 @@ body .wrapper .charlist{
           top:auto;
           bottom:0px;
           display:block;
-          position:absolute;
+          position:fixed;
           z-index:110;
           transition: all 0.3s ease;          
           &.hidden{

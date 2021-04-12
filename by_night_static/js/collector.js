@@ -89,6 +89,25 @@ function rebootlinks(){
     rebootlinks();
   });
 
+    $('#toggle_chronicle').off().on('click',function(event){
+        let slug = $('#userinput').val();
+        console.log('Changing chronicle to '+slug);
+        $.ajax({
+            url: 'ajax/chronicle/'+slug+'/',
+                success: function(answer) {
+                //$('.details').html('done')
+                console.log(anwser);
+                rebootlinks();
+            },
+            error: function(answer) {
+                //$('.details').html('oops, broken')
+                console.error(answer);
+                rebootlinks();
+            },
+        });
+    });
+
+
 
   $('#toggle_lineage').off();
   $('#toggle_lineage').on('click',function(event){
@@ -97,12 +116,12 @@ function rebootlinks(){
       url: 'ajax/update/lineage',
       success: function(answer) {
         //$('.details').html('done')
-        console.log(answer);
+        console.log(anwser);
         rebootlinks();
       },
       error: function(answer) {
         //$('.details').html('oops, broken')
-        console.error(answer);
+        console.log(answer);
         rebootlinks();
       },
 

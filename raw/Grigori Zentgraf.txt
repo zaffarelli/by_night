@@ -1,0 +1,17 @@
+Grigori Zentgraf
+Physical	(4)	Social	(7)	Mental	(5)	
+Strength	●●○○○	Charisma	●●○○○	Perception	●●●●○
+Dexterity	●●●○○	Manipulation	●●●●●	Intelligence	●●○○○
+Stamina	●●○○○	Appearance	●●●○○	Wits	●●○○○
+Talents	(16)	Skills	(7)	Knowledges	(12)	
+Alertness	●●○○○	Animal Ken	○○○○○	Computer	○○○○○
+Athletics	●●○○○	Crafts	○○○○○	Enigmas	●●○○○
+Brawl	●○○○○	Drive	●●○○○	Investigation	○○○○○
+Dodge	●○○○○	Etiquette	●○○○○	Law	●●○○○
+Empathy	●○○○○	Firearms	●○○○○	Linguistics	●●○○○
+Expression	●●●○○	Leadership	○○○○○	Medicine	●●○○○
+Intimidation	○○○○○	Melee	●○○○○	Occult	●○○○○
+Primal-Urge	●○○○○	Performance	○○○○○	Politics	●○○○○
+Streetwise	●●○○○	Stealth	●○○○○	Rituals	●●○○○
+Subterfuge	●●●○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Allies (2), Ancestors (2), Contacts (1), Fetish (1), Kinfolk (1), Mentor (3), Resources (1), Rites (2), Totem (3).

@@ -478,6 +478,244 @@
   </tr>    
 </table>
 
+{% elif c.creature == 'garou' %}
+
+<table cellspacing=0 cellpadding=0>
+<tr>
+  <th class='clan_logo'>{{c.family|as_tribe_plural|to_tribe_logo|safe}}</th>
+  <th colspan=6 align='left'><strong>{{ c.name }}</strong> {% if c.nickname != '' %}({{c.nickname}}){%endif%}
+    <br>Rank {{c.rank}} {{c.auspice|as_auspice}} {{c.breed|as_breed}} of the {{ c.family|as_tribe_plural }} {% if c.player != '' %}({{c.player}}){%endif%}
+  </th>
+  <th class='back'><strong><i class='fa fa-arrow-right ' id='toggle_details2'></i></strong></th>
+</tr>
+<tr>
+  <th>Age</th><td  class='editable userinput' id='{{c.id}}_age'>{{c.age}}</td>
+  <th>Sex</th><td>{{ c.sex|as_sex }}</td>
+  <th>Experience</th><td id='{{c.id}}_experience'>{{ c.experience }}</td>
+  <th>Nature</th><td class='editable userinput' id='{{c.id}}_nature'>{{c.nature}}</td>
+</tr>
+<tr>
+  <th>Breed</th><td  class='editable userinput' id='{{c.id}}_breed'>{{c.breed|as_breed}}</td>
+  <th>Status</th><td class='editable userinput' id='{{c.id}}_status'>{{c.status}}</td>
+  <th>Concept</th><td class='editable userinput' id='{{c.id}}_concept'>{{ c.concept }}</td>
+  <th>Demeanor</th><td class='editable userinput' id='{{c.id}}_demeanor'>{{c.demeanor}}</td>
+</tr>
+<tr>
+  <th>Tribe</th><td class='editable userinput' id='{{c.id}}_family'>{{ c.family }}</td>
+  <th>Auspice</th><td class='editable userinput' id='{{c.id}}_auspice'>{{ c.auspice|as_auspice }}</td>
+  <th>Sept</th><td class='editable userinput' id='{{c.id}}_group'>{{c.group}}</td>
+  <th>Pack</th><td class='editable userinput' id='{{c.id}}_groupspec'>{{c.groupspec}}</td></td>
+</tr>
+<tr>
+  <th>Faction</th><td class='editable userinput' id='{{c.id}}_faction'>{{ c.faction }}</td>
+  <th>Freebies</th><td id='{{c.id}}_freebies'>{{ c.freebies }}</td>
+  <th>Totem</th><td class='editable userinput' id='{{c.id}}_sire'>{{ c.sire }}</td>
+  <th>Condition</th><td class='editable userinput' id='{{c.id}}_condition'>{{c.condition}}</td>
+</tr>
+
+<tr>
+  <th>Rank</th><td class='editable userinput' id='{{c.id}}_rank'>{{ c.rank|as_rank }}</td>
+  <th>Expected Freebies</th><td class='editable userinput' id='{{c.id}}_expectedfreebies'>{{ c.expectedfreebies }}</td>
+  <th></th><td id='{{c.id}}_disciplinepoints'></td>
+  <th>Source</th><td class='editable userinput' id='{{c.id}}_source'>{{ c.source }}</td>
+</tr>
+
+  <tr>
+    <td colspan=2>Physical ({{c.total_physical}})</td>
+    <td colspan=2>Social ({{c.total_social}})</td>
+    <td colspan=2>Mental ({{c.total_mental}})</td>
+    <td colspan=2>Topic</td>
+  </tr>
+<tr>
+  <th>Strength</th><td class='editable updown' id='{{c.id}}_attribute0'>{{ c.attribute0|as_bullets|safe }}</td>
+  <th>Charisma</th><td class='editable updown' id='{{c.id}}_attribute3'>{{ c.attribute3|as_bullets|safe }}</td>
+  <th>Perception</th><td class='editable updown' id='{{c.id}}_attribute6'>{{c.attribute6|as_bullets|safe }}</td>
+  <td rowspan=3 colspan=2 class='topic'>{{c.summary|safe}}</td>
+</tr>
+<tr>
+  <th>Dexterity</th><td class='editable updown' id='{{c.id}}_attribute1'>{{ c.attribute1|as_bullets|safe }}</td>
+  <th>Manipulation</th><td class='editable updown' id='{{c.id}}_attribute4'>{{ c.attribute4|as_bullets|safe }}</td>
+  <th>Intelligence</th><td class='editable updown' id='{{c.id}}_attribute7'>{{c.attribute7|as_bullets|safe }}</td>
+</tr>
+<tr>
+  <th>Stamina</th><td class='editable updown' id='{{c.id}}_attribute2'>{{ c.attribute2|as_bullets|safe }}</td>
+  <th>Appearance</th><td class='editable updown' id='{{c.id}}_attribute5'>{{ c.attribute5|as_bullets|safe }}</td>
+  <th>Wits</th><td class='editable updown' id='{{c.id}}_attribute8'>{{c.attribute8|as_bullets|safe }}</td>
+</tr>
+
+  <tr>
+    <td colspan=2>Talents ({{c.total_talents}})</td>
+    <td colspan=2>Skills ({{c.total_skills}})</td>
+    <td colspan=2>Knowledges ({{c.total_knowledges}})</td>
+    <td colspan=2>Merits</td>
+  </tr>
+<tr>
+  <th>Alertness</th><td class='editable updown' id='{{c.id}}_talent0'>{{ c.talent0|as_bullets|safe }}</td>
+  <th>Animal Ken</th><td class='editable updown' id='{{c.id}}_skill0'>{{ c.skill0|as_bullets|safe }}</td>
+  <th>Computer</th><td class='editable updown' id='{{c.id}}_knowledge0'>{{c.knowledge0|as_bullets|safe }}</td>
+  {{ c.merit0|param_stack:c.id|as_discipline2:"merit0"|safe }}
+</tr>
+<tr>
+  <th>Athletics</th><td class='editable updown' id='{{c.id}}_talent1'>{{ c.talent1|as_bullets|safe }}</td>
+  <th>Crafts</th><td class='editable updown' id='{{c.id}}_skill1'>{{ c.skill1|as_bullets|safe }}</td>
+  <th>Enigmas</th><td class='editable updown' id='{{c.id}}_knowledge1'>{{c.knowledge1|as_bullets|safe }}</td>
+  {{ c.merit1|param_stack:c.id|as_discipline2:"merit1"|safe }}
+</tr>
+<tr>
+  <th>Brawl</th><td class='editable updown' id='{{c.id}}_talent2'>{{ c.talent2|as_bullets|safe }}</td>
+  <th>Drive</th><td class='editable updown' id='{{c.id}}_skill2'>{{ c.skill2|as_bullets|safe }}</td>
+  <th>Investigation</th><td class='editable updown' id='{{c.id}}_knowledge2'>{{c.knowledge2|as_bullets|safe }}</td>
+  {{ c.merit2|param_stack:c.id|as_discipline2:"merit2"|safe }}
+</tr>
+<tr>
+  <th>Dodge</th><td class='editable updown' id='{{c.id}}_talent3'>{{ c.talent3|as_bullets|safe }}</td>
+  <th>Etiquette</th><td class='editable updown' id='{{c.id}}_skill3'>{{ c.skill3|as_bullets|safe }}</td>
+  <th>Law</th><td class='editable updown' id='{{c.id}}_knowledge3'>{{c.knowledge3|as_bullets|safe }}</td>
+  {{ c.merit3|param_stack:c.id|as_discipline2:"merit3"|safe }}
+</tr>
+<tr>
+  <th>Empathy</th><td class='editable updown' id='{{c.id}}_talent4'>{{ c.talent4|as_bullets|safe }}</td>
+  <th>Firearms</th><td class='editable updown' id='{{c.id}}_skill4'>{{ c.skill4|as_bullets|safe }}</td>
+  <th>Linguistics</th><td class='editable updown' id='{{c.id}}_knowledge4'>{{c.knowledge4|as_bullets|safe }}</td>
+  {{ c.merit4|param_stack:c.id|as_discipline2:"merit4"|safe }}
+</tr>
+
+<tr>
+  <th>Expression</th><td class='editable updown' id='{{c.id}}_talent5'>{{ c.talent5|as_bullets|safe }}</td>
+  <th>Leadership</th><td class='editable updown' id='{{c.id}}_skill5'>{{ c.skill5|as_bullets|safe }}</td>
+  <th>Medicine</th><td class='editable updown' id='{{c.id}}_knowledge5'>{{c.knowledge5|as_bullets|safe }}</td>
+  {{ c.merit5|param_stack:c.id|as_discipline2:"merit5"|safe }}
+</tr>
+<tr>
+  <th>Intimidation</th><td class='editable updown' id='{{c.id}}_talent6'>{{ c.talent6|as_bullets|safe }}</td>
+  <th>Melee</th><td class='editable updown' id='{{c.id}}_skill6'>{{ c.skill6|as_bullets|safe }}</td>
+  <th>Occult</th><td class='editable updown' id='{{c.id}}_knowledge6'>{{c.knowledge6|as_bullets|safe }}</td>
+  {{ c.merit6|param_stack:c.id|as_discipline2:"merit6"|safe }}
+</tr>
+<tr>
+  <th>Primal-Urge</th><td class='editable updown' id='{{c.id}}_talent7'>{{ c.talent7|as_bullets|safe }}</td>
+  <th>Performance</th><td class='editable updown' id='{{c.id}}_skill7'>{{ c.skill7|as_bullets|safe }}</td>
+  <th>Politics</th><td class='editable updown' id='{{c.id}}_knowledge7'>{{c.knowledge7|as_bullets|safe }}</td>
+  {{ c.merit7|param_stack:c.id|as_discipline2:"merit7"|safe }}
+</tr>
+
+<tr>
+  <th>Streetwise</th><td class='editable updown' id='{{c.id}}_talent8'>{{ c.talent8|as_bullets|safe }}</td>
+  <th>Stealth</th><td class='editable updown' id='{{c.id}}_skill8'>{{ c.skill8|as_bullets|safe }}</td>
+  <th>Rituals</th><td class='editable updown' id='{{c.id}}_knowledge8'>{{c.knowledge8|as_bullets|safe }}</td>
+  {{ c.merit8|param_stack:c.id|as_discipline2:"merit8"|safe }}
+</tr>
+<tr>
+  <th>Subterfuge</th><td class='editable updown' id='{{c.id}}_talent9'>{{ c.talent9|as_bullets|safe }}</td>
+  <th>Survival</th><td class='editable updown' id='{{c.id}}_skill9'>{{ c.skill9|as_bullets|safe }}</td>
+  <th>Science</th><td class='editable updown' id='{{c.id}}_knowledge9'>{{c.knowledge9|as_bullets|safe }}</td>
+  {{ c.merit9|param_stack:c.id|as_discipline2:"merit9"|safe }}
+</tr>
+  <tr>
+    <td colspan=2>Backgrounds ({{c.total_backgrounds}})</td>
+    <td colspan=2>Gifts ({{c.total_gifts}})</td>
+    <td colspan=2>Renown</td>
+    <td colspan=2>Flaws</td>
+  </tr>
+  <tr>
+    <th>Allies</th><td class='editable updown' id='{{c.id}}_background0'>{{ c.background0|as_bullets|safe }}</td>
+    {{ c.gift0|param_stack:c.id|as_discipline2:"gift0"|safe }}
+    <th>Glory</th><td class='editable updown' id='{{c.id}}_level0'>{{ c.level0|as_bullets|safe }}</td>
+    {{ c.flaw0|param_stack:c.id|as_discipline2:"flaw0"|safe }}
+  </tr>
+  <tr>
+    <th>Ancestors</th><td class='editable updown' id='{{c.id}}_background1'>{{ c.background1|as_bullets|safe }}</td>
+    {{ c.gift1|param_stack:c.id|as_discipline2:"gift1"|safe }}
+    <th>Honor</th><td class='editable updown' id='{{c.id}}_level1'>{{ c.level1|as_bullets|safe }}</td>
+    {{ c.flaw1|param_stack:c.id|as_discipline2:"flaw1"|safe }}
+  </tr>
+  <tr>
+    <th>Contacts</th><td class='editable updown' id='{{c.id}}_background2'>{{ c.background2|as_bullets|safe }}</td>
+    {{ c.gift2|param_stack:c.id|as_discipline2:"gift2"|safe }}
+    <th>Wisdom</th><td class='editable updown' id='{{c.id}}_level2'>{{ c.level2|as_bullets|safe }}</td>
+    {{ c.flaw2|param_stack:c.id|as_discipline2:"flaw2"|safe }}
+  </tr>
+  <tr>
+    <th>Fetish</th><td class='editable updown' id='{{c.id}}_background3'>{{ c.background3|as_bullets|safe }}</td>
+    {{ c.gift3|param_stack:c.id|as_discipline2:"gift3"|safe }}
+    <th></th><td></td>
+    {{ c.flaw3|param_stack:c.id|as_discipline2:"flaw3"|safe }}
+  </tr>
+  <tr>
+    <th>Kinfolk</th><td class='editable updown' id='{{c.id}}_background4'>{{ c.background4|as_bullets|safe }}</td>
+    {{ c.gift4|param_stack:c.id|as_discipline2:"gift4"|safe }}
+    <th></th><td></td>
+    {{ c.flaw4|param_stack:c.id|as_discipline2:"flaw4"|safe }}
+  </tr>
+  <tr>
+    <th>Mentor</th><td class='editable updown' id='{{c.id}}_background5'>{{ c.background5|as_bullets|safe }}</td>
+    {{ c.gift5|param_stack:c.id|as_discipline2:"gift5"|safe }}
+    <th></th><td></td>
+    {{ c.flaw5|param_stack:c.id|as_discipline2:"flaw5"|safe }}
+  </tr>
+  <tr>
+    <th>Pure Breed</th><td class='editable updown' id='{{c.id}}_background6'>{{ c.background6|as_bullets|safe }}</td>
+    {{ c.gift6|param_stack:c.id|as_discipline2:"gift6"|safe }}
+    <th></th><td></td>
+    {{ c.flaw6|param_stack:c.id|as_discipline2:"flaw6"|safe }}
+  </tr>
+  <tr>
+    <th>Resources</th><td class='editable updown' id='{{c.id}}_background7'>{{ c.background7|as_bullets|safe }}</td>
+    {{ c.gift7|param_stack:c.id|as_discipline2:"gift7"|safe }}
+    <th></th><td></td>
+    {{ c.flaw7|param_stack:c.id|as_discipline2:"flaw7"|safe }}
+  </tr>
+  <tr>
+    <th>Rites</th><td class='editable updown' id='{{c.id}}_background8'>{{ c.background8|as_bullets|safe }}</td>
+    {{ c.gift8|param_stack:c.id|as_discipline2:"gift8"|safe }}
+    <th></th><td></td>
+    {{ c.flaw8|param_stack:c.id|as_discipline2:"flaw8"|safe }}
+  </tr>
+  <tr>
+    <th>Totem</th><td class='editable updown' id='{{c.id}}_background9'>{{ c.background9|as_bullets|safe }}</td>
+    {{ c.gift9|param_stack:c.id|as_discipline2:"gift9"|safe }}
+    <th></th><td></td>
+    {{ c.flaw9|param_stack:c.id|as_discipline2:"flaw9"|safe }}
+  </tr>
+  <tr>
+    <th></th><td></td>
+    {{ c.gift10|param_stack:c.id|as_discipline2:"gift10"|safe }}
+    <th></th><td></td>
+    <th></th><td></td>
+  </tr>
+  <tr>
+    <th></th><td></td>
+    {{ c.gift11|param_stack:c.id|as_discipline2:"gift11"|safe }}
+    <th></th><td></td>
+    <th></th><td></td>
+  </tr>
+  <tr>
+    <th></th><td></td>
+    {{ c.gift12|param_stack:c.id|as_discipline2:"gift12"|safe }}
+    <th></th><td></td>
+    <th></th><td></td>
+  </tr>
+  <tr>
+    <th></th><td></td>
+    {{ c.gift13|param_stack:c.id|as_discipline2:"gift13"|safe }}
+    <th>Rage</th><td class='editable updown' id='{{c.id}}_power1'>{{ c.power1|as_bullets|safe }}</td>
+    <th></th><td></td>
+  </tr>
+  <tr>
+    <th></th><td></td>
+    {{ c.gift14|param_stack:c.id|as_discipline2:"gift14"|safe }}
+    <th>Willpower</th><td class='editable updown' id='{{c.id}}_willpower'>{{ c.willpower|as_bullets|safe }}</td>
+    <th></th><td></td>
+  </tr>
+  <tr>
+    <th></th><td></td>
+    {{ c.gift15|param_stack:c.id|as_discipline2:"gift15"|safe }}
+    <th>Gnosis</th><td class='editable updown' id='{{c.id}}_power2'>{{ c.power2|as_bullets|safe }}</td>
+    <th></th><td></td>
+  </tr>
+</table>
+
+
 {% else %}
 
 

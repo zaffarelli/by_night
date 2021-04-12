@@ -26,7 +26,7 @@ def get_list(request, pid):
     """ Update the list of characters on the page
     """
     if request.is_ajax:
-        creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym).order_by('name').exclude(ghost=True)
+        creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym).order_by('groupspec','auspice','name').exclude(ghost=True)
         paginator = Paginator(creature_items, 25)
         creature_items = paginator.get_page(pid)
         context = {'creature_items': creature_items}
@@ -55,6 +55,7 @@ def updown(request):
                 # print("item.field=%s"%(getattr(item,afield,'Oops, nothing found')))
                 new_val = int(current_val) + int(aoffset)
                 setattr(item, afield, new_val)
+                item.need_fix = True
                 item.save()
                 x = as_bullets(getattr(item, afield))
                 answer['freebiedif'] = item.freebiedif
@@ -82,6 +83,7 @@ def userinput(request):
                 # print("item.field=%s"%(getattr(item,afield,'Oops, nothing found')))
                 # new_val = int(current_val)+int(aoffset)
                 setattr(item, afield, avalue)
+                item.need_fix = True
                 item.save()
                 x = avalue
                 answer['freebiedif'] = item.freebiedif
@@ -108,7 +110,7 @@ def add_creature(request):
     item = Creature()
     item.name = " ".join(slug.split("-"))
     item.chronicle = chronicle.acronym
-    item.creature = 'kindred'
+    item.creature = chronicle.main_creature
     item.source = 'zaffarelli'
     item.ghost = False
     item.save()
@@ -116,3 +118,10 @@ def add_creature(request):
     return JsonResponse(context)
 
 
+def change_chronicle(request,slug=''):
+    from wod_reference import set_chronicle
+    if not slug:
+        set_chronicle('none')
+    else:
+        set_chronicle(slug)
+    return HttpResponse(status=204)

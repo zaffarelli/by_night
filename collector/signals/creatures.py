@@ -13,5 +13,6 @@ from collector.models.creatures import Creature
 
 @receiver(pre_save, sender=Creature, dispatch_uid='update_creature')
 def update_creature(sender, instance, **kwargs):
-    instance.fix()
-    #pass
+    if instance.need_fix:
+        instance.fix()
+

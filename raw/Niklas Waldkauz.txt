@@ -1,0 +1,17 @@
+Niklas Waldkauz
+Physical	(6)	Social	(4)	Mental	(7)	
+Strength	●●●○○	Charisma	●●○○○	Perception	●●○○○
+Dexterity	●●●○○	Manipulation	●●○○○	Intelligence	●●●●○
+Stamina	●●●○○	Appearance	●●●○○	Wits	●●●●○
+Talents	(9)	Skills	(7)	Knowledges	(19)	
+Alertness	●●○○○	Animal Ken	●○○○○	Computer	●●○○○
+Athletics	●●○○○	Crafts	●○○○○	Enigmas	●●○○○
+Brawl	○○○○○	Drive	●○○○○	Investigation	●○○○○
+Dodge	○○○○○	Etiquette	●○○○○	Law	●○○○○
+Empathy	●●○○○	Firearms	○○○○○	Linguistics	●●●○○
+Expression	●●○○○	Leadership	○○○○○	Medicine	●●○○○
+Intimidation	○○○○○	Melee	○○○○○	Occult	●○○○○
+Primal-Urge	●○○○○	Performance	●○○○○	Politics	●○○○○
+Streetwise	○○○○○	Stealth	●○○○○	Rituals	●○○○○
+Subterfuge	○○○○○	Survival	●○○○○	Science	●●●●●
+Backgrounds: Allies (2), Ancestors (2), Kinfolk (2), Mentor (2), Resources (1).

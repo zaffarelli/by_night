@@ -1,0 +1,17 @@
+Sonja Sienfreig
+Physical	(6)	Social	(5)	Mental	(9)	
+Strength	●●●○○	Charisma	●●○○○	Perception	●●●●○
+Dexterity	●●●●○	Manipulation	●●○○○	Intelligence	●●●○○
+Stamina	●●○○○	Appearance	●●●●○	Wits	●●●●●
+Talents	(14)	Skills	(5)	Knowledges	(9)	
+Alertness	●●●○○	Animal Ken	●●○○○	Computer	○○○○○
+Athletics	●●○○○	Crafts	○○○○○	Enigmas	○○○○○
+Brawl	●○○○○	Drive	○○○○○	Investigation	○○○○○
+Dodge	●○○○○	Etiquette	●○○○○	Law	●○○○○
+Empathy	●●●○○	Firearms	○○○○○	Linguistics	●○○○○
+Expression	●○○○○	Leadership	○○○○○	Medicine	●●●○○
+Intimidation	●○○○○	Melee	○○○○○	Occult	●○○○○
+Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
+Streetwise	○○○○○	Stealth	●○○○○	Rituals	●●●○○
+Subterfuge	●●○○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Allies (3), Ancestors (2), Contacts (1), Fetish (1), Kinfolk (3), Mentor (1), Pure Breed (1), Totem (2).

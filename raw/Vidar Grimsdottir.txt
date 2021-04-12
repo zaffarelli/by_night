@@ -1,0 +1,17 @@
+Vidar Grimsdottir
+Physical	(8)	Social	(3)	Mental	(5)	
+Strength	●●●●○	Charisma	●●○○○	Perception	●●●○○
+Dexterity	●●●○○	Manipulation	●●○○○	Intelligence	●●●○○
+Stamina	●●●●○	Appearance	●●○○○	Wits	●●○○○
+Talents	(19)	Skills	(9)	Knowledges	(8)	
+Alertness	●●○○○	Animal Ken	○○○○○	Computer	●○○○○
+Athletics	●●●●○	Crafts	●●●○○	Enigmas	●○○○○
+Brawl	●●●○○	Drive	●○○○○	Investigation	○○○○○
+Dodge	●●●○○	Etiquette	●○○○○	Law	●○○○○
+Empathy	●●○○○	Firearms	○○○○○	Linguistics	●●○○○
+Expression	○○○○○	Leadership	●●○○○	Medicine	○○○○○
+Intimidation	●●○○○	Melee	○○○○○	Occult	●○○○○
+Primal-Urge	●○○○○	Performance	●○○○○	Politics	○○○○○
+Streetwise	●○○○○	Stealth	○○○○○	Rituals	○○○○○
+Subterfuge	●○○○○	Survival	●○○○○	Science	●●○○○
+Backgrounds: Allies (2), Ancestors (4), Contacts (3), Fetish (3), Kinfolk (2), Pure Breed (2), Resources (1), Rites (1), Totem (1).

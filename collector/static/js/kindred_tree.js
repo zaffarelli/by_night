@@ -243,6 +243,7 @@ class KindredTree {
             .attr("width", me.boxWidth * 0.30)
             .attr("height", me.boxHeight * 0.30)
             .on("click", function(d) {
+                console.log("Just ctrl+clicked on image for " + d.id + " [" + d.name + "]!");
                 if (d3.event.ctrlKey) {
                     toggleSimple(d);
                 } else {
@@ -274,7 +275,7 @@ class KindredTree {
             .call(wrap, me.boxWidth * 0.7)
             .on("click", function(d) {
                 if (d3.event.ctrlKey) {
-                    console.log("Just ctrl+clicked on " + d.id + " [" + d.name + "]!");
+                    console.log("Just ctrl+clicked on text for " + d.id + " [" + d.name + "]!");
 
                     $.ajax({
                         url: 'ajax/view/creature/' + d.id + '/',

@@ -104,3 +104,55 @@ def as_editable_updown(value, options=''):
   afield = keys[1]
   res = "<td class='editable updown' id='%d_%s'>"%(aid,afield)
   return res
+
+
+@register.filter(name='as_rank')
+def as_rank(value):
+  try:
+    ranks = ['Cliath','Fostern','Adren','Athro','Elder']
+    rank = ranks[int(value)-1]
+  except:
+    rank = 'none'
+  return rank
+
+@register.filter(name='as_breed')
+def as_breed(value):
+  try:
+    breeds = ['Homid','Metis','Lupus']
+    breed = breeds[int(value)]
+  except:
+    breed = 'none'
+  return breed
+
+@register.filter(name='as_auspice')
+def as_auspice(value):
+  try:
+    auspices = ['Ragabash','Theurge','Philodox','Galliard','Ahroun']
+    auspice = auspices[int(value)]
+  except:
+    auspice = 'none'
+  return auspice
+
+@register.filter(name='as_sex')
+def as_sex(value):
+  sex = 'Male'
+  if value:
+    sex = 'Female'
+  return sex
+
+@register.filter(name='as_tribe_plural')
+def as_tribe_plural(value):
+  plural = f'{value}s'
+  if value == 'Get of Fenris':
+    plural = 'Gets of Fenris'
+  elif value == 'Child of Gaia':
+    plural = 'Children of Gaia'
+  elif value == 'Black Fury':
+    plural = 'Black Furies'
+  return plural
+
+@register.filter(name='to_tribe_logo')
+def to_tribe_logo(val):
+  logo_str = '_'.join(val.lower().split(' '))
+  res = '<img src="/static/collector/tribes/%s.webp"> '%(logo_str)
+  return res

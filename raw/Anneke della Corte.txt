@@ -1,0 +1,17 @@
+Anneke della Corte
+Physical	(5)	Social	(3)	Mental	(7)	
+Strength	●●○○○	Charisma	●●○○○	Perception	●●●○○
+Dexterity	●●●○○	Manipulation	●●○○○	Intelligence	●●●○○
+Stamina	●●●○○	Appearance	●●○○○	Wits	●●●●○
+Talents	(13)	Skills	(9)	Knowledges	(17)	
+Alertness	●○○○○	Animal Ken	●○○○○	Computer	●●○○○
+Athletics	●●○○○	Crafts	○○○○○	Enigmas	●●○○○
+Brawl	●○○○○	Drive	●○○○○	Investigation	○○○○○
+Dodge	●○○○○	Etiquette	●●○○○	Law	●●●●○
+Empathy	●●○○○	Firearms	○○○○○	Linguistics	●●●○○
+Expression	●●○○○	Leadership	○○○○○	Medicine	○○○○○
+Intimidation	●○○○○	Melee	●○○○○	Occult	●●○○○
+Primal-Urge	●○○○○	Performance	●●●○○	Politics	●●○○○
+Streetwise	○○○○○	Stealth	○○○○○	Rituals	●●○○○
+Subterfuge	●●○○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Allies (1), Ancestors (2), Contacts (1), Fetish (1), Kinfolk (2), Mentor (2), Pure Breed (1), Resources (1), Totem (2).
