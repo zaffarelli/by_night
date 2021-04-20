@@ -1,0 +1,20 @@
+Alphonse Überziegt
+Nature		Rebel	Demeanor	Celebrant
+Concept		Painter	Age	23
+Physical	(5)	Social	(7)	Mental	(3)
+Strength	●●○○○	Charisma	●●●○○	Perception	●●○○○
+Dexterity	●●●○○	Manipulation	●●●○○	Intelligence	●●○○○
+Stamina	●●●○○	Appearance	●●●●○	Wits	●●○○○
+Talents	(19)	Skills	(20)	Knowledges	(15)	
+Alertness	●●○○○	Animal Ken	●○○○○	Computer	●●●○○
+Athletics	●○○○○	Crafts	●●○○○	Enigmas	●○○○○
+Brawl	●○○○○	Drive	●○○○○	Investigation	●○○○○
+Dodge	●●○○○	Etiquette	●●●○○	Law	●○○○○
+Empathy	●●○○○	Firearms	●●○○○	Linguistics	●○○○○
+Expression	●●●●○	Leadership	●●●○○	Medicine	●●○○○
+Intimidation	●○○○○	Melee	●●●●●	Occult	●○○○○
+Primal-Urge	●○○○○	Performance	●○○○○	Politics	●●●○○
+Streetwise	●●○○○	Stealth	●○○○○	Rituals	●○○○○
+Subterfuge	●●●○○	Survival	●○○○○	Science	●○○○○
+Backgrounds: Fetish (2), Kinfolk (2), Resources (1).
+Gifts: Auspex (4), Presence (5), Celerity (5).

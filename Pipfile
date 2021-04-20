@@ -29,6 +29,7 @@ xhtml2pdf = "*"
 Django = "==2.2.4"
 Pillow = "*"
 PyPDF2 = "*"
+pdfrw = "*"
 
 [requires]
 python_version = "3.6"

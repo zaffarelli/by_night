@@ -1,0 +1,36 @@
+{% load wod_filters %}
+<tr>
+    <th colspan=2 class='clan_logo'>
+        {% if c.creature == 'ghoul' %}
+            {{c.domitor.family|to_logo|safe}}
+        {% elif c.creature == "garou" %}
+            {{c.family|as_tribe_plural|to_tribe_logo|safe}}
+        {% elif c.creature == "kindred" %}
+            {{c.family|to_logo|safe}}
+        {% elif c.creature == "kinfolk" %}
+            {{"kinfolk"|to_logo|safe}}
+        {% else %}
+
+        {% endif %}
+    </th>
+    <th colspan=5>
+        <strong> {{ c.name }}</strong>
+        {% if c.nickname != '' %}
+            &nbsp;({{c.nickname}})
+        {%endif%}
+        {% if c.creature == 'garou' %}
+            <br/>Rank {{c.rank}} {{c.auspice|as_auspice}} {{c.breed|as_breed}} of the {{ c.family|as_tribe_plural }}
+        {% elif c.creature == 'kindred' %}
+            <br/>{{c.background3|as_generation }} generation {{ c.family }}
+        {% else %}
+            <br/>{{c.concept}}
+        {%endif%}
+        {% if c.domitor %}
+            <br/>Ghoul of <em>{{ c.domitor.name }}</em>
+        {%endif%}
+        {% if c.player != '' %}
+            <br/>({{c.player}})
+        {%endif%}
+    </th>
+    <th class='back'><strong><i class='fa fa-arrow-right ' id='toggle_details2'></i></strong></th>
+</tr>

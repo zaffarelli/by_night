@@ -1,0 +1,20 @@
+Fatima
+Nature			Demeanor	
+Concept			Age	25
+Physical	(7)	Social	(6)	Mental	(6)
+Strength	●●●○○	Charisma	●●●○○	Perception	●●●○○
+Dexterity	●●●●○	Manipulation	●●●●○	Intelligence	●●●●○
+Stamina	●●●○○	Appearance	●●○○○	Wits	●●○○○
+Talents	(21)	Skills	(10)	Knowledges	(11)	
+Alertness	●●○○○	Animal Ken	●●○○○	Computer	●●○○○
+Athletics	●○○○○	Crafts	○○○○○	Enigmas	○○○○○
+Brawl	●●●○○	Drive	○○○○○	Investigation	○○○○○
+Dodge	●●○○○	Etiquette	●●○○○	Law	●●○○○
+Empathy	●○○○○	Firearms	○○○○○	Linguistics	●○○○○
+Expression	●●●○○	Leadership	●○○○○	Medicine	●○○○○
+Intimidation	●○○○○	Melee	●●○○○	Occult	●○○○○
+Primal-Urge	●●●○○	Performance	●○○○○	Politics	●●○○○
+Streetwise	●●○○○	Stealth	●●○○○	Rituals	●●○○○
+Subterfuge	●●●○○	Survival	○○○○○	Science	○○○○○
+Backgrounds: Fetish (6).
+Gifts: Obfuscate (5), Presence (3), Serpentis (5).

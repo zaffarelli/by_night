@@ -1,5 +1,7 @@
 Anneke della Corte
-Physical	(5)	Social	(3)	Mental	(7)	
+Nature		Visionary	Demeanor	Penitent
+Concept		Singer/Musician	Age	34
+Physical	(5)	Social	(3)	Mental	(7)
 Strength	●●○○○	Charisma	●●○○○	Perception	●●●○○
 Dexterity	●●●○○	Manipulation	●●○○○	Intelligence	●●●○○
 Stamina	●●●○○	Appearance	●●○○○	Wits	●●●●○
@@ -14,4 +16,5 @@ Intimidation	●○○○○	Melee	●○○○○	Occult	●●○○○
 Primal-Urge	●○○○○	Performance	●●●○○	Politics	●●○○○
 Streetwise	○○○○○	Stealth	○○○○○	Rituals	●●○○○
 Subterfuge	●●○○○	Survival	●○○○○	Science	○○○○○
-Backgrounds: Allies (1), Ancestors (2), Contacts (1), Fetish (1), Kinfolk (2), Mentor (2), Pure Breed (1), Resources (1), Totem (2).
+Backgrounds: Kinfolk (1), Resources (3), Rites (2), Totem (1).
+Gifts: Smell of Man (1), Scent of the True Form (1), Hare's Leap (1).

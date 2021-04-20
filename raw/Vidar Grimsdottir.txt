@@ -1,5 +1,7 @@
 Vidar Grimsdottir
-Physical	(8)	Social	(3)	Mental	(5)	
+Nature		Caregiver	Demeanor	Loner
+Concept		Melter Technician / Security Agent	Age	28
+Physical	(8)	Social	(3)	Mental	(5)
 Strength	●●●●○	Charisma	●●○○○	Perception	●●●○○
 Dexterity	●●●○○	Manipulation	●●○○○	Intelligence	●●●○○
 Stamina	●●●●○	Appearance	●●○○○	Wits	●●○○○
@@ -14,4 +16,5 @@ Intimidation	●●○○○	Melee	○○○○○	Occult	●○○○○
 Primal-Urge	●○○○○	Performance	●○○○○	Politics	○○○○○
 Streetwise	●○○○○	Stealth	○○○○○	Rituals	○○○○○
 Subterfuge	●○○○○	Survival	●○○○○	Science	●●○○○
-Backgrounds: Allies (2), Ancestors (4), Contacts (3), Fetish (3), Kinfolk (2), Pure Breed (2), Resources (1), Rites (1), Totem (1).
+Backgrounds: Allies (1), Pure Breed (3), Totem (1).
+Gifts: Apecraft's Blessing (1), Inspiration (1), Lambent Flame (1).

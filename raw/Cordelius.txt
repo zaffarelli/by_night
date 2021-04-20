@@ -1,0 +1,20 @@
+Cordelius
+Nature			Demeanor	
+Concept			Age	18
+Physical	(9)	Social	(2)	Mental	(7)
+Strength	●●●●●	Charisma	●●○○○	Perception	●●●○○
+Dexterity	●●●●○	Manipulation	●●●○○	Intelligence	●●●○○
+Stamina	●●●○○	Appearance	○○○○○	Wits	●●●●○
+Talents	(18)	Skills	(21)	Knowledges	(15)	
+Alertness	●●●○○	Animal Ken	●●●○○	Computer	○○○○○
+Athletics	●○○○○	Crafts	●●○○○	Enigmas	○○○○○
+Brawl	●●●○○	Drive	○○○○○	Investigation	○○○○○
+Dodge	●●●○○	Etiquette	●●●○○	Law	●●●○○
+Empathy	○○○○○	Firearms	○○○○○	Linguistics	●●○○○
+Expression	●○○○○	Leadership	●●●●●	Medicine	●●●○○
+Intimidation	●●○○○	Melee	○○○○○	Occult	●●○○○
+Primal-Urge	●●○○○	Performance	○○○○○	Politics	●●●○○
+Streetwise	●●●○○	Stealth	●●●●○	Rituals	●●○○○
+Subterfuge	○○○○○	Survival	●●●●○	Science	○○○○○
+Backgrounds: Fetish (7), Totem (4).
+Gifts: Animalism (5), Auspex (4), Celerity (5), Fortitude (3), Obfuscate (5), Potence (5), Protean (4), Thaumaturgy (4).

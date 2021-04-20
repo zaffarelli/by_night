@@ -1,5 +1,7 @@
 Pietro Rinaldi
-Physical	(0)	Social	(0)	Mental	(0)	
+Nature		Traditionalist	Demeanor	Bravo
+Concept			Age	31
+Physical	(0)	Social	(0)	Mental	(0)
 Strength	●○○○○	Charisma	●○○○○	Perception	●○○○○
 Dexterity	●○○○○	Manipulation	●○○○○	Intelligence	●○○○○
 Stamina	●○○○○	Appearance	●○○○○	Wits	●○○○○
@@ -15,3 +17,4 @@ Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
 Streetwise	○○○○○	Stealth	○○○○○	Rituals	○○○○○
 Subterfuge	○○○○○	Survival	○○○○○	Science	○○○○○
 Backgrounds: .
+Gifts: .

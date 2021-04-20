@@ -1,0 +1,20 @@
+Aleksander Groff
+Nature		Bon vivant	Demeanor	Director
+Concept		Sargeant-Chief Firefighter	Age	42
+Physical	(4)	Social	(2)	Mental	(3)
+Strength	●●○○○	Charisma	●●○○○	Perception	●●○○○
+Dexterity	●●●○○	Manipulation	●○○○○	Intelligence	●●○○○
+Stamina	●●○○○	Appearance	●●○○○	Wits	●●○○○
+Talents	(10)	Skills	(10)	Knowledges	(8)	
+Alertness	●○○○○	Animal Ken	○○○○○	Computer	●○○○○
+Athletics	●●●○○	Crafts	●○○○○	Enigmas	○○○○○
+Brawl	○○○○○	Drive	●●●○○	Investigation	○○○○○
+Dodge	○○○○○	Etiquette	○○○○○	Law	●○○○○
+Empathy	●●○○○	Firearms	○○○○○	Linguistics	●○○○○
+Expression	○○○○○	Leadership	○○○○○	Medicine	●○○○○
+Intimidation	●●○○○	Melee	○○○○○	Occult	●●○○○
+Primal-Urge	●○○○○	Performance	●●●●○	Politics	○○○○○
+Streetwise	●○○○○	Stealth	○○○○○	Rituals	●○○○○
+Subterfuge	○○○○○	Survival	●●○○○	Science	●○○○○
+Backgrounds: Mentor (2), Resources (1).
+Gifts: .

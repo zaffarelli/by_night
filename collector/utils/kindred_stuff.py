@@ -272,3 +272,34 @@ def domitor_from_sire():
                 #k.save()
         else:
             print(f'X-> {k.name} has no sire {k.sire}.')
+
+def build_gaia_wheel():
+    creatures = Creature.objects.filter(ghost=False, mythic=False, chronicle=chronicle.acronym).order_by('-faction','sire')
+    wyrm_list = []
+    weaver_list = []
+    wyld_list = []
+    for c in creatures:
+        creature_dict = {
+            'id':c.id,
+            'name':c.name,
+            'creature':(c.creature),
+            'family':c.family,
+            'group':c.group,
+            'groupspec':c.groupspec,
+            'display_gauge':c.display_gauge,
+            'display_pole':c.display_pole,
+            'freebies': c.freebies,
+            'auspice':c.auspice,
+            'breed': c.breed,
+            'rank': c.rank,
+            'status': c.status
+        }
+        if (c.faction == 'Camarilla') or (c.faction=='Sabbat') or (c.faction=='Pentex'):
+            wyrm_list.append(creature_dict)
+        elif (c.faction=='Gaia'):
+            wyld_list.append(creature_dict)
+        else:
+            weaver_list.append(creature_dict)
+    d3js_data = {'weaver':weaver_list,'wyrm':wyrm_list,'wyld':wyld_list}
+    all = json.dumps(d3js_data, indent=4, sort_keys=False)
+    return all

@@ -1,13 +1,8 @@
-"""
-           /       '_ /_/ 
-          ()(/__/)/(//)/  
-            /     _/      
-
-"""
 from django.db import models
 from django.contrib import admin
 from datetime import datetime
 import json
+from pdfrw import PdfReader, PdfWriter, PageMerge
 
 import logging
 
@@ -66,6 +61,11 @@ class Creature(models.Model):
     chronicle = models.CharField(max_length=8, default='NYBN')
     creature = models.CharField(max_length=20, default='kindred')
     sex = models.BooleanField(default=False)
+
+    display_gauge = models.PositiveIntegerField(default=0)
+    display_pole = models.CharField(max_length=64,default='',blank=True)
+
+
     trueage = models.PositiveIntegerField(default=0)
     embrace = models.IntegerField(default=0)
     finaldeath = models.IntegerField(default=0)
@@ -263,17 +263,39 @@ class Creature(models.Model):
         # Bloodpool
         self.power2 = bloodpool[13 - self.background3]
 
+        self.display_gauge = (self.background3 +1 ) + self.attribute7
+        self.display_pole = self.groupspec
+
+
     def fix_ghoul(self):
         if self.domitor:
             if self.family == '':
                 self.family = self.domitor.family
                 self.faction = self.domitor.faction
+        self.expectedfreebies = int(((self.trueage - 10) / 10) * 3)
+        self.display_gauge = self.domitor.display_gauge / 3
 
     def fix_mortal(self):
-        self.age = self.trueage
+        self.trueage = self.age
+        self.power2 = 5+self.attribute2 + self.attribute3
+        if self.willpower < 2:
+            self.willpower = 2
+        self.expectedfreebies = int(((self.age-10)/10) * 5)
+        self.display_gauge = self.background7+self.background9
+
 
     def fix_kinfolk(self):
-        self.age = self.trueage
+        self.trueage = self.age
+        self.expectedfreebies = int(((self.age - 10) / 10) * 5)
+
+    def fix_fomori(self):
+        self.display_gauge = self.power2
+        self.expectedfreebies = int(((self.age - 10) / 10) * 5)
+
+    def fix_bane(self):
+        self.display_gauge = self.power2 * 2
+
+
 
     def fix_garou(self):
         self.trueage = self.age
@@ -391,52 +413,37 @@ class Creature(models.Model):
         elif self.breed == 2:  # Lupus
             if self.power2 < 5:
                 self.power2 = 5
+        self.display_gauge = ((self.auspice + self.power1 + self.power2)*self.rank + (self.level0/2+self.level1+self.level2*2))/3
+        if self.breed != 1:
+            self.display_gauge += 1
+        self.display_pole = self.sire
 
     def fix(self):
         logger.info(f'Fixing ............ [{self.name}]')
-        # 15 freebies
-        self.freebies = -15
-        # 3 3 3 Attributes (x5)
-        self.freebies -= 90
-        # 7 5 3 Abilities (x2)
-        self.freebies -= 30
-        # 3 Backgrounds
-        self.freebies -= 3
-        # 0 Disciplines/Gift (x7)
-        self.freebies -= 0
+        # at:3/3/3 ab:7/5/3 b:3 w:2 f:15
+        self.freebies = -((3+3+3 +9)*5 + (7+5+3)*2 + 3 + 2 + 15 )
         if self.creature == 'kindred':
-            # 7 5 3 Attributes (x5)
-            self.freebies -= 30
-            # 13 9 5 Abilities (x2)
-            self.freebies -= 24
-            # 5 Backgrounds
-            self.freebies -= 2
-            # 3 Disciplines (x7)
-            self.freebies -= 21
-            # 7+3 virtues (x2)
-            self.freebies -= 20
-            # Humanity  x1  (deduced from virtues)
-            # Willpower  1x  (deduced from virtues)
-            self.freebies -= 10
+            # at:7/5/3 ab:13/9/5 b:5 d:21 v:7 wh:10 f:15
+            self.freebies = -((7 + 5 + 3 +9) * 5 + (13 + 9 + 5) * 2 + 7*3 + (7+3)*2 + 10 + 15)
             self.fix_kindred()
         elif self.creature == 'garou':
-            # 7 5 3 Attributes (x5)
-            self.freebies -= 30
-            # 13 9 5 Abilities (x2)
-            self.freebies -= 24
-            # 5 Backgrounds
-            self.freebies -= 2
-            # 3 Gifts (x7)
-            self.freebies -= 21
-            # Gnosis (x1)    (deduced from breed)
-            # Willpower (x1) (deduced from tribe)
-            # Rage (x1)      (deduced from auspice)
-            self.freebies -= 16
+            # at:7/5/3 ab:13/9/5 b:5 g:21 rgw:16 f:15
+            self.freebies = -((7 + 5 + 3+9) * 5 + (13 + 9 + 5) * 2 + 5 + 7*3 + 16 + 15)
             self.fix_garou()
         elif self.creature == 'ghoul':
             self.fix_ghoul()
         elif self.creature == 'kinfolk':
+            # at:6/4/3 ab:11/7/4 b:5 w:3 f:21
+            self.freebies -= 20
+            self.freebies -= 14
+            self.freebies -= 2
+            self.freebies -= 3
+            self.freebies -= 7
             self.fix_kinfolk()
+        elif self.creature == 'fomori':
+            self.fix_fomori()
+        elif self.creature == 'bane':
+            self.fix_bane()
         else:
             self.creature = 'mortal'
             self.fix_mortal()
@@ -458,7 +465,9 @@ class Creature(models.Model):
         filename = f'./raw/{self.name}.txt'
         lines = []
         lines.append(f'{self.name}\n')
-        lines.append(f'Physical\t({self.total_physical})\tSocial\t({self.total_social})\tMental\t({self.total_mental})\t\n')
+        lines.append(f'Nature\t\t{self.nature}\tDemeanor\t{self.demeanor}\n')
+        lines.append(f'Concept\t\t{self.concept}\tAge\t{self.age}\n')
+        lines.append(f'Physical\t({self.total_physical})\tSocial\t({self.total_social})\tMental\t({self.total_mental})\n')
         lines.append(
             f'Strength\t{self.val_as_dots(self.attribute0)}\tCharisma\t{self.val_as_dots(self.attribute3)}\tPerception\t{self.val_as_dots(self.attribute6)}\n')
         lines.append(
@@ -467,13 +476,17 @@ class Creature(models.Model):
             f'Stamina\t{self.val_as_dots(self.attribute2)}\tAppearance\t{self.val_as_dots(self.attribute5)}\tWits\t{self.val_as_dots(self.attribute8)}\n')
         lines.append(f'Talents\t({self.total_talents})\tSkills\t({self.total_skills})\tKnowledges\t({self.total_knowledges})\t\n')
         for n in range(10):
-            lines.append(
-                f'{GAROU_TALENTS[n]}\t{self.val_as_dots(getattr(self, f"talent{n}"))}\t{GAROU_SKILLS[n]}\t{self.val_as_dots(getattr(self, f"skill{n}"))}\t{GAROU_KNOWLEDGES[n]}\t{self.val_as_dots(getattr(self, f"knowledge{n}"))}\n')
+            lines.append(f'{GAROU_TALENTS[n]}\t{self.val_as_dots(getattr(self, f"talent{n}"))}\t{GAROU_SKILLS[n]}\t{self.val_as_dots(getattr(self, f"skill{n}"))}\t{GAROU_KNOWLEDGES[n]}\t{self.val_as_dots(getattr(self, f"knowledge{n}"))}\n')
         blines = []
         for n in range(10):
-            if getattr(self, f"talent{n}")>0:
-                blines.append(f'{GAROU_BACKGROUNDS[n]} ({getattr(self, f"talent{n}")})')
+            if getattr(self, f"background{n}")>0:
+                blines.append(f'{GAROU_BACKGROUNDS[n]} ({getattr(self, f"background{n}")})')
         lines.append(f'Backgrounds: {", ".join(blines)}.\n')
+        glines = []
+        for n in range(20):
+            if getattr(self, f"gift{n}"):
+                glines.append(f'{getattr(self, f"gift{n}")}')
+        lines.append(f'Gifts: {", ".join(glines)}.\n')
 
 
         f = open(filename, 'w')
@@ -544,8 +557,14 @@ class Creature(models.Model):
         self.freebies += getattr(self, 'power1') * 1  # Rage or Humanity
         self.freebies += getattr(self, 'willpower') * 1  # Willpower
 
-        self.freebiedif = 0
-        # self.expectedfreebies  - self.freebies
+        self.freebiesdif = self.expectedfreebies - self.freebies
+        if self.freebiesdif == 0:
+            self.status = 'OK'
+        elif self.freebiesdif < 0:
+            self.status = 'UNBALANCED'
+        else:
+            self.status = 'OK+'
+
         # Sort disciplines
         disciplines = []
         for x in range(15):
@@ -556,6 +575,12 @@ class Creature(models.Model):
         for disc in disciplines:
             setattr(self, "gift%d" % (x), disc)
             x += 1
+
+        if self.creature == 'kinfolk':
+            if self.freebies > 0:
+                self.display_gauge = self.freebies / 5
+            else:
+                self.display_gauge = 1
 
     def json_str(self):
         sire = ''
@@ -599,10 +624,10 @@ def refix(modeladmin, request, queryset):
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
-        'name', 'family', 'freebies', 'freebiedif', 'groupspec', 'faction', 'chronicle', 'sire', 'domitor', 'condition',
+        'name', 'family', 'display_gauge','display_pole','freebies', 'concept', 'groupspec', 'faction', 'sire', 'domitor', 'condition',
         'status', 'embrace', 'finaldeath',
         'age', 'source', 'generation']
     ordering = ['name', 'group', 'creature']
     actions = [refix]
-    list_filter = ['chronicle', 'family', 'creature']
+    list_filter = ['chronicle','group','groupspec','faction', 'family', 'creature']
     search_fields = ['name']

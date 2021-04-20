@@ -1,0 +1,20 @@
+François Lapointe
+Nature		Caregiver	Demeanor	Director
+Concept			Age	36
+Physical	(3)	Social	(4)	Mental	(5)
+Strength	●●○○○	Charisma	●●●○○	Perception	●●○○○
+Dexterity	●●○○○	Manipulation	●●○○○	Intelligence	●●●●○
+Stamina	●●○○○	Appearance	●●○○○	Wits	●●○○○
+Talents	(0)	Skills	(0)	Knowledges	(0)	
+Alertness	○○○○○	Animal Ken	○○○○○	Computer	○○○○○
+Athletics	○○○○○	Crafts	○○○○○	Enigmas	○○○○○
+Brawl	○○○○○	Drive	○○○○○	Investigation	○○○○○
+Dodge	○○○○○	Etiquette	○○○○○	Law	○○○○○
+Empathy	○○○○○	Firearms	○○○○○	Linguistics	○○○○○
+Expression	○○○○○	Leadership	○○○○○	Medicine	○○○○○
+Intimidation	○○○○○	Melee	○○○○○	Occult	○○○○○
+Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
+Streetwise	○○○○○	Stealth	○○○○○	Rituals	○○○○○
+Subterfuge	○○○○○	Survival	○○○○○	Science	○○○○○
+Backgrounds: Ancestors (1), Contacts (2), Fetish (4), Kinfolk (4), Mentor (2), Resources (5), Rites (4), Totem (3).
+Gifts: Auspex (5), Dominate (4), Dementation (3), Obfuscate (5).

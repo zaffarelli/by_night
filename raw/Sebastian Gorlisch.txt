@@ -1,0 +1,20 @@
+Sebastian Gorlisch
+Nature		Hedonist	Demeanor	Lone Wolf
+Concept			Age	36
+Physical	(3)	Social	(3)	Mental	(3)
+Strength	●●○○○	Charisma	●●○○○	Perception	●●○○○
+Dexterity	●●○○○	Manipulation	●●○○○	Intelligence	●●○○○
+Stamina	●●○○○	Appearance	●●○○○	Wits	●●○○○
+Talents	(21)	Skills	(17)	Knowledges	(14)	
+Alertness	●●●○○	Animal Ken	●●●○○	Computer	○○○○○
+Athletics	●●●○○	Crafts	●●●○○	Enigmas	●●●○○
+Brawl	●●●○○	Drive	●○○○○	Investigation	●●○○○
+Dodge	●●○○○	Etiquette	●●●○○	Law	●○○○○
+Empathy	●●○○○	Firearms	○○○○○	Linguistics	●●○○○
+Expression	●○○○○	Leadership	●●●○○	Medicine	●○○○○
+Intimidation	●●●○○	Melee	●●○○○	Occult	●○○○○
+Primal-Urge	●●●○○	Performance	●○○○○	Politics	●○○○○
+Streetwise	○○○○○	Stealth	○○○○○	Rituals	●●●○○
+Subterfuge	●○○○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Fetish (1), Resources (1), Rites (1), Totem (2).
+Gifts: Persuasion (1), Sense Wyrm (1).

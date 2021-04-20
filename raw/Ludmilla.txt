@@ -1,17 +1,20 @@
 Ludmilla
-Physical	(0)	Social	(0)	Mental	(0)	
-Strength	●○○○○	Charisma	●○○○○	Perception	●○○○○
-Dexterity	●○○○○	Manipulation	●○○○○	Intelligence	●○○○○
-Stamina	●○○○○	Appearance	●○○○○	Wits	●○○○○
-Talents	(0)	Skills	(0)	Knowledges	(0)	
-Alertness	○○○○○	Animal Ken	○○○○○	Computer	○○○○○
-Athletics	○○○○○	Crafts	○○○○○	Enigmas	○○○○○
-Brawl	○○○○○	Drive	○○○○○	Investigation	○○○○○
-Dodge	○○○○○	Etiquette	○○○○○	Law	○○○○○
-Empathy	○○○○○	Firearms	○○○○○	Linguistics	○○○○○
-Expression	○○○○○	Leadership	○○○○○	Medicine	○○○○○
-Intimidation	○○○○○	Melee	○○○○○	Occult	○○○○○
-Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
-Streetwise	○○○○○	Stealth	○○○○○	Rituals	○○○○○
-Subterfuge	○○○○○	Survival	○○○○○	Science	○○○○○
-Backgrounds: .
+Nature			Demeanor	
+Concept			Age	22
+Physical	(3)	Social	(3)	Mental	(3)
+Strength	●●○○○	Charisma	●●○○○	Perception	●●○○○
+Dexterity	●●○○○	Manipulation	●●○○○	Intelligence	●●○○○
+Stamina	●●○○○	Appearance	●●○○○	Wits	●●○○○
+Talents	(22)	Skills	(15)	Knowledges	(14)	
+Alertness	●●●○○	Animal Ken	○○○○○	Computer	●●●●○
+Athletics	●●○○○	Crafts	●○○○○	Enigmas	○○○○○
+Brawl	●●●●○	Drive	●○○○○	Investigation	○○○○○
+Dodge	●●●●○	Etiquette	●●●●○	Law	○○○○○
+Empathy	●○○○○	Firearms	●●○○○	Linguistics	●○○○○
+Expression	○○○○○	Leadership	●●●●●	Medicine	●●●○○
+Intimidation	●○○○○	Melee	○○○○○	Occult	○○○○○
+Primal-Urge	●●●○○	Performance	○○○○○	Politics	●●○○○
+Streetwise	●●●○○	Stealth	●○○○○	Rituals	●●●●○
+Subterfuge	●○○○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Allies (3), Ancestors (1), Fetish (5), Kinfolk (2), Mentor (1), Resources (2), Rites (2), Totem (3).
+Gifts: .

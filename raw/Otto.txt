@@ -1,0 +1,20 @@
+Otto
+Nature			Demeanor	
+Concept			Age	22
+Physical	(9)	Social	(8)	Mental	(3)
+Strength	●●●●○	Charisma	●●●●●	Perception	●●○○○
+Dexterity	●●●○○	Manipulation	●●○○○	Intelligence	●●○○○
+Stamina	●●●●●	Appearance	●●●●○	Wits	●●○○○
+Talents	(30)	Skills	(9)	Knowledges	(14)	
+Alertness	●●●○○	Animal Ken	●●○○○	Computer	●●○○○
+Athletics	●●○○○	Crafts	○○○○○	Enigmas	○○○○○
+Brawl	●●○○○	Drive	○○○○○	Investigation	○○○○○
+Dodge	●●●○○	Etiquette	○○○○○	Law	●●●○○
+Empathy	●●○○○	Firearms	○○○○○	Linguistics	●●○○○
+Expression	●●●○○	Leadership	●●○○○	Medicine	●●●○○
+Intimidation	●●●●○	Melee	●○○○○	Occult	○○○○○
+Primal-Urge	●●●●●	Performance	●○○○○	Politics	●●○○○
+Streetwise	●●○○○	Stealth	●●○○○	Rituals	●●○○○
+Subterfuge	●●●○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Fetish (6).
+Gifts: Presence (6), Celerity (6), Potence (4).

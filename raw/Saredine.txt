@@ -1,0 +1,20 @@
+Saredine
+Nature			Demeanor	
+Concept			Age	25
+Physical	(6)	Social	(7)	Mental	(7)
+Strength	●●●○○	Charisma	●●●○○	Perception	●●●○○
+Dexterity	●●●○○	Manipulation	●●●●○	Intelligence	●●●●○
+Stamina	●●●○○	Appearance	●●●○○	Wits	●●●○○
+Talents	(28)	Skills	(18)	Knowledges	(26)	
+Alertness	●●○○○	Animal Ken	●●○○○	Computer	●●●●○
+Athletics	●●●●○	Crafts	○○○○○	Enigmas	○○○○○
+Brawl	●●●●○	Drive	●●●○○	Investigation	○○○○○
+Dodge	●●●○○	Etiquette	●○○○○	Law	●●●●●
+Empathy	●○○○○	Firearms	○○○○○	Linguistics	●○○○○
+Expression	●●○○○	Leadership	●●○○○	Medicine	●●●●●
+Intimidation	●○○○○	Melee	●○○○○	Occult	●●●●○
+Primal-Urge	●●●●○	Performance	●●○○○	Politics	●●●●○
+Streetwise	●●●○○	Stealth	●●●●○	Rituals	●●●○○
+Subterfuge	●●●●○	Survival	●●●○○	Science	○○○○○
+Backgrounds: Allies (3), Fetish (8), Kinfolk (2), Mentor (4), Pure Breed (2), Rites (4).
+Gifts: Animalism (3), Auspex (3), Celerity (4), Dominate (6), Obfuscate (4), Potence (2), Presence (5), Serpentis (7).

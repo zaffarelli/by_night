@@ -12,13 +12,13 @@ from django.core.paginator import Paginator
 from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
 from collector.templatetags.wod_filters import as_bullets
-from collector.utils.kindred_stuff import build_per_primogen
+from collector.utils.kindred_stuff import build_per_primogen, build_gaia_wheel
 from collector.utils.wod_reference import get_current_chronicle
 chronicle = get_current_chronicle()
 
 
 def index(request):
-    context = {'data': build_per_primogen() }
+    context = {'data': build_gaia_wheel() }
     return render(request, 'collector/index.html', context=context)
 
 
@@ -26,13 +26,21 @@ def get_list(request, pid):
     """ Update the list of characters on the page
     """
     if request.is_ajax:
+        print(chronicle.acronym)
         creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym).order_by('groupspec','auspice','name').exclude(ghost=True)
         paginator = Paginator(creature_items, 25)
         creature_items = paginator.get_page(pid)
-        context = {'creature_items': creature_items}
-        template = get_template('collector/list.html')
-        html = template.render(context)
-        return HttpResponse(html, content_type='text/html')
+        list_context = {'creature_items': creature_items}
+        list_template = get_template('collector/list.html')
+        list_html = list_template.render(list_context)
+        gaia_wheel_context = {'data': build_gaia_wheel()}
+        gaia_wheel_template = get_template('collector/gaia_wheel.html')
+        gaia_wheel_html = gaia_wheel_template.render(gaia_wheel_context)
+        answer = {
+            'list': list_html,
+            'gaia_wheel': gaia_wheel_html,
+        }
+        return JsonResponse(answer)
     else:
         Http404
 
@@ -58,7 +66,7 @@ def updown(request):
                 item.need_fix = True
                 item.save()
                 x = as_bullets(getattr(item, afield))
-                answer['freebiedif'] = item.freebiedif
+                answer['freebies'] = item.freebies
             else:
                 x = '<b>ERROR!</b>'
             answer['new_value'] = x
@@ -86,7 +94,7 @@ def userinput(request):
                 item.need_fix = True
                 item.save()
                 x = avalue
-                answer['freebiedif'] = item.freebiedif
+                answer['freebies'] = item.freebies
             else:
                 x = '<b>ERROR!</b>'
             answer['new_value'] = x

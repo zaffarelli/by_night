@@ -1,11 +1,13 @@
 Niklas Waldkauz
-Physical	(6)	Social	(4)	Mental	(7)	
+Nature		Architect	Demeanor	Idealist
+Concept		Teacher/Engineer	Age	30
+Physical	(6)	Social	(4)	Mental	(7)
 Strength	●●●○○	Charisma	●●○○○	Perception	●●○○○
 Dexterity	●●●○○	Manipulation	●●○○○	Intelligence	●●●●○
 Stamina	●●●○○	Appearance	●●●○○	Wits	●●●●○
-Talents	(9)	Skills	(7)	Knowledges	(19)	
+Talents	(9)	Skills	(7)	Knowledges	(18)	
 Alertness	●●○○○	Animal Ken	●○○○○	Computer	●●○○○
-Athletics	●●○○○	Crafts	●○○○○	Enigmas	●●○○○
+Athletics	●●○○○	Crafts	●○○○○	Enigmas	●○○○○
 Brawl	○○○○○	Drive	●○○○○	Investigation	●○○○○
 Dodge	○○○○○	Etiquette	●○○○○	Law	●○○○○
 Empathy	●●○○○	Firearms	○○○○○	Linguistics	●●●○○
@@ -14,4 +16,5 @@ Intimidation	○○○○○	Melee	○○○○○	Occult	●○○○○
 Primal-Urge	●○○○○	Performance	●○○○○	Politics	●○○○○
 Streetwise	○○○○○	Stealth	●○○○○	Rituals	●○○○○
 Subterfuge	○○○○○	Survival	●○○○○	Science	●●●●●
-Backgrounds: Allies (2), Ancestors (2), Kinfolk (2), Mentor (2), Resources (1).
+Backgrounds: Allies (1), Rites (2), Totem (2).
+Gifts: Master of Fire (1), Spirit Speech (1), Sense Wyrm (1).

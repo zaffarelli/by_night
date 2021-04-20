@@ -1,0 +1,20 @@
+Johnny Salzer
+Nature			Demeanor	
+Concept			Age	25
+Physical	(7)	Social	(2)	Mental	(5)
+Strength	●●●○○	Charisma	●●○○○	Perception	●●●○○
+Dexterity	●●●○○	Manipulation	●●●○○	Intelligence	●●○○○
+Stamina	●●●●○	Appearance	○○○○○	Wits	●●●○○
+Talents	(10)	Skills	(13)	Knowledges	(5)	
+Alertness	●●○○○	Animal Ken	●●●○○	Computer	○○○○○
+Athletics	●○○○○	Crafts	●○○○○	Enigmas	●○○○○
+Brawl	●●●○○	Drive	●○○○○	Investigation	●●○○○
+Dodge	●●○○○	Etiquette	○○○○○	Law	○○○○○
+Empathy	○○○○○	Firearms	●●○○○	Linguistics	●○○○○
+Expression	○○○○○	Leadership	●○○○○	Medicine	○○○○○
+Intimidation	●○○○○	Melee	○○○○○	Occult	○○○○○
+Primal-Urge	○○○○○	Performance	●●○○○	Politics	●○○○○
+Streetwise	●○○○○	Stealth	●○○○○	Rituals	○○○○○
+Subterfuge	○○○○○	Survival	●●○○○	Science	○○○○○
+Backgrounds: Ancestors (1), Fetish (4), Mentor (1).
+Gifts: Animalism (3), Obfuscate (1), Potence (1).

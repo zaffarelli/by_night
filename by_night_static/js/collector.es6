@@ -7,7 +7,7 @@ function prepare_ajax(){
   $.ajaxSetup({
     beforeSend: function(xhr, settings) {
       if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-        var csrf_middlewaretoken = $('input[name=csrfmiddlewaretoken]').val();        
+        let csrf_middlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
         xhr.setRequestHeader('X-CSRFToken',csrf_middlewaretoken);
       }
     }
@@ -18,7 +18,7 @@ function loadajax(){
   $.ajax({
     url: 'ajax/list/1/',
     success: function(answer) {            
-      $('.charlist').html(answer)
+      $('.charlist').html(answer.list)
       rebootlinks();
       $('.more').addClass('hidden');
       $('.charlist').addClass('hidden');
@@ -39,7 +39,8 @@ function rebootlinks(){
     $.ajax({
       url: 'ajax/list/'+$(this).attr('page')+'/',
       success: function(answer) {
-        $('.charlist').html(answer)
+        $('.charlist').html(answer.list);
+        $('#gaia_wheel').html(answer.gaia_wheel);
         rebootlinks();
         $('.more').addClass('hidden');
       },
@@ -51,9 +52,7 @@ function rebootlinks(){
   $('#go').on('click',function(event){
     event.preventDefault();
     event.stopPropagation();
-    console.log($('.character_form').serialize());
-    console.log($('.character_form input[name=cid]').val());
-    var urlupdate = 'ajax/update/character/'+$('.character_form input[name=id]').val();
+    let urlupdate = 'ajax/update/character/'+$('.character_form input[name=id]').val();
     $.ajax({    
       url: urlupdate,
       method: 'POST',
@@ -73,14 +72,13 @@ function rebootlinks(){
           rebootlinks();
       },
       error: function(answer) {
-        console.log('Error... '+answer);
+        console.error('Error... '+answer);
       },
     });  
   });
 
   $('.toggle_more').off();
   $('.toggle_more').on('click',function(event){
-    console.log('Toggle more');
     event.preventDefault();
     $('.more').addClass('hidden');
     zid = $(this).attr('id');
@@ -91,12 +89,9 @@ function rebootlinks(){
 
     $('#toggle_chronicle').off().on('click',function(event){
         let slug = $('#userinput').val();
-        console.log('Changing chronicle to '+slug);
         $.ajax({
             url: 'ajax/chronicle/'+slug+'/',
                 success: function(answer) {
-                //$('.details').html('done')
-                console.log(anwser);
                 rebootlinks();
             },
             error: function(answer) {
@@ -111,17 +106,12 @@ function rebootlinks(){
 
   $('#toggle_lineage').off();
   $('#toggle_lineage').on('click',function(event){
-    console.log('toggle_lineage');
     $.ajax({
       url: 'ajax/update/lineage',
       success: function(answer) {
-        //$('.details').html('done')
-        console.log(anwser);
         rebootlinks();
       },
       error: function(answer) {
-        //$('.details').html('oops, broken')
-        console.log(answer);
         rebootlinks();
       },
 
@@ -130,7 +120,6 @@ function rebootlinks(){
 
   $('#toggle_list').off();
   $('#toggle_list').on('click',function(event){
-    console.log('toggle_list');
     $('.charlist').toggleClass('hidden');
   });
 
@@ -153,7 +142,6 @@ function rebootlinks(){
     $.ajax({
       url: 'ajax/build_config_pdf/',
     }).done(function(answer) {
-        console.log(answer.comment);
         $('.details').html(answer.comment);
         rebootlinks();
     });
@@ -163,7 +151,7 @@ function rebootlinks(){
   $('.view_creature').on('click',function(event){
     event.preventDefault();
     event.stopPropagation();
-    var dad = $(this).parents('li');
+    let dad = $(this).parents('li');
     $('li').removeClass('selected');
     $(dad).addClass('selected');
     $.ajax({      
@@ -175,7 +163,7 @@ function rebootlinks(){
         rebootlinks();
       },
       error: function(answer){
-        console.log('View error...'+answer);
+        console.error('View error...'+answer);
       }
     });
   });
@@ -205,11 +193,11 @@ function rebootlinks(){
   $('td.editable.updown').on('click',function(event){
     event.preventDefault();
     event.stopPropagation();
-    var target = $(this).attr('id')
-    var keys = $(this).attr('id').split('_')
-    var shift = event.shiftKey
-    block = $(this).parent();
-    var os = 1;
+    let target = $(this).attr('id')
+    let keys = $(this).attr('id').split('_')
+    let shift = event.shiftKey
+    let block = $(this).parent();
+    let os = 1;
     if (shift){
       os = -1;
     }
@@ -225,7 +213,7 @@ function rebootlinks(){
       data: keys_set,      
       success: function(answer) {
         $('td#'+target).html(answer.new_value);
-        $('td#'+keys[0]+'_freebiedif').html(answer.freebiedif);
+        $('td#'+keys[0]+'_freebies').html(answer.freebies);
           },
         error: function(answer){
             $('td#'+target).html(answer.new_value);
@@ -236,11 +224,11 @@ function rebootlinks(){
   $('td.editable.userinput').on('click',function(event){
     event.preventDefault();
     event.stopPropagation();
-    var target = $(this).attr('id')
-    var keys = $(this).attr('id').split('_')
-    var shift = event.shiftKey;
-    var val = $('#userinput').val();
-    block = $(this).parent();
+    let target = $(this).attr('id')
+    let keys = $(this).attr('id').split('_')
+    let shift = event.shiftKey;
+    let val = $('#userinput').val();
+    let block = $(this).parent();
     if (shift){
       keys_set = { id: keys[0], field: keys[1], value: val}
       $.ajax({
@@ -254,7 +242,7 @@ function rebootlinks(){
         data: keys_set,      
         success: function(answer) {
             $('td#'+target).html(answer.new_value);
-            $('td#'+keys[0]+'_freebiedif').html(answer.freebiedif);
+            $('td#'+keys[0]+'_freebies').html(answer.freebies);
           },
         error: function(answer){
             $('td#'+target).html(answer);
@@ -280,6 +268,7 @@ function rebootlinks(){
         data: keys_set,
       success: function(answer) {
         $('.details').html(answer)
+        $('#userinput').val("");
         rebootlinks();
       },
       error: function(answer) {

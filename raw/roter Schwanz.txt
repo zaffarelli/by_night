@@ -1,5 +1,7 @@
 roter Schwanz
-Physical	(7)	Social	(4)	Mental	(6)	
+Nature			Demeanor	
+Concept			Age	17
+Physical	(7)	Social	(4)	Mental	(6)
 Strength	●●●○○	Charisma	●●●●○	Perception	●●●○○
 Dexterity	●●●●○	Manipulation	●○○○○	Intelligence	●●○○○
 Stamina	●●●○○	Appearance	●●○○○	Wits	●●●●○
@@ -14,4 +16,5 @@ Intimidation	●●○○○	Melee	○○○○○	Occult	●○○○○
 Primal-Urge	●●●○○	Performance	●○○○○	Politics	○○○○○
 Streetwise	○○○○○	Stealth	●●○○○	Rituals	●○○○○
 Subterfuge	●○○○○	Survival	●●○○○	Science	○○○○○
-Backgrounds: Allies (4), Ancestors (2), Contacts (4), Fetish (4), Kinfolk (3), Pure Breed (2), Resources (3), Totem (1).
+Backgrounds: Kinfolk (1), Pure Breed (3), Rites (2).
+Gifts: Heightened Senses (1), Scent of the True Form (1), Wolf at the Door (1), Beast Speech (1), Eye of the Hunter (1).

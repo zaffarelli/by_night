@@ -1,0 +1,20 @@
+Otto Werner
+Nature		Judge	Demeanor	Fanatic
+Concept		Mysteries Enthousiast	Age	58
+Physical	(2)	Social	(4)	Mental	(4)
+Strength	●○○○○	Charisma	●●○○○	Perception	●○○○○
+Dexterity	●●○○○	Manipulation	●●●○○	Intelligence	●●●○○
+Stamina	●●○○○	Appearance	●●○○○	Wits	●●●○○
+Talents	(5)	Skills	(6)	Knowledges	(10)	
+Alertness	●○○○○	Animal Ken	○○○○○	Computer	●○○○○
+Athletics	○○○○○	Crafts	○○○○○	Enigmas	●○○○○
+Brawl	○○○○○	Drive	●●○○○	Investigation	○○○○○
+Dodge	○○○○○	Etiquette	●●○○○	Law	●●○○○
+Empathy	○○○○○	Firearms	○○○○○	Linguistics	○○○○○
+Expression	●●○○○	Leadership	○○○○○	Medicine	●●●○○
+Intimidation	●○○○○	Melee	○○○○○	Occult	○○○○○
+Primal-Urge	○○○○○	Performance	●●○○○	Politics	●●○○○
+Streetwise	○○○○○	Stealth	○○○○○	Rituals	○○○○○
+Subterfuge	●○○○○	Survival	○○○○○	Science	●○○○○
+Backgrounds: Ancestors (1), Kinfolk (2), Resources (2).
+Gifts: .

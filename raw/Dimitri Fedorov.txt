@@ -1,0 +1,20 @@
+Dimitri Fedorov
+Nature			Demeanor	
+Concept			Age	45
+Physical	(9)	Social	(9)	Mental	(6)
+Strength	●●●○○	Charisma	●●●●○	Perception	●●●●○
+Dexterity	●●●●●	Manipulation	●●●●○	Intelligence	●●●○○
+Stamina	●●●●○	Appearance	●●●●○	Wits	●●○○○
+Talents	(16)	Skills	(14)	Knowledges	(18)	
+Alertness	○○○○○	Animal Ken	●●●○○	Computer	○○○○○
+Athletics	●●●○○	Crafts	○○○○○	Enigmas	●●○○○
+Brawl	●●●○○	Drive	○○○○○	Investigation	○○○○○
+Dodge	●●○○○	Etiquette	●●○○○	Law	●●●○○
+Empathy	●○○○○	Firearms	○○○○○	Linguistics	●●○○○
+Expression	●●○○○	Leadership	●●●○○	Medicine	●○○○○
+Intimidation	○○○○○	Melee	●●●●○	Occult	●●●○○
+Primal-Urge	●●●●○	Performance	○○○○○	Politics	●●●●○
+Streetwise	○○○○○	Stealth	○○○○○	Rituals	●●●○○
+Subterfuge	●○○○○	Survival	●●○○○	Science	○○○○○
+Backgrounds: Fetish (3), Kinfolk (2), Mentor (3).
+Gifts: .

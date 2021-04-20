@@ -1,0 +1,20 @@
+Arjan Kötter
+Nature		Explorer	Demeanor	Cub
+Concept		Businessman	Age	43
+Physical	(3)	Social	(2)	Mental	(4)
+Strength	●●○○○	Charisma	●○○○○	Perception	●●○○○
+Dexterity	●●○○○	Manipulation	●●●○○	Intelligence	●●●○○
+Stamina	●●○○○	Appearance	●○○○○	Wits	●●○○○
+Talents	(10)	Skills	(4)	Knowledges	(14)	
+Alertness	●○○○○	Animal Ken	○○○○○	Computer	●●●○○
+Athletics	○○○○○	Crafts	○○○○○	Enigmas	●●○○○
+Brawl	○○○○○	Drive	●●○○○	Investigation	●●●●○
+Dodge	○○○○○	Etiquette	●○○○○	Law	●○○○○
+Empathy	●○○○○	Firearms	○○○○○	Linguistics	○○○○○
+Expression	●●●○○	Leadership	○○○○○	Medicine	●○○○○
+Intimidation	○○○○○	Melee	●○○○○	Occult	○○○○○
+Primal-Urge	●●●○○	Performance	○○○○○	Politics	○○○○○
+Streetwise	○○○○○	Stealth	○○○○○	Rituals	●○○○○
+Subterfuge	●●○○○	Survival	○○○○○	Science	●●○○○
+Backgrounds: Kinfolk (3), Resources (7).
+Gifts: .

@@ -1,0 +1,20 @@
+Malbrogia
+Nature			Demeanor	
+Concept			Age	25
+Physical	(12)	Social	(2)	Mental	(3)
+Strength	●●●●●	Charisma	●●○○○	Perception	●●○○○
+Dexterity	●●●●●	Manipulation	●●●○○	Intelligence	●●○○○
+Stamina	●●●●●	Appearance	○○○○○	Wits	●●○○○
+Talents	(27)	Skills	(25)	Knowledges	(8)	
+Alertness	●●●●●	Animal Ken	●●●●○	Computer	○○○○○
+Athletics	●●●○○	Crafts	●●○○○	Enigmas	○○○○○
+Brawl	●●●●○	Drive	●○○○○	Investigation	○○○○○
+Dodge	●●●●○	Etiquette	●●●○○	Law	●●○○○
+Empathy	○○○○○	Firearms	○○○○○	Linguistics	●●○○○
+Expression	○○○○○	Leadership	●●●●○	Medicine	○○○○○
+Intimidation	●●●●○	Melee	●●●○○	Occult	●●○○○
+Primal-Urge	●●●●○	Performance	●●○○○	Politics	●●○○○
+Streetwise	●●●○○	Stealth	●●●○○	Rituals	○○○○○
+Subterfuge	○○○○○	Survival	●●●○○	Science	○○○○○
+Backgrounds: Fetish (5).
+Gifts: Animalism (5), Celerity (4), Obfuscate (5), Potence (3).

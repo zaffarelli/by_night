@@ -1,5 +1,7 @@
 Sarah Stridj
-Physical	(5)	Social	(8)	Mental	(3)	
+Nature		Celebrant	Demeanor	Conformist
+Concept		Artist/Escort girl	Age	27
+Physical	(5)	Social	(8)	Mental	(3)
 Strength	●●○○○	Charisma	●●●●○	Perception	●●○○○
 Dexterity	●●●●○	Manipulation	●●○○○	Intelligence	●●○○○
 Stamina	●●○○○	Appearance	●●●●●	Wits	●●○○○
@@ -14,4 +16,5 @@ Intimidation	○○○○○	Melee	○○○○○	Occult	○○○○○
 Primal-Urge	○○○○○	Performance	●●●●○	Politics	○○○○○
 Streetwise	●○○○○	Stealth	●○○○○	Rituals	●○○○○
 Subterfuge	●●●○○	Survival	●○○○○	Science	●○○○○
-Backgrounds: Allies (3), Ancestors (3), Contacts (2), Fetish (2), Kinfolk (2), Mentor (2), Rites (1), Totem (3).
+Backgrounds: Allies (1), Fetish (1), Resources (2), Totem (1).
+Gifts: Persuasion (1), Call of the Wyld (1), Control Simple Machine (1).

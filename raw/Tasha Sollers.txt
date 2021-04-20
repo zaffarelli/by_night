@@ -1,0 +1,20 @@
+Tasha Sollers
+Nature			Demeanor	
+Concept			Age	25
+Physical	(6)	Social	(5)	Mental	(8)
+Strength	●●●●○	Charisma	●●●○○	Perception	●●●●○
+Dexterity	●●○○○	Manipulation	●●●○○	Intelligence	●●●●○
+Stamina	●●●○○	Appearance	●●○○○	Wits	●●●○○
+Talents	(15)	Skills	(14)	Knowledges	(17)	
+Alertness	●●○○○	Animal Ken	●●○○○	Computer	●●●○○
+Athletics	●○○○○	Crafts	○○○○○	Enigmas	●●○○○
+Brawl	●●●○○	Drive	●○○○○	Investigation	●●○○○
+Dodge	●●○○○	Etiquette	●○○○○	Law	●●○○○
+Empathy	●○○○○	Firearms	○○○○○	Linguistics	●○○○○
+Expression	●○○○○	Leadership	●●●○○	Medicine	●○○○○
+Intimidation	●○○○○	Melee	●○○○○	Occult	●○○○○
+Primal-Urge	●○○○○	Performance	●○○○○	Politics	●●○○○
+Streetwise	●○○○○	Stealth	●●●○○	Rituals	●●○○○
+Subterfuge	●●○○○	Survival	●●○○○	Science	●○○○○
+Backgrounds: Fetish (3).
+Gifts: Obfuscate (3), Presence (3), Serpentis (3).

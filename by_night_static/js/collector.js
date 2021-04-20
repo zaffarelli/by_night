@@ -39,7 +39,8 @@ function rebootlinks(){
     $.ajax({
       url: 'ajax/list/'+$(this).attr('page')+'/',
       success: function(answer) {
-        $('.charlist').html(answer)
+        $('.charlist').html(answer.list)
+        $('.gaia_wheel').html(answer.gaia_wheel)
         rebootlinks();
         $('.more').addClass('hidden');
       },
@@ -225,7 +226,7 @@ function rebootlinks(){
       data: keys_set,      
       success: function(answer) {
         $('td#'+target).html(answer.new_value);
-        $('td#'+keys[0]+'_freebiedif').html(answer.freebiedif);
+        $('td#'+keys[0]+'_freebies').html(answer.freebies);
           },
         error: function(answer){
             $('td#'+target).html(answer.new_value);
@@ -254,7 +255,7 @@ function rebootlinks(){
         data: keys_set,      
         success: function(answer) {
             $('td#'+target).html(answer.new_value);
-            $('td#'+keys[0]+'_freebiedif').html(answer.freebiedif);
+            $('td#'+keys[0]+'_freebies').html(answer.freebies);
           },
         error: function(answer){
             $('td#'+target).html(answer);

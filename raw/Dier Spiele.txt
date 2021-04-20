@@ -1,5 +1,7 @@
 Dier Spiele
-Physical	(0)	Social	(0)	Mental	(0)	
+Nature			Demeanor	
+Concept			Age	33
+Physical	(0)	Social	(0)	Mental	(0)
 Strength	●○○○○	Charisma	●○○○○	Perception	●○○○○
 Dexterity	●○○○○	Manipulation	●○○○○	Intelligence	●○○○○
 Stamina	●○○○○	Appearance	●○○○○	Wits	●○○○○
@@ -15,3 +17,4 @@ Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
 Streetwise	○○○○○	Stealth	○○○○○	Rituals	○○○○○
 Subterfuge	○○○○○	Survival	○○○○○	Science	○○○○○
 Backgrounds: .
+Gifts: .

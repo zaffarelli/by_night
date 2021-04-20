@@ -1,5 +1,7 @@
 Sonja Sienfreig
-Physical	(6)	Social	(5)	Mental	(9)	
+Nature			Demeanor	
+Concept			Age	37
+Physical	(6)	Social	(5)	Mental	(9)
 Strength	●●●○○	Charisma	●●○○○	Perception	●●●●○
 Dexterity	●●●●○	Manipulation	●●○○○	Intelligence	●●●○○
 Stamina	●●○○○	Appearance	●●●●○	Wits	●●●●●
@@ -14,4 +16,5 @@ Intimidation	●○○○○	Melee	○○○○○	Occult	●○○○○
 Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
 Streetwise	○○○○○	Stealth	●○○○○	Rituals	●●●○○
 Subterfuge	●●○○○	Survival	●○○○○	Science	○○○○○
-Backgrounds: Allies (3), Ancestors (2), Contacts (1), Fetish (1), Kinfolk (3), Mentor (1), Pure Breed (1), Totem (2).
+Backgrounds: Resources (2), Rites (3).
+Gifts: Mother's Touch (1), Jam Weapon (1), Umbral Tether (1), Spirit Speech (1), City Running (1).

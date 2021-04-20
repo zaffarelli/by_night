@@ -1,0 +1,20 @@
+Mustaffa Adinn
+Nature			Demeanor	
+Concept		Kebbab truck owner	Age	44
+Physical	(4)	Social	(6)	Mental	(3)
+Strength	●●○○○	Charisma	●●●○○	Perception	●●○○○
+Dexterity	●●●○○	Manipulation	●●●○○	Intelligence	●●○○○
+Stamina	●●○○○	Appearance	●●●○○	Wits	●●○○○
+Talents	(17)	Skills	(15)	Knowledges	(11)	
+Alertness	●●●○○	Animal Ken	●○○○○	Computer	○○○○○
+Athletics	●○○○○	Crafts	●●●○○	Enigmas	●●○○○
+Brawl	●○○○○	Drive	●○○○○	Investigation	●●○○○
+Dodge	●●○○○	Etiquette	●●○○○	Law	○○○○○
+Empathy	●●●○○	Firearms	●●●○○	Linguistics	●●○○○
+Expression	●●●○○	Leadership	○○○○○	Medicine	●○○○○
+Intimidation	○○○○○	Melee	○○○○○	Occult	●○○○○
+Primal-Urge	○○○○○	Performance	●●○○○	Politics	●○○○○
+Streetwise	●●○○○	Stealth	●●○○○	Rituals	●●○○○
+Subterfuge	●●○○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Kinfolk (3).
+Gifts: .

@@ -1,17 +1,20 @@
 Gustav Genz
-Physical	(0)	Social	(0)	Mental	(0)	
-Strength	●○○○○	Charisma	●○○○○	Perception	●○○○○
-Dexterity	●○○○○	Manipulation	●○○○○	Intelligence	●○○○○
-Stamina	●○○○○	Appearance	●○○○○	Wits	●○○○○
-Talents	(5)	Skills	(0)	Knowledges	(3)	
-Alertness	○○○○○	Animal Ken	○○○○○	Computer	○○○○○
-Athletics	○○○○○	Crafts	○○○○○	Enigmas	○○○○○
+Nature		Senile old disabled man	Demeanor	Senile old disabled man
+Concept		Retired Cook	Age	72
+Physical	(3)	Social	(0)	Mental	(4)
+Strength	●●○○○	Charisma	●○○○○	Perception	●●●●●
+Dexterity	●●○○○	Manipulation	●○○○○	Intelligence	●○○○○
+Stamina	●●○○○	Appearance	●○○○○	Wits	●○○○○
+Talents	(11)	Skills	(6)	Knowledges	(13)	
+Alertness	○○○○○	Animal Ken	●●●●○	Computer	○○○○○
+Athletics	○○○○○	Crafts	○○○○○	Enigmas	●●●●○
 Brawl	○○○○○	Drive	○○○○○	Investigation	○○○○○
-Dodge	●●○○○	Etiquette	○○○○○	Law	○○○○○
-Empathy	●●●○○	Firearms	○○○○○	Linguistics	●●●○○
-Expression	○○○○○	Leadership	○○○○○	Medicine	○○○○○
-Intimidation	○○○○○	Melee	○○○○○	Occult	○○○○○
-Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
+Dodge	○○○○○	Etiquette	○○○○○	Law	●●●●○
+Empathy	●●●●○	Firearms	○○○○○	Linguistics	●●●○○
+Expression	○○○○○	Leadership	○○○○○	Medicine	●○○○○
+Intimidation	●●●○○	Melee	○○○○○	Occult	●○○○○
+Primal-Urge	●●●●○	Performance	○○○○○	Politics	○○○○○
 Streetwise	○○○○○	Stealth	○○○○○	Rituals	○○○○○
-Subterfuge	○○○○○	Survival	○○○○○	Science	○○○○○
-Backgrounds: Fetish (2), Kinfolk (3).
+Subterfuge	○○○○○	Survival	●●○○○	Science	○○○○○
+Backgrounds: Ancestors (2), Fetish (3), Kinfolk (3), Resources (2), Rites (4), Totem (2).
+Gifts: Sense Wyrm (1), Scent of the True Form (1).

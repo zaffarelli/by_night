@@ -1,5 +1,7 @@
 Tik Reinardt
-Physical	(7)	Social	(3)	Mental	(5)	
+Nature			Demeanor	
+Concept			Age	32
+Physical	(7)	Social	(3)	Mental	(5)
 Strength	●●●●○	Charisma	●●○○○	Perception	●●○○○
 Dexterity	●●○○○	Manipulation	●●○○○	Intelligence	●●●○○
 Stamina	●●●●○	Appearance	●●○○○	Wits	●●●○○
@@ -14,4 +16,5 @@ Intimidation	●○○○○	Melee	●○○○○	Occult	●●○○○
 Primal-Urge	●●●○○	Performance	●○○○○	Politics	○○○○○
 Streetwise	●○○○○	Stealth	○○○○○	Rituals	●●○○○
 Subterfuge	●●○○○	Survival	○○○○○	Science	○○○○○
-Backgrounds: Allies (1), Ancestors (1), Contacts (1), Fetish (1), Kinfolk (2), Pure Breed (1), Resources (3), Rites (1), Totem (2).
+Backgrounds: Allies (1), Contacts (2), Fetish (1), Rites (1), Totem (1).
+Gifts: Resist Toxin (1), Spider's Song (1), Persuasion (1), Cooking (1), Desperate Strength (1).

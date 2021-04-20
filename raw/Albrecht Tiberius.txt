@@ -1,0 +1,20 @@
+Albrecht Tiberius
+Nature		Architect	Demeanor	Director
+Concept		Church benefactor	Age	28
+Physical	(7)	Social	(10)	Mental	(9)
+Strength	●●●●○	Charisma	●●●●○	Perception	●●●○○
+Dexterity	●●●○○	Manipulation	●●●●●	Intelligence	●●●●●
+Stamina	●●●○○	Appearance	●●●●○	Wits	●●●●○
+Talents	(24)	Skills	(19)	Knowledges	(25)	
+Alertness	●●○○○	Animal Ken	●○○○○	Computer	●●●●●
+Athletics	●●○○○	Crafts	●●○○○	Enigmas	●○○○○
+Brawl	●●●○○	Drive	●○○○○	Investigation	●○○○○
+Dodge	●●○○○	Etiquette	●●●○○	Law	●●●○○
+Empathy	●○○○○	Firearms	●○○○○	Linguistics	●○○○○
+Expression	●●●○○	Leadership	●●●○○	Medicine	●●●●○
+Intimidation	●●●○○	Melee	●○○○○	Occult	●●○○○
+Primal-Urge	●●●○○	Performance	●○○○○	Politics	●●●○○
+Streetwise	●●○○○	Stealth	●●●○○	Rituals	●●●●○
+Subterfuge	●●●○○	Survival	●●●○○	Science	●○○○○
+Backgrounds: Allies (1), Ancestors (2), Fetish (5), Kinfolk (2), Mentor (4), Resources (4), Rites (2), Totem (4).
+Gifts: Potence (3), Dominate (3), Obtenebration (5), Auspex (2), Obfuscate (4).

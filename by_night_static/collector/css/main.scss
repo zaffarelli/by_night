@@ -22,6 +22,23 @@ $ghost_opacity: 0.0;
 }
 
 @font-face {
+  font-family: 'wyld';
+  src: url('../fonts/fanjofey.ttf');
+}
+
+@font-face {
+  font-family: 'weaver';
+  src: url('../fonts/plank.ttf');
+}
+
+@font-face {
+  font-family: 'wyrm';
+  src: url('../fonts/another_danger.otf');
+}
+
+
+
+@font-face {
   font-family: 'TexteLibre';
   src: url("../fonts/Lato-Regular.ttf");
 }
@@ -213,7 +230,8 @@ body .wrapper .charlist{
         width: 100%;
         padding-top:0;
         margin:0;
-        background: transparent url() 99% 1% no-repeat  fixed;
+        background: transparent url() -12% 99% no-repeat  fixed;
+
 
         
         & .charlist {          
@@ -313,18 +331,19 @@ body .wrapper .charlist{
         border:2px solid transparent;
         padding:1px;
 
-        &[colspan='6']{
+        &[colspan='5']{
           background:$very_dark_plate;
           height:90px;
           padding:0;
           padding-left:3ex;
+          text-align:left;
         }
         &.clan_logo{
           background:$very_dark_plate;
           overflow:hidden;
           padding:0;
           & img{
-            height:80px;
+            width:160px;
             filter:invert(75%);
           }
         }
@@ -352,7 +371,7 @@ body .wrapper .charlist{
         
         &[colspan='2']{
             border-radius: 5px;
-            background: #303030;
+            background: #101010;
             color:#E0E0E0;
             text-align:center;
             font-family:Titre;
@@ -383,11 +402,49 @@ body .wrapper .charlist{
       width:auto;
     }
   }
-  &.Sabbat table th{ background: #602020; }
-  &.Camarilla table th{ background: #103010; }
+  &.Sabbat {
+    & table {
+        & th{
+            background: #301010;
+        }
+        & td{
+            background: #403030;
+        }
+    }
+  }
+  &.Camarilla {
+    & table {
+        & th{
+            background: #103010;
+        }
+        & td{
+            background: #304030;
+        }
+    }
+  }
   &.Independant table th{ background: #603020; }
   &.Inconnu table th{ background: #303030; }
   &.Anarchs table th{ background: #102060; }
+  &.Gaia {
+    & table {
+        & th{
+            background: #102030;
+        }
+        & td{
+            background: #203040;
+        }
+    }
+  }
+  &.Pentex {
+    & table {
+        & th{
+            background: #202020;
+        }
+        & td{
+            background: #404040;
+        }
+    }
+  }
 }
 
 .avatar_link.Sabbat{
@@ -541,3 +598,39 @@ svg {
 
 
 
+
+    .wyld{
+        stroke:#963;
+        fill:#777;
+    }
+    .wyrm{
+        stroke:#161;
+        fill:#777;
+    }
+    .weaver{
+        stroke:#6AD;
+        fill:#777;
+    }
+
+.tooltip {
+  position: absolute;
+  text-align:center;
+  color:black;
+  border:1px solid black;
+  border-radius:5px;
+  padding:2px;
+  width: 120px;
+  height: 160px;
+  pointer-events: none;
+  font-family: "TexteLibre";
+  font-size:8pt;
+  background:$body_background;
+  padding-left:15px;
+  padding-right:15px;
+  box-shadow:0 0 15px #222;
+  & strong{
+    font-variant: small-caps;
+    font-weight:bold;
+    font-size:1.2em;
+  }
+}

@@ -1,0 +1,20 @@
+Semir al Farka
+Nature			Demeanor	
+Concept			Age	25
+Physical	(3)	Social	(5)	Mental	(7)
+Strength	●●○○○	Charisma	●●○○○	Perception	●●○○○
+Dexterity	●●○○○	Manipulation	●●●○○	Intelligence	●●●●○
+Stamina	●●○○○	Appearance	●●●○○	Wits	●●●●○
+Talents	(18)	Skills	(10)	Knowledges	(13)	
+Alertness	●●○○○	Animal Ken	●●○○○	Computer	●●●○○
+Athletics	●○○○○	Crafts	○○○○○	Enigmas	●○○○○
+Brawl	●●●○○	Drive	●○○○○	Investigation	○○○○○
+Dodge	●●●○○	Etiquette	●●○○○	Law	●●○○○
+Empathy	○○○○○	Firearms	○○○○○	Linguistics	○○○○○
+Expression	●●●○○	Leadership	●○○○○	Medicine	●●●○○
+Intimidation	●○○○○	Melee	○○○○○	Occult	○○○○○
+Primal-Urge	●●○○○	Performance	○○○○○	Politics	●●●○○
+Streetwise	●○○○○	Stealth	●●●○○	Rituals	●○○○○
+Subterfuge	●●○○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Fetish (1).
+Gifts: Animalism (2), Celerity (3), Obfuscate (2), Presence (2), Serpentis (4).

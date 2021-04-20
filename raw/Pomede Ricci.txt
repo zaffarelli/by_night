@@ -1,0 +1,20 @@
+Pomede Ricci
+Nature		Rebel	Demeanor	Director
+Concept		Nun	Age	20
+Physical	(4)	Social	(5)	Mental	(3)
+Strength	●●○○○	Charisma	●●○○○	Perception	●●○○○
+Dexterity	●●●○○	Manipulation	●●●●○	Intelligence	●●○○○
+Stamina	●●○○○	Appearance	●●○○○	Wits	●●○○○
+Talents	(13)	Skills	(10)	Knowledges	(8)	
+Alertness	●○○○○	Animal Ken	●○○○○	Computer	○○○○○
+Athletics	○○○○○	Crafts	●○○○○	Enigmas	●○○○○
+Brawl	●●○○○	Drive	○○○○○	Investigation	○○○○○
+Dodge	●○○○○	Etiquette	●○○○○	Law	○○○○○
+Empathy	●●○○○	Firearms	○○○○○	Linguistics	●○○○○
+Expression	●○○○○	Leadership	●●○○○	Medicine	●●○○○
+Intimidation	●○○○○	Melee	●○○○○	Occult	○○○○○
+Primal-Urge	●●○○○	Performance	●○○○○	Politics	●●○○○
+Streetwise	○○○○○	Stealth	●●○○○	Rituals	●●○○○
+Subterfuge	●●●○○	Survival	●○○○○	Science	○○○○○
+Backgrounds: Fetish (2), Kinfolk (1), Pure Breed (4).
+Gifts: Dominate (4), Obtenebration (4), Dominate (3), Vicissitude (1), Fortitude (2).

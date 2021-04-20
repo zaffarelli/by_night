@@ -14,11 +14,12 @@
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css' integrity='sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV' crossorigin='anonymous'>
     <script src='https://code.jquery.com/jquery-3.3.0.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.js'></script>
     {% load compress %}
     {% compress css %}
     <link rel='stylesheet' type='text/x-scss' href='{% static "collector/css/main.scss" %}' />
     {% endcompress %}
+    <script src='{% static "js/gaia_wheel.es6" %}'></script>
   </head>
   <body>
     
@@ -35,17 +36,19 @@
         {% block list %}
         {% endblock list %}
       </div>
-      <div id='kindred_tree'>
-        {% include "collector/kindred_tree.html" with c=data %}
+      <div id='gaia_wheel'>
+        {% include "collector/gaia_wheel.html" with c=data %}
       </div>      
       <div class='details'>
         {% block creature %}
         {% endblock creature %}
       </div>
     </div>
-    <script src='{% static "js/collector.js" %}'></script>
+
+
 
     {% block javascript %}
     {% endblock %}
+    <script src='{% static "js/collector.es6" %}'></script>
   </body>
 </html>

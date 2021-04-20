@@ -1,0 +1,20 @@
+Terri Brandt
+Nature		Caregiver	Demeanor	Bon Vivant
+Concept		Doctor	Age	29
+Physical	(2)	Social	(4)	Mental	(5)
+Strength	●○○○○	Charisma	●●●○○	Perception	●●○○○
+Dexterity	●●○○○	Manipulation	●●○○○	Intelligence	●●●●○
+Stamina	●●○○○	Appearance	●●○○○	Wits	●●○○○
+Talents	(3)	Skills	(6)	Knowledges	(8)	
+Alertness	○○○○○	Animal Ken	○○○○○	Computer	●●○○○
+Athletics	○○○○○	Crafts	●○○○○	Enigmas	●○○○○
+Brawl	○○○○○	Drive	●○○○○	Investigation	○○○○○
+Dodge	○○○○○	Etiquette	●●○○○	Law	○○○○○
+Empathy	○○○○○	Firearms	○○○○○	Linguistics	○○○○○
+Expression	●●●○○	Leadership	○○○○○	Medicine	●○○○○
+Intimidation	○○○○○	Melee	●○○○○	Occult	●●●○○
+Primal-Urge	○○○○○	Performance	○○○○○	Politics	○○○○○
+Streetwise	○○○○○	Stealth	○○○○○	Rituals	○○○○○
+Subterfuge	○○○○○	Survival	●○○○○	Science	●○○○○
+Backgrounds: Ancestors (1), Kinfolk (3), Resources (3), Totem (1).
+Gifts: .
