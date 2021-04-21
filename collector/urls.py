@@ -1,11 +1,6 @@
-"""
-           /       '_ /_/ 
-          ()(/__/)/(//)/  
-            /     _/      
-
-"""
 from django.urls import path, re_path
-from collector.views.base import index, get_list, updown, userinput, update_lineage, add_creature, change_chronicle
+from collector.views.base import index, get_list, updown, userinput, update_lineage, add_creature, change_chronicle, \
+    extract_raw, extract_roster
 from collector.views.creature_views import CreatureUpdateView, CreatureDetailView
 
 urlpatterns = [
@@ -19,4 +14,6 @@ urlpatterns = [
     re_path('^ajax/editable/updown$', updown, name='updown'),
     re_path('^ajax/editable/userinput$', userinput, name='userinput'),
     re_path('^ajax/update/lineage$', update_lineage, name='update_lineage'),
+    re_path('^api/text/(?P<slug>\w+)/$', extract_raw, name='extract_raw'),
+    re_path('^api/roster/(?P<slug>\w+)/$', extract_roster, name='extract_roster'),
 ]

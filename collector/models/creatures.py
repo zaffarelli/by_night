@@ -10,6 +10,7 @@ logger = logging.Logger(__name__)
 
 from collector.utils.wod_reference import get_current_chronicle
 
+
 chronicle = get_current_chronicle()
 
 bloodpool = {
@@ -34,7 +35,8 @@ GAROU_SKILLS = ["Animal Ken", "Crafts", "Drive", "Etiquette", "Firearms", "Leade
                 "Stealth", "Survival"]
 GAROU_KNOWLEDGES = ["Computer", "Enigmas", "Investigation", "Law", "Linguistics", "Medicine", "Occult", "Politics",
                     "Rituals", "Science"]
-GAROU_BACKGROUNDS = ["Allies","Ancestors","Contacts","Fetish","Kinfolk","Mentor","Pure Breed","Resources","Rites","Totem"]
+GAROU_BACKGROUNDS = ["Allies", "Ancestors", "Contacts", "Fetish", "Kinfolk", "Mentor", "Pure Breed", "Resources",
+                     "Rites", "Totem"]
 
 
 class Creature(models.Model):
@@ -48,6 +50,7 @@ class Creature(models.Model):
     primogen = models.BooleanField(default=False)
     mythic = models.BooleanField(default=False)
     family = models.CharField(max_length=32, blank=True, default='')
+    rid = models.CharField(max_length=128, blank=True, default='')
     auspice = models.PositiveIntegerField(default=0)
     breed = models.PositiveIntegerField(default=0)
     domitor = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='Domitor',
@@ -63,8 +66,7 @@ class Creature(models.Model):
     sex = models.BooleanField(default=False)
 
     display_gauge = models.PositiveIntegerField(default=0)
-    display_pole = models.CharField(max_length=64,default='',blank=True)
-
+    display_pole = models.CharField(max_length=64, default='', blank=True)
 
     trueage = models.PositiveIntegerField(default=0)
     embrace = models.IntegerField(default=0)
@@ -230,6 +232,16 @@ class Creature(models.Model):
         else:
             return self.family
 
+    @property
+    def entrance(self):
+        from collector.templatetags.wod_filters import as_generation, as_rank, as_breed, as_auspice, as_tribe_plural
+        entrance = ''
+        if self.creature == 'kindred':
+            entrance = f'{as_generation(self.background3)} generation {self.family} of the {self.faction} ({self.group}).'
+        elif self.creature == 'garou':
+            entrance = f'{as_rank(self.rank)} {as_breed(self.breed)} {as_auspice(self.auspice)} of the  {as_tribe_plural(self.family)} ({self.group}).'
+        return entrance
+
     def __str__(self):
         return "%s (%s %s of %s)" % (self.name, self.family, self.creature, self.faction)
 
@@ -263,9 +275,8 @@ class Creature(models.Model):
         # Bloodpool
         self.power2 = bloodpool[13 - self.background3]
 
-        self.display_gauge = (self.background3 +1 ) + self.attribute7
+        self.display_gauge = (self.background3 *2) + int(self.trueage/50)
         self.display_pole = self.groupspec
-
 
     def fix_ghoul(self):
         if self.domitor:
@@ -277,12 +288,11 @@ class Creature(models.Model):
 
     def fix_mortal(self):
         self.trueage = self.age
-        self.power2 = 5+self.attribute2 + self.attribute3
+        self.power2 = 5 + self.attribute2 + self.attribute3
         if self.willpower < 2:
             self.willpower = 2
-        self.expectedfreebies = int(((self.age-10)/10) * 5)
-        self.display_gauge = self.background7+self.background9
-
+        self.expectedfreebies = int(((self.age - 10) / 10) * 5)
+        self.display_gauge = self.background7 + self.background9
 
     def fix_kinfolk(self):
         self.trueage = self.age
@@ -294,8 +304,6 @@ class Creature(models.Model):
 
     def fix_bane(self):
         self.display_gauge = self.power2 * 2
-
-
 
     def fix_garou(self):
         self.trueage = self.age
@@ -413,22 +421,33 @@ class Creature(models.Model):
         elif self.breed == 2:  # Lupus
             if self.power2 < 5:
                 self.power2 = 5
-        self.display_gauge = ((self.auspice + self.power1 + self.power2)*self.rank + (self.level0/2+self.level1+self.level2*2))/3
+        self.display_gauge = ((self.auspice + self.power1 + self.power2) * self.rank + (
+                    self.level0 / 2 + self.level1 + self.level2 * 2)) / 3
         if self.breed != 1:
             self.display_gauge += 1
         self.display_pole = self.sire
 
+    def update_rid(self):
+        s = self.name
+        x = s.replace(' ', '_').replace("'", '').replace('é', 'e') \
+            .replace('è', 'e').replace('ë', 'e').replace('â', 'a') \
+            .replace('ô', 'o').replace('"', '').replace('ï', 'i') \
+            .replace('à', 'a').replace('-', '').replace('ö', 'oe') \
+            .replace('ä', 'ae').replace('ü', 'ue').replace('ß', 'ss')
+        self.rid = x.lower()
+
     def fix(self):
+        self.update_rid()
         logger.info(f'Fixing ............ [{self.name}]')
         # at:3/3/3 ab:7/5/3 b:3 w:2 f:15
-        self.freebies = -((3+3+3 +9)*5 + (7+5+3)*2 + 3 + 2 + 15 )
+        self.freebies = -((3 + 3 + 3 + 9) * 5 + (7 + 5 + 3) * 2 + 3 + 2 + 15)
         if self.creature == 'kindred':
             # at:7/5/3 ab:13/9/5 b:5 d:21 v:7 wh:10 f:15
-            self.freebies = -((7 + 5 + 3 +9) * 5 + (13 + 9 + 5) * 2 + 7*3 + (7+3)*2 + 10 + 15)
+            self.freebies = -((7 + 5 + 3 + 9) * 5 + (13 + 9 + 5) * 2 + 7 * 3 + (7 + 3) * 2 + 10 + 15)
             self.fix_kindred()
         elif self.creature == 'garou':
             # at:7/5/3 ab:13/9/5 b:5 g:21 rgw:16 f:15
-            self.freebies = -((7 + 5 + 3+9) * 5 + (13 + 9 + 5) * 2 + 5 + 7*3 + 16 + 15)
+            self.freebies = -((7 + 5 + 3 + 9) * 5 + (13 + 9 + 5) * 2 + 5 + 7 * 3 + 16 + 15)
             self.fix_garou()
         elif self.creature == 'ghoul':
             self.fix_ghoul()
@@ -449,7 +468,6 @@ class Creature(models.Model):
             self.fix_mortal()
         self.summary = f'Freebies: {self.freebies}'
         self.calculate_freebies()
-        self.extract_raw()
         self.need_fix = False
 
     def val_as_dots(self, val):
@@ -461,25 +479,68 @@ class Creature(models.Model):
                 res += '○'
         return res
 
+    def extract_roster(self):
+        lines = []
+        lines.append(f'<strong>{self.name}</strong>')
+        lines.append(f'<i>{self.entrance}</i>')
+        lines.append(f'Concept: {self.concept}<BR/>Age: {self.age} yo ({self.trueage} yo)')
+        lines.append(f'Nature: {self.nature}<BR/>Demeanor: {self.demeanor}')
+
+        lines.append(f'<b>Attributes</b> <small>({self.total_physical}/{self.total_social}/{self.total_mental})</small>:')
+        lines.append(f'Strength {self.attribute0}, Dexterity {self.attribute1}, Stamina {self.attribute2}')
+        lines.append(f'Charisma {self.attribute3}, Manipulation {self.attribute4}, Appearance {self.attribute5}')
+        lines.append(f'Perception {self.attribute6}, Intelligence {self.attribute7}, Wits {self.attribute8}')
+
+        lines.append(f'<b>Abilities</b> <small>({self.total_talents}/{self.total_skills}/{self.total_knowledges})</small>:')
+
+        # lines.append(f'<b>Attributes</b> ({self.total_physical})/{self.total_social})/({self.total_mental})')
+        #
+        #
+        #     f'Strength\t{self.val_as_dots(self.attribute0)}\tCharisma\t{self.val_as_dots(self.attribute3)}\tPerception\t{self.val_as_dots(self.attribute6)}\n')
+        # lines.append(
+        #     f'Dexterity\t{self.val_as_dots(self.attribute1)}\tManipulation\t{self.val_as_dots(self.attribute4)}\tIntelligence\t{self.val_as_dots(self.attribute7)}\n')
+        # lines.append(
+        #     f'Stamina\t{self.val_as_dots(self.attribute2)}\tAppearance\t{self.val_as_dots(self.attribute5)}\tWits\t{self.val_as_dots(self.attribute8)}\n')
+        # lines.append(
+        #     f'Talents\t({self.total_talents})\tSkills\t({self.total_skills})\tKnowledges\t({self.total_knowledges})\t\n')
+        # for n in range(10):
+        #     lines.append(
+        #         f'{GAROU_TALENTS[n]}\t{self.val_as_dots(getattr(self, f"talent{n}"))}\t{GAROU_SKILLS[n]}\t{self.val_as_dots(getattr(self, f"skill{n}"))}\t{GAROU_KNOWLEDGES[n]}\t{self.val_as_dots(getattr(self, f"knowledge{n}"))}\n')
+        # blines = []
+        # for n in range(10):
+        #     if getattr(self, f"background{n}") > 0:
+        #         blines.append(f'{GAROU_BACKGROUNDS[n]} ({getattr(self, f"background{n}")})')
+        # lines.append(f'Backgrounds: {", ".join(blines)}.')
+        # glines = []
+        # for n in range(20):
+        #     if getattr(self, f"gift{n}"):
+        #         glines.append(f'{getattr(self, f"gift{n}")}')
+        # lines.append(f'Gifts: {", ".join(glines)}.<BR/>')
+        return "<BR/>".join(lines)
+
+
     def extract_raw(self):
-        filename = f'./raw/{self.name}.txt'
+        # filename = f'./raw/{self.rid}.txt'
         lines = []
         lines.append(f'{self.name}\n')
         lines.append(f'Nature\t\t{self.nature}\tDemeanor\t{self.demeanor}\n')
         lines.append(f'Concept\t\t{self.concept}\tAge\t{self.age}\n')
-        lines.append(f'Physical\t({self.total_physical})\tSocial\t({self.total_social})\tMental\t({self.total_mental})\n')
+        lines.append(
+            f'Physical\t({self.total_physical})\tSocial\t({self.total_social})\tMental\t({self.total_mental})\n')
         lines.append(
             f'Strength\t{self.val_as_dots(self.attribute0)}\tCharisma\t{self.val_as_dots(self.attribute3)}\tPerception\t{self.val_as_dots(self.attribute6)}\n')
         lines.append(
             f'Dexterity\t{self.val_as_dots(self.attribute1)}\tManipulation\t{self.val_as_dots(self.attribute4)}\tIntelligence\t{self.val_as_dots(self.attribute7)}\n')
         lines.append(
             f'Stamina\t{self.val_as_dots(self.attribute2)}\tAppearance\t{self.val_as_dots(self.attribute5)}\tWits\t{self.val_as_dots(self.attribute8)}\n')
-        lines.append(f'Talents\t({self.total_talents})\tSkills\t({self.total_skills})\tKnowledges\t({self.total_knowledges})\t\n')
+        lines.append(
+            f'Talents\t({self.total_talents})\tSkills\t({self.total_skills})\tKnowledges\t({self.total_knowledges})\t\n')
         for n in range(10):
-            lines.append(f'{GAROU_TALENTS[n]}\t{self.val_as_dots(getattr(self, f"talent{n}"))}\t{GAROU_SKILLS[n]}\t{self.val_as_dots(getattr(self, f"skill{n}"))}\t{GAROU_KNOWLEDGES[n]}\t{self.val_as_dots(getattr(self, f"knowledge{n}"))}\n')
+            lines.append(
+                f'{GAROU_TALENTS[n]}\t{self.val_as_dots(getattr(self, f"talent{n}"))}\t{GAROU_SKILLS[n]}\t{self.val_as_dots(getattr(self, f"skill{n}"))}\t{GAROU_KNOWLEDGES[n]}\t{self.val_as_dots(getattr(self, f"knowledge{n}"))}\n')
         blines = []
         for n in range(10):
-            if getattr(self, f"background{n}")>0:
+            if getattr(self, f"background{n}") > 0:
                 blines.append(f'{GAROU_BACKGROUNDS[n]} ({getattr(self, f"background{n}")})')
         lines.append(f'Backgrounds: {", ".join(blines)}.\n')
         glines = []
@@ -487,12 +548,11 @@ class Creature(models.Model):
             if getattr(self, f"gift{n}"):
                 glines.append(f'{getattr(self, f"gift{n}")}')
         lines.append(f'Gifts: {", ".join(glines)}.\n')
-
-
-        f = open(filename, 'w')
-        if f:
-            f.writelines(lines)
-            f.close()
+        # f = open(filename, 'w')
+        # if f:
+        #     f.writelines(lines)
+        #     f.close()
+        return "".join(lines)
 
     def calculate_freebies(self):
         # Attributes
@@ -621,13 +681,28 @@ def refix(modeladmin, request, queryset):
         creature.save()
     short_description = 'Fix creature'
 
+def push_to_RAM(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.chronicle = 'RAM'
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Push to Rage Across Munich'
+
+def push_to_MBN(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.chronicle = 'MBN'
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Push to Munich By Night'
+
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
-        'name', 'family', 'display_gauge','display_pole','freebies', 'concept', 'groupspec', 'faction', 'sire', 'domitor', 'condition',
+        'name', 'rid', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec', 'faction', 'sire',
+        'domitor', 'condition',
         'status', 'embrace', 'finaldeath',
         'age', 'source', 'generation']
     ordering = ['name', 'group', 'creature']
-    actions = [refix]
-    list_filter = ['chronicle','group','groupspec','faction', 'family', 'creature']
+    actions = [refix, push_to_RAM, push_to_MBN]
+    list_filter = ['chronicle', 'group', 'groupspec', 'faction', 'family', 'creature']
     search_fields = ['name']

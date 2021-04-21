@@ -7,6 +7,7 @@
 from django import template
 import re
 import string
+from collector.utils.wod_reference import STATS_NAMES
 
 register = template.Library()
 
@@ -97,6 +98,16 @@ def as_discipline2(stack, x_field=''):
     res = "<th>%s</th><td>%s</td>"%(text,as_bullets(val))
   return res
 
+""" <th>{{ c.creature|param_stack:9|as_stat_name:"talent"|safe }}</th> """
+@register.filter(name='as_stat_name')
+def as_stat_name(stack, x_field=''):
+  x_creature, x_id = stack
+  value = STATS_NAMES[str(x_creature)][x_field + 's'][int(x_id)]
+  return value.title()
+
+
+
+
 @register.filter(name='as_editable_updown')
 def as_editable_updown(value, options=''):
   keys = options.split(',')
@@ -156,3 +167,5 @@ def to_tribe_logo(val):
   logo_str = '_'.join(val.lower().split(' '))
   res = '<img src="/static/collector/tribes/%s.webp"> '%(logo_str)
   return res
+
+

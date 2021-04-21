@@ -274,7 +274,7 @@ def domitor_from_sire():
             print(f'X-> {k.name} has no sire {k.sire}.')
 
 def build_gaia_wheel():
-    creatures = Creature.objects.filter(ghost=False, mythic=False, chronicle=chronicle.acronym).order_by('-faction','sire')
+    creatures = Creature.objects.filter(chronicle=chronicle.acronym).exclude(mythic=True).exclude(ghost=True).order_by('-faction','sire')
     wyrm_list = []
     weaver_list = []
     wyld_list = []
@@ -292,9 +292,10 @@ def build_gaia_wheel():
             'auspice':c.auspice,
             'breed': c.breed,
             'rank': c.rank,
+            'rid': c.rid,
             'status': c.status
         }
-        if (c.faction == 'Camarilla') or (c.faction=='Sabbat') or (c.faction=='Pentex'):
+        if (c.faction == 'Camarilla') or (c.faction=='Sabbat') or (c.faction=='Independant') or (c.faction=='Inconnu') or (c.faction=='Pentex'):
             wyrm_list.append(creature_dict)
         elif (c.faction=='Gaia'):
             wyld_list.append(creature_dict)

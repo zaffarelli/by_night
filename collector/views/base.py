@@ -21,6 +21,20 @@ def index(request):
     context = {'data': build_gaia_wheel() }
     return render(request, 'collector/index.html', context=context)
 
+def extract_raw(request,slug):
+    found = Creature.objects.all().filter(rid=slug)
+    if len(found)==1:
+        lines = found.first().extract_raw()
+        return HttpResponse(lines, content_type='text/plain', charset="utf-16")
+    return HttpResponse(status=204)
+
+def extract_roster(request,slug):
+    found = Creature.objects.all().filter(rid=slug)
+    if len(found)==1:
+        lines = found.first().extract_roster()
+        return HttpResponse(lines, content_type='text/html', charset="utf-16")
+    return HttpResponse(status=204)
+
 
 def get_list(request, pid):
     """ Update the list of characters on the page
