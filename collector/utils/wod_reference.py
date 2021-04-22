@@ -74,7 +74,7 @@ STATS_NAMES = {
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
-        'knowledges': ['bureaucracy', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
+        'knowledges': ['bureaucracy', 'computer', 'finance', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
         'backgrounds': ['allies', 'bond', 'contacts', 'fame', 'equipment', 'influence', 'mentor',
                         'resources', 'status', 'trust']

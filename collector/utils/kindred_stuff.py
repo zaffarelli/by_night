@@ -275,6 +275,9 @@ def domitor_from_sire():
 
 def build_gaia_wheel():
     creatures = Creature.objects.filter(chronicle=chronicle.acronym).exclude(mythic=True).exclude(ghost=True).order_by('-faction','sire')
+    for creature in creatures:
+        creature.need_fix = True
+        creature.save()
     wyrm_list = []
     weaver_list = []
     wyld_list = []
@@ -282,7 +285,7 @@ def build_gaia_wheel():
         creature_dict = {
             'id':c.id,
             'name':c.name,
-            'creature':(c.creature),
+            'creature':c.creature,
             'family':c.family,
             'group':c.group,
             'groupspec':c.groupspec,

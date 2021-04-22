@@ -8,7 +8,7 @@ import logging
 
 logger = logging.Logger(__name__)
 
-from collector.utils.wod_reference import get_current_chronicle
+from collector.utils.wod_reference import get_current_chronicle, find_stat_property
 
 
 chronicle = get_current_chronicle()
@@ -232,6 +232,9 @@ class Creature(models.Model):
         else:
             return self.family
 
+    def value_of(self,stat):
+        return getattr(self,find_stat_property(self.creature,stat))
+
     @property
     def entrance(self):
         from collector.templatetags.wod_filters import as_generation, as_rank, as_breed, as_auspice, as_tribe_plural
@@ -275,7 +278,7 @@ class Creature(models.Model):
         # Bloodpool
         self.power2 = bloodpool[13 - self.background3]
 
-        self.display_gauge = (self.background3 *2) + int(self.trueage/50)
+        self.display_gauge =  self.value_of('generation') + self.value_of('status') + int(self.trueage/100)
         self.display_pole = self.groupspec
 
     def fix_ghoul(self):
@@ -285,6 +288,8 @@ class Creature(models.Model):
                 self.faction = self.domitor.faction
         self.expectedfreebies = int(((self.trueage - 10) / 10) * 3)
         self.display_gauge = self.domitor.display_gauge / 3
+        self.power2 = 10
+        self.display_pole = self.groupspec
 
     def fix_mortal(self):
         self.trueage = self.age
@@ -698,10 +703,8 @@ def push_to_MBN(modeladmin, request, queryset):
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
-        'name', 'rid', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec', 'faction', 'sire',
-        'domitor', 'condition',
-        'status', 'embrace', 'finaldeath',
-        'age', 'source', 'generation']
+        'name', 'rid', 'creature', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec', 'faction',
+        'status', 'trueage' ]
     ordering = ['name', 'group', 'creature']
     actions = [refix, push_to_RAM, push_to_MBN]
     list_filter = ['chronicle', 'group', 'groupspec', 'faction', 'family', 'creature']

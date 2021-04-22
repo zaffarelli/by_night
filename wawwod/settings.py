@@ -142,7 +142,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = 'wawwod_static/'
-MEDIA_ROOT = 'by_night_media'
+MEDIA_ROOT = 'wawwod_media/'
 
 # PROJECT_DIR = os.path.dirname(__file__)
 # STATICFILES_DIRS = (

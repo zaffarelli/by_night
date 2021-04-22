@@ -2,7 +2,7 @@
 <tr>
     <th>{{ c.creature|param_stack:0|as_stat_name:"background"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_background0'>{{ c.background0|as_bullets|safe }}</td>
-    {% if c.creature == 'garou' or c.creature == 'kindred' %}
+    {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
     {{ c.gift0|param_stack:c.id|as_discipline2:"gift0"|safe }}
     {%else%}
     <th></th>
@@ -25,7 +25,7 @@
 <tr>
     <th>{{ c.creature|param_stack:1|as_stat_name:"background"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_background1'>{{ c.background1|as_bullets|safe }}</td>
-    {% if c.creature == 'garou' or c.creature == 'kindred' %}
+    {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
     {{ c.gift1|param_stack:c.id|as_discipline2:"gift1"|safe }}
     {%else%}
     <th></th>
@@ -47,7 +47,7 @@
 <tr>
     <th>{{ c.creature|param_stack:2|as_stat_name:"background"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_background2'>{{ c.background2|as_bullets|safe }}</td>
-    {% if c.creature == 'garou' or c.creature == 'kindred' %}
+    {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
     {{ c.gift2|param_stack:c.id|as_discipline2:"gift2"|safe }}
     {%else%}
     <th></th>
@@ -68,7 +68,7 @@
 <tr>
     <th>{{ c.creature|param_stack:3|as_stat_name:"background"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_background3'>{{ c.background3|as_bullets|safe }}</td>
-    {% if c.creature == 'garou' or c.creature == 'kindred' %}
+    {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
     {{ c.gift3|param_stack:c.id|as_discipline2:"gift3"|safe }}
     {%else%}
     <th></th>
@@ -97,7 +97,7 @@
     <td></td>
     {%endif%}
     <th>Willpower</th>
-    <td>{{ c.willpower|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.id}}_willpower'>{{ c.willpower|as_bullets|safe }}</td>
     {{ c.flaw4|param_stack:c.id|as_discipline2:"flaw4"|safe }}
 </tr>
 <tr>

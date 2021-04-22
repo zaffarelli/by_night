@@ -24,12 +24,13 @@
   <body>
     
     <div class='bar'>
-      <i id='toggle_chronicle' class='fa fa-building'></i>&nbsp;
+      <i id='toggle_chronicle' class='fa fa-building'> {{chronicle}}</i>&nbsp;
       <i id='toggle_lineage' class='fa fa-sitemap'></i>&nbsp;
       <i id='toggle_list' class='fa fa-users'></i>&nbsp;
       <i id='add_creature' class='fa fa-user-plus'></i>&nbsp;
       <i id='toggle_details' class='fa fa-user'></i>
-      <input type='text' id='userinput' placeholder='user input'>      
+      <input type='text' id='userinput' placeholder='user input'>
+
     </div>
     <div class='wrapper' style="background-image: url('{% static chronicle_logo %}')">
       <div class='charlist'>
@@ -37,8 +38,7 @@
         {% endblock list %}
       </div>
       <div id='gaia_wheel'>
-        {% include "collector/gaia_wheel.html" with c=data %}
-      </div>      
+      </div>
       <div class='details'>
         {% block creature %}
         {% endblock creature %}
@@ -48,7 +48,8 @@
 
 
     {% block javascript %}
-    {% endblock %}
+    {% endblock javascript %}
+    <div id="custom_js"></div>
     <script src='{% static "js/collector.es6" %}'></script>
   </body>
 </html>

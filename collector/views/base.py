@@ -1,10 +1,3 @@
-"""
-           /       '_ /_/ 
-          ()(/__/)/(//)/  
-            /     _/      
-
-"""
-
 from django.http import HttpResponse, Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from collector.models.creatures import Creature
@@ -18,7 +11,7 @@ chronicle = get_current_chronicle()
 
 
 def index(request):
-    context = {'data': build_gaia_wheel() }
+    context = {}
     return render(request, 'collector/index.html', context=context)
 
 def extract_raw(request,slug):
@@ -147,3 +140,14 @@ def change_chronicle(request,slug=''):
     else:
         set_chronicle(slug)
     return HttpResponse(status=204)
+
+def gaia_wheel(request):
+    list = build_gaia_wheel()
+    gaia_wheel_context = {'data': list}
+    gaia_wheel_template = get_template('collector/gaia_wheel.html')
+    gaia_wheel_html = gaia_wheel_template.render(gaia_wheel_context, request)
+    answer = {
+        'gaia_wheel': gaia_wheel_html,
+    }
+    print(answer)
+    return JsonResponse(answer)

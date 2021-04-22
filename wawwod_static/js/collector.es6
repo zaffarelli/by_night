@@ -14,17 +14,26 @@ function prepare_ajax(){
   });
 }
  
-function loadajax(){
-  $.ajax({
-    url: 'ajax/list/1/',
-    success: function(answer) {            
-      $('.charlist').html(answer.list)
-      rebootlinks();
-      $('.more').addClass('hidden');
-      $('.charlist').addClass('hidden');
-      $('.details').addClass('hidden');
-    },
-  });
+function loadAjax(){
+//   $.ajax({
+//     url: 'ajax/list/1/',
+//     success: function(answer) {
+//       $('.charlist').html(answer.list)
+//       rebootlinks();
+//       $('.more').addClass('hidden');
+//       $('.charlist').addClass('hidden');
+//       $('.details').addClass('hidden');
+//     },
+//   });
+    console.log("load ajax")
+    $.ajax({
+        url: 'ajax/gaia_wheel/',
+        success: function(answer) {
+            console.log(answer)
+            $('#custom_js').html(answer.gaia_wheel);
+            rebootlinks();
+        },
+    });
 }
 
 function rebootlinks(){
@@ -40,7 +49,7 @@ function rebootlinks(){
       url: 'ajax/list/'+$(this).attr('page')+'/',
       success: function(answer) {
         $('.charlist').html(answer.list);
-        $('#gaia_wheel').html(answer.gaia_wheel);
+
         rebootlinks();
         $('.more').addClass('hidden');
       },

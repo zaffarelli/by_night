@@ -178,21 +178,15 @@ class GaiaWheel {
             let previous = first;
             let center = poles[pole]['center'];
             poles[pole]['list'].forEach(function(v,k){
-//                 if (k>0){
-//                     links.push({'x1':v.x,'y1':v.y,'x2':previous.x,'y2':previous.y})
-//                 }
-//                 previous = v;
-//                 if (k==poles[pole]['list'].length-1){
-                    links.push({'x1':v.x,'y1':v.y,'x2':center.x,'y2':center.y})
-//                 }
+                links.push({'x1':v.x,'y1':v.y,'x2':center.x,'y2':center.y})
             });
         }
-        let pole_centers = me.back.selectAll(".pole_center")
+        let pole_centers = me.back.selectAll(".pole_center_"+ty)
             .data(all_poles)
         ;
         let pole_center = pole_centers.enter()
             .append("rect")
-            .attr("class",'pole_center')
+            .attr("class",'pole_center_'+ty)
             .attr("x",function(d){
                 console.log(d);
                 return d.x -5 ;
@@ -210,12 +204,12 @@ class GaiaWheel {
             ;
 
 
-        let links_lines = me.back.selectAll(".link_line")
+        let links_lines = me.back.selectAll(".link_line_"+ty)
             .data(links)
         ;
         let link = links_lines.enter()
             .append("line")
-            .attr("class",'link_line')
+            .attr("class","link_line_"+ty)
             .attr("x1",function(d){
                 return d.x1;
             })
@@ -342,12 +336,20 @@ class GaiaWheel {
                 return res;
             })
             .style('stroke-width',function(d){
-                let res = '0.5pt'
-                if (d.status == 'OK'){
-                    res = '2pt';
+                let res = '1pt'
+                if (d.status != 'OK'){
+                    res = '3pt';
                 }
                 return res;
             })
+            .style('stroke',function(d){
+                let res = '#136'
+                if (d.status != 'OK'){
+                    res = '#A22';
+                }
+                return res;
+            })
+
             .style('opacity','0.8')
             ;
         let node_off = nodes.exit()
@@ -395,9 +397,10 @@ class GaiaWheel {
 
     update() {
         let me = this;
+        me.display_branch(2,me.wyrm,"wyrm",me.wyrm.length);
         me.display_branch(0,me.wyld,"wyld",me.wyld.length);
         me.display_branch(1,me.weaver,"weaver",me.weaver.length);
-        me.display_branch(2,me.wyrm,"wyrm",me.wyrm.length);
+
     }
 
     perform() {
