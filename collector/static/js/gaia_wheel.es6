@@ -3,8 +3,10 @@
 */
 /* The Gaia wheel display class */
 class GaiaWheel {
-    constructor(data) {
+    constructor(data,parent,collector) {
         let me = this;
+        me.parent = parent;
+        me.co = collector;
         me.data = data;
         me.init();
     }
@@ -12,13 +14,14 @@ class GaiaWheel {
     init() {
         let me = this;
         me.global_rotation=0;
+        me.sector_size = 60;
         me.weaver = me.data['weaver'];
         me.wyld = me.data['wyld'];
         me.wyrm = me.data['wyrm'];
-        me.boxWidth = 4;
+        me.boxWidth = 6;
         me.boxHeight = 4;
         let re = new RegExp("\d+");
-        me.width = parseInt($("#gaia_wheel").css("width"),10);
+        me.width = parseInt($(me.parent).css("width"),10);
         me.height = me.width;
         me.radius = 800;
         me.max_gauge = 20;
@@ -31,8 +34,8 @@ class GaiaWheel {
 
     watermark(){
         let me = this;
-        d3.select("#gaia_wheel").selectAll("svg").remove();
-        me.svg = d3.select("#gaia_wheel").append("svg")
+        d3.select(me.parent).selectAll("svg").remove();
+        me.svg = d3.select(me.parent).append("svg")
             //.attr("viewBox", "0 0 " + me.width + " " + me.height)
             .attr("width", me.width)
             .attr("height", me.height)
@@ -42,11 +45,11 @@ class GaiaWheel {
             .append("g")
             .attr("transform", "translate(" + me.width/2 + "," + me.height/2 + ") rotate("+(me.global_rotation)+")")
             ;
-        me.draw_sectors();
+        //me.draw_sectors();
         let radial_lines = me.svg.append("g")
             .attr("class", "radiuses")
             .selectAll("g")
-            .data(d3.range(0, 360, 12))
+            .data(d3.range(0, 360, 10))
             ;
         radial_lines.enter()
             .append("g")
@@ -56,21 +59,21 @@ class GaiaWheel {
             .append("line")
             .style("stroke", function(d){
                 let res = me.scales_stroke;
-                if ( (d-me.global_rotation) % 120 == 0){
+                if ( (d-me.global_rotation) % me.sector_size == 0){
                     res = me.scales_stroke_special;
                 }
                 return res;
             } )
             .style("stroke-dasharray", function(d){
                 let res = me.base_dash;
-                if ( (d-me.global_rotation) % 120 == 0){
+                if ( (d-me.global_rotation) % me.sector_size == 0){
                     res = "";
                 }
                 return res;
             } )
             .style("stroke-width",  function(d){
                 let res = "0.25pt";
-                if ( (d-me.global_rotation) % 120 == 0){
+                if ( (d-me.global_rotation) % me.sector_size == 0){
                     res = "1pt";
                 }
                 return res;
@@ -128,7 +131,7 @@ class GaiaWheel {
             .style("stroke",me.scales_stroke)
             .style("stroke-width",'5pt')
             .on("click",function(e){
-                let x = 12;
+                let x = 10;
                 if (d3.event.ctrlKey) {
                     me.global_rotation += x;
                 }else{
@@ -140,25 +143,25 @@ class GaiaWheel {
         }
 
 
-    display_branch(angle,arr,ty,total){
+    display_branch(angle,arr,ty,total, span){
         let me = this;
         let poles = {}
         arr.forEach(function(d,idx) {
               d.order = idx;
-              d.angular = 120*(((d.order+0.5)/total)+angle);
+              d.angular = ((d.order+1)*span/(total+2))+angle*me.sector_size;
               d.radial = me.radiused(d.display_gauge);
               d.x = Math.cos((d.angular)*2*Math.PI/360) * d.radial;
               d.y = Math.sin((d.angular)*2*Math.PI/360) * d.radial;
               if (d.display_pole != ''){
                 if (poles[d.display_pole]){
                     poles[d.display_pole]['count'] += 1;
-                    poles[d.display_pole]['list'].push({'name':d.name, 'x':d.x, 'y':d.y});
+                    poles[d.display_pole]['list'].push({'name':d.name, 'x':d.x, 'y':d.y, 'angular':d.angular, 'radial':d.radial, 'display_gauge': d.display_gauge});
                 }else{
-                    poles[d.display_pole] = {'count':1, 'list': [{'name':d.name, 'x':d.x, 'y':d.y}] };
+                    poles[d.display_pole] = {'count':1, 'list': [{'name':d.name, 'x':d.x, 'y':d.y, 'angular':d.angular, 'radial':d.radial, 'display_gauge': d.display_gauge}] };
                 }
               }
         });
-        console.log(poles);
+        //console.log(poles);
         let all_poles = []
         let links = [];
         for (let pole in poles) {
@@ -166,14 +169,14 @@ class GaiaWheel {
             let cy = 0;
             let cnt = poles[pole]['list'].length;
             poles[pole]['list'].forEach(function(v,k){
-                cx += v.x;
-                cy += v.y;
+                cx += v.x + Math.cos((v.angular)*2*Math.PI/360)*50;
+                cy += v.y + Math.sin((v.angular)*2*Math.PI/360)*50;
             });
+
             poles[pole]['center'] = {'x':Math.round(cx/cnt),'y':Math.round(cy/cnt)};
             all_poles.push({'name':pole,'x':Math.round(cx/cnt),'y':Math.round(cy/cnt)})
         }
         for (let pole in poles) {
-            console.log("Key:" + pole);
             let first = poles[pole]['list'][0];
             let previous = first;
             let center = poles[pole]['center'];
@@ -188,7 +191,6 @@ class GaiaWheel {
             .append("rect")
             .attr("class",'pole_center_'+ty)
             .attr("x",function(d){
-                console.log(d);
                 return d.x -5 ;
             })
             .attr("y",function(d){
@@ -262,6 +264,7 @@ class GaiaWheel {
                         str += " "+d.family+"</i>";
                     }
                     str += "<br/> (" + d.display_pole+ ", " + d.display_gauge + ")";
+                    str += "<br/>["+d.position+"]";
                     str += "<br/>["+d.rid+"]";
                   me.tooltip.transition()
                     .duration(200)
@@ -283,10 +286,10 @@ class GaiaWheel {
                             $('.details').html(answer)
                             $('li').removeClass('selected');
                             $('.details').removeClass('hidden');
-                            rebootlinks();
+                            me.co.rebootLinks();
                         },
                         error: function(answer) {
-                            console.log('View error...' + answer);
+                            console.error('View error...' + answer);
                         }
                     });
                 }
@@ -323,30 +326,19 @@ class GaiaWheel {
             })
             ;
         node_cross.append("circle")
-            .attr('class', 'node_circle')
+            .attr('class', function(d){
+                let res = 'node_circle '+ty+' '+d.creature;
+                if (d.status == 'OK'){
+                    res += ' balanced';
+                }
+                return res;
+               })
             .attr({
                 cx: 0,
                 cy: 0,
             })
             .attr('r',function(d){
                 let res = me.boxWidth;
-                if (d.status == 'OK'){
-                    res = me.boxWidth*1.5;
-                }
-                return res;
-            })
-            .style('stroke-width',function(d){
-                let res = '1pt'
-                if (d.status != 'OK'){
-                    res = '3pt';
-                }
-                return res;
-            })
-            .style('stroke',function(d){
-                let res = '#136'
-                if (d.status != 'OK'){
-                    res = '#A22';
-                }
                 return res;
             })
 
@@ -360,22 +352,21 @@ class GaiaWheel {
     let me = this;
     me.position = me.radius*0.65;
     let data = [
-        {'id':0,'start':0,'end':120,'name':  'The Wyld','font':'wyld','angle':70},
-        {'id':1,'start':120,'end':240,'name':'The Weaver','font':'weaver','angle':70+120},
-        {'id':2,'start':240,'end':360,'name':'The Wyrm','font':'wyrm','angle':70+240},
+        {'id':0,'start':0,'end':me.sector_size*2,'name':  'The Wyld','font':'wyld','angle':70*me.sector_size*0},
+        {'id':1,'start':me.sector_size*2,'end':me.sector_size*3,'name':'The Weaver','font':'weaver','angle':70+me.sector_size*2},
+        {'id':2,'start':me.sector_size*3,'end':me.sector_size*4,'name':'The Wyrm','font':'wyrm','angle':70+me.sector_size*3}
     ];
-
     let sectors = me.back.append("g")
       .attr("class", 'sectors')
       .selectAll(".sectors")
-      .data(data)
-
-       ;
+      .data(data);
     sectors.enter()
       .append("g")
       .attr("class", "sector")
       .attr("transform", function (d) {
-        return "translate("+Math.cos((d.angle)*2*Math.PI/360)*me.position+","+Math.sin((d.angle)*2*Math.PI/360)*me.position+") ";
+        let x = Math.cos((d.angle)*2*Math.PI/360)*me.position;
+        let y = Math.sin((d.angle)*2*Math.PI/360)*me.position;
+        return "translate("+x+","+y+") ";
       })
       .append("text")
       .attr("transform","rotate("+(-me.global_rotation)+")")
@@ -397,10 +388,9 @@ class GaiaWheel {
 
     update() {
         let me = this;
-        me.display_branch(2,me.wyrm,"wyrm",me.wyrm.length);
-        me.display_branch(0,me.wyld,"wyld",me.wyld.length);
-        me.display_branch(1,me.weaver,"weaver",me.weaver.length);
-
+        me.display_branch(0,me.wyld,"wyld",me.wyld.length, me.sector_size*4);
+        me.display_branch(4,me.weaver,"weaver",me.weaver.length, me.sector_size);
+        me.display_branch(5,me.wyrm,"wyrm",me.wyrm.length,  me.sector_size);
     }
 
     perform() {

@@ -5,16 +5,18 @@
 -->
 {% load wod_filters %}
 <div class='avatar_link {% if c.is_locked %}locked{%endif%}'>
-  <span class='toggle_name'>{{ c.name }}</span><span class='toggle_more' id='tm_{{c.id}}'>{{ c.family }}&nbsp;<i class="fas fa-ellipsis-h golden"></i>&nbsp;<span class='view_creature' id="{{c.id}}" title='{{ c.id }}'><i class="fas fa-user golden"></i></span></span>
-  <div class='more {{c.faction}}' id='m_{{c.id}}'>
-  <ul>
-  <li>{{ c.background3|as_generation }} generation {{c.family}}&nbsp;</li>
-  <li>{{ c.faction|safe }} {{c.group}} {{c.groupspec}}&nbsp;</li>
-  <li>{%if c.player != '' %}Played by {{c.player|safe}}{% endif %}&nbsp;</li>
-  </ul>
-  {{c.topic}}
-  <div class='creature_actions'>
-    
-  </div>
-  </div>
+  <span class='toggle_name {{c.creature}}'>{{ c.name }}</span>
+
+  <span class='view_creature' id="{{c.id}}" title='{{ c.id }}'><i class="fas fa-eye"></i></span>
+<!--  <div class='more {{c.faction}}' id='m_{{c.id}}'>-->
+<!--  <ul>-->
+<!--  <li>{{ c.background3|as_generation }} generation {{c.family}}&nbsp;</li>-->
+<!--  <li>{{ c.faction|safe }} {{c.group}} {{c.groupspec}}&nbsp;</li>-->
+<!--  <li>{%if c.player != '' %}Played by {{c.player|safe}}{% endif %}&nbsp;</li>-->
+<!--  </ul>-->
+<!--  {{c.topic}}-->
+<!--  <div class='creature_actions'>-->
+<!--    -->
+<!--  </div>-->
+<!--  </div>-->
 </div>

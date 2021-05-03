@@ -89,16 +89,16 @@ LOGGING = {
         },
     },
     'loggers': {
-        # 'django': {
-        #     'handlers': ['console'],
-        #     'propagate': True,
-        #     'level': 'INFO',
-        # },
-        # 'django.db.backends': {
-        #     'handlers': ['console'],
-        #     'level': 'ERROR',
-        #     'propagate': False,
-        # },
+        'django': {
+            'handlers': ['console','logfile'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'django.db.backends': {
+            'handlers': ['console','logfile'],
+            'level': 'INFO',
+            'propagate': False,
+        },
         'collector': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',

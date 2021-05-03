@@ -1,4 +1,4 @@
-{% load wod_filters %}
+    {% load wod_filters %}
 <tr>
     <th>{{ c.creature|param_stack:0|as_stat_name:"background"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_background0'>{{ c.background0|as_bullets|safe }}</td>
@@ -8,7 +8,6 @@
     <th></th>
     <td></td>
     {%endif%}
-
     {% if c.creature == 'garou' %}
     <th>Glory</th>
     <td class='editable updown' id='{{c.id}}_level0'>{{ c.level0|as_bullets|safe }}</td>
@@ -19,8 +18,7 @@
     <th></th>
     <td></td>
     {%endif%}
-
-    {{ c.flaw0|param_stack:c.id|as_discipline2:"flaw0"|safe }}
+    {{ c.rite0|param_stack:c.id|as_discipline2:"rite0"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:1|as_stat_name:"background"|safe }}</th>
@@ -41,8 +39,7 @@
     <th></th>
     <td></td>
     {%endif%}
-
-    {{ c.flaw1|param_stack:c.id|as_discipline2:"flaw1"|safe }}
+    {{ c.rite1|param_stack:c.id|as_discipline2:"rite1"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:2|as_stat_name:"background"|safe }}</th>
@@ -63,7 +60,7 @@
     <th></th>
     <td></td>
     {%endif%}
-    {{ c.flaw2|param_stack:c.id|as_discipline2:"flaw2"|safe }}
+    {{ c.rite2|param_stack:c.id|as_discipline2:"rite2"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:3|as_stat_name:"background"|safe }}</th>
@@ -84,8 +81,7 @@
     <th></th>
     <td></td>
     {%endif%}
-
-    {{ c.flaw3|param_stack:c.id|as_discipline2:"flaw3"|safe }}
+    {{ c.rite3|param_stack:c.id|as_discipline2:"rite3"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:4|as_stat_name:"background"|safe }}</th>
@@ -98,7 +94,7 @@
     {%endif%}
     <th>Willpower</th>
     <td class='editable updown' id='{{c.id}}_willpower'>{{ c.willpower|as_bullets|safe }}</td>
-    {{ c.flaw4|param_stack:c.id|as_discipline2:"flaw4"|safe }}
+    {{ c.rite4|param_stack:c.id|as_discipline2:"rite4"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:5|as_stat_name:"background"|safe }}</th>
@@ -113,13 +109,11 @@
     <th>Gnosis</th>
     <td class='editable updown' id='{{c.id}}_power2'>{{ c.power2|as_bullets|safe }}</td>
     {% else %}
-    
     <th>Blood Pool</th>
     <td>{{ c.power2 }}</td>
     {%endif%}
-
-
-    {{ c.flaw5|param_stack:c.id|as_discipline2:"flaw5"|safe }}
+    <th></th>
+    <td></td>
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:6|as_stat_name:"background"|safe }}</th>
@@ -132,7 +126,8 @@
     {%endif%}
     <th></th>
     <td></td>
-    {{ c.flaw6|param_stack:c.id|as_discipline2:"flaw6"|safe }}
+    <th></th>
+    <td></td>
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:7|as_stat_name:"background"|safe }}</th>
@@ -145,7 +140,8 @@
     {%endif%}
     <th></th>
     <td></td>
-    {{ c.flaw7|param_stack:c.id|as_discipline2:"flaw7"|safe }}
+    <th></th>
+    <td></td>
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:8|as_stat_name:"background"|safe }}</th>
@@ -158,7 +154,8 @@
     {%endif%}
     <th></th>
     <td></td>
-    {{ c.flaw8|param_stack:c.id|as_discipline2:"flaw8"|safe }}
+    <th></th>
+    <td></td>
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:9|as_stat_name:"background"|safe }}</th>
@@ -171,5 +168,6 @@
     {%endif%}
     <th></th>
     <td></td>
-    {{ c.flaw9|param_stack:c.id|as_discipline2:"flaw9"|safe }}
+    <th></th>
+    <td></td>
 </tr>

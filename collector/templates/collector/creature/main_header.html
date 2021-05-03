@@ -1,6 +1,6 @@
 {% load wod_filters %}
-<tr>
-    <th colspan=2 class='clan_logo'>
+<tr class="tainted">
+    <th colspan=2 class='tainted clan_logo'>
         {% if c.creature == 'ghoul' %}
             {{c.domitor.family|to_logo|safe}}
         {% elif c.creature == "garou" %}
@@ -13,7 +13,7 @@
 
         {% endif %}
     </th>
-    <th colspan=5>
+    <th colspan=5 class="tainted">
         <strong> {{ c.name }}</strong>
         {% if c.nickname != '' %}
             &nbsp;({{c.nickname}})
@@ -26,11 +26,22 @@
             <br/>{{c.concept}}
         {%endif%}
         {% if c.domitor %}
+            {% if c.creature == 'ghoul' %}
             <br/>Ghoul of <em>{{ c.domitor.name }}</em>
+            {% endif %}
         {%endif%}
+        {% if c.patron %}
+            {% if c.creature == 'kinfolk'%}
+            <br/>Kinfolk of <em>{{ c.patron }}</em>
+            {% endif %}
+        {%endif%}
+
         {% if c.player != '' %}
             <br/>({{c.player}})
         {%endif%}
     </th>
-    <th class='back'><strong><i class='fa fa-arrow-right ' id='toggle_details2'></i></strong></th>
+    <th class='tainted back'><strong><i class='fa fa-arrow-right ' id='toggle_details2'></i><i class='fa fas-repeat ' id='{{c.id}}_refix'></i></strong></th>
+</tr>
+<tr>
+    <td colspan="8"> &nbsp; </td>
 </tr>

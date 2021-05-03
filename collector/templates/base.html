@@ -1,55 +1,88 @@
 <!DOCTYPE html>
-<!--
-           /       '_ /_/ 
-          ()(/__/)/(//)/  
-            /     _/      
--->
 <html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
+<head>
+    <meta charset='utf-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <title>{% block title %}By Night{% endblock %}</title>
-    {% load static %}        
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/solid.css' integrity='sha384-Rw5qeepMFvJVEZdSo1nDQD5B6wX0m7c5Z/pLNvjkB14W6Yki1hKbSEQaX9ffUbWe' crossorigin='anonymous'>
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css' integrity='sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV' crossorigin='anonymous'>
+    {% load static %}
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/solid.css'
+          integrity='sha384-Rw5qeepMFvJVEZdSo1nDQD5B6wX0m7c5Z/pLNvjkB14W6Yki1hKbSEQaX9ffUbWe' crossorigin='anonymous'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css'
+          integrity='sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV' crossorigin='anonymous'>
     <script src='https://code.jquery.com/jquery-3.3.0.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.js'></script>
+    <script src='{% static "js/collector.es6" %}'></script>
+    <script src='{% static "js/gaia_wheel.es6" %}'></script>
     {% load compress %}
     {% compress css %}
-    <link rel='stylesheet' type='text/x-scss' href='{% static "collector/css/main.scss" %}' />
+    <link rel='stylesheet' type='text/x-scss' href='{% static "collector/css/main.scss" %}'/>
     {% endcompress %}
-    <script src='{% static "js/gaia_wheel.es6" %}'></script>
-  </head>
-  <body>
-    
-    <div class='bar'>
-      <i id='toggle_chronicle' class='fa fa-building'> {{chronicle}}</i>&nbsp;
-      <i id='toggle_lineage' class='fa fa-sitemap'></i>&nbsp;
-      <i id='toggle_list' class='fa fa-users'></i>&nbsp;
-      <i id='add_creature' class='fa fa-user-plus'></i>&nbsp;
-      <i id='toggle_details' class='fa fa-user'></i>
-      <input type='text' id='userinput' placeholder='user input'>
+</head>
+<body>
+<ul class='bar'>
+    <li class="pull_down">
+    {{chronicle_name}}
+    </li>
+    <li class="pull_down" id="chronicle_menu">
+    {% include "collector/page/chronicles.html" with c=chronicles%}
+    </li>
+    <li class="pull_down">
+        <i id='toggle_list' class='fa fa-users'></i>&nbsp;Creatures
+        <ul class="drop_down">
+            <li class="list" id="all">All</li>
+            <li class="list" id="sabbat">Sabbat</li>
+            <li class="list" id="camarilla">Camarilla</li>
+            <li class="list" id="vtm">All Kindreds & Ghouls</li>
+            <li class="list" id="garou">Garous</li>
+            <li class="list" id="wta">All Garous & Kinfolks</li>
+            <li class="list" id="pentex">Black Spirals & Fomori</li>
+            <li class="list" id="mortals">Mortals, Ghouls & Kinfolks</li>
+        </ul>
+    </li>
+    <li class="pull_down">
+        <i id='toggle_lineage' class='fa fa-sitemap'></i>&nbsp;Display
+        <ul class="drop_down">
+            <li class="display" id="lineage">Camarilla Lineage</li>
+            <li class="display" id="gaia_wheel">Gaia Wheel</li>
+        </ul>
+    </li>
+    <li class="pull_down">
+        <i id='toggle_chronicle' class='fa fa-cogs'></i>&nbsp;Options
+        <ul class="drop_down">
+            <li>Settings</li>
+            <li>Export</li>
+            <li>Import</li>
+        </ul>
+    </li>
+    <input type='text' id='userinput' placeholder='Free text here...'>
+</ul>
 
-    </div>
-    <div class='wrapper' style="background-image: url('{% static chronicle_logo %}')">
-      <div class='charlist'>
+
+
+<div class='wrapper' style="background-image: url('{% static chronicle_logo %}')">
+    <div class='charlist'>
         {% block list %}
         {% endblock list %}
-      </div>
-      <div id='gaia_wheel'>
-      </div>
-      <div class='details'>
+    </div>
+    <div id='d3area'>
+    </div>
+    <div class='details'>
         {% block creature %}
         {% endblock creature %}
-      </div>
     </div>
+</div>
 
 
-
-    {% block javascript %}
-    {% endblock javascript %}
-    <div id="custom_js"></div>
-    <script src='{% static "js/collector.es6" %}'></script>
-  </body>
+{% block javascript %}
+{% endblock javascript %}
+<div id="custom_js"></div>
+    <script>
+    _.defer(function(){
+        let co = new WawwodCollector()
+        co.perform();
+    });
+    </script>
+</body>
 </html>

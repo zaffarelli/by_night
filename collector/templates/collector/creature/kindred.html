@@ -1,59 +1,7 @@
 {% load wod_filters %}
 <table cellspacing=0 cellpadding=0>
     {% include "collector/creature/main_header.html" with c=c %}
-    <tr>
-        <th>Age</th>
-        <td class='editable userinput' id='{{c.id}}_age'>{{c.age}}</td>
-        <th>Embrace</th>
-        <td>{{ c.embrace }}</td>
-        <th>Experience</th>
-        <td id='{{c.id}}_experience'>{{ c.experience }}</td>
-        <th>Nature</th>
-        <td class='editable userinput' id='{{c.id}}_nature'>{{c.nature}}</td>
-    </tr>
-    <tr>
-        <th>TrueAge</th>
-        <td class='editable userinput' id='{{c.id}}_trueage'>{{c.trueage}}</td>
-        <th>Status</th>
-        <td class='editable userinput' id='{{c.id}}_status'>{{c.status}}</td>
-        <th>Concept</th>
-        <td class='editable userinput' id='{{c.id}}_concept'>{{ c.concept }}</td>
-        <th>Demeanor</th>
-        <td class='editable userinput' id='{{c.id}}_demeanor'>{{c.demeanor}}</td>
-    </tr>
-    <tr>
-        <th>Clan</th>
-        <td class='editable userinput' id='{{c.id}}_family'>{{ c.family }}</td>
-        <th>Sire</th>
-        <td class='editable userinput' id='{{c.id}}_sire'>{{ c.sire }}</td>
-        <th>Group</th>
-        <td class='editable userinput' id='{{c.id}}_group'>{{c.group}}</td>
-        <th>Subgroup</th>
-        <td class='editable userinput' id='{{c.id}}_groupspec'>{{c.groupspec}}</td>
-        </td>
-    </tr>
-    <tr>
-        <th>Faction</th>
-        <td class='editable userinput' id='{{c.id}}_faction'>{{ c.faction }}</td>
-        <th>Freebies</th>
-        <td id='{{c.id}}_freebies'>{{ c.freebies }}</td>
-        <th>Sex</th>
-        <td class='editable userinput' id='{{c.id}}_sex'>{% if c.sex == False %}Female{%else%}Male{%endif%}</td>
-        <th>Condition</th>
-        <td class='editable userinput' id='{{c.id}}_condition'>{{c.condition}}</td>
-    </tr>
-
-    <tr>
-        <th>Torpor</th>
-        <td class='editable userinput' id='{{c.id}}_timeintorpor'>{{ c.timeintorpor }}</td>
-        <th>Expected Freebies</th>
-        <td id='{{c.id}}_expectedfreebies'>{{ c.expectedfreebies }}</td>
-        <th>Disciplines</th>
-        <td id='{{c.id}}_disciplinepoints'>{{ c.disciplinepoints }}</td>
-        <th>Source</th>
-        <td class='editable userinput' id='{{c.id}}_source'>{{ c.source }}</td>
-    </tr>
-
+    {% include "collector/creature/mortal_header.html" with c=c %}
     {% include "collector/creature/attributes_header.html" with c=c %}
     {% include "collector/creature/abilities_header.html" with c=c %}
     {% include "collector/creature/abilities_columns.html" with c=c %}
@@ -61,7 +9,8 @@
         <td colspan=2>Backgrounds ({{c.total_backgrounds}})</td>
         <td colspan=2>Disciplines</td>
         <td colspan=2>Virtues</td>
-        <td colspan=2>Flaws</td>
+        <td colspan=2>Rites</td>
     </tr>
     {% include "collector/creature/backgrounds_columns.html" with c=c %}
 </table>
+<div class="footnote">[<a href="/api/roster/{{c.rid}}/" target="wawwod_roster">{{c.id}}</a>] [Attributes:7/5/3 Abilities:13/9/5 Backgrounds:5 Discipline:3 Freebies:15]</div>

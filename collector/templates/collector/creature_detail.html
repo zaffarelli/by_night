@@ -1,6 +1,6 @@
 {% load wod_filters %}
 {% block creature %}
-<div class='creature {{c.faction}}'>
+<div class='creature {{c.faction}} {{c.creature}}'>
     {% if c.creature == 'kindred' %}
         {% include "./creature/kindred.html" with c=c %}
     {% elif c.creature == 'mortal' %}

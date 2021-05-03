@@ -42,7 +42,7 @@
     <td class='editable updown' id='{{c.id}}_skill4'>{{ c.skill4|as_bullets|safe }}</td>
     <th>{{ c.creature|param_stack:4|as_stat_name:"knowledge"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_knowledge4'>{{c.knowledge4|as_bullets|safe }}</td>
-    {{ c.merit4|param_stack:c.id|as_discipline2:"merit4"|safe }}
+    <th></th><td></td>
 </tr>
 
 <tr>
@@ -52,7 +52,7 @@
     <td class='editable updown' id='{{c.id}}_skill5'>{{ c.skill5|as_bullets|safe }}</td>
     <th>{{ c.creature|param_stack:5|as_stat_name:"knowledge"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_knowledge5'>{{c.knowledge5|as_bullets|safe }}</td>
-    {{ c.merit5|param_stack:c.id|as_discipline2:"merit5"|safe }}
+    <td colspan="2">Flaws</td>
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:6|as_stat_name:"talent"|safe }}</th>
@@ -61,7 +61,7 @@
     <td class='editable updown' id='{{c.id}}_skill6'>{{ c.skill6|as_bullets|safe }}</td>
     <th>{{ c.creature|param_stack:6|as_stat_name:"knowledge"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_knowledge6'>{{c.knowledge6|as_bullets|safe }}</td>
-    {{ c.merit6|param_stack:c.id|as_discipline2:"merit6"|safe }}
+    {{ c.flaw0|param_stack:c.id|as_discipline2:"flaw0"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:7|as_stat_name:"talent"|safe }}</th>
@@ -70,7 +70,7 @@
     <td class='editable updown' id='{{c.id}}_skill7'>{{ c.skill7|as_bullets|safe }}</td>
     <th>{{ c.creature|param_stack:7|as_stat_name:"knowledge"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_knowledge7'>{{c.knowledge7|as_bullets|safe }}</td>
-    {{ c.merit7|param_stack:c.id|as_discipline2:"merit7"|safe }}
+    {{ c.flaw1|param_stack:c.id|as_discipline2:"flaw1"|safe }}
 </tr>
 
 <tr>
@@ -80,7 +80,7 @@
     <td class='editable updown' id='{{c.id}}_skill8'>{{ c.skill8|as_bullets|safe }}</td>
     <th>{{ c.creature|param_stack:8|as_stat_name:"knowledge"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_knowledge8'>{{c.knowledge8|as_bullets|safe }}</td>
-    {{ c.merit8|param_stack:c.id|as_discipline2:"merit8"|safe }}
+    {{ c.flaw2|param_stack:c.id|as_discipline2:"flaw2"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:9|as_stat_name:"talent"|safe }}</th>
@@ -89,5 +89,5 @@
     <td class='editable updown' id='{{c.id}}_skill9'>{{ c.skill9|as_bullets|safe }}</td>
     <th>{{ c.creature|param_stack:9|as_stat_name:"knowledge"|safe }}</th>
     <td class='editable updown' id='{{c.id}}_knowledge9'>{{c.knowledge9|as_bullets|safe }}</td>
-    {{ c.merit9|param_stack:c.id|as_discipline2:"merit9"|safe }}
+    {{ c.flaw3|param_stack:c.id|as_discipline2:"flaw3"|safe }}
 </tr>

@@ -11,29 +11,21 @@ logger = logging.Logger(__name__)
 
 
 def get_current_chronicle():
-    # current_chronicle = Chronicle.objects.get(is_current=True)
     try:
         current_chronicle = Chronicle.objects.filter(is_current=True).first()
-        logger.debug(f'Current Chronicle found is {current_chronicle.acronym}.')
         return current_chronicle
     except:
-        c = Chronicle.objects.first()
-        c.is_current = True
-        c.save()
-        # dummy = Chronicle()
-        # dummy.name='dummy'
-        # dummy.acronym='dummy'
-        # dummy.era = 2021
-        # dummy.is_current = True
-
-        return dummy
+        first_chronicle = Chronicle.objects.first()
+        first_chronicle.is_current = True
+        first_chronicle.save()
+        return first_chronicle
 
 
 def set_chronicle(acro):
     for c in Chronicle.objects.all():
         c.is_current = c.acronym == acro
         if c.is_current:
-            logger.debug(f'Current Chronicle set to is {current_chronicle.acronym}.')
+            logger.debug(f'Current Chronicle set to is {c.acronym}.')
         c.save()
 
 def find_stat_property(creature,statistic):
@@ -43,6 +35,7 @@ def find_stat_property(creature,statistic):
     for list in lists:
         if statistic in STATS_NAMES[creature][list]:
             property = f'{list[:-1]}{STATS_NAMES[creature][list].index(statistic)}'
+            logger.debug(f'Parsing --> {property}')
             break
     return property
 
@@ -74,7 +67,7 @@ STATS_NAMES = {
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
-        'knowledges': ['bureaucracy', 'computer', 'finance', 'investigation', 'law', 'linguistics', 'medicine',
+        'knowledges': ['academics', 'computer', 'finance', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
         'backgrounds': ['allies', 'bond', 'contacts', 'fame', 'equipment', 'influence', 'mentor',
                         'resources', 'status', 'trust']
@@ -95,7 +88,7 @@ STATS_NAMES = {
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
-        'knowledges': ['bureaucracy', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
+        'knowledges': ['academics', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
         'backgrounds': ['allies', 'ancestors', 'contacts', 'equipment', 'favors', 'pure-breed', 'renown', 'resources',
                         'status', 'true faith']
@@ -105,7 +98,7 @@ STATS_NAMES = {
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
-        'knowledges': ['bureaucracy', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
+        'knowledges': ['academics', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
         'backgrounds': ['allies', 'career', 'contacts', 'fame', 'family', 'equipment', 'influence',
                         'resources', 'status', 'true faith']
