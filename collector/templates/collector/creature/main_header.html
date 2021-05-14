@@ -19,7 +19,8 @@
             &nbsp;({{c.nickname}})
         {%endif%}
         {% if c.creature == 'garou' %}
-            <br/>Rank {{c.rank}} {{c.auspice|as_auspice}} {{c.breed|as_breed}} of the {{ c.family|as_tribe_plural }}
+            <br/>{{c.rank|as_rank}} (Rank {{c.rank}}) {{c.breed|as_breed}} {{c.auspice|as_auspice}} of the {{ c.family|as_tribe_plural }}
+            <br/>{{c.group}}
         {% elif c.creature == 'kindred' %}
             <br/>{{c.background3|as_generation }} generation {{ c.family }}
         {% else %}
@@ -40,7 +41,7 @@
             <br/>({{c.player}})
         {%endif%}
     </th>
-    <th class='tainted back'><strong><i class='fa fa-arrow-right ' id='toggle_details2'></i><i class='fa fas-repeat ' id='{{c.id}}_refix'></i></strong></th>
+    <th class='tainted back'><strong><i class='fa fa-arrow-right ' id='toggle_details2'></i><i class='fa fas-repeat ' id='{{c.rid}}__refix'></i></strong></th>
 </tr>
 <tr>
     <td colspan="8"> &nbsp; </td>

@@ -1,6 +1,5 @@
 class WawwodCollector {
     constructor() {
-        console.log('Starting ')
         this.d3 = undefined;
         this.init();
     }
@@ -55,32 +54,38 @@ class WawwodCollector {
         });
     }
 
-//     updateGaiaWheel() {
-//         let me = this;
-//         $.ajax({
-//             url: 'ajax/display/gaia_wheel/',
-//             success: function (answer) {
-//                 $('#custom_js').html(answer.gaia_wheel);
-//             },
-//             error: function (answer) {
-//                 console.error('Gaia Wheel Error');
-//                 me.rebootLinks();
-//             },
-//         });
-//     }
-
     registerDisplay(){
         let me = this;
         $('.display').off().on('click', function (event) {
             let slug = $(this).attr('id');
+            let action = $(this).attr('action');
+            let key = $('#userinput').val();
+            let params = $(this).attr('params');
+            let url = 'ajax/display/' + slug + '/';
+            if (key != ''){
+                if (slug=='crossover_sheet'){
+                    url = 'ajax/display/' + slug + '/'+key+'/';
+                }
+            }
+            if (params != ''){
+                if (action=='crossover_sheet'){
+                    url = 'ajax/display/' + action + '/'+params+'/';
+                }
+            }
             $.ajax({
-                url: 'ajax/display/' + slug + '/',
+                url: url,
                 success: function (answer) {
-                    console.log('Display '+slug);
-                    let d = JSON.parse(answer.data);
-                    console.log(d);
-                    me.d3 = new GaiaWheel(d,"#d3area",me);
-                    me.d3.perform();
+                    if (slug=='gaia_wheel'){
+                        let d = JSON.parse(answer.data);
+                        me.d3 = new GaiaWheel(d,"#d3area",me);
+                        me.d3.perform();
+                    }
+                    if (slug=='crossover_sheet' || action=='crossover_sheet'){
+                        let s = JSON.parse(answer.settings);
+                        let d = JSON.parse(answer.data);
+                        me.d3 = new CrossOverSheet(s,"#d3area",me);
+                        me.d3.perform(d);
+                    }
                     //$('#d3area').html(answer.run);
                     me.rebootLinks();
                 },
@@ -101,7 +106,6 @@ class WawwodCollector {
             $.ajax({
                 url: 'ajax/switch/chronicle/' + slug + '/',
                 success: function (answer) {
-                    console.log('switch');
                     $('#chronicle_menu').html(answer.chronicles);
                     me.rebootLinks();
                 },
@@ -121,7 +125,6 @@ class WawwodCollector {
             $.ajax({
                 url: 'ajax/list/creatures/1/' + slug + '/',
                 success: function (answer) {
-                    console.log('list');
                     $('.charlist').attr('title',slug);
                     $('.charlist').html(answer.list);
                     $('.more').addClass('hidden');
@@ -193,6 +196,7 @@ class WawwodCollector {
                     $('.details').html(answer.character);
                     $('li#' + answer.rid).html(answer.line);
                     $('li').find('div.avatar_link').removeClass('selected');
+                    $('.charlist').addClass('hidden');
                     me.rebootLinks();
                 },
                 error: function (answer) {
@@ -214,10 +218,7 @@ class WawwodCollector {
 
 
 
-//         $('#toggle_list').off();
-//         $('#toggle_list').on('click', function (event) {
-//             $('.charlist').toggleClass('hidden');
-//         });
+
 
         $('#toggle_details').off();
         $('#toggle_details').on('click', function (event) {
@@ -254,6 +255,7 @@ class WawwodCollector {
                     $('.details').html(answer)
                     $('li').removeClass('selected');
                     $('.details').removeClass('hidden');
+                    $('.charlist').addClass('hidden');
                     me.rebootLinks();
                 },
                 error: function (answer) {
@@ -261,7 +263,6 @@ class WawwodCollector {
                 }
             });
         });
-
         $('td.editable.userinput').off();
         $('td.editable.userinput').hover(
             function (event) {
@@ -277,18 +278,18 @@ class WawwodCollector {
         $('td.editable.updown').off();
         $('td.editable.updown').hover(
             function (event) {
-                $(this).addClass('focus');
+                $(this).find('i.blank').addClass('focus')
                 me.rebootLinks();
             },
             function (event) {
-                $(this).removeClass('focus');
+                $(this).find('i.blank').removeClass('focus');
                 me.rebootLinks();
             });
         $('td.editable.updown').on('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
             let target = $(this).attr('id')
-            let keys = $(this).attr('id').split('_')
+            let keys = $(this).attr('id').split('__')
             let shift = event.shiftKey
             let block = $(this).parent();
             let os = 1;
@@ -319,7 +320,7 @@ class WawwodCollector {
             event.preventDefault();
             event.stopPropagation();
             let target = $(this).attr('id')
-            let keys = $(this).attr('id').split('_')
+            let keys = $(this).attr('id').split('__')
             let shift = event.shiftKey;
             let val = $('#userinput').val();
             let block = $(this).parent();

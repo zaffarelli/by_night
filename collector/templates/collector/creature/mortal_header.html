@@ -1,7 +1,7 @@
 {% load wod_filters %}
     <tr>
         <th>Age</th>
-        <td class='editable userinput' id='{{c.id}}_age'>{{c.age}}</td>
+        <td class='editable userinput' id='{{c.rid}}__age'>{{c.age}}</td>
         {% if c.creature == 'kindred' or c.creature == 'ghoul' %}
         <th>Embrace</th>
         <td>{{ c.embrace }}</td>
@@ -10,73 +10,73 @@
         <td></td>
         {%endif%}
         <th>Position</th>
-        <td class="editable userinput" id='{{c.id}}_position'>{{ c.position }}</td>
+        <td class="editable userinput" id='{{c.rid}}__position'>{{ c.position }}</td>
         <th>Nature</th>
-        <td class='editable userinput' id='{{c.id}}_nature'>{{c.nature}}</td>
+        <td class='editable userinput' id='{{c.rid}}__nature'>{{c.nature}}</td>
     </tr>
     <tr>
         {% if c.creature == 'kindred' or c.creature == 'ghoul' %}
         <th>TrueAge</th>
-        <td class='editable userinput' id='{{c.id}}_trueage'>{{c.trueage}}</td>
+        <td class='editable userinput' id='{{c.rid}}__trueage'>{{c.trueage}}</td>
         {%else%}
         <th></th>
         <td></td>
         {%endif%}
         <th>Status</th>
-        <td class='editable userinput' id='{{c.id}}_status'>{{c.status}}</td>
+        <td class='editable userinput' id='{{c.rid}}__status'>{{c.status}}</td>
         <th>Concept</th>
-        <td class='editable userinput' id='{{c.id}}_concept'>{{ c.concept }}</td>
+        <td class='editable userinput' id='{{c.rid}}__concept'>{{ c.concept }}</td>
         <th>Demeanor</th>
-        <td class='editable userinput' id='{{c.id}}_demeanor'>{{c.demeanor}}</td>
+        <td class='editable userinput' id='{{c.rid}}__demeanor'>{{c.demeanor}}</td>
     </tr>
     <tr>
         {% if c.creature == 'kindred' or c.creature == 'ghoul' %}
         <th>Clan</th>
-        <td class='editable userinput' id='{{c.id}}_family'>{{ c.family }}</td>
+        <td class='editable userinput' id='{{c.rid}}__family'>{{ c.family }}</td>
         {% elif c.creature == 'garou' or c.creature == 'kinfolk' %}
         <th>Tribe</th>
-        <td class='editable userinput' id='{{c.id}}_family'>{{ c.family }}</td>
+        <td class='editable userinput' id='{{c.rid}}__family'>{{ c.family }}</td>
         {% else %}
         <th></th>
         <td></td>
         {% endif %}
         {% if c.creature == 'kindred' %}
             <th>Sire</th>
-            <td class='editable userinput' id='{{c.id}}_sire'>{{ c.sire }}</td>
+            <td class='editable userinput' id='{{c.rid}}__sire'>{{ c.sire }}</td>
         {% elif c.creature == 'garou' %}
             <th>Totem Spirit</th>
-            <td class='editable userinput' id='{{c.id}}_sire'>{{ c.sire }}</td>
+            <td class='editable userinput' id='{{c.rid}}__sire'>{{ c.sire }}</td>
         {% else %}
             <th></th><td></td>
         {% endif %}
         <th>Group</th>
-        <td class='editable userinput' id='{{c.id}}_group'>{{c.group}}</td>
+        <td class='editable userinput' id='{{c.rid}}__group'>{{c.group}}</td>
         <th>Subgroup</th>
-        <td class='editable userinput' id='{{c.id}}_groupspec'>{{c.groupspec}}</td>
+        <td class='editable userinput' id='{{c.rid}}__groupspec'>{{c.groupspec}}</td>
         </td>
     </tr>
     <tr>
         <th>Faction</th>
-        <td class='editable userinput' id='{{c.id}}_faction'>{{ c.faction }}</td>
+        <td class='editable userinput' id='{{c.rid}}__faction'>{{ c.faction }}</td>
         <th>Freebies</th>
-        <td id='{{c.id}}_freebies'>{{ c.freebies }}</td>
+        <td id='{{c.rid}}__freebies'>{{ c.freebies }}</td>
         <th>Sex</th>
-        <td class='editable userinput' id='{{c.id}}_sex'>{% if c.sex == False %}Female{%else%}Male{%endif%}</td>
+        <td class='editable userinput' id='{{c.rid}}__sex'>{% if c.sex == False %}Female{%else%}Male{%endif%}</td>
         <th>Condition</th>
-        <td class='editable userinput' id='{{c.id}}_condition'>{{c.condition}}</td>
+        <td class='editable userinput' id='{{c.rid}}__condition'>{{c.condition}}</td>
     </tr>
 
     <tr>
         {% if c.creature == 'kindred' %}
         <th>Torpor</th>
-        <td class='editable userinput' id='{{c.id}}_timeintorpor'>{{ c.timeintorpor }}</td>
+        <td class='editable userinput' id='{{c.rid}}__timeintorpor'>{{ c.timeintorpor }}</td>
         {%else%}
         <th></th><td></td>
         {%endif%}
         <th>Expected Freebies</th>
-        <td id='{{c.id}}_expectedfreebies'>{{ c.expectedfreebies }}</td>
+        <td id='{{c.rid}}__expectedfreebies'>{{ c.expectedfreebies }}</td>
         <th>Disciplines</th>
-        <td id='{{c.id}}_disciplinepoints'>{{ c.disciplinepoints }}</td>
+        <td id='{{c.rid}}__disciplinepoints'>{{ c.disciplinepoints }}</td>
         <th>Source</th>
-        <td class='editable userinput' id='{{c.id}}_source'>{{ c.source }}</td>
+        <td class='editable userinput' id='{{c.rid}}__source'>{{ c.source }}</td>
     </tr>

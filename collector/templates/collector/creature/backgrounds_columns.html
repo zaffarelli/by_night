@@ -1,113 +1,113 @@
     {% load wod_filters %}
 <tr>
     <th>{{ c.creature|param_stack:0|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background0'>{{ c.background0|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background0'>{{ c.background0|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
-    {{ c.gift0|param_stack:c.id|as_discipline2:"gift0"|safe }}
+    {{ c.gift0|param_stack:c.rid|as_discipline2:"gift0"|safe }}
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
     {% if c.creature == 'garou' %}
     <th>Glory</th>
-    <td class='editable updown' id='{{c.id}}_level0'>{{ c.level0|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__level0'>{{ c.level0|as_bullets|safe }}</td>
     {% elif c.creature == 'kindred' %}
     <th>Conscience</th>
-    <td class='editable updown' id='{{c.id}}_level0'>{{ c.level0|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__level0'>{{ c.level0|as_bullets|safe }}</td>
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
-    {{ c.rite0|param_stack:c.id|as_discipline2:"rite0"|safe }}
+    {{ c.rite0|param_stack:c.rid|as_discipline2:"rite0"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:1|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background1'>{{ c.background1|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background1'>{{ c.background1|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
-    {{ c.gift1|param_stack:c.id|as_discipline2:"gift1"|safe }}
+    {{ c.gift1|param_stack:c.rid|as_discipline2:"gift1"|safe }}
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
     {% if c.creature == 'garou' %}
     <th>Honor</th>
-    <td class='editable updown' id='{{c.id}}_level1'>{{ c.level1|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__level1'>{{ c.level1|as_bullets|safe }}</td>
     {% elif c.creature == 'kindred' %}
     <th>Self-Control</th>
-    <td class='editable updown' id='{{c.id}}_level1'>{{ c.level1|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__level1'>{{ c.level1|as_bullets|safe }}</td>
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
-    {{ c.rite1|param_stack:c.id|as_discipline2:"rite1"|safe }}
+    {{ c.rite1|param_stack:c.rid|as_discipline2:"rite1"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:2|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background2'>{{ c.background2|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background2'>{{ c.background2|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
-    {{ c.gift2|param_stack:c.id|as_discipline2:"gift2"|safe }}
+    {{ c.gift2|param_stack:c.rid|as_discipline2:"gift2"|safe }}
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
     {% if c.creature == 'garou' %}
     <th>Wisdom</th>
-    <td class='editable updown' id='{{c.id}}_level2'>{{ c.level2|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__level2'>{{ c.level2|as_bullets|safe }}</td>
     {% elif c.creature == 'kindred' %}
     <th>Courage</th>
-    <td class='editable updown' id='{{c.id}}_level2'>{{ c.level2|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__level2'>{{ c.level2|as_bullets|safe }}</td>
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
-    {{ c.rite2|param_stack:c.id|as_discipline2:"rite2"|safe }}
+    {{ c.rite2|param_stack:c.rid|as_discipline2:"rite2"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:3|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background3'>{{ c.background3|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background3'>{{ c.background3|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' or c.creature == 'ghoul' %}
-    {{ c.gift3|param_stack:c.id|as_discipline2:"gift3"|safe }}
+    {{ c.gift3|param_stack:c.rid|as_discipline2:"gift3"|safe }}
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
     {% if c.creature == 'garou' %}
     <th>Rage</th>
-    <td class='editable updown' id='{{c.id}}_power1'>{{ c.power1|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__power1'>{{ c.power1|as_bullets|safe }}</td>
     {% elif c.creature == 'kindred' %}
     <th>Path of {{c.path}}</th>
-    <td class='editable updown' id='{{c.id}}_power1'>{{ c.power1|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__power1'>{{ c.power1|as_bullets|safe }}</td>
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
-    {{ c.rite3|param_stack:c.id|as_discipline2:"rite3"|safe }}
+    {{ c.rite3|param_stack:c.rid|as_discipline2:"rite3"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:4|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background4'>{{ c.background4|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background4'>{{ c.background4|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' %}
-    {{ c.gift4|param_stack:c.id|as_discipline2:"gift4"|safe }}
+    {{ c.gift4|param_stack:c.rid|as_discipline2:"gift4"|safe }}
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
     <th>Willpower</th>
-    <td class='editable updown' id='{{c.id}}_willpower'>{{ c.willpower|as_bullets|safe }}</td>
-    {{ c.rite4|param_stack:c.id|as_discipline2:"rite4"|safe }}
+    <td class='editable updown' id='{{c.rid}}__willpower'>{{ c.willpower|as_bullets|safe }}</td>
+    {{ c.rite4|param_stack:c.rid|as_discipline2:"rite4"|safe }}
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:5|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background5'>{{ c.background5|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background5'>{{ c.background5|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' %}
-    {{ c.gift5|param_stack:c.id|as_discipline2:"gift5"|safe }}
+    {{ c.gift5|param_stack:c.rid|as_discipline2:"gift5"|safe }}
     {%else%}
     <th></th>
     <td></td>
     {%endif%}
     {% if c.creature == 'garou' %}
     <th>Gnosis</th>
-    <td class='editable updown' id='{{c.id}}_power2'>{{ c.power2|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__power2'>{{ c.power2|as_bullets|safe }}</td>
     {% else %}
     <th>Blood Pool</th>
     <td>{{ c.power2 }}</td>
@@ -117,9 +117,9 @@
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:6|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background6'>{{ c.background6|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background6'>{{ c.background6|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' %}
-    {{ c.gift6|param_stack:c.id|as_discipline2:"gift6"|safe }}
+    {{ c.gift6|param_stack:c.rid|as_discipline2:"gift6"|safe }}
     {%else%}
     <th></th>
     <td></td>
@@ -131,9 +131,9 @@
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:7|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background7'>{{ c.background7|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background7'>{{ c.background7|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' %}
-    {{ c.gift7|param_stack:c.id|as_discipline2:"gift7"|safe }}
+    {{ c.gift7|param_stack:c.rid|as_discipline2:"gift7"|safe }}
     {%else%}
     <th></th>
     <td></td>
@@ -145,9 +145,9 @@
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:8|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background8'>{{ c.background8|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background8'>{{ c.background8|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' %}
-    {{ c.gift8|param_stack:c.id|as_discipline2:"gift8"|safe }}
+    {{ c.gift8|param_stack:c.rid|as_discipline2:"gift8"|safe }}
     {%else%}
     <th></th>
     <td></td>
@@ -159,9 +159,9 @@
 </tr>
 <tr>
     <th>{{ c.creature|param_stack:9|as_stat_name:"background"|safe }}</th>
-    <td class='editable updown' id='{{c.id}}_background9'>{{ c.background9|as_bullets|safe }}</td>
+    <td class='editable updown' id='{{c.rid}}__background9'>{{ c.background9|as_bullets|safe }}</td>
     {% if c.creature == 'garou' or c.creature == 'kindred' %}
-    {{ c.gift9|param_stack:c.id|as_discipline2:"gift9"|safe }}
+    {{ c.gift9|param_stack:c.rid|as_discipline2:"gift9"|safe }}
     {%else%}
     <th></th>
     <td></td>

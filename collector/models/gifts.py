@@ -44,7 +44,7 @@ TRIBES = (
 
 
 class Gift(models.Model):
-    name = models.CharField(max_length=128, default='')
+    name = models.CharField(max_length=128, default='', primary_key=True)
     alternative_name = models.CharField(max_length=128, default='', blank=True)
     level = models.PositiveIntegerField(default=0)
     declaration = models.CharField(max_length=256, default='', blank=True)

@@ -28,6 +28,7 @@ def set_chronicle(acro):
             logger.debug(f'Current Chronicle set to is {c.acronym}.')
         c.save()
 
+
 def find_stat_property(creature,statistic):
     # You give 'kindred' / 'generation', it returns 'background3'
     lists = ['talents','skills','knowledges','backgrounds']
@@ -42,6 +43,7 @@ def find_stat_property(creature,statistic):
 
 STATS_NAMES = {
     'fomori': {
+        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -53,6 +55,7 @@ STATS_NAMES = {
     },
 
     'garou': {
+        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'primal-urge',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -63,6 +66,7 @@ STATS_NAMES = {
                         'rites', 'totem']
     },
     'ghoul': {
+        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -73,6 +77,7 @@ STATS_NAMES = {
                         'resources', 'status', 'trust']
     },
     'kindred': {
+        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'leadership',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'melee', 'performance', 'security',
@@ -84,6 +89,7 @@ STATS_NAMES = {
                         'resources', 'retainers', 'status']
     },
     'kinfolk': {
+        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -94,6 +100,7 @@ STATS_NAMES = {
                         'status', 'true faith']
     },
     'mortal': {
+        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -103,5 +110,127 @@ STATS_NAMES = {
         'backgrounds': ['allies', 'career', 'contacts', 'fame', 'family', 'equipment', 'influence',
                         'resources', 'status', 'true faith']
     }
+}
+
+STATS_TEMPLATES = {
+    'changeling': {
+        'attributes': '7/5/3',
+        'abilities': '13/9/5',
+        'arts': '3',
+        'realms': '5',
+        'backgrounds': '5',
+        'freebies': '15'
+    },
+    'garou': {
+        'attributes': '7/5/3',
+        'abilities': '13/9/5',
+        'gifts': '5',
+        'backgrounds': '5',
+        'freebies': '15'
+    },
+    'ghoul': {
+        'attributes': '6/4/3',
+        'abilities': '11/7/5',
+        'disciplines': '1',
+        'backgrounds': '7',
+        'willpower': '3',
+        'freebies': '21'
+    },
+    'kindred': {
+        'attributes': '7/5/3',
+        'abilities': '13/9/5',
+        'disciplines': '3',
+        'backgrounds': '5',
+        'virtues': '10',
+        'freebies': '15'
+    },
+    'kinfolk': {
+        'attributes': '6/4/3',
+        'abilities': '11/7/5',
+        'disciplines': '1',
+        'backgrounds': '7',
+        'willpower': '3',
+        'freebies': '21'
+    },
+    'mage': {
+        'attributes': '7/5/3',
+        'abilities': '13/9/5',
+        'arete': '1',
+        'spheres': '5',
+        'backgrounds': '7',
+        'willpower': '5',
+        'freebies': '15'
+    },
+    'mortal': {
+        'attributes': '6/4/3',
+        'abilities': '11/7/5',
+        'disciplines': '1',
+        'backgrounds': '7',
+        'willpower': '3',
+        'freebies': '21'
+    },
+    'wraith': {
+        'attributes': '7/5/3',
+        'abilities': '13/9/5',
+        'arcanos': '5',
+        'passions': '10',
+        'fetters': '10',
+        'backgrounds': '7',
+        'willpower': '5',
+        'pathos': '5',
+        'freebies': '15'
+    },
 
 }
+
+ARCHETYPES = [
+    'Alpha',
+    'Architect',
+    'Autocrat',
+    'Avant-garde',
+    'Bon Vivant',
+    'Bravo',
+    'Builder',
+    'Bureaucrat',
+    'Caregiver',
+    'Celebrant',
+    'Child',
+    'Competitor',
+    'Confident',
+    'Conformist',
+    'Conniver',
+    'Critic',
+    'Curmudgeon',
+    'Deviant',
+    'Director',
+    'Explorer',
+    'Fanatic',
+    'Follower',
+    'Gallant',
+    'Hedonist',
+    'Jester',
+    'Judge',
+    'Loner',
+    'Martyr',
+    'Masochist',
+    'Monster',
+    'Pedagogue',
+    'Penitent',
+    'Perfectionist',
+    'Predator',
+    'Rebel',
+    'Reluctant',
+    'Rogue',
+    'Show off',
+    'Survivor',
+    'Thrill-seeker',
+    'Traditionalist',
+    'Trickster',
+    'Visionary'
+]
+
+BREEDS = ['Homid', 'Metis', 'Lupus']
+
+AUSPICES = ['Ragabasch', 'Theurge', 'Philodox', 'Galliard', 'Ahroun']
+
+RANKS = ['Cliath', 'Fostern', 'Adren', 'Athro', 'Elder']

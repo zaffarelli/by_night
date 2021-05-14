@@ -7,9 +7,13 @@ from django.views.decorators.csrf import csrf_exempt
 from collector.templatetags.wod_filters import as_bullets
 from collector.utils.kindred_stuff import build_per_primogen, build_gaia_wheel
 from collector.utils.wod_reference import get_current_chronicle
-import random
-chronicle = get_current_chronicle()
 from collector.models.chronicles import Chronicle
+from collector.utils.wod_reference import STATS_NAMES
+import json
+import random
+
+chronicle = get_current_chronicle()
+
 
 def index(request):
     chronicles = []
@@ -18,13 +22,14 @@ def index(request):
     context = { 'chronicles': chronicles }
     return render(request, 'collector/index.html', context=context)
 
+
 def change_chronicle(request,slug=''):
     from collector.utils.wod_reference import set_chronicle
     set_chronicle(slug)
     chronicles = []
     for c in Chronicle.objects.all():
         chronicles.append({'name':c.name, 'acronym':c.acronym, 'active':c == chronicle})
-    context_ch = {'c':chronicles}
+    context_ch = {'c': chronicles}
     template_ch = get_template("collector/page/chronicles.html")
     html_ch = template_ch.render(context_ch)
     answer = {'chronicles': html_ch}
@@ -33,34 +38,37 @@ def change_chronicle(request,slug=''):
 
 def extract_raw(request,slug):
     found = Creature.objects.all().filter(rid=slug)
-    if len(found)==1:
+    if len(found) == 1:
         lines = found.first().extract_raw()
         return HttpResponse(lines, content_type='text/plain', charset="utf-16")
     return HttpResponse(status=204)
 
+
 def extract_roster(request,slug):
     found = Creature.objects.all().filter(rid=slug)
-    if len(found)==1:
+    if len(found) == 1:
         lines = found.first().extract_roster()
         return HttpResponse(lines, content_type='text/html', charset="utf-16")
     return HttpResponse(status=204)
 
+
 def extract_per_group(request,slug):
-    grp_name = slug.replace('_',' ')
+    grp_name = slug.replace('_', ' ')
     lines = []
     creatures = Creature.objects.all().filter(group=grp_name).order_by('groupspec')
     for creature in creatures:
         lines.append(creature.extract_roster())
     return HttpResponse(lines, content_type='text/html', charset="utf-16")
 
+
 def extract_mechanics(request):
     all = Creature.objects.all().filter(creature="garou")
     stats_by_auspice = {
-        '0': {'power1':0,'power2':0,'willpower':0, 'cnt':0},
-        '1': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt':0},
-        '2': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt':0},
-        '3': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt':0},
-        '4': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt':0},
+        '0': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt': 0},
+        '1': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt': 0},
+        '2': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt': 0},
+        '3': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt': 0},
+        '4': {'power1': 0, 'power2': 0, 'willpower': 0, 'cnt': 0},
     }
 
     all_known_gifts = []
@@ -71,7 +79,7 @@ def extract_mechanics(request):
         stats_by_auspice[x]['willpower'] += c.willpower
         stats_by_auspice[x]['cnt'] += 1
         for n in range(10):
-            gift = getattr(c,f'gift{n}')
+            gift = getattr(c, f'gift{n}')
             if gift:
                 from collector.models.gifts import Gift
                 gs = Gift.objects.filter(declaration=gift)
@@ -125,13 +133,10 @@ def extract_mechanics(request):
             all_kinfolks.append("\n".join(my_kinfolk))
     lines += "\nAll kinfolks:\n"
     lines += "\n".join(all_kinfolks)
-
-
     kinfolks = Creature.objects.filter(creature='kinfolk')
     for k in kinfolks:
         if k.condition == 'recalculate':
             k.randomize_kinfolk()
-
     lines += "\nPowers:\n"
     for a in range(5):
         x = f'{a}'
@@ -142,28 +147,25 @@ def extract_mechanics(request):
         str += f'G:{round(stats_by_auspice[x]["power2"])} '
         str += f'W:{round(stats_by_auspice[x]["willpower"])} '
         str += f'C:{stats_by_auspice[x]["cnt"]}\n'
-        lines += (str)
-
+        lines += str
     from collector.models.rites import Rite
     rites = Rite.objects.all()
     all_garous = Creature.objects.filter(creature='garou')
     for garou in all_garous:
         if garou.value_of("rites")>0:
             pass
-
     # all = Creature.objects.all()
     # for c in all:
     #     if c.domitor:
     #         c.new_domitor = c.domitor.name
     #         c.need_fix = True
     #         c.save()
-
     return HttpResponse(lines, content_type='text/plain', charset="utf-16")
 
 
 def get_list(request, pid, slug):
     if request.is_ajax:
-        if slug=='sabbat':
+        if slug == 'sabbat':
             creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym)\
                 .order_by('name')\
                 .exclude(ghost=True)\
@@ -207,108 +209,94 @@ def get_list(request, pid, slug):
         list_context = {'creature_items': creature_items}
         list_template = get_template('collector/list.html')
         list_html = list_template.render(list_context)
-        # gaia_wheel_context = {'data': build_gaia_wheel()}
-        # gaia_wheel_template = get_template('collector/gaia_wheel.html')
-        # gaia_wheel_html = gaia_wheel_template.render(gaia_wheel_context)
         answer = {
             'list': list_html,
-            # 'gaia_wheel': gaia_wheel_html,
         }
         return JsonResponse(answer)
     else:
-        Http404
+        HttpResponse(status=204)
 
 
 @csrf_exempt
 def updown(request):
-    """ Touching skills to edit them in the view
-    """
     if request.is_ajax():
         answer = 'error'
         if request.method == 'POST':
             answer = {}
-            aid = int(request.POST.get('id'))
-            afield = request.POST.get('field')
-            aoffset = int(request.POST.get('offset'))
-            # print("%d %s %d"%(aid,afield,aoffset))
-            item = get_object_or_404(Creature, id=aid)
-            if hasattr(item, afield):
-                current_val = getattr(item, afield, 'Oops, nothing found')
-                # print("item.field=%s"%(getattr(item,afield,'Oops, nothing found')))
-                new_val = int(current_val) + int(aoffset)
-                setattr(item, afield, new_val)
+            rid = request.POST.get('id')
+            field = request.POST.get('field')
+            offset = int(request.POST.get('offset'))
+            item = Creature.objects.get(rid=rid)
+            if hasattr(item, field):
+                current_val = getattr(item, field, 'Oops, nothing found')
+                new_val = int(current_val) + int(offset)
+                setattr(item, field, new_val)
                 item.need_fix = True
                 item.save()
-                x = as_bullets(getattr(item, afield))
+                answer['new_value'] = as_bullets(getattr(item, field))
                 answer['freebies'] = item.freebies
             else:
-                x = '<b>ERROR!</b>'
-            answer['new_value'] = x
+                answer['new_value'] = '<b>ERROR!</b>'
         return JsonResponse(answer)
     return Http404
 
 
 @csrf_exempt
 def userinput(request):
-    """ Setting value from userinput
-    """
     if request.is_ajax():
         answer = 'error'
         if request.method == 'POST':
             answer = {}
-            aid = int(request.POST.get('id'))
-            afield = request.POST.get('field')
-            avalue = request.POST.get('value')
-            item = get_object_or_404(Creature, id=aid)
-            if hasattr(item, afield):
-                # current_val = getattr(item,afield,'Oops, nothing found')
-                # print("item.field=%s"%(getattr(item,afield,'Oops, nothing found')))
-                # new_val = int(current_val)+int(aoffset)
-                setattr(item, afield, avalue)
+            rid = request.POST.get('id')
+            field = request.POST.get('field')
+            value = request.POST.get('value')
+            item = Creature.objects.get(rid=rid)
+            if hasattr(item, field):
+                setattr(item, field, value)
                 item.need_fix = True
                 item.save()
-                x = avalue
+                answer['new_value'] = value
                 answer['freebies'] = item.freebies
             else:
-                x = '<b>ERROR!</b>'
-            answer['new_value'] = x
+                answer['new_value'] = '<b>ERROR!</b>'
         return JsonResponse(answer)
-    return Http404
-
+    return HttpResponse(status=204)
 
 
 @csrf_exempt
 def add_creature(request):
-    """ Add creature to the current chronicle
-    """
     if request.is_ajax:
         slug = request.POST['creature']
-    chronicle = get_current_chronicle()
-    item = Creature()
-    item.name = " ".join(slug.split("-"))
-    item.chronicle = chronicle.acronym
-    item.creature = chronicle.main_creature
-    item.source = 'zaffarelli'
-    item.ghost = False
-    item.save()
-    context = {'answer':'creature added'}
-    return JsonResponse(context)
+        chronicle = get_current_chronicle()
+        item = Creature()
+        item.name = " ".join(slug.split("-"))
+        item.chronicle = chronicle.acronym
+        item.creature = chronicle.main_creature
+        item.source = 'zaffarelli'
+        item.ghost = False
+        item.need_fix = True
+        item.save()
+        context = {'answer': 'creature added'}
+        return JsonResponse(context)
+    else:
+        return HttpResponse(status=204)
 
+
+def display_crossover_sheet(request, slug=None):
+    if slug is None:
+        slug = 'adel_the_swift'
+    c = Creature.objects.get(rid=slug)
+    settings = {'version': 1.0, 'labels': STATS_NAMES[c.creature]  }
+    crossover_sheet_context = {'settings': json.dumps(settings, sort_keys=True, indent=4), 'data': c.toJSON()}
+    return JsonResponse(crossover_sheet_context)
 
 
 def display_gaia_wheel(request):
     list = build_gaia_wheel()
     gaia_wheel_context = {'data': list}
-    gaia_wheel_template = get_template('collector/gaia_wheel.html')
-    gaia_wheel_html = gaia_wheel_template.render(gaia_wheel_context, request)
-    answer = {
-        'run': gaia_wheel_html,
-    }
     return JsonResponse(gaia_wheel_context)
 
 
 def display_lineage(request):
-    """ Check Caine Lineage
-    """
-    answer = { 'run': build_per_primogen()}
+    answer = {'run': build_per_primogen()}
     return JsonResponse(answer)

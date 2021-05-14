@@ -1,2 +1,5 @@
 wawwod_static/CACHE/
 __py-cache__/
+node_modules/
+svg/
+.venv/

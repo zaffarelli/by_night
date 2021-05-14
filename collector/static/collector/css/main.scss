@@ -9,6 +9,7 @@ $plate_shadow: #101010;
 $plate_selected: lighten($plate, 10%);
 $dark_plate: darken($plate, 5%);
 $very_dark_plate: darken($dark_plate, 5%);
+$focus_color: #F781F7;
 
 
 $list_width: 260px;
@@ -34,7 +35,7 @@ $inconnu_fill: #5d3636;
 $anarchs_fill: #252572;
 
 @mixin body_background {
-    background: #bfabd0;
+    background: #b0b0b0;
 }
 
 
@@ -88,9 +89,34 @@ $anarchs_fill: #252572;
 }
 
 @font-face {
+    font-family: 'marcellus_sc_regular';
+    src: url('../fonts/marcellus_sc_regular.ttf');
+}
+
+
+@font-face {
+    font-family: 'Texte';
+    src: url('../fonts/marcellus_sc_regular.ttf');
+}
+
+@font-face {
+    font-family: 'logo';
+    src: url('../fonts/ShadowsIntoLight-Regular.ttf');
+}
+
+
+
+@font-face {
     font-family: 'wyld';
     src: url('../fonts/fanjofey.ttf');
 }
+
+
+@font-face {
+    font-family: 'atma';
+    src: url('../fonts/Atma-Regular.ttf');
+}
+
 
 @font-face {
     font-family: 'weaver';
@@ -478,12 +504,8 @@ body .wrapper .charlist {
                 }
                 
                 &.editable {
-                    &.updown.focus {
-                        border: 2px solid yellow;
-                    }
-                    
                     &.userinput.focus {
-                        border: 2px solid orange;
+                        border-color: $focus_color;
                     }
                 }
             }
@@ -865,5 +887,11 @@ svg .node_circle {
         }
         
         color: red;
+    }
+}
+
+td.editable.updown{
+    & i.blank.focus{
+        color:$focus_color;
     }
 }

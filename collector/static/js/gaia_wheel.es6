@@ -281,7 +281,7 @@ class GaiaWheel {
             .on("click", function(d) {
                 if (d3.event.ctrlKey) {
                     $.ajax({
-                        url: 'ajax/view/creature/' + d.id + '/',
+                        url: 'ajax/view/creature/' + d.rid + '/',
                         success: function(answer) {
                             $('.details').html(answer)
                             $('li').removeClass('selected');

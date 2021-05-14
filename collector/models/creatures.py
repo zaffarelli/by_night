@@ -35,6 +35,14 @@ GAROU_BACKGROUNDS = ["Allies", "Ancestors", "Contacts", "Fetish", "Kinfolk", "Me
                      "Rites", "Totem"]
 
 
+def json_default(value):
+    import datetime
+    if isinstance(value, datetime.date):
+        return dict(year=value.year, month=value.month, day=value.day)
+    else:
+        return value.__dict__
+
+
 class Creature(models.Model):
     class Meta:
         verbose_name = 'Creature'
@@ -42,15 +50,14 @@ class Creature(models.Model):
 
     player = models.CharField(max_length=32, blank=True, default='')
     name = models.CharField(max_length=128, default='')
+    rid = models.CharField(max_length=128, blank=True, default='', primary_key=True)
     nickname = models.CharField(max_length=128, blank=True, default='')
     primogen = models.BooleanField(default=False)
     mythic = models.BooleanField(default=False)
     family = models.CharField(max_length=32, blank=True, default='')
-    rid = models.CharField(max_length=128, blank=True, default='')
+
     auspice = models.PositiveIntegerField(default=0)
     breed = models.PositiveIntegerField(default=0)
-    # domitor = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='Domitor',
-    #                             limit_choices_to={'chronicle': chronicle.acronym, 'creature': 'kindred'})
     domitor = models.CharField(max_length=128, blank=True, default='')
     group = models.CharField(max_length=128, blank=True, default='')
     groupspec = models.CharField(max_length=128, blank=True, default='')
@@ -248,9 +255,7 @@ class Creature(models.Model):
         for key, val in freebies_by_age.items():
             if int(key) <= time_awake:
                 self.expectedfreebies = val
-                # print("%s => %d"%(key,val))
             else:
-                # print("out ---> %s => %d"%(key,val))
                 break
         # Willpower
         if self.willpower < self.level2:
@@ -424,7 +429,7 @@ class Creature(models.Model):
         self.expectedfreebies = int(((self.age - 10) / 10) * 5) + expected_freebies_by_rank[self.rank - 1]
 
     def update_rid(self):
-        s = self.name
+        s = self.name.lower()
         x = s.replace(' ', '_').replace("'", '').replace('é', 'e') \
             .replace('è', 'e').replace('ë', 'e').replace('â', 'a') \
             .replace('ô', 'o').replace('"', '').replace('ï', 'i') \
@@ -433,7 +438,6 @@ class Creature(models.Model):
         self.rid = x.lower()
 
     def fix(self):
-        self.update_rid()
         logger.info(f'Fixing ............ [{self.name}]')
         # at:3/3/3 ab:7/5/3 b:3 w:2 f:15
         self.freebies = -((3 + 3 + 3 + 9) * 5 + (7 + 5 + 3) * 2 + 3 + 2 + 15)
@@ -739,6 +743,19 @@ class Creature(models.Model):
         else:
             return 0
 
+    def toJSON(self):
+        self.guideline = self.stats_template
+        jstr = json.dumps(self, default=json_default, sort_keys=True, indent=4)
+        return jstr
+
+    @property
+    def stats_template(self):
+        from collector.utils.wod_reference import STATS_TEMPLATES
+        list = []
+        for v in STATS_TEMPLATES[self.creature]:
+            list.append(f'{v.title()}:{STATS_TEMPLATES[self.creature][v]}')
+        return '[' + ' '.join(list) + ']'
+
 
 def refix(modeladmin, request, queryset):
     for creature in queryset:
@@ -755,6 +772,22 @@ def push_to_RAM(modeladmin, request, queryset):
     short_description = 'Push to Rage Across Munich'
 
 
+def set_female(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.sex = False
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Make female'
+
+
+def set_male(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.sex = True
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Make male'
+
+
 def push_to_MBN(modeladmin, request, queryset):
     for creature in queryset:
         creature.chronicle = 'MBN'
@@ -769,6 +802,6 @@ class CreatureAdmin(admin.ModelAdmin):
         'faction',
         'status', 'trueage']
     ordering = ['name', 'group', 'creature']
-    actions = [refix, push_to_RAM, push_to_MBN]
+    actions = [refix, set_male, set_female, push_to_RAM, push_to_MBN]
     list_filter = ['chronicle', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature']
     search_fields = ['name']

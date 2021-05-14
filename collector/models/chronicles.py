@@ -18,7 +18,7 @@ logger = logging.Logger(__name__)
 
 
 class Chronicle(models.Model):
-    name = models.CharField(max_length=128, default='')
+    name = models.CharField(max_length=128, default='',primary_key=True)
     acronym = models.CharField(max_length=16, blank=True, default='')
     era = models.IntegerField(default=2019)
     main_creature = models.CharField(max_length=128, blank=True, default='')
