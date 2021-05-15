@@ -715,12 +715,23 @@ class Creature(models.Model):
         sire = ''
         if self.domitor:
             sire = self.domitor
-        # else:
-        #     if self.sire != '':
-        #         sire = self.sire
-        return {'name': self.name, 'clan': self.family, 'condition': self.condition, 'status': self.status,
-                'sire': sire, 'generation': (13 - self.background3),
-                'ghost': self.ghost, 'faction': self.faction, 'id': self.id, 'children': []}
+        else:
+            sire = self.sire
+        d = {
+            'name': self.name,
+            'clan': self.family,
+            'family': self.root_family(),
+            'condition': self.condition,
+            'status': self.status,
+            'sire': sire,
+            'generation': (13 - self.background3),
+            'ghost': self.ghost,
+            'faction': self.faction,
+            'rid': self.rid,
+            'children': []
+        }
+        print(f'd:{d}')
+        return d
 
     def find_lineage(self, lockup=False):
         """ Find the full lineage for this character
@@ -795,6 +806,14 @@ def push_to_MBN(modeladmin, request, queryset):
         creature.save()
     short_description = 'Push to Munich By Night'
 
+def push_to_BAV(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.chronicle = 'BAV'
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Push to BAV'
+
+
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
@@ -802,6 +821,6 @@ class CreatureAdmin(admin.ModelAdmin):
         'faction',
         'status', 'trueage']
     ordering = ['name', 'group', 'creature']
-    actions = [refix, set_male, set_female, push_to_RAM, push_to_MBN]
+    actions = [refix, set_male, set_female, push_to_RAM, push_to_MBN, push_to_BAV]
     list_filter = ['chronicle', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature']
     search_fields = ['name']

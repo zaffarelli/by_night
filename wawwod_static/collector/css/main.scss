@@ -13,7 +13,7 @@ $focus_color: #F781F7;
 
 
 $list_width: 260px;
-$ghost_opacity: 0.0;
+$ghost_opacity: 0.8;
 
 
 $wyld_fill: #150637;
@@ -703,26 +703,30 @@ body .wrapper .charlist {
 }
 
 svg {
-    background: transparent;
+    margin:5px;
+    border: 1px solid  #666;
+    background: transparent; //silver;
     margin-top: 50px;
-    height: auto;
-    width: 100%;
+    box-shadow:3px 3px 5px #777;
+//     height: auto;
+//     width: 100%;
     
     rect {
         &.overlay {
             cursor: move;
-            border: none;
-            fill: #C0D0E0;
-            opacity: 0.0;
+            stroke-width: 0px;
+            stroke: #701070;
+            fill: transparent; //#C0D0E0;
+            opacity: 0.5;
         }
         
         &.band {
             fill: #AAA;
             stroke: #505050;
-            stroke-width: 0px;
+            stroke-width: 0;
             
             &.ghost {
-                opacity: $ghost_opacity;
+                opacity: 1;//$ghost_opacity;
             }
             
             &.dead {
@@ -733,14 +737,17 @@ svg {
         &.frame {
             fill: transparent;
             stroke: #888;
-            stroke-width: 0.5px;
+            stroke-width: 1pt;
             
             &.ghost {
                 opacity: $ghost_opacity;
             }
             
             &.dead {
+                stroke: #DDD;
+                stroke-width: 3pt;
             }
+
         }
         
         &.plate {
@@ -765,12 +772,12 @@ svg {
             }
             
             &.dead {
-                fill: #606060;
+                //fill: #433;
             }
         }
         
         &.ghost {
-            opacity: $ghost_opacity;
+            opacity: 1;
         }
     }
     
@@ -784,15 +791,14 @@ svg {
     
     & .link {
         fill: none;
-        stroke: #611;
+        stroke: #616;
         stroke-width: 6px;
         opacity: 0.5;
         
         &.ghost {
-            stroke: #C44;
-            stroke-width: 6px;
+            stroke: #666;
+            stroke-width: 3px;
             opacity: $ghost_opacity;
-            stroke-dasharray: "10";
         }
     }
     

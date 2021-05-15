@@ -13,7 +13,7 @@ $focus_color: #F781F7;
 
 
 $list_width: 260px;
-$ghost_opacity: 0.0;
+$ghost_opacity: 0;
 
 
 $wyld_fill: #150637;
@@ -703,44 +703,51 @@ body .wrapper .charlist {
 }
 
 svg {
-    background: transparent;
+    margin:5px;
+    border: 1px solid  #666;
+    background: transparent; //silver;
     margin-top: 50px;
-    height: auto;
-    width: 100%;
+    box-shadow:3px 3px 5px #777;
+//     height: auto;
+//     width: 100%;
     
     rect {
         &.overlay {
             cursor: move;
-            border: none;
-            fill: #C0D0E0;
-            opacity: 0.0;
+            stroke-width: 0px;
+            stroke: #701070;
+            fill: transparent; //#C0D0E0;
+            opacity: 0.5;
         }
         
         &.band {
             fill: #AAA;
             stroke: #505050;
-            stroke-width: 0px;
+            stroke-width: 0;
             
             &.ghost {
                 opacity: $ghost_opacity;
             }
             
             &.dead {
-                fill: #909090;
+                fill: #A09090;
             }
         }
         
         &.frame {
             fill: transparent;
             stroke: #888;
-            stroke-width: 0.5px;
+            stroke-width: 1pt;
             
             &.ghost {
                 opacity: $ghost_opacity;
             }
             
             &.dead {
+                stroke: #A09090;
+                stroke-width: 3pt;
             }
+
         }
         
         &.plate {
@@ -749,23 +756,23 @@ svg {
             stroke-width: 0.5px;
             
             &.Sabbat {
-                fill: #201010;
+                fill: #401010;
             }
             
             &.Camarilla {
-                fill: #102010;
+                fill: #104010;
             }
             
             &.Anarchs {
-                fill: #101020;
+                fill: #101040;
             }
             
             &.Inconnu {
-                fill: #201020;
+                fill: #401020;
             }
             
             &.dead {
-                fill: #606060;
+                //fill: #433;
             }
         }
         
@@ -784,15 +791,14 @@ svg {
     
     & .link {
         fill: none;
-        stroke: #611;
+        stroke: #616;
         stroke-width: 6px;
         opacity: 0.5;
         
         &.ghost {
-            stroke: #C44;
-            stroke-width: 6px;
+            stroke: #666;
+            stroke-width: 3px;
             opacity: $ghost_opacity;
-            stroke-dasharray: "10";
         }
     }
     

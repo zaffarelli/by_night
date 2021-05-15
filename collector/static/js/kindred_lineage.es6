@@ -1,10 +1,3 @@
-/*
-           /       '_ /_/
-          ()(/__/)/(//)/
-            /     _/
-*/
-
-
 let line_jump_code = 'N*L';
 
 /* Callback functions */
@@ -95,32 +88,35 @@ function wrap(text, width) {
 
 
 /* The kindred tree display class */
-class KindredTree {
-    constructor(data) {
+class KindredLineage {
+    constructor(data,parent,collector) {
         let me = this;
-        me.init(data);
+        me.parent = parent;
+        me.co = collector;
+        me.data = data;
+        me.init();
     }
 
-    init(data) {
+    init() {
         let me = this;
-        me.root = data[0];
-        me.boxWidth = 140;
-        me.boxHeight = 160;
-        me.m = [0, 0, 0, 0];
-        me.fw = 2048;
-        me.fh = 2048;
-        me.h = me.fh - me.m[1] - me.m[3];
-        me.w = me.fw - me.m[0] - me.m[2];
+        me.root = me.data[0];
+        me.boxWidth = 160;
+        me.boxHeight = 50;
+        me.width = 1600;
+        me.height = 900;
+        me.w = me.width*1.5;
+        me.h = me.height*1.5;
         me.i = 0;
-        me.x = d3.scale.linear().domain([0, me.w]).range([0, me.w]);
-        me.y = d3.scale.linear().domain([0, me.h]).range([0, me.h]);
-        me.vis = d3.select("#kindred_tree").append("svg:svg")
-            .attr("viewBox", "0 0 " + me.fh + " " + me.fw)
-            .attr("width", me.w + me.m[1] + me.m[3])
-            .attr("height", me.h + me.m[0] + me.m[2])
+        me.x = d3.scale.linear().domain([0, me.width]).range([0, me.width]);
+        me.y = d3.scale.linear().domain([0, me.height]).range([0, me.height]);
+        d3.select(me.parent).selectAll("svg").remove();
+        me.vis = d3.select(me.parent).append("svg:svg")
+            .attr("viewBox", "0 0 " + me.w + " " + me.h)
+            .attr("width", me.width)
+            .attr("height", me.height)
             .append("svg:g")
-            .attr("transform", "translate(" + me.m[3] + "," + me.m[0] + ")")
-            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([1, 4]).on("zoom", function(d){
+            .attr("transform", "translate(0,0)")
+            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([2, 8]).on("zoom", function(e){
                 let nodes = me.vis.selectAll("g.node");
                 nodes.attr("transform", function(d){
                     return "translate(" + me.x(d.x) + "," + me.y(d.y) + ")"
@@ -136,14 +132,18 @@ class KindredTree {
                     result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
                     return result;
                 });
-            }));
+            }))
+            ;
         me.vis.append("rect")
             .attr("class", "overlay")
-            .attr("width", me.w + me.m[1] + me.m[3])
-            .attr("height", me.h + me.m[0] + me.m[2]);
+            .attr("width", me.w)
+            .attr("height", me.h)
+            .attr("x", 0 )
+            .attr("y", 0)
+            ;
 
         me.tree = d3.layout.cluster()
-            .size([me.fh, me.fw]);
+            .size([me.width, me.height]);
 
         me.diagonal = d3.svg.diagonal()
             .projection(function(d) {
@@ -153,23 +153,16 @@ class KindredTree {
         me.root.y0 = 0;
     }
 
-    perform() {
-        let me = this;
-//        me.root.children.forEach(function(d) {
-//            if (d.children) {
-//                d.children.forEach(toggleAll)
-//            }
-//        });
-        me.update(me.root);
-    }
 
     update(source) {
         let me = this;
         me.duration = d3.event && d3.event.altKey ? 5000 : 500;
         me.nodes = me.tree.nodes(me.root).reverse();
+        let i = 0;
         me.nodes.forEach(function(d) {
             d.y = d.depth * me.boxHeight * 1;
         });
+
 
         me.node = me.vis.selectAll("g.node")
             .data(me.nodes, function(d) {
@@ -186,26 +179,26 @@ class KindredTree {
             .attr('class', 'band')
             .attr({
                 x: -me.boxWidth * 0.5,
-                y: -me.boxHeight * 0.55,
+                y: -me.boxHeight * 1,
                 width: me.boxWidth * 1,
-                height: me.boxHeight * 0.3
+                height: me.boxHeight * 1
             });
         me.nodeEnter.append("rect")
             .attr('class', 'plate')
             .attr({
                 x: -me.boxWidth * 0.5,
-                y: -me.boxHeight * 0.25,
+                y: -me.boxHeight * 0,
                 width: me.boxWidth * 1,
-                height: me.boxHeight * 0.5,
+                height: me.boxHeight * 2,
             });
 
         me.nodeEnter.append("rect")
             .attr('class', 'frame')
             .attr({
                 x: -me.boxWidth * 0.5,
-                y: -me.boxHeight * 0.55,
+                y: -me.boxHeight * 1,
                 width: me.boxWidth * 1,
-                height: me.boxHeight * 0.8,
+                height: me.boxHeight * 3,
             });
         me.nodeEnter.selectAll("rect.band")
             .attr('class', function(d) {
@@ -226,7 +219,6 @@ class KindredTree {
                 let s;
                 if (d.clan) {
                     s = 'static/collector/clans/' + d.clan.split(" ").join("_").toLowerCase() + '.webp';
-                    console.log(s);
                 } else {
                     s = 'static/collector/' + "independant".split(" ").join("_").toLowerCase() + '.webp';
                 }
@@ -238,10 +230,10 @@ class KindredTree {
             .attr('id', function(d) {
                 return d.id;
             })
-            .attr("x", (-me.boxWidth * 0.7))
-            .attr("y", (-me.boxHeight * 0.6))
+            .attr("x", (-me.boxWidth * 0.70))
+            .attr("y", (-me.boxHeight * 1.25))
             .attr("width", me.boxWidth * 0.30)
-            .attr("height", me.boxHeight * 0.30)
+            .attr("height", me.boxHeight * 1)
             .on("click", function(d) {
                 console.log("Just ctrl+clicked on image for " + d.id + " [" + d.name + "]!");
                 if (d3.event.ctrlKey) {
@@ -262,13 +254,18 @@ class KindredTree {
             .append('tspan')
             .attr('text-anchor', 'start')
             .attr('x', -me.boxWidth * 0.3)
-            .attr('y', -me.boxHeight * 0.4)
+            .attr('y', -me.boxHeight * 0.5)
             .attr('dx', '0')
             .attr('dy', '0')
             .text(function(d) {
                 let n = d.name;
                 if (d.ghost) {
-                    n = 'unkown';
+                    if (d.mythic){
+                        n = d.name;
+                    }
+                    else{
+                        n = 'Unknown';
+                    }
                 }
                 return n;
             })
@@ -298,7 +295,7 @@ class KindredTree {
             .attr('class', 'property')
             .attr('text-anchor', 'start')
             .attr('x', -me.boxWidth * 0.45)
-            .attr('y', -me.boxHeight * 0.10)
+            .attr('y', me.boxHeight * 0.5)
             .attr('dx', '0')
             .attr('dy', '0')
             .text(function(d) {
@@ -400,4 +397,10 @@ class KindredTree {
             d.y0 = d.y;
         });
     }
+
+    perform() {
+        let me = this;
+        me.update(me.root);
+    }
+
 }

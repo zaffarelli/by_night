@@ -292,11 +292,10 @@ def display_crossover_sheet(request, slug=None):
 
 
 def display_gaia_wheel(request):
-    list = build_gaia_wheel()
-    gaia_wheel_context = {'data': list}
+    gaia_wheel_context = {'data': build_gaia_wheel()}
     return JsonResponse(gaia_wheel_context)
 
 
 def display_lineage(request):
-    answer = {'run': build_per_primogen()}
-    return JsonResponse(answer)
+    lineage_context = {'data': build_per_primogen()}
+    return JsonResponse(lineage_context)

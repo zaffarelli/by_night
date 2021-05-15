@@ -36,24 +36,6 @@ class WawwodCollector {
 //         });
     }
 
-    updateLineage(){
-        $('#toggle_lineage').off();
-        $('#toggle_lineage').on('click', function (event) {
-            $.ajax({
-                url: 'ajax/display/lineage',
-                success: function (answer) {
-
-                    me.rebootLinks();
-                },
-                error: function (answer) {
-                    console.error('Lineage Error');
-                    me.rebootLinks();
-                },
-
-            });
-        });
-    }
-
     registerDisplay(){
         let me = this;
         $('.display').off().on('click', function (event) {
@@ -78,6 +60,11 @@ class WawwodCollector {
                     if (slug=='gaia_wheel'){
                         let d = JSON.parse(answer.data);
                         me.d3 = new GaiaWheel(d,"#d3area",me);
+                        me.d3.perform();
+                    }
+                    if (slug == 'kindred_lineage'){
+                        let d = JSON.parse(answer.data);
+                        me.d3 = new KindredLineage(d,"#d3area",me);
                         me.d3.perform();
                     }
                     if (slug=='crossover_sheet' || action=='crossover_sheet'){
