@@ -113,6 +113,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'wawwod',
+        # 'NAME': 'redfoxinc',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '',

@@ -13,7 +13,7 @@ $focus_color: #F781F7;
 
 
 $list_width: 260px;
-$ghost_opacity: 0.8;
+$ghost_opacity: 0;
 
 
 $wyld_fill: #150637;
@@ -726,11 +726,11 @@ svg {
             stroke-width: 0;
             
             &.ghost {
-                opacity: 1;//$ghost_opacity;
+                opacity: $ghost_opacity;
             }
             
             &.dead {
-                fill: #909090;
+                fill: #A09090;
             }
         }
         
@@ -744,7 +744,7 @@ svg {
             }
             
             &.dead {
-                stroke: #DDD;
+                stroke: #A09090;
                 stroke-width: 3pt;
             }
 
@@ -756,19 +756,19 @@ svg {
             stroke-width: 0.5px;
             
             &.Sabbat {
-                fill: #201010;
+                fill: #401010;
             }
             
             &.Camarilla {
-                fill: #102010;
+                fill: #104010;
             }
             
             &.Anarchs {
-                fill: #101020;
+                fill: #101040;
             }
             
             &.Inconnu {
-                fill: #201020;
+                fill: #401020;
             }
             
             &.dead {
@@ -777,7 +777,7 @@ svg {
         }
         
         &.ghost {
-            opacity: 1;
+            opacity: $ghost_opacity;
         }
     }
     

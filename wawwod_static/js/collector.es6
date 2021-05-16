@@ -39,41 +39,44 @@ class WawwodCollector {
     registerDisplay(){
         let me = this;
         $('.display').off().on('click', function (event) {
-            let slug = $(this).attr('id');
+//             let slug = $(this).attr('id');
             let action = $(this).attr('action');
+            let param = $(this).attr('param');
             let key = $('#userinput').val();
-            let params = $(this).attr('params');
-            let url = 'ajax/display/' + slug + '/';
+
+            let url = 'ajax/display/' + action + '/';
             if (key != ''){
                 if (slug=='crossover_sheet'){
-                    url = 'ajax/display/' + slug + '/'+key+'/';
+                    url = 'ajax/display/' + action + '/'+key+'/';
                 }
             }
-            if (params != ''){
+            if (param != undefined ){
                 if (action=='crossover_sheet'){
-                    url = 'ajax/display/' + action + '/'+params+'/';
+                    url = 'ajax/display/' + action + '/'+param+'/';
+                }
+                if (action=='kindred_lineage'){
+                    url = 'ajax/display/' + action + '/'+param+'/';
                 }
             }
             $.ajax({
                 url: url,
                 success: function (answer) {
-                    if (slug=='gaia_wheel'){
+                    if (action=='gaia_wheel'){
                         let d = JSON.parse(answer.data);
                         me.d3 = new GaiaWheel(d,"#d3area",me);
                         me.d3.perform();
                     }
-                    if (slug == 'kindred_lineage'){
+                    if (action == 'kindred_lineage'){
                         let d = JSON.parse(answer.data);
                         me.d3 = new KindredLineage(d,"#d3area",me);
                         me.d3.perform();
                     }
-                    if (slug=='crossover_sheet' || action=='crossover_sheet'){
+                    if (action=='crossover_sheet'){
                         let s = JSON.parse(answer.settings);
                         let d = JSON.parse(answer.data);
                         me.d3 = new CrossOverSheet(s,"#d3area",me);
                         me.d3.perform(d);
                     }
-                    //$('#d3area').html(answer.run);
                     me.rebootLinks();
                 },
                 error: function (answer) {

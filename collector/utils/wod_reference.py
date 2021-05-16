@@ -1,9 +1,3 @@
-"""
-           /       '_ /_/ 
-          ()(/__/)/(//)/  
-            /     _/      
-
-"""
 from collector.models.chronicles import Chronicle
 import logging
 

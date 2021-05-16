@@ -14,6 +14,9 @@ class CrossOverSheet{
 
         me.width = 24 * me.stepx;
         me.height = 36 * me.stepy;
+        me.w = 1.25 * me.width;
+        me.h = 1.25 * me.height;
+
         me.margin = [10,5,10,5];
         me.dot_radius = 6;
         me.stat_length = 150;
@@ -26,6 +29,8 @@ class CrossOverSheet{
         me.title_font = 'Cinzel';
         me.logo_font = 'Trade Winds';
         me.base_font = 'Imprima';
+        me.x = d3.scale.linear().domain([0, me.width]).range([0, me.width]);
+        me.y = d3.scale.linear().domain([0, me.height]).range([0, me.height]);
         me.debug = false;
         me.pre_title = 'Willkommen zum';
         me.scenario = "Oktoberblutenfest";
@@ -53,30 +58,19 @@ class CrossOverSheet{
         d3.select(me.parent).selectAll("svg").remove();
         me.svg = d3.select(me.parent).append("svg")
             .attr("id", me.data['rid'])
-            .attr("viewBox", "0 0 2000 3000")
-            .attr("x", 0)
-            .attr("y", 0)
+            .attr("viewBox", "0 0 " + me.w + " " + me.h)
             .attr("width", me.width)
             .attr("height", me.height)
-            ;
-
-        //me.svg.append('style')
-
-
-/*
-            <style>
-    @import url("https://fonts.googleapis.com/css2?family=Cinzel");
-    @import url("https://fonts.googleapis.com/css2?family=Trade+Winds");
-    @import url("https://fonts.googleapis.com/css2?family=Roboto");
-    @import url("https://fonts.googleapis.com/css2?family=Imprima");
-</style> \
-*/
-
+            .append("svg:g")
+            .attr("transform", "translate(0,0)")
+            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([2, 8]).on("zoom", function(e){
+                })
+            );
         me.back = me.svg
             .append("g")
-            .attr("transform", "translate(" + 10 + "," + 17 + ") ")
+            .attr("class", "page")
+            .attr("transform", "translate("+me.stepx+","+me.stepy+")")
             ;
-
         me.defs = me.svg.append('defs');
         me.defs.append('marker')
             .attr('id', 'arrowhead')
@@ -95,8 +89,6 @@ class CrossOverSheet{
                 .style('stroke', me.draw_stroke)
                 .style('stroke-width', '0pt')
             ;
-
-
         me.back.append('rect')
             .attr('x',0)
             .attr('y',0)
@@ -107,7 +99,6 @@ class CrossOverSheet{
             .style('stroke-width','0.5pt')
             .attr('opacity',1.0)
             ;
-
         if (me.debug){
         let verticals = me.back.append('g')
             .attr('class','verticals')
@@ -773,11 +764,7 @@ class CrossOverSheet{
         let ox = 0;
         let oy = basey;
         let stat = '';
-
-
         me.title('Merits',ox+me.stepx*5,oy,me.character);
-
-
         oy += 0.5*me.stepy;
         stat = 'merit';
         [0,1,2,3,4].forEach(function(d) {
@@ -794,10 +781,8 @@ class CrossOverSheet{
               let y = oy + 0.5*me.stepy*(d);
               me.powerStat(me.data[stat+d],x,y,stat,stat+d,me.character);
         });
-
         oy = basey;
         me.gaugeStat('Willpower',me.data['willpower'],ox+me.stepx*12,oy,me.character,true);
-
         if (me.data['creature']=='garou'){
             oy += 1.7*me.stepy;
             me.gaugeStat('Rage',me.data['power1'],ox+me.stepx*12,oy,me.character,true);
@@ -859,29 +844,44 @@ class CrossOverSheet{
   }
 
 
-    drawButtons(){
+    addButton(num,txt){
         let me = this;
-        let ox=0;
-        let oy=3*me.stepy;
+        let ox=31*me.stepy;
+        let oy=2*me.stepy;
         let button = me.back.append('g')
             .attr('class','do_not_print')
         button.append('rect')
-            .attr('x', ox-me.stepx*0.8)
-            .attr('y', oy-0.4*me.stepy)
+            .attr('id',"button"+num)
+            .attr('x', ox+me.stepx*(-0.8))
+            .attr('y', oy+me.stepy*(num-0.4))
             .attr('width',me.stepx*1.6)
             .attr('height',me.stepy*0.8)
-            .style('fill','#AAA')
+            .style('fill','#CCC')
             .style('stroke','#111')
             .style('stroke-width','1pt')
             .attr('opacity',1.0)
             .style('cursor','pointer')
+            .on('mouseover',function(d){
+                me.svg.select('#button'+num).style("stroke","#A22");
+            })
+            .on('mouseout',function(d){
+                me.svg.select('#button'+num).style("stroke","#111");
+            })
             .on('click',function(d){
-                me.saveSVG();
+                if (num==0){
+                    me.saveSVG();
+                }else if (num==1){
+                    me.savePNG();
+                }else if (num==2){
+                    me.savePDF();
+                }else if (num==3){
+                    me.editCreature();
+                }
             })
             ;
         button.append('text')
             .attr('x', ox)
-            .attr('y', oy)
+            .attr('y', oy+me.stepy*num)
             .attr('dy', 5)
             .style('font-family',me.base_font)
             .style('text-anchor','middle')
@@ -891,109 +891,34 @@ class CrossOverSheet{
             .style('stroke','#333')
             .style('stroke-width','0.5pt')
             .attr('opacity',1.0)
-            .text('to SVG')
+            .text(txt)
+            .on('mouseover',function(d){
+                me.svg.select('#button'+num).style("stroke","#A22");
+            })
+            .on('mouseout',function(d){
+                me.svg.select('#button'+num).style("stroke","#111");
+            })
             .on('click',function(d){
-                me.saveSVG();
+                if (num==0){
+                    me.saveSVG();
+                }else if (num==1){
+                    me.savePNG();
+                }else if (num==2){
+                    me.savePDF();
+                }else if (num==3){
+                    me.editCreature();
+                }
             })
             ;
+    }
 
-        button.append('rect')
-            .attr('x', ox-me.stepx*0.8)
-            .attr('y', oy-0.4*me.stepy+ me.stepy)
-            .attr('width',me.stepx*1.6)
-            .attr('height',me.stepy*0.8)
-            .style('fill','#AAA')
-            .style('stroke','#111')
-            .style('stroke-width','1pt')
-            .attr('opacity',1.0)
-            .style('cursor','pointer')
-            .on('click',function(d){
-                me.savePDF();
-            })
-            ;
-        button.append('text')
-            .attr('x', ox)
-            .attr('y', oy+me.stepy)
-            .attr('dy', 5)
-            .style('font-family',me.base_font)
-            .style('text-anchor','middle')
-            .style('font-size','10pt')
-            .style('fill','#000')
-            .style('cursor','pointer')
-            .style('stroke','#333')
-            .style('stroke-width','0.5pt')
-            .attr('opacity',1.0)
-            .text('to PNG')
-            .on('click',function(d){
-                me.savePDF();
-            })
 
-            ;
-        button.append('rect')
-            .attr('x', ox-me.stepx*0.8)
-            .attr('y', oy-0.4*me.stepy+ 2*me.stepy)
-            .attr('width',me.stepx*1.6)
-            .attr('height',me.stepy*0.8)
-            .style('fill','#AAA')
-            .style('stroke','#111')
-            .style('stroke-width','1pt')
-            .attr('opacity',1.0)
-            .style('cursor','pointer')
-            .on('click',function(d){
-                me.savePDF();
-            })
-            ;
-        button.append('text')
-            .attr('x', ox)
-            .attr('y', oy+2*me.stepy)
-            .attr('dy', 5)
-            .style('font-family',me.base_font)
-            .style('text-anchor','middle')
-            .style('font-size','10pt')
-            .style('fill','#000')
-            .style('cursor','pointer')
-            .style('stroke','#333')
-            .style('stroke-width','0.5pt')
-            .attr('opacity',1.0)
-            .text('to PDF')
-            .on('click',function(d){
-                me.savePDF();
-            })
-
-            ;
-        button.append('rect')
-            .attr('x', ox-me.stepx*0.8)
-            .attr('y', oy-0.4*me.stepy+ 3*me.stepy)
-            .attr('width',me.stepx*1.6)
-            .attr('height',me.stepy*0.8)
-            .style('fill','#AAA')
-            .style('stroke','#111')
-            .style('stroke-width','1pt')
-            .attr('opacity',1.0)
-            .style('cursor','pointer')
-            .on('click',function(d){
-                me.editCreature();
-            })
-            ;
-        button.append('text')
-            .attr('x', ox)
-            .attr('y', oy+3*me.stepy)
-            .attr('dy', 5)
-            .style('font-family',me.base_font)
-            .style('text-anchor','middle')
-            .style('font-size','10pt')
-            .style('fill','#000')
-            .style('cursor','pointer')
-            .style('stroke','#333')
-            .style('stroke-width','0.5pt')
-            .attr('opacity',1.0)
-            .text('UI details')
-            .on('click',function(d){
-                me.editCreature();
-            })
-
-            ;
-
+    drawButtons(){
+        let me = this;
+        me.addButton(0,'to SVG');
+        me.addButton(1,'to PNG');
+        me.addButton(2,'to PDF');
+        me.addButton(3,'to UI');
     }
 
     savePDF(){

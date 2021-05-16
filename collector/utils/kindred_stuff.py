@@ -189,7 +189,6 @@ def create_mythics():
     for k in kindred_stack:
         k['mythic'] = True
         generations[f'{k["generation"]}'].append(k)
-    # print(kindred_stack)
     return generations
 
 
@@ -202,25 +201,13 @@ def improvise_id():
     return s
 
 
-# def find_compatible_sire(generations, g, clan):
-#     found_sire = None
-#     potential_sires = generations[f'{g}']
-#     for s in potential_sires:
-#         if s['clan'] == clan:
-#             found_sire = s
-#             print(f'   --+ Found sire: {s}')
-#             break
-#     return found_sire
-
-def condi_print(condi,txt):
-    if condi:
-        print(txt)
-
-# kindred lineage data
-def build_per_primogen():
+def build_per_primogen(param=None):
+    chronicle = get_current_chronicle()
     cainites = create_mythics()
-    kindreds = Creature.objects.filter(creature='kindred', ghost=False, mythic=False,
-                                       chronicle=chronicle.acronym).order_by('family')
+    if param is None:
+        kindreds = Creature.objects.filter(creature='kindred', ghost=False, mythic=False, chronicle=chronicle.acronym).order_by('family')
+    else:
+        kindreds = Creature.objects.filter(creature='kindred', faction=param, ghost=False, mythic=False, chronicle=chronicle.acronym).order_by('family')
     # Improvise empty sires
     for kindred in kindreds:
         gen = 13 - kindred.background3
@@ -233,24 +220,19 @@ def build_per_primogen():
 
     # Try to fill empty lineages
     for gen in range(13, 0, -1):
-        print(f'--- Handling {gen} generation: ')
         for k in cainites[f'{gen}']:
             if gen > 1:
-                condi_print(k['name'] == 'Nestor Diemerisch', f'  = Handling {k.get("name")}: ')
                 if k['sire'].startswith('temporary_'):
-                    condi_print(k['name'] == 'Nestor Diemerisch', f'  - Temporary sire: {k["sire"]}')
                     sire = None
                     for item in cainites[f'{gen-1}']:
                         if item.get('sire') == k['sire']:
                             sire = item
-                            condi_print(k['name'] == 'Nestor Diemerisch', f'  - Sire {k["sire"]} already exists.')
                     if sire is None:
                         words = k["sire"].split('_')
                         sire = blank_str(words[1], words[2], "TBD", words[4])
                         sire['children'].append(k)
                         k['sire'] = sire['name']
                         cainites[f'{gen-1}'].append(sire)
-                        condi_print(k['name'] == 'Nestor Diemerisch', f'  ~ New sire added as {k["sire"]} for {k["name"]}.')
                 else:
                     if k["sire"] == "TBD":
                         # We need here to find a matchingsire according to clan
@@ -266,26 +248,19 @@ def build_per_primogen():
                             sire['children'].append(k)
                             k['sire'] = sire['name']
                             cainites[f'{gen - 1}'].append(sire)
-                            condi_print(k['name'] == 'Nestor Diemerisch', f'  ~ Creating a new temporary sire {k["sire"]} for {k["name"]}.')
-
                     else:
-                        condi_print(k['name'] == 'Nestor Diemerisch', f"  # Sire name for {k['name']} is {k['sire']} {k['clan']}")
                         sire = None
                         for item in cainites[f'{gen-1}']:
                             if item['name'] == k["sire"]:
                                 sire = item
                                 sire['children'].append(k)
-                                condi_print(k['name'] == 'Nestor Diemerisch', f'    --+ Sire {k["sire"]} already exist.')
                         if sire is None:
                             sire = blank_str(k['sire'], gen-1, "TBD", k['clan'])
                             sire['children'].append(k)
                             k['sire'] = sire['name']
                             cainites[f'{gen - 1}'].append(sire)
-                            condi_print(k['name'] == 'Nestor Diemerisch', f'  % Creating a new temporary sire {k["sire"]} for {k["name"]}.')
-
-            else:
-                print('    - Nothing to do with Caine.')
     str = json.dumps(cainites['1'], indent=4, sort_keys=False)
+    print(str)
     return str
 
 
@@ -293,7 +268,6 @@ def domitor_from_sire():
     kindreds = Creature.objects.filter(chronicle=chronicle.acronym)
     for k in kindreds:
         if k.sire != '':
-            print(f'Searching sire [{k.sire}]...')
             sires = Creature.objects.filter(name=k.sire)
             if len(sires) == 1:
                 s = sires.first()
@@ -301,12 +275,7 @@ def domitor_from_sire():
                 s = None
             if s is not None:
                 k.domitor = s
-                print(f'--> {k.name} has sire {k.sire} so domitor must be {s.name}')
                 k.save()
-            else:
-                print(f'XX> {k.name} has sire {k.sire} was not found...')
-        else:
-            print(f'X-> {k.name} has no sire {k.sire}.')
 
 
 def build_gaia_wheel():
@@ -336,7 +305,7 @@ def build_gaia_wheel():
             'position': c.position,
             'status': c.status
         }
-        if (c.faction == 'Camarilla') or (c.faction == 'Sabbat') or (c.faction == 'Independant') or (
+        if (c.faction == 'Camarilla') or (c.faction == 'Sabbat') or (c.faction == 'Independant') or (c.faction == 'Anarchs') or (
                 c.faction == 'Inconnu') or (c.faction == 'Pentex'):
             wyrm_list.append(creature_dict)
         elif (c.faction == 'Gaia'):

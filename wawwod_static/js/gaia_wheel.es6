@@ -45,6 +45,10 @@ class GaiaWheel {
             .append("g")
             .attr("transform", "translate(" + me.width/2 + "," + me.height/2 + ") rotate("+(me.global_rotation)+")")
             ;
+
+        me.tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0.5);
         //me.draw_sectors();
         let radial_lines = me.svg.append("g")
             .attr("class", "radiuses")
@@ -122,9 +126,7 @@ class GaiaWheel {
         me.inner_circles.exit()
             .remove()
             ;
-        me.tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0.5);
+
         me.cross = me.back.append('path')
             .attr("d","M 0 10 v -20 M 10 0 h -20 Z")
             .style("fill",'transparent')

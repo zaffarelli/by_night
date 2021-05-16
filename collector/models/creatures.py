@@ -250,6 +250,8 @@ class Creature(models.Model):
                 self.finaldeath == int(condi[1])
         if (int(self.age) > 0) and (int(self.trueage) >= int(self.age)):
             self.embrace = chronicle.era - (int(self.trueage) - int(self.age))
+        else:
+            self.trueage = chronicle.era - int(self.embrace) + int(self.age)
         # Activity as a vampire
         time_awake = int(self.trueage) - int(self.timeintorpor)
         for key, val in freebies_by_age.items():
@@ -730,7 +732,6 @@ class Creature(models.Model):
             'rid': self.rid,
             'children': []
         }
-        print(f'd:{d}')
         return d
 
     def find_lineage(self, lockup=False):
@@ -799,28 +800,36 @@ def set_male(modeladmin, request, queryset):
     short_description = 'Make male'
 
 
-def push_to_MBN(modeladmin, request, queryset):
+def push_to_newyork(modeladmin, request, queryset):
     for creature in queryset:
-        creature.chronicle = 'MBN'
+        creature.chronicle = 'NYC'
         creature.need_fix = True
         creature.save()
-    short_description = 'Push to Munich By Night'
+    short_description = 'Push to New York City'
 
-def push_to_BAV(modeladmin, request, queryset):
+
+def push_to_munich(modeladmin, request, queryset):
     for creature in queryset:
         creature.chronicle = 'BAV'
         creature.need_fix = True
         creature.save()
-    short_description = 'Push to BAV'
+    short_description = 'Push to Munich'
 
+
+def push_to_world(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.chronicle = 'NYC'
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Push to the world'
 
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
         'name', 'rid', 'creature', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
         'faction',
-        'status', 'trueage']
+        'status', 'trueage', 'condition']
     ordering = ['name', 'group', 'creature']
-    actions = [refix, set_male, set_female, push_to_RAM, push_to_MBN, push_to_BAV]
-    list_filter = ['chronicle', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature']
+    actions = [refix, set_male, set_female, push_to_munich, push_to_newyork, push_to_world]
+    list_filter = ['chronicle', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature', 'mythic','ghost']
     search_fields = ['name']
