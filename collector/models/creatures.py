@@ -82,6 +82,7 @@ class Creature(models.Model):
     status = models.CharField(max_length=32, blank=True, default='OK')
     position = models.CharField(max_length=64, blank=True, default='')
     maj = models.PositiveIntegerField(default=0)
+    need_fix = models.BooleanField(default=False)
     freebiedif = models.IntegerField(default=0)
     freebies = models.IntegerField(default=0, blank=True)
     expectedfreebies = models.IntegerField(default=0)
@@ -91,18 +92,6 @@ class Creature(models.Model):
     hidden = models.BooleanField(default=False)
     ghost = models.BooleanField(default=False)
     source = models.CharField(max_length=64, blank=True, default='zaffarelli')
-    path = models.CharField(max_length=64, default='Humanity')
-    nature = models.CharField(max_length=32, blank=True, default='')
-    demeanor = models.CharField(max_length=32, blank=True, default='')
-    condition = models.CharField(max_length=32, blank=True, default='OK')
-    power1 = models.PositiveIntegerField(default=1)
-    power2 = models.PositiveIntegerField(default=1)
-    willpower = models.PositiveIntegerField(default=1)
-    level0 = models.PositiveIntegerField(default=0)
-    level1 = models.PositiveIntegerField(default=0)
-    level2 = models.PositiveIntegerField(default=0)
-    summary = models.TextField(default='', blank=True, max_length=2048)
-    need_fix = models.BooleanField(default=False)
     total_physical = models.IntegerField(default=0)
     total_social = models.IntegerField(default=0)
     total_mental = models.IntegerField(default=0)
@@ -111,6 +100,19 @@ class Creature(models.Model):
     total_knowledges = models.IntegerField(default=0)
     total_backgrounds = models.IntegerField(default=0)
     total_gifts = models.IntegerField(default=0)
+    path = models.CharField(max_length=64, default='Humanity')
+    nature = models.CharField(max_length=32, blank=True, default='')
+    demeanor = models.CharField(max_length=32, blank=True, default='')
+    condition = models.CharField(max_length=32, blank=True, default='OK')
+    territory = models.CharField(max_length=128, blank=True, default='')
+    weakness = models.CharField(max_length=128, blank=True, default='')
+    power1 = models.PositiveIntegerField(default=1)
+    power2 = models.PositiveIntegerField(default=1)
+    willpower = models.PositiveIntegerField(default=1)
+    level0 = models.PositiveIntegerField(default=0)
+    level1 = models.PositiveIntegerField(default=0)
+    level2 = models.PositiveIntegerField(default=0)
+    summary = models.TextField(default='', blank=True, max_length=2048)
     attribute0 = models.PositiveIntegerField(default=1)
     attribute1 = models.PositiveIntegerField(default=1)
     attribute2 = models.PositiveIntegerField(default=1)
@@ -224,6 +226,19 @@ class Creature(models.Model):
         if found == 'n/a':
             logger.error(f'Error finding {stat} for {self.creature} ({self.name})')
         return getattr(self, found)
+
+    def get_specialities(self):
+        base = STATS_NAMES[self.creature]
+        to_be_checked = ['attributes', 'talents', 'skills', 'knowledges']
+        specialities = []
+        for category in to_be_checked:
+            list = base[category]
+            for stat in list:
+                if self.value_of(stat) > 3:
+                    specialities.append(f'{stat.title()} {self.value_of(stat)}')
+        return specialities
+
+
 
     @property
     def entrance(self):
@@ -428,7 +443,7 @@ class Creature(models.Model):
             self.display_gauge += 1
         self.display_pole = self.groupspec
         expected_freebies_by_rank = [0, 55, 134, 234, 345]
-        self.expectedfreebies = int(((self.age - 10) / 10) * 5) + expected_freebies_by_rank[self.rank - 1]
+        self.expectedfreebies = (int((self.age - 25) / 10)+1) * 10 + expected_freebies_by_rank[self.rank - 1]
 
     def update_rid(self):
         s = self.name.lower()
@@ -826,7 +841,7 @@ def push_to_world(modeladmin, request, queryset):
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
-        'name', 'rid', 'creature', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
+        'name', 'rid', 'creature','player', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
         'faction',
         'status', 'trueage', 'condition']
     ordering = ['name', 'group', 'creature']

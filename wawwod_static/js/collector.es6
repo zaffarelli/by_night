@@ -45,17 +45,17 @@ class WawwodCollector {
             let key = $('#userinput').val();
 
             let url = 'ajax/display/' + action + '/';
-            if (key != ''){
-                if (slug=='crossover_sheet'){
-                    url = 'ajax/display/' + action + '/'+key+'/';
-                }
-            }
             if (param != undefined ){
                 if (action=='crossover_sheet'){
                     url = 'ajax/display/' + action + '/'+param+'/';
                 }
                 if (action=='kindred_lineage'){
                     url = 'ajax/display/' + action + '/'+param+'/';
+                }
+            }
+            if (key != ''){
+                if (action == 'crossover_sheet'){
+                    url = 'ajax/display/' + action + '/'+key+'/';
                 }
             }
             $.ajax({
@@ -71,7 +71,7 @@ class WawwodCollector {
                         me.d3 = new KindredLineage(d,"#d3area",me);
                         me.d3.perform();
                     }
-                    if (action=='crossover_sheet'){
+                    if (action == 'crossover_sheet'){
                         let s = JSON.parse(answer.settings);
                         let d = JSON.parse(answer.data);
                         me.d3 = new CrossOverSheet(s,"#d3area",me);
@@ -88,16 +88,17 @@ class WawwodCollector {
 
     }
 
-
     registerSwitch(){
         let me = this;
         $('.switch').off().on('click', function (event) {
-            let slug = $(this).attr('id');
+            let action = $(this).attr('action');
+            let param = $(this).attr('param');
             $.ajax({
-                url: 'ajax/switch/chronicle/' + slug + '/',
+                url: 'ajax/switch/'+action+'/'+param+'/',
                 success: function (answer) {
-                    $('#chronicle_menu').html(answer.chronicles);
-                    me.rebootLinks();
+//                     console.log('done');
+                    window.location = '/';
+//                     me.rebootLinks();
                 },
                 error: function (answer) {
                     console.error(answer);
@@ -288,7 +289,7 @@ class WawwodCollector {
             }
             let keys_set = {id: keys[0], field: keys[1], offset: os}
             $.ajax({
-                url: 'ajax/editable/updown',
+                url: 'ajax/editable/updown/',
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -317,7 +318,7 @@ class WawwodCollector {
             if (shift) {
                 let keys_set = {id: keys[0], field: keys[1], value: val}
                 $.ajax({
-                    url: 'ajax/editable/userinput',
+                    url: 'ajax/editable/userinput/',
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',

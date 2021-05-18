@@ -3,3 +3,4 @@ __py-cache__/
 node_modules/
 svg/
 .venv/
+collector/static/collector/storage/

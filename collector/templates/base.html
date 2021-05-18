@@ -10,19 +10,18 @@
           integrity='sha384-Rw5qeepMFvJVEZdSo1nDQD5B6wX0m7c5Z/pLNvjkB14W6Yki1hKbSEQaX9ffUbWe' crossorigin='anonymous'>
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css'
           integrity='sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV' crossorigin='anonymous'>
-    <script type="text/javascript" src="{% static 'lodash/lodash.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'chartjs/chart.js' %}"></script>
-    <script type="text/javascript" src="{% static 'jquery/dist/jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'jspdf/dist/jspdf.umd.js' %}"></script>
-    <script type="text/javascript" src="{% static 'd3/d3.js' %}"></script>
-    <script src='{% static "js/collector.es6" %}'></script>
-    <script src='{% static "js/gaia_wheel.es6" %}'></script>
-    <script src='{% static "js/kindred_lineage.es6" %}'></script>
-    <script src='{% static "js/cross_over_sheet.es6" %}'></script>
-    <link rel='stylesheet' href="https://fonts.googleapis.com/css2?family=Cinzel">
-    <link rel='stylesheet' href="https://fonts.googleapis.com/css2?family=Trade+Winds">
-    <link rel='stylesheet' href="https://fonts.googleapis.com/css2?family=Roboto">
-    <link rel='stylesheet' href="https://fonts.googleapis.com/css2?family=Imprima">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script type="text/javascript" src='{% static "js/cross_over_sheet.es6" %}'></script>
+    <script type="text/javascript" src='{% static "js/collector.es6" %}'></script>
+    <script type="text/javascript" src='{% static "js/gaia_wheel.es6" %}'></script>
+    <script type="text/javascript" src='{% static "js/kindred_lineage.es6" %}'></script>
+
+    {% for font in fontset %}
+        <link rel='stylesheet' href="https://fonts.googleapis.com/css2?family={{font}}">
+    {% endfor %}
     {% load compress %}
     {% compress css %}
     <link rel='stylesheet' type='text/x-scss' href='{% static "collector/css/main.scss" %}'/>
@@ -32,7 +31,7 @@
 </head>
 <body>
 <ul class='bar'>
-    <li class="pull_down">
+    <li class="pull_down chronicle">
     {{chronicle_name}}
     </li>
     <li class="pull_down" id="chronicle_menu">
@@ -52,6 +51,8 @@
             <li class="list" id="pentex">Black Spirals & Fomori</li>
             <HR/>
             <li class="list" id="mortals">Mortals, Ghouls & Kinfolks</li>
+            <HR/>
+            <li class="list" id="players">Players</li>
             <HR/>
             <li class="action" id="add_creature">Add new creature</li>
             <li class="action" id="refix_all">Refix all</li>
@@ -103,5 +104,8 @@
         co.perform();
     });
     </script>
+
+
+
 </body>
 </html>

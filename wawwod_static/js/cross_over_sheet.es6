@@ -7,42 +7,61 @@ class CrossOverSheet{
         me.init();
     }
 
+    decorationText(x,y,d=0,a='middle',f,s,b,c,w,t,v){
+        let me = this;
+        v.append('text')
+            .attr("x",me.stepx*x)
+            .attr("y",me.stepy*y)
+            .attr("dy",d)
+            .style("text-anchor",a)
+            .style("font-family",f)
+            .style("font-size",s+'px')
+            .style("fill",b)
+            .style("stroke",c)
+            .style("stroke-width",w+'pt')
+            .text(t)
+            .attr('opacity',1);
+    }
+
     init(){
         let me = this;
-        me.stepx = 40;
-        me.stepy = 35;
-
-        me.width = 24 * me.stepx;
-        me.height = 36 * me.stepy;
+        me.debug = true;
+        me.width = parseInt($(me.parent).css("width"),10) * 0.75;
+        me.height = me.width *1.4;
         me.w = 1.25 * me.width;
         me.h = 1.25 * me.height;
-
-        me.margin = [10,5,10,5];
-        me.dot_radius = 6;
+        me.stepx = me.width/24;
+        me.stepy = me.height/36;
+        me.small_font_size = 1.3*me.stepy / 5;
+        me.medium_font_size = 2*me.stepy / 5;
+        me.big_font_size = 2.5*me.stepy / 5;
+        me.fat_font_size = 8*me.stepy / 5;
+        me.margin = [0,0,0,0];
+        me.dot_radius = me.stepx/8;
         me.stat_length = 150;
         me.stat_max = 5;
+        me.shadow_stroke = "#B0B0B0";
         me.draw_stroke = '#111';
         me.draw_fill = '#222';
-        me.user_stroke = '#621';
-        me.user_fill = '#B63';
-        me.user_font = 'atma';
-        me.title_font = 'Cinzel';
+        me.user_stroke = '#138';
+        me.user_fill = '#36B';
+        me.user_font = 'Gochi Hand';
+        me.title_font = 'Khand';
         me.logo_font = 'Trade Winds';
-        me.base_font = 'Imprima';
+        me.base_font = 'Philosopher';
         me.x = d3.scale.linear().domain([0, me.width]).range([0, me.width]);
         me.y = d3.scale.linear().domain([0, me.height]).range([0, me.height]);
-        me.debug = false;
-        me.pre_title = 'Willkommen zum';
-        me.scenario = "Oktoberblutenfest";
-        me.post_title = "Ein bayerisches Abenteuer"
+        me.pre_title = me.config['pre_title'];
+        me.scenario = me.config['scenario'];
+        me.post_title = me.config['post_title'];
         me.health_levels = ['Bruised/X','Hurt/-1','Injured/-1','Wounded/-2','Mauled/-2','Crippled/-5','Incapacitated/X'];
     }
 
-    midline(y){
+    midline(y,startx=2,stopx=22){
         let me = this;
         me.back.append('line')
-            .attr('x1',me.stepx*2)
-            .attr('x2',me.stepx*22)
+            .attr('x1',me.stepx*startx)
+            .attr('x2',me.stepx*stopx)
             .attr('y1',me.stepy*y)
             .attr('y2',me.stepy*y)
             .style('fill','transparent')
@@ -52,6 +71,22 @@ class CrossOverSheet{
             .attr('marker-start', "url(#arrowhead)")
             ;
     }
+
+    crossline(x,starty=2,stopy=35){
+        let me = this;
+        me.back.append('line')
+            .attr('x1',me.stepx*x)
+            .attr('x2',me.stepx*x)
+            .attr('y1',me.stepy*starty)
+            .attr('y2',me.stepy*stopy)
+            .style('fill','transparent')
+            .style('stroke',me.draw_stroke)
+            .style('stroke-width','3pt')
+            .attr('marker-end', "url(#arrowhead)")
+            .attr('marker-start', "url(#arrowhead)")
+            ;
+    }
+
 
     drawWatermark(){
         let me = this;
@@ -69,7 +104,7 @@ class CrossOverSheet{
         me.back = me.svg
             .append("g")
             .attr("class", "page")
-            .attr("transform", "translate("+me.stepx+","+me.stepy+")")
+            .attr("transform", "translate("+0*me.stepx+","+0*me.stepy+")")
             ;
         me.defs = me.svg.append('defs');
         me.defs.append('marker')
@@ -96,208 +131,71 @@ class CrossOverSheet{
             .attr('height',me.height)
             .style('fill','white')
             .style('stroke',me.draw_stroke)
-            .style('stroke-width','0.5pt')
+            .style('stroke-width','0')
             .attr('opacity',1.0)
             ;
+        // Grid
         if (me.debug){
-        let verticals = me.back.append('g')
-            .attr('class','verticals')
-            .selectAll("g")
-            .data(d3.range(0, 24, 1));
-        verticals.enter()
-            .append('line')
-            .attr('x1',function(d){ return d*me.stepx})
-            .attr('y1',0)
-            .attr('x2',function(d){ return d*me.stepx})
-            .attr('y2',36*me.stepy)
-            .style('fill','transparent')
-            .style('stroke','#CCC')
-            .style('stroke-width','0.25pt')
-           ;
-        let horizontals = me.back.append('g')
-            .attr('class','horizontals')
-            .selectAll("g")
-            .data(d3.range(0, 36, 1));
-        horizontals.enter()
-            .append('line')
-            .attr('x1',0)
-            .attr('x2',24*me.stepx)
-            .attr('y1',function(d){ return d*me.stepy})
-            .attr('y2',function(d){ return d*me.stepy})
-            .style('fill','transparent')
-            .style('stroke','#CCC')
-            .style('stroke-width','0.25pt')
-           ;
+            let verticals = me.back.append('g')
+                .attr('class','verticals')
+                .selectAll("g")
+                .data(d3.range(0, 24, 1));
+            verticals.enter()
+                .append('line')
+                .attr('x1',function(d){ return d*me.stepx})
+                .attr('y1',0)
+                .attr('x2',function(d){ return d*me.stepx})
+                .attr('y2',36*me.stepy)
+                .style('fill','transparent')
+                .style('stroke','#CCC')
+                .style('stroke-width','0.25pt');
+            let horizontals = me.back.append('g')
+                .attr('class','horizontals')
+                .selectAll("g")
+                .data(d3.range(0, 36, 1));
+            horizontals.enter()
+                .append('line')
+                .attr('x1',0)
+                .attr('x2',24*me.stepx)
+                .attr('y1',function(d){ return d*me.stepy})
+                .attr('y2',function(d){ return d*me.stepy})
+                .style('fill','transparent')
+                .style('stroke','#CCC')
+                .style('stroke-width','0.25pt');
         }
 
-        let decoration1 = me.back.append('g')
-            .append('line')
-            .attr('x1',me.stepx*1)
-            .attr('y1',me.stepy*2)
-            .attr('x2',me.stepx*1)
-            .attr('y2',me.stepy*35)
-
-            .style('fill','transparent')
-            .style('stroke',me.draw_stroke)
-            .style('stroke-width','3pt')
-            .attr('marker-end', "url(#arrowhead)")
-            .attr('marker-start', "url(#arrowhead)")
-            ;
-        let decoration2 =  me.back.append('line')
-            .attr('x1',me.stepx*23)
-            .attr('x2',me.stepx*23)
-            .attr('y1',me.stepy*2)
-            .attr('y2',me.stepy*35)
-
-            .style('fill','transparent')
-            .style('stroke',me.draw_stroke)
-            .style('stroke-width','3pt')
-            .attr('marker-end', "url(#arrowhead)")
-            .attr('marker-start', "url(#arrowhead)")
-
-            ;
-
-        let decoration3 =  me.back.append('line')
+        let lines = me.back.append('g');
+        // Line across the logo title
+        lines.append('line')
             .attr('x1',me.stepx*5)
-            .attr('y1',me.stepy*1)
             .attr('x2',me.stepx*19)
+            .attr('y1',me.stepy*1)
             .attr('y2',me.stepy*1)
-
             .style('fill','transparent')
             .style('stroke',me.draw_stroke)
-            .style('stroke-width','3pt')
+            .style('stroke-width','6pt')
             .attr('marker-end', "url(#arrowhead)")
             .attr('marker-start', "url(#arrowhead)")
-
             ;
-
-        let decoration4 =  me.back.append('line')
-            .attr('x1',me.stepx*1)
-            .attr('x2',me.stepx*23)
-            .attr('y1',me.stepy*35)
-            .attr('y2',me.stepy*35)
-
-            .style('fill','transparent')
-            .style('stroke',me.draw_stroke)
-            .style('stroke-width','3pt')
-            .attr('marker-end', "url(#arrowhead)")
-            .attr('marker-start', "url(#arrowhead)")
-
-            ;
-
-        me.midline(2);
+        me.crossline(1,2,35);
+        me.crossline(23,2,35);
+        // Mid lines
+        me.midline(2,1,23);
+        me.midline(35,1,23);
         me.midline(8.5);
         me.midline(15);
         me.midline(21.5);
         me.midline(29);
-
-
-
-
-        let decoration6_pre =  me.back.append('text')
-            .attr("x",me.stepx*12)
-            .attr("y",me.stepy*1.5)
-            .attr("dy",0)
-            .style("text-anchor",'middle')
-            .style("font-family",me.logo_font)
-            .style("font-size",'48px')
-            .style("fill","#FFF")
-            .style("stroke","#FFF")
-            .style("stroke-width",'5pt')
-            .text(me.scenario)
-            .attr('opacity',1)
-            ;
-
-
-
-        let decoration5 =  me.back.append('text')
-            .attr("x",me.stepx*1.5)
-            .attr("y",me.stepy*1.75)
-            .attr("dy",0)
-            .style("text-anchor",'start')
-            .style("font-family",me.base_font)
-            .style("font-size",'16px')
-            .style("fill",me.draw_fill)
-            .style("stroke",me.draw_stroke)
-            .style("stroke-width",'0.5pt')
-            .text(me.pre_title)
-
-            ;
-
-        let decoration5bis =  me.back.append('text')
-            .attr("x",me.stepx*22.5)
-            .attr("y",me.stepy*1.75)
-            .attr("dy",0)
-            .style("text-anchor",'end')
-            .style("font-family",me.base_font)
-            .style("font-size",'16px')
-            .style("fill",me.draw_fill)
-            .style("stroke",me.draw_stroke)
-            .style("stroke-width",'0.5pt')
-            .text(me.post_title)
-
-            ;
-
-
-
-        let decoration6 =  me.back.append('text')
-            .attr("x",me.stepx*12)
-            .attr("y",me.stepy*1.5)
-            .attr("dy",0)
-            .style("text-anchor",'middle')
-            .style("font-family",me.logo_font)
-            .style("font-size",'48px')
-            .style("fill","#000")
-            .style("stroke","transparent")
-            .style("stroke-width",'0.5pt')
-            .text(me.scenario)
-            .attr('opacity',1)
-            ;
-
-        let decoration6_line =  me.back.append('text')
-            .attr("x",me.stepx*12)
-            .attr("y",me.stepy*1.5)
-            .attr("dy",0)
-            .style("text-anchor",'middle')
-            .style("font-family",me.logo_font)
-            .style("font-size",'48px')
-            .style("fill","transparent")
-            .style("stroke","#A22")
-            .style("stroke-width",'0.5pt')
-            .text(me.scenario)
-            .attr('opacity',1)
-            ;
-
-
-        let decoration8 =  me.back.append('text')
-            .attr("x",me.stepx*1.5)
-            .attr("y",me.stepy*35.8)
-            .attr("dy",-16)
-            .style("text-anchor",'start')
-            .style("font-family",me.base_font)
-            .style("font-size",'10px')
-            .style("fill","#111")
-            .style("stroke","#888")
-            .style("stroke-width",'0.5pt')
-            .text(me.guideline)
-            .attr('opacity',1)
-            ;
-        let decoration9 =  me.back.append('text')
-            .attr("x",me.stepx*22.5)
-            .attr("y",me.stepy*35.2)
-            .attr("dy",0)
-            .style("text-anchor",'end')
-            .style("font-family",me.base_font)
-            .style("font-size",'8px')
-            .style("fill","#111")
-            .style("stroke","#888")
-            .style("stroke-width",'0.5pt')
-            .text("WaWWoD Cross+Over Sheet. (c) 2021, Pentex Inc.")
-            .attr('opacity',1)
-            ;
-
-
-
+        // Title
+        me.decorationText(12,1.8,0,'middle',me.logo_font,me.fat_font_size,"#fff","#fff",5,me.scenario,me.back);
+        me.decorationText(12,1.8,0,'middle',me.logo_font,me.fat_font_size,"#000","transparent",0.5,me.scenario,me.back);
+        me.decorationText(12,1.8,0,'middle',me.logo_font,me.fat_font_size,"transparent",me.user_fill,0.5,me.scenario,me.back);
+        me.decorationText(1.5,35.8,-16,'start',me.base_font,me.medium_font_size,me.draw_fill,me.draw_stroke,0.5,me.guideline,me.back);
+        me.decorationText(22.5,35.8,-16,'end',me.base_font,me.small_font_size,me.draw_fill,me.draw_stroke,0.5,"WaWWoD Cross+Over Sheet ©2021, Pentex Inc.",me.back);
+        me.decorationText(1.5,1.75,0,'start',me.title_font,me.medium_font_size,me.draw_fill,me.draw_stroke,0.5,me.pre_title,me.back);
+        me.decorationText(22.5,1.75,0,'end',me.title_font,me.medium_font_size,me.draw_fill,me.draw_stroke,0.5,me.post_title,me.back);
+        me.decorationText(22.5,34.8,0,'end',me.base_font,me.small_font_size,me.draw_fill,me.draw_stroke,0.5,'Challenge:'+me.data['freebies'],me.back);
+        // Sheet content
         me.character = me.back.append('g')
             .attr('class','xover_sheet');
     }
@@ -316,17 +214,36 @@ class CrossOverSheet{
              .style('stroke-width','0.5pt')
              ;
 
+        item.append('line')
+            .attr('x1',function(d,i){
+                return ox;
+            })
+            .attr('y1',function(d,i){
+                return oy+9;
+            })
+            .attr('x2',function(d,i){
+                return ox+me.stepx*6;
+            })
+            .attr('y2',function(d,i){
+                return oy+9;
+            })
+            .style("fill",me.draw_fill)
+            .style("stroke",me.shadow_stroke)
+            .style("stroke-width",'1.5pt')
+            .style("stroke-dasharray",'2 7')
+            ;
+
 
         item.append('text')
             .attr("x",ox)
             .attr("y",oy)
-            .attr("dy",12)
+            .attr("dy",10)
             .style("text-anchor",'start')
             .style("font-family",function(){
                 return (power ? me.user_font : me.base_font);
                 //return (power ? 'NothingYouCouldDo' : 'Titre');
             })
-            .style("font-size",'12px')
+            .style("font-size",me.medium_font_size+'px')
             .style("fill",function(){
                 return (power ? me.user_fill : me.draw_fill);
             })
@@ -349,16 +266,16 @@ class CrossOverSheet{
         dots.enter()
             .append('circle')
             .attr('cx',function(d){
-                let cx = ox+me.stepx*4+(d+1)*((me.dot_radius)*2);
-                if (d>=me.stat_max){
-                    cx = ox+me.stepx*4+(d+1-me.stat_max)*((me.dot_radius)*2);
-                }
+                let cx = ox+me.stepx*5+(d%me.stat_max)*((me.dot_radius)*2);
+//                 if (d>=me.stat_max){
+//                     cx = ox+me.stepx*4+(d%me.stat_max)*((me.dot_radius)*2);
+//                 }
                 return cx;
             })
             .attr('cy',function(d){
-                let cy = oy+me.dot_radius/2+6;
+                let cy = oy+me.dot_radius/2;
                 if (max > me.stat_max){
-                    cy -=4;
+                    cy -=me.dot_radius;
                 }
 
                 if (d>=me.stat_max){
@@ -375,7 +292,7 @@ class CrossOverSheet{
             .style('stroke',function(d){
                 return me.draw_stroke;
             })
-            .style('stroke-width','1pt')
+            .style('stroke-width','1.5pt')
            ;
     }
 
@@ -406,15 +323,32 @@ class CrossOverSheet{
              .style('stroke','#FFF')
              .style('stroke-width','0.5pt')
              ;
-
+        item.append('line')
+            .attr('x1',function(d,i){
+                return ox;
+            })
+            .attr('y1',function(d,i){
+                return oy+9;
+            })
+            .attr('x2',function(d,i){
+                return ox+me.stepx*6;
+            })
+            .attr('y2',function(d,i){
+                return oy+9;
+            })
+            .style("fill",me.draw_fill)
+            .style("stroke",me.shadow_stroke)
+            .style("stroke-width",'1.5pt')
+            .style("stroke-dasharray",'2 7')
+            ;
 
         item.append('text')
             .attr("x",ox)
             .attr("y",oy)
             .attr("dy",10)
             .style("text-anchor",'start')
-            .style("font-family",'Lato')
-            .style("font-size",'12px')
+            .style("font-family",me.base_font)
+            .style("font-size",me.medium_font_size+'px')
             .style("fill",me.draw_fill)
             .style("stroke",me.draw_stroke)
             .style("stroke-width",'0.5pt')
@@ -424,12 +358,12 @@ class CrossOverSheet{
 
         if (fat){
         item.append('text')
-            .attr("x",ox+me.stepx*2)
+            .attr("x",ox+me.stepx*6)
             .attr("y",oy)
-            .attr("dy",12)
-            .style("text-anchor",'start')
+            .attr("dy",10)
+            .style("text-anchor",'end')
             .style("font-family",me.user_font)
-            .style("font-size",'26px')
+            .style("font-size",me.medium_font_size+'px')
             .style("fill",me.user_fill)
             .style("stroke",me.user_stroke)
             .style("stroke-width",'0.5pt')
@@ -438,12 +372,12 @@ class CrossOverSheet{
             });
         }else{
         item.append('text')
-            .attr("x",ox+me.stepx*2)
+            .attr("x",ox+me.stepx*6)
             .attr("y",oy)
-            .attr("dy",12)
-            .style("text-anchor",'start')
+            .attr("dy",10)
+            .style("text-anchor",'end')
             .style("font-family",me.user_font)
-            .style("font-size",'12px')
+            .style("font-size",me.medium_font_size+'px')
             .style("fill",me.user_fill)
             .style("stroke",me.user_stroke)
             .style("stroke-width",'0.5pt')
@@ -462,7 +396,7 @@ class CrossOverSheet{
             .attr("dy",10)
             .style("text-anchor",'middle')
             .style("font-family",me.title_font)
-            .style("font-size",'16px')
+            .style("font-size",me.big_font_size+'px')
             .style("fill",'#111')
             .style("stroke",'#888')
             .style("stroke-width",'0.5pt')
@@ -485,7 +419,7 @@ class CrossOverSheet{
             .attr("dy",10)
             .style("text-anchor",'middle')
             .style("font-family",me.title_font)
-            .style("font-size",'16px')
+            .style("font-size",me.big_font_size+'px')
             .style("fill",'#111')
             .style("stroke",'#888')
             .style("stroke-width",'0.5pt')
@@ -493,7 +427,7 @@ class CrossOverSheet{
                 return name.charAt(0).toUpperCase() + name.slice(1);
             });
         if (automax){
-            tempmax = (Math.round(value/10))*10;
+            tempmax = (Math.round(value/10)+1)*10;
             lines = tempmax/10;
         }
 
@@ -504,10 +438,10 @@ class CrossOverSheet{
         let dot = dots.enter();
         dot.append('circle')
             .attr('cx',function(d){
-                let cx =  ox+(d-((tempmax-1)/2))*((me.dot_radius+1)*2);
-                if (d>=10){
-                    cx = ox+((d-10)-4.5)*((me.dot_radius+1)*2);
-                }
+                let cx =  ox+(((d%10))-4.5)*((me.dot_radius*2+1)*2);
+//                 if (d>=10){
+//                     cx = ox+((d-10)-4.5)*((me.dot_radius+1)*2);
+//                 }
                 return cx;
             })
             .attr('cy',function(d){
@@ -520,22 +454,19 @@ class CrossOverSheet{
             .style('fill',function(d){
                 return (d < value ? me.user_fill : "white");
             })
-            .attr('r',me.dot_radius-2)
+            .attr('r',me.dot_radius)
             .style('stroke',me.draw_stroke)
             .style('stroke-width','1pt')
             ;
         dot.append('rect')
             .attr('x',function(d){
-                let cx =  ox+(d-4.5)*((me.dot_radius+1)*2) - me.dot_radius;
-                if (d>=10){
-                    cx = ox+((d-10)-4.5)*((me.dot_radius+1)*2) - me.dot_radius;
-                }
+                let cx =  ox+((d%10)-4.5)*((me.dot_radius*2+1)*2) - me.dot_radius;
                 return cx;
             })
             .attr('y',function(d){
-                let cy = oy+0.3*me.stepx+me.dot_radius - me.dot_radius + (me.dot_radius*2+2)*lines;
+                let cy = oy+0.3*me.stepx+me.dot_radius - me.dot_radius + (me.dot_radius*2+2)*lines +2;
                 if (d>=10){
-                    cy += me.dot_radius*2+3 ;
+                    cy += me.dot_radius*2+5 ;
                 }
                 return cy;
             })
@@ -560,13 +491,13 @@ class CrossOverSheet{
         me.statText('Name',me.data['name'],ox+me.stepx*2,oy,'name','name',me.character,true);
         me.statText('Nature',me.data['nature'],ox+me.stepx*9,oy,'nature','nature',me.character);
         if (me.data["creature"]=='kindred'){
-            me.statText('Age/R (Emb)',me.data['age']+"/"+me.data['trueage']+" ("+me.data['embrace']+"A.D)",ox+me.stepx*16,oy,'age','age',me.character);
+            me.statText('Age/R(E)',me.data['age']+"/"+me.data['trueage']+" ("+me.data['embrace']+"A.D)",ox+me.stepx*16,oy,'age','age',me.character);
         }else{
             me.statText('Age',me.data['age'],ox+me.stepx*16,oy,'age','age',me.character);
         }
         oy += 0.5*me.stepy;
         if (me.data['player']==''){
-            me.statText('Position',me.data['position'],ox+me.stepx*2,oy,'player','player',me.character);
+            me.statText('Player',"Storyteller Character",ox+me.stepx*2,oy,'player','player',me.character);
         }else{
             me.statText('Player',me.data['player'],ox+me.stepx*2,oy,'player','player',me.character);
         }
@@ -575,23 +506,36 @@ class CrossOverSheet{
 
         oy += 0.5*me.stepy;
         me.statText('Chronicle',me.data['chronicle'],ox+me.stepx*2,oy,'chronicle','chronicle',me.character);
-        me.statText('Residence',me.data['group'],ox+me.stepx*9,oy,'group','group',me.character);
+        if (me.data["creature"]=='kindred'){
+            me.statText('Position',me.data['position'],ox+me.stepx*9,oy,'group','group',me.character);
+        }else{
+            me.statText('Residence',me.data['group'],ox+me.stepx*9,oy,'group','group',me.character);
+        }
         me.statText('Concept',me.data['concept'],ox+me.stepx*16,oy,'concept','concept',me.character);
 
         oy += 0.5*me.stepy;
-        me.statText('Creature',me.data['creature'],ox+me.stepx*2,oy,'chronicle','chronicle',me.character);
+        me.statText('Creature',me.data['creature'].charAt(0).toUpperCase() + me.data['creature'].slice(1),ox+me.stepx*2,oy,'chronicle','chronicle',me.character);
 
         if (me.data["creature"]=='kindred'){
             me.statText('Cotterie',me.data['groupspec'],ox+me.stepx*9,oy,'group','group',me.character);
             me.statText('Clan',me.data['family'],ox+me.stepx*16,oy,'concept','concept',me.character);
         }else if (me.data["creature"]=='garou'){
             me.statText('Pack',me.data['groupspec'],ox+me.stepx*9,oy,'group','group',me.character);
-            me.statText('Tribe',me.data['family'],ox+me.stepx*16,oy,'concept','concept',me.character);
+            me.statText('Totem',me.data['sire'],ox+me.stepx*16,oy,'concept','concept',me.character);
         }
 
+        if (me.data["creature"]=='kindred'){
+            oy += 0.5*me.stepy;
+            me.statText('Faction',me.data['faction'],ox+me.stepx*2,oy,'faction','faction',me.character);
+            me.statText('Territory',me.data['territory'],ox+me.stepx*9,oy,'Terri','territor',me.character);
+            me.statText('Weakness',me.data['weakness'],ox+me.stepx*16,oy,'weakness','weakness',me.character);
 
-        oy += 1.5*me.stepy;
+            oy += 1.0*me.stepy;
+        }
 
+        else{
+            oy += 1.5*me.stepy;
+        }
         me.title('Physical ('+me.data['total_physical']+')',ox+me.stepx*5,oy,me.character);
         me.title('Social ('+me.data['total_social']+')',ox+me.stepx*12,oy,me.character);
         me.title('Mental ('+me.data['total_mental']+')',ox+me.stepx*19,oy,me.character);
@@ -646,17 +590,19 @@ class CrossOverSheet{
         me.title('Backgrounds ('+me.data['total_backgrounds']+')',ox+me.stepx*5,oy,me.character);
         if (me.data['creature']=='garou'){
             me.title('Gifts ('+me.data['total_gifts']+')',ox+me.stepx*12,oy,me.character);
-            me.title('Renown',ox+me.stepx*19,oy,me.character);
+
         }else if (me.data['creature']=='kindred') {
             me.title('Disciplines ('+me.data['total_gifts']+')',ox+me.stepx*12,oy,me.character);
             me.title('Virtues',ox+me.stepx*19,oy,me.character);
+
         }else{
             me.title('Other Traits',ox+me.stepx*12,oy,me.character);
             me.title('Other Traits',ox+me.stepx*19,oy,me.character);
+
         }
-
-
         oy += 0.5*me.stepy;
+
+
         stat = 'background';
         [0,1,2,3,4,5,6,7,8,9].forEach(function(d) {
               let x = ox+me.stepx*2;
@@ -674,22 +620,42 @@ class CrossOverSheet{
         stat = 'level';
         let levels = [];
         if (me.data['creature']=='garou') {
+            oy -= me.stepy*0.5;
             levels = ['Glory','Honor','Wisdom'];
+            [0,1,2].forEach(function(d) {
+              let x = ox+me.stepx*19;
+              let y = oy + 1.20*me.stepy*(d);
+              me.gaugeStat(levels[d],me.data[stat+d],x,y,me.character,true,true);
+            });
         }else{
             levels = ['Conscience','Self-Control','Courage'];
-        }
-
-        [0,1,2].forEach(function(d) {
+            [0,1,2].forEach(function(d) {
               let x = ox+me.stepx*16;
               let y = oy + 0.5*me.stepy*(d);
               me.reinHagenStat(levels[d],me.data[stat+d],x,y,stat,stat+d,me.character);
-        });
+            });
+
+        }
+
 
         if (me.data['creature']=='garou'){
-            oy += 1.5*me.stepy;
-            me.gaugeStat('Rank',me.data['rank'],ox+me.stepx*19,oy,me.character,false,false,5);
-        }else if (me.data['creature']=='kindred'){
 
+            let breeds = ['Homid','Metis','Lupus'];
+            let auspices = ['Ragabash','Theurge','Philodox','Galliard','Ahroun'];
+            oy += 3.75*me.stepy;
+            me.statText('Breed',breeds[me.data['breed']],ox+me.stepx*16,oy,'breed','breed',me.character);
+            oy += 0.5*me.stepy;
+            me.statText('Auspice',auspices[me.data['auspice']],ox+me.stepx*16,oy,'auspice','auspice',me.character);
+            oy += 0.5*me.stepy;
+            me.statText('Tribe',me.data['family'],ox+me.stepx*16,oy,'tribe','tribe',me.character);
+            oy += 0.5*me.stepy;
+            me.reinHagenStat('Rank',me.data['rank'],ox+me.stepx*16,oy,'rank','rank',me.character);
+
+        }else if (me.data['creature']=='kindred'){
+            oy += 2*me.stepy;
+            me.statText('Generation',13-me.data['background3']+'th',ox+me.stepx*16,oy,'gener','gener',me.character);
+            oy += 0.5*me.stepy;
+            me.statText('Sire',me.data['sire'],ox+me.stepx*16,oy,'sire','sire',me.character);
         }
     }
 
@@ -705,7 +671,25 @@ class CrossOverSheet{
             .data(me.health_levels)
         ;
         let x= h.enter();
-            x.append('text')
+        x.append('line')
+            .attr('x1',function(d,i){
+                return ox+me.stepx*16;
+            })
+            .attr('y1',function(d,i){
+                return oy+i*me.stepy*0.6;
+            })
+            .attr('x2',function(d,i){
+                return ox+me.stepx*22;
+            })
+            .attr('y2',function(d,i){
+                return oy+i*me.stepy*0.6;
+            })
+            .style("fill",me.draw_fill)
+            .style("stroke",me.shadow_stroke)
+            .style("stroke-width",'0.5pt')
+            .style("stroke-dasharray",'2 7')
+            ;
+        x.append('text')
             .attr('x',function(d,i){
                 return ox+me.stepx*16;
             })
@@ -714,7 +698,7 @@ class CrossOverSheet{
             })
             .style("text-anchor",'start')
             .style("font-family",me.base_font)
-            .style("font-size",'12px')
+            .style("font-size",me.medium_font_size+'px')
             .style("fill",me.draw_fill)
             .style("stroke",me.draw_stroke)
             .style("stroke-width",'0.5pt')
@@ -731,7 +715,7 @@ class CrossOverSheet{
             })
             .style("text-anchor",'middle')
             .style("font-family",'Titre')
-            .style("font-size",'12px')
+            .style("font-size",me.medium_font_size+'px')
             .style("fill",me.draw_fill)
             .style("stroke",me.draw_stroke)
             .style("stroke-width",'0.5pt')
@@ -744,7 +728,7 @@ class CrossOverSheet{
             });
         x.append('rect')
             .attr('x',function(d,i){
-                return ox+me.stepx*21;
+                return ox+me.stepx*22-me.dot_radius*2;
             })
             .attr('y',function(d,i){
                 return oy+i*me.stepy*0.6-me.dot_radius*2;
@@ -793,12 +777,37 @@ class CrossOverSheet{
             oy += 1.7*me.stepy;
             me.gaugeStat('Humanity',me.data['power1'],ox+me.stepx*12,oy,me.character);
             oy += 1.5*me.stepy;
-            me.gaugeStat('Blood Pool',me.data['power2'],ox+me.stepx*12,oy,me.character,true,true);
+            me.gaugeStat('Blood Pool',me.data['power2'],ox+me.stepx*12,oy,me.character,true,true,20);
 
         }
         oy = basey;
         me.drawHealth(oy);
     }
+
+    fillSpecial(basey){
+        let me = this;
+        let ox = 0;
+        let oy = basey;
+        let stat = '';
+        me.title('Specialities',ox+me.stepx*5,oy,me.character);
+        oy += 0.5*me.stepy;
+        stat = 'speciality';
+        [0,1,2,3,4,5,6,7].forEach(function(d) {
+              let x = ox + me.stepx*2;
+              let y = oy + 0.5*me.stepy*(d);
+              me.statText('','',x,y,stat,stat+d,me.character);
+        });
+       stat = 'shortcuts';
+        [0,1,2,3,4,5,6,7].forEach(function(d) {
+              let x = ox + me.stepx*9;
+              let y = oy + 0.5*me.stepy*(d);
+              me.statText('','',x,y,stat,stat+d,me.character);
+        });
+
+
+    }
+
+
 
     fillCharacter(){
         let me = this;
@@ -806,6 +815,7 @@ class CrossOverSheet{
         me.fillAbilities(9*me.stepy);
         me.fillAdvantages(15.5*me.stepy);
         me.fillOther(22*me.stepy);
+        me.fillSpecial(29.5*me.stepy);
 
     }
 
@@ -815,6 +825,7 @@ class CrossOverSheet{
       return '&#' + c.charCodeAt(0) + ';';
     })
     var reg = /(>)(<)(\/*)/g;
+/**/
     xml = xml.replace(reg, '$1\r\n$2$3');
     var pad = 0;
     jQuery.each(xml.split('\r\n'), function (index, node) {
@@ -846,7 +857,7 @@ class CrossOverSheet{
 
     addButton(num,txt){
         let me = this;
-        let ox=31*me.stepy;
+        let ox=28*me.stepy;
         let oy=2*me.stepy;
         let button = me.back.append('g')
             .attr('class','do_not_print')
@@ -885,7 +896,7 @@ class CrossOverSheet{
             .attr('dy', 5)
             .style('font-family',me.base_font)
             .style('text-anchor','middle')
-            .style('font-size','10pt')
+            .style("font-size",me.medium_font_size+'px')
             .style('fill','#000')
             .style('cursor','pointer')
             .style('stroke','#333')
@@ -912,54 +923,28 @@ class CrossOverSheet{
             ;
     }
 
-
     drawButtons(){
         let me = this;
-        me.addButton(0,'to SVG');
-        me.addButton(1,'to PNG');
-        me.addButton(2,'to PDF');
-        me.addButton(3,'to UI');
-    }
-
-    savePDF(){
-        let me = this;
-        const doc = new jsPDF()
-        const element = document.getElementById(me.data['rid'])
-        doc.svg(element, {
-            x,
-            y,
-            width,
-            height
-        }).then(() => {
-            doc.save(me.data['rid']+'.pdf')
-        })
-    }
-
-
-    savePNG(){
-        let me = this;
-        console.log("Save to PNG");
-
-        me.svg.selectAll('.do_not_print').attr('opacity',0);
-        // I recommend to keep the svg visible as a preview
-        //let svg = $('#container > svg').get(0);
-
-
-        // you should set the format dynamically, write [width, height] instead of 'a4'
-        saveSvgAsPng(document.getElementById(me.data['rid']), me.data['rid']+".png");
-        me.svg.selectAll('.do_not_print').attr('opacity',1);
+        me.addButton(0,'Save SVG');
     }
 
     saveSVG(){
         let me = this;
         me.svg.selectAll('.do_not_print').attr('opacity',0);
         let base_svg = d3.select("svg").html();
+        let flist = '<style>';
+        console.log(me.config['fontset']);
+        for (let f of me.config['fontset']){
+            flist += '@import url("https://fonts.googleapis.com/css2?family='+f+'");';
+        }
+        flist += '</style>';
+
         let exportable_svg = '<?xml version="1.0" encoding="ISO-8859-1" ?> \
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"> \
 <svg class="crossover_sheet" \
 xmlns="http://www.w3.org/2000/svg" version="1.1" \
 xmlns:xlink="http://www.w3.org/1999/xlink"> \
-' + base_svg + '</svg>';
+' + flist + base_svg + '</svg>';
         let fname = me.data['rid']+ ".svg"
         let nuke = document.createElement("a");
         nuke.href = 'data:application/octet-stream;base64,' + btoa(me.formatXml(exportable_svg));
@@ -967,11 +952,6 @@ xmlns:xlink="http://www.w3.org/1999/xlink"> \
         nuke.click();
         me.svg.selectAll('.do_not_print').attr('opacity',1);
     }
-
-    editCreature(){
-        $('.details').removeClass('hidden');
-    }
-
 
     perform(character_data){
         let me = this;

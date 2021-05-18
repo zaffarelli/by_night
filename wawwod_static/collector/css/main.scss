@@ -4,7 +4,7 @@
 $body_color: #101010;
 $plate_color: #C0C0C0;
 $plate_highlight: #FFFFFF;
-$plate: #483e3e;
+$plate: #3a343e;
 $plate_shadow: #101010;
 $plate_selected: lighten($plate, 10%);
 $dark_plate: darken($plate, 5%);
@@ -13,7 +13,7 @@ $focus_color: #F781F7;
 
 
 $list_width: 260px;
-$ghost_opacity: 0;
+$ghost_opacity: 0.0;
 
 
 $wyld_fill: #150637;
@@ -35,7 +35,7 @@ $inconnu_fill: #5d3636;
 $anarchs_fill: #252572;
 
 @mixin body_background {
-    background: #b0b0b0;
+    background: transparent url('../colorful-grunge-texture-10.jpg') fixed;// 100% 100% no-repeat fixed;
 }
 
 
@@ -112,10 +112,6 @@ $anarchs_fill: #252572;
 }
 
 
-@font-face {
-    font-family: 'atma';
-    src: url('../fonts/Atma-Regular.ttf');
-}
 
 
 @font-face {
@@ -143,7 +139,7 @@ body {
 
 
 body .wrapper .charlist {
-    
+
     & .pagination {
         text-align: center;
         margin-top: 1em;
@@ -334,11 +330,14 @@ body .wrapper .charlist {
         }
     }
     .wrapper {
+        background: transparent url() 100% 140% no-repeat fixed;
         z-index: 60;
         width: 100%;
+        min-height: 1200px;
+
         padding-top: 0;
         margin: 0;
-        background: transparent url() 99% 101% no-repeat fixed;
+
         
         & .caine_roots {
             background: transparent;
@@ -653,18 +652,25 @@ body .wrapper .charlist {
         width: 42ex;
         font-family: TexteLibre;
         font-size: 12px;
-        height: 18px;
+        height: 24px;
         padding: 3px;
         margin: 0 3px 0 3px;
+        width:300px;
+
+        &.chronicle{
+            font-family: Titre;
+            font-size: 16px;
+            text-align: center;
+        }
         
         & ul.drop_down {
             display: none;
             border-color: $plate_color;
-            list-style-type: disc;
+            list-style-type: none;
             text-indent: 0;
             margin-left: 0;
             padding-left: 2ex;
-            
+
             & li {
                 color: $plate_color;
                 padding: 2px;
@@ -703,11 +709,13 @@ body .wrapper .charlist {
 }
 
 svg {
-    margin:5px;
-    border: 1px solid  #666;
-    background: transparent; //silver;
+    margin: 10px;
+    border: 1px dashed  #666;
+    background: #AAA; //silver;
     margin-top: 50px;
-    box-shadow:3px 3px 5px #777;
+
+
+
 //     height: auto;
 //     width: 100%;
     
@@ -716,8 +724,8 @@ svg {
             cursor: move;
             stroke-width: 0px;
             stroke: #701070;
-            fill: transparent; //#C0D0E0;
-            opacity: 0.5;
+            fill: transparent; //#C0C0C0;
+            opacity: 0.25;
         }
         
         &.band {
@@ -827,6 +835,7 @@ svg {
 
 .tooltip {
     position: absolute;
+    display:none;
     text-align: center;
     color: black;
     border: 1px solid black;
@@ -841,7 +850,7 @@ svg {
     padding-left: 15px;
     padding-right: 15px;
     box-shadow: 0 0 15px #222;
-    
+    zindex:45000;
     & strong {
         font-variant: small-caps;
         font-weight: bold;
@@ -900,4 +909,8 @@ td.editable.updown{
     & i.blank.focus{
         color:$focus_color;
     }
+}
+
+#d3area{
+    width: 90%;
 }

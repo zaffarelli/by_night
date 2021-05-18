@@ -37,13 +37,13 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # other finders..
     'compressor.finders.CompressorFinder',
-    'django_yarnpkg.finders.NodeModulesFinder',
-    'django_node_assets.finders.NodeModulesFinder',
+    # 'django_yarnpkg.finders.NodeModulesFinder',
+    # 'django_node_assets.finders.NodeModulesFinder',
 )
 
-NODE_MODULES_ROOT = os.path.join(BASE_DIR, 'node_modules')
-
-NODE_PACKAGE_JSON = os.path.join(BASE_DIR, 'package.json')
+# NODE_MODULES_ROOT = os.path.join(BASE_DIR, 'node_modules')
+#
+# NODE_PACKAGE_JSON = os.path.join(BASE_DIR, 'package.json')
 
 ROOT_URLCONF = 'wawwod.urls'
 
@@ -152,13 +152,13 @@ MEDIA_ROOT = 'wawwod_media/'
 #     os.path.join(BASE_DIR, 'static'),
 # )
 
-YARN_INSTALLED_APPS = (
-    'chartjs',
-    'd3@3.5.5',
-    'jquery',
-    'jspdf@2.3.1',
-    'lodash',
-    'svg2pdf',
-    'dom-to-image',
-    'save-svg-as-png',
-)
+# YARN_INSTALLED_APPS = (
+#     'chartjs',
+#     'd3@3.5.5',
+#     'jquery',
+#     'jspdf@2.3.1',
+#     'lodash',
+#     'svg2pdf',
+#     'dom-to-image',
+#     'save-svg-as-png',
+# )

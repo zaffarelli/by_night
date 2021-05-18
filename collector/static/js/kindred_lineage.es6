@@ -102,8 +102,8 @@ class KindredLineage {
         me.root = me.data[0];
         me.boxWidth = 160;
         me.boxHeight = 50;
-        me.width = 1600;
-        me.height = 900;
+        me.width = parseInt($(me.parent).css("width"),10);
+        me.height = me.width*0.58;
         me.w = me.width*1.5;
         me.h = me.height*1.5;
         me.i = 0;

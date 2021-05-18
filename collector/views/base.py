@@ -10,7 +10,8 @@ from collector.utils.wod_reference import get_current_chronicle
 from collector.models.chronicles import Chronicle
 from collector.utils.wod_reference import STATS_NAMES
 import json
-import random
+from collector.utils.wod_reference import FONTSET
+
 
 chronicle = get_current_chronicle()
 
@@ -18,22 +19,28 @@ def index(request):
     chronicles = []
     for c in Chronicle.objects.all():
         chronicles.append({'name': c.name, 'acronym': c.acronym, 'active': c == chronicle})
-    context = {'chronicles': chronicles}
+    context = {'chronicles': chronicles, 'fontset': FONTSET}
     return render(request, 'collector/index.html', context=context)
 
 
-def change_chronicle(request, slug=''):
+def change_chronicle(request, slug=None):
     if request.is_ajax:
         from collector.utils.wod_reference import set_chronicle
         set_chronicle(slug)
         chronicles = []
         for c in Chronicle.objects.all():
-            chronicles.append({'name':c.name, 'acronym':c.acronym, 'active': c == chronicle})
-        context_ch = {'c': chronicles}
-        template_ch = get_template("collector/page/chronicles.html")
-        html_ch = template_ch.render(context_ch)
-        answer = {'chronicles': html_ch}
-        return JsonResponse(answer)
+            chronicles.append({'name': c.name, 'acronym': c.acronym, 'active': c == chronicle})
+        context = {'chronicles': chronicles}
+        return render(request, 'collector/index.html', context=context)
+
+        # chronicles = []
+        # for c in Chronicle.objects.all():
+        #     chronicles.append({'name':c.name, 'acronym':c.acronym, 'active': c == chronicle})
+        # context_ch = {'c': chronicles}
+        # template_ch = get_template("collector/page/chronicles.html")
+        # html_ch = template_ch.render(context_ch)
+        # answer = {'chronicles': html_ch}
+        # return JsonResponse(answer)
 
 
 def get_list(request, pid, slug):
@@ -43,6 +50,10 @@ def get_list(request, pid, slug):
                 .order_by('name')\
                 .exclude(ghost=True)\
                 .filter(faction='Sabbat', creature='kindred')
+        elif slug == 'players':
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
+                .order_by('name')\
+                .exclude(player='')
         elif slug == 'camarilla':
             creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
                 .order_by('name')\
@@ -155,10 +166,22 @@ def add_creature(request):
 
 def display_crossover_sheet(request, slug=None):
     if request.is_ajax:
+        chronicle = get_current_chronicle()
         if slug is None:
-            slug = 'adel_the_swift'
+            slug = 'julius_von_blow'
         c = Creature.objects.get(rid=slug)
-        settings = {'version': 1.0, 'labels': STATS_NAMES[c.creature]  }
+
+        if chronicle.acronym == 'BAV':
+            pre_title = 'World of Darkness'
+            scenario = "MUNICH"
+            post_title = "Oktoberfest, 2019"
+        else:
+            pre_title = 'World of Darkness'
+            scenario = "NEW YORK CITY"
+            post_title = "feat. Julius Von Blow"
+        spe = c.get_specialities()
+        print(spe)
+        settings = {'version': 1.0, 'labels': STATS_NAMES[c.creature], 'pre_title': pre_title, 'scenario': scenario, 'post_title': post_title, 'fontset': FONTSET, 'specialities': spe}
         crossover_sheet_context = {'settings': json.dumps(settings, sort_keys=True, indent=4), 'data': c.toJSON()}
         return JsonResponse(crossover_sheet_context)
 

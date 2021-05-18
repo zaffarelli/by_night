@@ -17,15 +17,17 @@ def get_current_chronicle():
 
 def set_chronicle(acro):
     for c in Chronicle.objects.all():
-        c.is_current = c.acronym == acro
-        if c.is_current:
+        if c.acronym == acro:
+            c.is_current = True
             logger.debug(f'Current Chronicle set to is {c.acronym}.')
+        else:
+            c.is_current = False
         c.save()
 
 
-def find_stat_property(creature,statistic):
+def find_stat_property(creature, statistic):
     # You give 'kindred' / 'generation', it returns 'background3'
-    lists = ['talents','skills','knowledges','backgrounds']
+    lists = ['attributes', 'talents', 'skills', 'knowledges', 'backgrounds']
     property = 'n/a'
     for list in lists:
         if statistic in STATS_NAMES[creature][list]:
@@ -37,7 +39,8 @@ def find_stat_property(creature,statistic):
 
 STATS_NAMES = {
     'fomori': {
-        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -49,7 +52,8 @@ STATS_NAMES = {
     },
 
     'garou': {
-        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'primal-urge',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -60,7 +64,8 @@ STATS_NAMES = {
                         'rites', 'totem']
     },
     'ghoul': {
-        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -71,7 +76,8 @@ STATS_NAMES = {
                         'resources', 'status', 'trust']
     },
     'kindred': {
-        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'leadership',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'melee', 'performance', 'security',
@@ -83,7 +89,8 @@ STATS_NAMES = {
                         'resources', 'retainers', 'status']
     },
     'kinfolk': {
-        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -94,7 +101,8 @@ STATS_NAMES = {
                         'status', 'true faith']
     },
     'mortal': {
-        'attributes': ['strength','dexterity','stamina','charisma','manipulation','appearance','perception','intelligence','wits'],
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
@@ -228,3 +236,5 @@ BREEDS = ['Homid', 'Metis', 'Lupus']
 AUSPICES = ['Ragabasch', 'Theurge', 'Philodox', 'Galliard', 'Ahroun']
 
 RANKS = ['Cliath', 'Fostern', 'Adren', 'Athro', 'Elder']
+
+FONTSET = ['Cinzel', 'Trade+Winds', 'Imprima', 'Roboto', 'Philosopher', 'Ruda', 'Khand', 'Allura', 'Gochi+Hand']

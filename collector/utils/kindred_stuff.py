@@ -279,6 +279,7 @@ def domitor_from_sire():
 
 
 def build_gaia_wheel():
+    chronicle = get_current_chronicle()
     creatures = Creature.objects.filter(chronicle=chronicle.acronym).exclude(mythic=True).exclude(ghost=True).order_by(
         '-faction', 'display_pole')
     for creature in creatures:
