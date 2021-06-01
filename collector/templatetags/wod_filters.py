@@ -92,7 +92,7 @@ def as_discipline2(stack, x_field=''):
         if len(tokens) > 1:
             val = int(tokens[1].replace('(','').replace(')',''))
     if x_field != "":
-        res = "<th>%s</th><td class='editable userinput' id='%s_%s'>%s</td>" % (text,x_id,x_field,as_bullets(val))
+        res = "<th>%s</th><td class='editable userinput' id='%s__%s'>%s</td>" % (text, x_id, x_field, as_bullets(val))
     else:
         res = "<th>%s</th><td>%s</td>"%(text,as_bullets(val))
     return res

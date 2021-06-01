@@ -240,7 +240,7 @@ body .wrapper .charlist {
     font-weight: bold;
     font-style: normal;
     font-family: Titre;
-    width: 90%;
+    width: auto;
     display: inline-block;
 }
 
@@ -330,7 +330,7 @@ body .wrapper .charlist {
         }
     }
     .wrapper {
-        background: transparent url() 100% 140% no-repeat fixed;
+        background: transparent url() 100% 100% no-repeat fixed;
         z-index: 60;
         width: 100%;
         min-height: 1200px;
@@ -710,9 +710,10 @@ body .wrapper .charlist {
 
 svg {
     margin: 10px;
-    border: 1px dashed  #666;
-    background: #AAA; //silver;
+    border: 1px dashed  #111;
+    background: transparent;//#A1A; //silver;
     margin-top: 50px;
+
 
 
 
@@ -799,12 +800,12 @@ svg {
     
     & .link {
         fill: none;
-        stroke: #616;
+        stroke: #FEB;
         stroke-width: 6px;
         opacity: 0.5;
         
         &.ghost {
-            stroke: #666;
+            stroke: #CCC;
             stroke-width: 3px;
             opacity: $ghost_opacity;
         }
@@ -835,7 +836,7 @@ svg {
 
 .tooltip {
     position: absolute;
-    display:none;
+    opacity:0;
     text-align: center;
     color: black;
     border: 1px solid black;
@@ -891,11 +892,16 @@ svg .node_circle {
     text-align: center;
     width: 100%;
     background: transparent;
-    color: black;
+    color: white;
     padding: 5px;
     font-family: TexteLibre;
     font-size: 11px;
-    
+
+    & span.display{
+        color: $focus_color;
+        cursor: pointer;
+    }
+
     & a {
         &:visited, &link, &:active, :hover {
             color: red;
@@ -913,4 +919,16 @@ td.editable.updown{
 
 #d3area{
     width: 90%;
+}
+
+div.creature_links{
+    display:inline-block;
+    float:right;
+    & i{
+        margin-left:1ex;
+        &:hover{
+            color: $focus_color;
+        }
+    }
+
 }

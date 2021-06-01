@@ -28,8 +28,8 @@ class GaiaWheel {
         me.scales_stroke = "#989";
         me.scales_stroke_special = "#656";
         me.base_dash = "18 6";
-        me.radiused = d3.scale.linear().domain([0, me.max_gauge]).range([150, me.radius]);
-        me.unradiused = d3.scale.linear().domain([150,me.radius]).range([0, me.max_gauge]);
+        me.radiused = d3.scale.linear().domain([0, me.max_gauge]).range([300, me.radius]);
+        me.unradiused = d3.scale.linear().domain([300,me.radius]).range([0, me.max_gauge]);
     }
 
     watermark(){

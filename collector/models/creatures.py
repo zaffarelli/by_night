@@ -1,10 +1,9 @@
 from django.db import models
 from django.contrib import admin
-from datetime import datetime
 import json
-from pdfrw import PdfReader, PdfWriter, PageMerge
 import logging
-from collector.utils.wod_reference import get_current_chronicle, find_stat_property, STATS_NAMES
+from collector.utils.wod_reference import get_current_chronicle, find_stat_property, STATS_NAMES, GM_SHORTCUTS
+from collector.utils.helper import json_default
 
 logger = logging.Logger(__name__)
 chronicle = get_current_chronicle()
@@ -33,14 +32,6 @@ GAROU_KNOWLEDGES = ["Computer", "Enigmas", "Investigation", "Law", "Linguistics"
                     "Rituals", "Science"]
 GAROU_BACKGROUNDS = ["Allies", "Ancestors", "Contacts", "Fetish", "Kinfolk", "Mentor", "Pure Breed", "Resources",
                      "Rites", "Totem"]
-
-
-def json_default(value):
-    import datetime
-    if isinstance(value, datetime.date):
-        return dict(year=value.year, month=value.month, day=value.day)
-    else:
-        return value.__dict__
 
 
 class Creature(models.Model):
@@ -223,6 +214,7 @@ class Creature(models.Model):
 
     def value_of(self, stat):
         found = find_stat_property(self.creature, stat)
+        logger.info(f'Searching value of {stat} for {self.creature} ({self.name})')
         if found == 'n/a':
             logger.error(f'Error finding {stat} for {self.creature} ({self.name})')
         return getattr(self, found)
@@ -237,6 +229,15 @@ class Creature(models.Model):
                 if self.value_of(stat) > 3:
                     specialities.append(f'{stat.title()} {self.value_of(stat)}')
         return specialities
+
+    def get_shortcuts(self):
+        shortcuts = []
+        base = GM_SHORTCUTS[self.creature]
+        for s in base:
+            print(s)
+            sc = f'{s[0].title()}+{s[1].title()}={self.value_of(s[0])+self.value_of(s[1])}'
+            shortcuts.append(sc)
+        return shortcuts
 
 
 
@@ -253,11 +254,20 @@ class Creature(models.Model):
     def __str__(self):
         return "%s (%s %s of %s)" % (self.name, self.family, self.creature, self.faction)
 
-    def fix_kindred(self):
-        logger.info(f'Fixing kindred')
-        freebies_by_age = {'0': 15, '50': 30, '100': 60, '150': 90, '200': 120, '250': 150, '300': 190, '400': 240,
+    @property
+    def freebies_per_age_threshold(self):
+        aging = {'0': 15, '50': 30, '100': 60, '150': 90, '200': 120, '250': 150, '300': 190, '400': 240,
                            '500': 280, '700': 320, '900': 360, '1100': 400, '1300': 425, '1500': 495, '1700': 565,
                            '2000': 645, '2500': 735, '3000': 825}
+        time_awake = int(self.trueage) - int(self.timeintorpor)
+        x = 0
+        for key, val in aging.items():
+            if int(key) <= time_awake:
+                x = val
+        return x
+
+    def fix_kindred(self):
+        logger.info(f'Fixing kindred')
         # Embrace and Age
         condi = self.condition.split('-')
         if condi.count == 2:
@@ -268,12 +278,13 @@ class Creature(models.Model):
         else:
             self.trueage = chronicle.era - int(self.embrace) + int(self.age)
         # Activity as a vampire
-        time_awake = int(self.trueage) - int(self.timeintorpor)
-        for key, val in freebies_by_age.items():
-            if int(key) <= time_awake:
-                self.expectedfreebies = val
-            else:
-                break
+        # time_awake = int(self.trueage) - int(self.timeintorpor)
+        # for key, val in freebies_by_age.items():
+        #     if int(key) <= time_awake:
+        #         self.expectedfreebies = val
+        #     else:
+        #         break
+        self.expectedfreebies = self.freebies_per_age_threshold
         # Willpower
         if self.willpower < self.level2:
             self.willpower = self.level2
@@ -295,7 +306,7 @@ class Creature(models.Model):
                 self.faction = domitor.faction
                 if domitor:
                     self.display_gauge = domitor.display_gauge / 3
-        self.expectedfreebies = int(((self.trueage - 10) / 10) * 3)
+        self.expectedfreebies = self.freebies_per_immortal_age
         self.power2 = 10
         self.display_pole = self.groupspec
 
@@ -304,19 +315,19 @@ class Creature(models.Model):
         self.power2 = 5 + self.attribute2 + self.attribute3
         if self.willpower < 2:
             self.willpower = 2
-        self.expectedfreebies = int(((self.age - 10) / 10) * 5)
+        self.expectedfreebies = self.freebies_per_mortal_age
         self.display_gauge = self.value_of('family') + self.value_of('career')
         self.display_pole = self.groupspec
 
     def fix_kinfolk(self):
         self.trueage = self.age
-        self.expectedfreebies = int(((self.age - 10) / 10) * 5)
+        self.expectedfreebies = self.freebies_per_mortal_age
         self.display_pole = self.groupspec
         self.display_gauge = self.value_of('renown') + self.value_of('status') + self.value_of('pure-breed')
 
     def fix_fomori(self):
         self.display_gauge = self.power2
-        self.expectedfreebies = int(((self.age - 10) / 10) * 5)
+        self.expectedfreebies = self.freebies_per_mortal_age
 
     def fix_bane(self):
         self.display_gauge = self.power2 * 2
@@ -443,7 +454,16 @@ class Creature(models.Model):
             self.display_gauge += 1
         self.display_pole = self.groupspec
         expected_freebies_by_rank = [0, 55, 134, 234, 345]
-        self.expectedfreebies = (int((self.age - 25) / 10)+1) * 10 + expected_freebies_by_rank[self.rank - 1]
+        self.expectedfreebies = self.freebies_per_mortal_age + expected_freebies_by_rank[self.rank - 1]
+
+    @property
+    def freebies_per_mortal_age(self):
+        return (int((self.age - 25) / 10) + 1) * 10
+
+    @property
+    def freebies_per_immortal_age(self):
+        return int(((self.trueage - 10) / 5))
+
 
     def update_rid(self):
         s = self.name.lower()
@@ -841,9 +861,9 @@ def push_to_world(modeladmin, request, queryset):
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
-        'name', 'rid', 'creature','player', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
+        'name', 'rid', 'sire', 'player', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
         'faction',
-        'status', 'trueage', 'condition']
+        'status', 'embrace', 'condition']
     ordering = ['name', 'group', 'creature']
     actions = [refix, set_male, set_female, push_to_munich, push_to_newyork, push_to_world]
     list_filter = ['chronicle', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature', 'mythic','ghost']

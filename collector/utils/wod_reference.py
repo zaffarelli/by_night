@@ -123,6 +123,14 @@ STATS_TEMPLATES = {
         'backgrounds': '5',
         'freebies': '15'
     },
+    'fomori': {
+        'attributes': '6/4/3',
+        'abilities': '11/7/5',
+        'disciplines': '1',
+        'backgrounds': '7',
+        'willpower': '3',
+        'freebies': '21'
+    },
     'garou': {
         'attributes': '7/5/3',
         'abilities': '13/9/5',
@@ -237,4 +245,21 @@ AUSPICES = ['Ragabasch', 'Theurge', 'Philodox', 'Galliard', 'Ahroun']
 
 RANKS = ['Cliath', 'Fostern', 'Adren', 'Athro', 'Elder']
 
-FONTSET = ['Cinzel', 'Trade+Winds', 'Imprima', 'Roboto', 'Philosopher', 'Ruda', 'Khand', 'Allura', 'Gochi+Hand']
+FONTSET = ['Cinzel', 'Trade+Winds', 'Imprima', 'Roboto', 'Philosopher', 'Ruda', 'Khand', 'Allura', 'Gochi+Hand', 'Reggae+One', 'Syne+Mono']
+
+
+GM_SHORTCUTS = {
+    'garou': [
+        ['perception', 'alertness'],
+        ['perception', 'primal-urge'],
+        ['dexterity', 'brawl'],
+        ['stamina', 'primal-urge'],
+        ['wits', 'enigmas'],
+        ['appearance', 'subterfuge']
+    ],
+    'kindred': [],
+    'mortal': [],
+    'kinfolk': [],
+    'ghoul': [],
+    'fomori': [],
+}

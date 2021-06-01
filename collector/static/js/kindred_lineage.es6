@@ -275,12 +275,12 @@ class KindredLineage {
                     console.log("Just ctrl+clicked on text for " + d.id + " [" + d.name + "]!");
 
                     $.ajax({
-                        url: 'ajax/view/creature/' + d.id + '/',
+                        url: 'ajax/view/creature/' + d.rid + '/',
                         success: function(answer) {
                             $('.details').html(answer)
                             $('li').removeClass('selected');
                             $('.details').removeClass('hidden');
-                            rebootlinks();
+                            co.rebootlinks();
                         },
                         error: function(answer) {
                             console.log('View error...' + answer);

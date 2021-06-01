@@ -7,6 +7,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'collector.apps.CollectorConfig',
+    'storytelling.apps.StorytellingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -35,15 +36,8 @@ COMPRESS_PRECOMPILERS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # other finders..
     'compressor.finders.CompressorFinder',
-    # 'django_yarnpkg.finders.NodeModulesFinder',
-    # 'django_node_assets.finders.NodeModulesFinder',
 )
-
-# NODE_MODULES_ROOT = os.path.join(BASE_DIR, 'node_modules')
-#
-# NODE_PACKAGE_JSON = os.path.join(BASE_DIR, 'package.json')
 
 ROOT_URLCONF = 'wawwod.urls'
 
@@ -137,28 +131,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
+DATETIME_FORMAT="D Y/m/d H:i"
 USE_I18N = True
-USE_L10N = True
-USE_TZ = True
+USE_L10N = False
+USE_TZ = False
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = 'wawwod_static/'
 MEDIA_ROOT = 'wawwod_media/'
 
-# PROJECT_DIR = os.path.dirname(__file__)
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-
-# YARN_INSTALLED_APPS = (
-#     'chartjs',
-#     'd3@3.5.5',
-#     'jquery',
-#     'jspdf@2.3.1',
-#     'lodash',
-#     'svg2pdf',
-#     'dom-to-image',
-#     'save-svg-as-png',
-# )

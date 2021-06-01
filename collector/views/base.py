@@ -15,11 +15,22 @@ from collector.utils.wod_reference import FONTSET
 
 chronicle = get_current_chronicle()
 
-def index(request):
+
+def prepare_index(request):
     chronicles = []
+    players = []
+    plist = Creature.objects.filter(chronicle=chronicle.acronym).exclude(player='')
+    for p in plist:
+        players.append({'name': p.name, 'rid': p.rid, 'player': p.player})
+    print(players)
     for c in Chronicle.objects.all():
         chronicles.append({'name': c.name, 'acronym': c.acronym, 'active': c == chronicle})
-    context = {'chronicles': chronicles, 'fontset': FONTSET}
+    context = {'chronicles': chronicles, 'fontset': FONTSET, 'players': players}
+    return context
+
+
+def index(request):
+    context = prepare_index(request)
     return render(request, 'collector/index.html', context=context)
 
 
@@ -27,10 +38,7 @@ def change_chronicle(request, slug=None):
     if request.is_ajax:
         from collector.utils.wod_reference import set_chronicle
         set_chronicle(slug)
-        chronicles = []
-        for c in Chronicle.objects.all():
-            chronicles.append({'name': c.name, 'acronym': c.acronym, 'active': c == chronicle})
-        context = {'chronicles': chronicles}
+        context = prepare_index(request)
         return render(request, 'collector/index.html', context=context)
 
         # chronicles = []
@@ -99,6 +107,7 @@ def get_list(request, pid, slug):
         return JsonResponse(answer)
     else:
         return HttpResponse(status=204)
+
 
 @csrf_exempt
 def updown(request):
@@ -172,16 +181,16 @@ def display_crossover_sheet(request, slug=None):
         c = Creature.objects.get(rid=slug)
 
         if chronicle.acronym == 'BAV':
-            pre_title = 'World of Darkness'
-            scenario = "MUNICH"
+            scenario = "Bayerische Nächte"
+            pre_title = 'Munich'
             post_title = "Oktoberfest, 2019"
         else:
             pre_title = 'World of Darkness'
             scenario = "NEW YORK CITY"
             post_title = "feat. Julius Von Blow"
         spe = c.get_specialities()
-        print(spe)
-        settings = {'version': 1.0, 'labels': STATS_NAMES[c.creature], 'pre_title': pre_title, 'scenario': scenario, 'post_title': post_title, 'fontset': FONTSET, 'specialities': spe}
+        shc = c.get_shortcuts()
+        settings = {'version': 1.0, 'labels': STATS_NAMES[c.creature], 'pre_title': pre_title, 'scenario': scenario, 'post_title': post_title, 'fontset': FONTSET, 'specialities': spe, 'shortcuts': shc}
         crossover_sheet_context = {'settings': json.dumps(settings, sort_keys=True, indent=4), 'data': c.toJSON()}
         return JsonResponse(crossover_sheet_context)
 
@@ -194,7 +203,6 @@ def display_gaia_wheel(request):
 
 def display_lineage(request, slug=None):
     if request.is_ajax:
-        print(slug)
         if slug is None:
             data = build_per_primogen()
         else:

@@ -23,27 +23,14 @@ class WawwodCollector {
     loadAjax() {
         let me = this;
         $('.charlist').addClass('hidden');
-//         $.ajax({
-//             url: 'ajax/list/1/',
-//             success: function (answer) {
-//                 $('.charlist').addClass('hidden');
-//                 $('.charlist').html(answer.list)
-//                 $('.more').addClass('hidden');
-//                 $('.details').addClass('hidden');
-//                 //me.updateGaiaWheel();
-//                 me.rebootLinks();
-//             },
-//         });
     }
 
     registerDisplay(){
         let me = this;
         $('.display').off().on('click', function (event) {
-//             let slug = $(this).attr('id');
             let action = $(this).attr('action');
             let param = $(this).attr('param');
             let key = $('#userinput').val();
-
             let url = 'ajax/display/' + action + '/';
             if (param != undefined ){
                 if (action=='crossover_sheet'){
@@ -77,6 +64,12 @@ class WawwodCollector {
                         me.d3 = new CrossOverSheet(s,"#d3area",me);
                         me.d3.perform(d);
                     }
+                    if (action=='storytelling'){
+                        let s = JSON.parse(answer.settings);
+                        let d = JSON.parse(answer.data);
+                        me.d3 = new Storytelling(s,"#d3area",me);
+                        me.d3.perform(d);
+                    }
                     me.rebootLinks();
                 },
                 error: function (answer) {
@@ -85,7 +78,6 @@ class WawwodCollector {
                 },
             });
         });
-
     }
 
     registerSwitch(){
@@ -96,9 +88,7 @@ class WawwodCollector {
             $.ajax({
                 url: 'ajax/switch/'+action+'/'+param+'/',
                 success: function (answer) {
-//                     console.log('done');
                     window.location = '/';
-//                     me.rebootLinks();
                 },
                 error: function (answer) {
                     console.error(answer);
@@ -106,7 +96,6 @@ class WawwodCollector {
                 },
             });
         });
-
     }
 
     registerList(){
@@ -128,7 +117,6 @@ class WawwodCollector {
                 },
             });
         });
-
     }
 
     registerNav(){
@@ -145,27 +133,20 @@ class WawwodCollector {
                 url: 'ajax/list/creatures/' + $(this).attr('page') + '/'+slug+'/',
                 success: function (answer) {
                     $('.charlist').html(answer.list);
-
                     me.rebootLinks();
                     $('.more').addClass('hidden');
                 },
             });
         });
-
-
     }
-
 
     rebootLinks() {
         let me=this;
+        _.defer(function(){
         me.registerSwitch();
         me.registerList();
         me.registerNav();
         me.registerDisplay();
-
-
-
-
         $('#go').off();
         $('#go').on('click', function (event) {
             event.preventDefault();
@@ -208,6 +189,12 @@ class WawwodCollector {
 
 
 
+        $('.toggle_list').off();
+        $('.toggle_list').on('click', function (event) {
+            console.log('click');
+            $('.charlist').addClass('hidden');
+            me.rebootLinks();
+        });
 
 
 
@@ -299,7 +286,7 @@ class WawwodCollector {
                 data: keys_set,
                 success: function (answer) {
                     $('td#' + target).html(answer.new_value);
-                    $('td#' + keys[0] + '_freebies').html(answer.freebies);
+                    $('td#' + keys[0] + '__freebies').html(answer.freebies);
                 },
                 error: function (answer) {
                     $('td#' + target).html(answer.new_value);
@@ -365,7 +352,7 @@ class WawwodCollector {
             });
         });
 
-
+        });
     }
 
 
