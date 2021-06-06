@@ -1,11 +1,80 @@
-$st_color: #F0F0F0;
-$st_background: #301030;
+@import 'collector/css/basics';
 
 
-.story_box{
+svg {
+  fill: yellow;
 }
 
-.storytelling{
-    fill: $st_background;
-    stroke: $st_color;
+.story_box {
+}
+
+.storytelling {
+  fill: $st_background;
+  stroke: $st_color;
+}
+
+
+div.box.scene {
+  & table {
+    background: $plate;
+    color: $st_color;
+    border-radius: 5px;
+    & tr {
+      & th {
+        background: darken($st_background,10%);
+        font-family: Titre;
+        font-size:12pt;
+        width:120px;
+        word-wrap: normal;
+
+      }
+
+      & td {
+        padding:3px;
+        width:350px;
+        word-wrap: normal;
+        font-family: TexteLibre;
+        font-size:10pt;
+      }
+    }
+  }
+}
+
+div.handler{
+  background:transparent;
+  position:fixed;
+  left:0;
+  top:auto;
+  bottom:0;
+  right:auto;
+  width:200px;
+  height:400px;
+}
+
+div.storyboard_handler{
+  display:flex;
+  flex-flow: column nowrap;
+  word-wrap: normal;
+  height:100;
+  font-family: TexteLibre;
+  background: $plate;
+  color:$plate_color;
+  border:1px solid $plate_color;
+  border-radius:5px;
+  box-shadow:5px -5px 10px $dark_plate;
+  & .box{
+    padding:3px;
+    margin:2px;
+    background: $button_background;
+    color:$button_color;
+    border-radius:5px;
+    font-family: "Syne Mono";
+    font-size: 0.8em;
+    text-align:center;
+    &.txt{
+      background:white;
+      text-align:justify;
+      height:150px;
+    }
+  }
 }

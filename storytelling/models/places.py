@@ -13,13 +13,14 @@ class Place(models.Model):
     acronym = models.CharField(max_length=24, default='')
     story = models.ForeignKey(Story, on_delete=models.SET_NULL, null=True)
     description = models.TextField(max_length=1024, blank=True, default='')
-    is_current = models.BooleanField(default=False)
+    special_rules = models.TextField(max_length=1024, blank=True, default='')
+    importance = models.PositiveIntegerField(default=0, blank=True)
 
     def __str__(self):
         st = ''
         if self.story is not None:
-            st = self.story.name
-        return f'{self.name} {st}'
+            st = self.story.acronym
+        return f'{self.acronym} [{st}]'
 
     def toJSON(self):
         jstr = json.dumps(self, default=json_default, sort_keys=True, indent=4)
@@ -27,7 +28,7 @@ class Place(models.Model):
 
 
 class PlaceAdmin(admin.ModelAdmin):
-    list_display = ['name', 'acronym', 'story']
-    ordering = ['story']
+    list_display = ['name', 'importance', 'acronym', 'story']
+    ordering = ['story', '-importance', 'acronym']
     list_filter = ['story']
     search_fields = ['name', 'description']

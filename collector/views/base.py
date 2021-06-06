@@ -41,16 +41,6 @@ def change_chronicle(request, slug=None):
         context = prepare_index(request)
         return render(request, 'collector/index.html', context=context)
 
-        # chronicles = []
-        # for c in Chronicle.objects.all():
-        #     chronicles.append({'name':c.name, 'acronym':c.acronym, 'active': c == chronicle})
-        # context_ch = {'c': chronicles}
-        # template_ch = get_template("collector/page/chronicles.html")
-        # html_ch = template_ch.render(context_ch)
-        # answer = {'chronicles': html_ch}
-        # return JsonResponse(answer)
-
-
 def get_list(request, pid, slug):
     if request.is_ajax:
         if slug == 'sabbat':
@@ -71,7 +61,7 @@ def get_list(request, pid, slug):
             creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
                 .order_by('name')\
                 .exclude(ghost=True)\
-                .filter(creature__in=['kindred','ghoul'])
+                .filter(creature__in=['ghoul'])
         elif slug == 'wta':
             creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
                 .order_by('name')\
@@ -171,7 +161,6 @@ def add_creature(request):
         return JsonResponse(context)
     else:
         return HttpResponse(status=204)
-
 
 def display_crossover_sheet(request, slug=None):
     if request.is_ajax:

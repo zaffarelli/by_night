@@ -2,7 +2,7 @@
 <tr class="tainted">
     <th colspan=2 class='tainted clan_logo'>
         {% if c.creature == 'ghoul' %}
-            {{c.domitor.family|to_logo|safe}}
+            {{c.family|to_logo|safe}}
         {% elif c.creature == "garou" %}
             {{c.family|as_tribe_plural|to_tribe_logo|safe}}
         {% elif c.creature == "kindred" %}
@@ -26,9 +26,9 @@
         {% else %}
             <br/>{{c.concept}}
         {%endif%}
-        {% if c.domitor %}
+        {% if c.sire %}
             {% if c.creature == 'ghoul' %}
-            <br/>Ghoul of <em>{{ c.domitor.name }}</em>
+            <br/>Ghoul of <em>{{ c.sire }}</em>
             {% endif %}
         {%endif%}
         {% if c.patron %}

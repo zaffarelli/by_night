@@ -107,8 +107,8 @@ class KindredLineage {
         me.w = me.width*1.5;
         me.h = me.height*1.5;
         me.i = 0;
-        me.x = d3.scale.linear().domain([0, me.width]).range([0, me.width]);
-        me.y = d3.scale.linear().domain([0, me.height]).range([0, me.height]);
+        me.x = d3.scale.linear().domain([0, me.w]).range([0, me.width]);
+        me.y = d3.scale.linear().domain([0, me.h]).range([0, me.height]);
         d3.select(me.parent).selectAll("svg").remove();
         me.vis = d3.select(me.parent).append("svg:svg")
             .attr("viewBox", "0 0 " + me.w + " " + me.h)
@@ -117,6 +117,7 @@ class KindredLineage {
             .append("svg:g")
             .attr("transform", "translate(0,0)")
             .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([2, 8]).on("zoom", function(e){
+                console.log("zoom");
                 let nodes = me.vis.selectAll("g.node");
                 nodes.attr("transform", function(d){
                     return "translate(" + me.x(d.x) + "," + me.y(d.y) + ")"
@@ -132,6 +133,7 @@ class KindredLineage {
                     result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
                     return result;
                 });
+
             }))
             ;
         me.vis.append("rect")

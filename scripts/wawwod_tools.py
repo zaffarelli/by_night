@@ -10,6 +10,7 @@ class ToolsForWawwod:
         print('    1 - Check freebies per age (rid asked later). (all)')
         print('    2 - Check lineage strength. (kindreds)')
         print('    3 - Randomize nature and demeanor when empty. (all)')
+        print('    4 - Retrieve ghouls and childers (kindred)')
         print('    0 - Quit')
         topic = ''
         while topic != '0':
@@ -20,6 +21,8 @@ class ToolsForWawwod:
                 self.check_lineage()
             elif topic == '3':
                 self.randomize_archetypes()
+            elif topic == '4':
+                self.retrieve_ghouls_and_childers()
 
     def fmt(self, txt):
         new_txt = "\033[1;39m".join(txt.split('µ'))
@@ -87,6 +90,23 @@ class ToolsForWawwod:
             total -= 1
             print(f'...still {total} to check.')
         print('...Done.')
+
+    def retrieve_ghouls_and_childers(self):
+        print(f'Choice 4: searching for childers and ghouls...')
+        arid = input('  Sire/domitor full rid ? [marius_flavius_vespasianus] ')
+        if arid == '':
+            arid = 'marius_flavius_vespasianus'
+        ghouls = Creature.objects.filter(creature='ghoul',sire=arid)
+        print(f'Ghouls:')
+        for g in ghouls:
+            print(f'--> {self.fmt(g.name)} [{g.rid}]')
+        childers = Creature.objects.filter(creature='kindred', sire=arid)
+        print(f'Childers:')
+        for c in childers:
+            print(f'--> {self.fmt(c.name)} [{c.rid}]')
+
+
+
 
 
 ToolsForWawwod()

@@ -4,7 +4,7 @@
         <td class='editable userinput' id='{{c.rid}}__age'>{{c.age}}</td>
         {% if c.creature == 'kindred' or c.creature == 'ghoul' %}
         <th>Embrace</th>
-        <td>{{ c.embrace }}</td>
+        <td class="editable userinput" id='{{c.rid}}__embrace'>{{ c.embrace }}</td>
         {%else%}
         <th></th>
         <td></td>
