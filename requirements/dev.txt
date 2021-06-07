@@ -1,5 +1,5 @@
 certifi==2019.6.16
-Django==2.2.4
+Django==2.2.21
 django-admin-interface==0.10.5
 django-appconf==1.0.3
 django-colorfield==0.1.15
