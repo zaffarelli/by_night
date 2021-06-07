@@ -57765,3 +57765,33 @@ NameError: name 'safe' is not defined
 [07:012959] "GET /static/collector/clans/toreador.webp HTTP/1.1" 200 25591
 [07:012959] "GET /static/collector/clans/brujah.webp HTTP/1.1" 304 0
 [07:012959] "GET /static/collector/clans/true_brujah.webp HTTP/1.1" 304 0
+[07:092032] Watching for file changes with StatReloader
+[07:092047] "GET / HTTP/1.1" 200 7696
+[07:092047] "GET /static/js/storytelling.es6 HTTP/1.1" 304 0
+[07:092047] "GET /static/js/collector.es6 HTTP/1.1" 304 0
+[07:092047] "GET /static/CACHE/css/main.ba440ab93ee7.css HTTP/1.1" 200 20319
+[07:092047] "GET /static/CACHE/css/storytelling.17f76e03fb88.css HTTP/1.1" 200 2667
+[07:092047] "GET /static/collector/colorful-grunge-texture-10.jpg?da6cf3faafab HTTP/1.1" 200 4096
+[07:092047] "GET /static/collector/wawwod_bav.png HTTP/1.1" 200 4096
+[07:092047] "GET /static/storytelling/fonts/marcellus_sc_regular.ttf HTTP/1.1" 404 1754
+[07:092047] "GET /static/storytelling/fonts/marcellus_sc_regular.ttf HTTP/1.1" 404 1754
+[07:092047] "GET /static/storytelling/fonts/Lato-Regular.ttf HTTP/1.1" 404 1730
+[07:092047] "GET /static/collector/fonts/marcellus_sc_regular.ttf?da6cf3faafab HTTP/1.1" 200 4096
+[07:092047] "GET /static/collector/fonts/marcellus_sc_regular.ttf?da6cf3faafab HTTP/1.1" 200 4096
+[07:092047] "GET /static/collector/fonts/Lato-Regular.ttf?da6cf3faafab HTTP/1.1" 200 4096
+[07:092051] "GET /ajax/display/storytelling/ HTTP/1.1" 200 26754
+[07:141652] Watching for file changes with StatReloader
+[07:141719] "GET / HTTP/1.1" 200 7696
+[07:141720] "GET /static/CACHE/css/storytelling.17f76e03fb88.css HTTP/1.1" 200 2667
+[07:141720] "GET /static/CACHE/css/main.ba440ab93ee7.css HTTP/1.1" 200 20319
+[07:141720] "GET /static/js/collector.es6 HTTP/1.1" 304 0
+[07:141720] "GET /static/js/kindred_lineage.es6 HTTP/1.1" 304 0
+[07:141720] "GET /static/js/storytelling.es6 HTTP/1.1" 304 0
+[07:141720] "GET /static/collector/colorful-grunge-texture-10.jpg?da6cf3faafab HTTP/1.1" 200 4096
+[07:141720] "GET /static/collector/wawwod_bav.png HTTP/1.1" 200 4096
+[07:141720] "GET /static/storytelling/fonts/Lato-Regular.ttf HTTP/1.1" 404 1730
+[07:141720] "GET /static/storytelling/fonts/marcellus_sc_regular.ttf HTTP/1.1" 404 1754
+[07:141720] "GET /static/storytelling/fonts/marcellus_sc_regular.ttf HTTP/1.1" 404 1754
+[07:141720] "GET /static/collector/fonts/Lato-Regular.ttf?da6cf3faafab HTTP/1.1" 200 4096
+[07:141720] "GET /static/collector/wawwod.ico HTTP/1.1" 200 4096
+[07:141728] "GET /ajax/display/storytelling/ HTTP/1.1" 200 26754

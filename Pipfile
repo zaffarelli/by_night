@@ -29,10 +29,11 @@ Pillow = "*"
 PyPDF2 = "*"
 pdfrw = "*"
 svglib = "*"
-django-yarnpkg = "*"
 django-node-assets = "*"
 flake8 = "*"
 django = "==3.2"
+pytest = "*"
+factory-boy = "*"
 
 [requires]
 python_version = "3.6"
