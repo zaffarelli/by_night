@@ -9,7 +9,7 @@ from collector.utils.wod_reference import get_current_chronicle
 def update_creature(sender, instance, **kwargs):
     if instance.name == '':
         chronicle = get_current_chronicle()
-        instance.name = 'new '+datetime.timestamp()
+        instance.name = f'new  {datetime.timestamp(datetime.now())}'
         instance.chronicle == chronicle.acronym
     instance.update_rid()
     if instance.need_fix:

@@ -5,15 +5,16 @@ logger = logging.Logger(__name__)
 
 
 def get_current_chronicle():
+    ch = None
     try:
         current_chronicle = Chronicle.objects.filter(is_current=True).first()
-        return current_chronicle
+        ch = current_chronicle
     except:
         first_chronicle = Chronicle.objects.first()
         first_chronicle.is_current = True
         first_chronicle.save()
-        return first_chronicle
-
+        ch = first_chronicle
+    return ch
 
 def set_chronicle(acro):
     for c in Chronicle.objects.all():
@@ -245,7 +246,7 @@ AUSPICES = ['Ragabasch', 'Theurge', 'Philodox', 'Galliard', 'Ahroun']
 
 RANKS = ['Cliath', 'Fostern', 'Adren', 'Athro', 'Elder']
 
-FONTSET = ['Cinzel', 'Trade+Winds', 'Imprima', 'Roboto', 'Philosopher', 'Ruda', 'Khand', 'Allura', 'Gochi+Hand', 'Reggae+One', 'Syne+Mono']
+FONTSET = ['Cinzel', 'Trade+Winds', 'Imprima', 'Roboto', 'Philosopher', 'Ruda', 'Khand', 'Allura', 'Gochi+Hand', 'Reggae+One', 'Syne+Mono', 'Zilla+Slab', 'Spartan']
 
 
 GM_SHORTCUTS = {

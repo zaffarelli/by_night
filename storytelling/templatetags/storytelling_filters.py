@@ -6,10 +6,6 @@ import string
 register = template.Library()
 
 
-
-
-
-
 @register.filter(name='as_bullets')
 def as_bullets(value, options=''):
     """ Change int value to list of bullet (Mark Rein*Hagen like)
@@ -45,18 +41,8 @@ def param_stack(x_trait, x_id=''):
 def as_entry(stack, x_field=''):
     """ Display table lines as editable disciplines """
     x_trait, x_id = stack
-    text = ""
-    val = 0
-    # tokens = x_trait.split('(')
-    # if len(tokens) > 0:
-    #     text = tokens[0]
-    #     if len(tokens) > 1:
-    #         val = int(tokens[1].replace('(','').replace(')',''))
-    # if x_field != "":
-    res = "<tr><th>%s</th><td class='editable userinput' id='%s__%s'>%s</td></tr>" % (x_field, x_id, x_field,x_trait)
-    # else:
-    # res = "<th>%s</th><td>%s</td>"%(text,as_bullets(val))
-    return res
+    return f'<div class="plank entry"><div class="shard label">{x_field}</div><div class="shard data editable userinput" id="{x_id}__{x_field}">{x_trait}</div></div>'
+
 
 
 @register.filter(name='as_stat_name')

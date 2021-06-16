@@ -163,38 +163,6 @@ body .wrapper .charlist {
     display: inline-block;
 }
 
-// .toggle_more {
-//     width: 40%;
-//     display: inline-block;
-//     text-align: right;
-//     cursor: help;
-//     font-size: 0.73em;
-// }
-//
-// .more {
-//     font-family: "TexteLibre";
-//     background: $plate;
-//     color: $plate_color;
-//     text-align: left;
-//     word-wrap: normal;
-//     padding: 2px;
-//
-//     &.hidden {
-//         display: none;
-//     }
-// }
-
-//
-// .avatar_link.locked {
-//     background: #221a00;
-//     border-color: #DBCA86;
-// }
-//
-// .avatar_link.selected {
-//     border-color: #DBCA86;
-//     background: #6a6a6a;
-//     color: black;
-// }
 
 .waiting {
     cursor: progress;
@@ -563,19 +531,16 @@ body .wrapper .charlist {
     
     & .pull_down {
         order: 1;
-        background: $plate;
-        border: 1px solid $plate_color;
-        border-radius: 5px;
-        box-shadow: 0 0 5px $plate_shadow;
         display: inline-block;
-        width: 42ex;
+
         font-family: TexteLibre;
         font-size: 12px;
         height: 24px;
-        padding: 3px;
+
         margin: 0 3px 0 3px;
         width:300px;
 
+        @include panel;
         &.chronicle{
             font-family: Titre;
             font-size: 16px;
@@ -584,7 +549,7 @@ body .wrapper .charlist {
         
         & ul.drop_down {
             display: none;
-            border-color: $plate_color;
+
             list-style-type: none;
             text-indent: 0;
             margin-left: 0;
@@ -599,13 +564,13 @@ body .wrapper .charlist {
         }
         
         &:hover {
-            border-color: $plate_highlight;
+
             height: auto;
-            background: $dark_plate;
+
             
             & ul.drop_down {
                 display: block;
-                background: $dark_plate;
+
                 
                 & li.wod {
                     background: $plate_selected;
@@ -614,6 +579,7 @@ body .wrapper .charlist {
                 
                 & li:hover {
                     color: $plate_highlight;
+                    background: complement($panel_background);
                     cursor: pointer;
                 }
             }
@@ -776,6 +742,7 @@ svg {
         font-weight: bold;
         font-size: 1.2em;
     }
+    @include panel;
 }
 
 

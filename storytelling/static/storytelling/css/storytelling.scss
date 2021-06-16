@@ -19,62 +19,85 @@ div.box.scene {
     background: $plate;
     color: $st_color;
     border-radius: 5px;
+
     & tr {
       & th {
-        background: darken($st_background,10%);
+        background: darken($st_background, 10%);
         font-family: Titre;
-        font-size:12pt;
-        width:120px;
+        font-size: 12pt;
+        width: 120px;
         word-wrap: normal;
 
       }
 
       & td {
-        padding:3px;
-        width:350px;
+        padding: 3px;
+        width: 350px;
         word-wrap: normal;
         font-family: TexteLibre;
-        font-size:10pt;
+        font-size: 10pt;
       }
     }
   }
 }
 
-div.handler{
-  background:transparent;
-  position:fixed;
-  left:0;
-  top:auto;
-  bottom:0;
-  right:auto;
-  width:200px;
-  height:400px;
+div.handler {
+  background: transparent;
+  position: fixed;
+  left: 0;
+  top: auto;
+  bottom: 0;
+  right: auto;
+  width: 400px;
+  height: auto;
+  background: transparent;
 }
 
-div.storyboard_handler{
-  display:flex;
+.storyboard_handler {
+  @include wawwod_panel;
+  display: flex;
   flex-flow: column nowrap;
   word-wrap: normal;
-  height:100;
-  font-family: TexteLibre;
-  background: $plate;
-  color:$plate_color;
-  border:1px solid $plate_color;
-  border-radius:5px;
-  box-shadow:5px -5px 10px $dark_plate;
-  & .box{
-    padding:3px;
-    margin:2px;
-    background: $button_background;
-    color:$button_color;
-    border-radius:5px;
-    font-family: "Syne Mono";
-    font-size: 0.8em;
-    text-align:center;
-    &.txt{
-      background:white;
-      text-align:justify;
-      height:150px;
+  height: 100%;
+
+  &.hidden {
+    transition: all 0.3s ease;
+    transform: translateX(-500px);
+  }
+}
+
+.scene {
+  @include wawwod_panel;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+
+  & .entry {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: stretch;
+    height: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    & .label {
+      width: 100px;
+      flex-grow: 1;
+      flex-shrink: 1;
+      text-align: center;
+    }
+
+    & .data {
+      width: 450px;
+      flex-grow: 1;
+      flex-shrink: 1;
+      ;
+
     }
   }
 }

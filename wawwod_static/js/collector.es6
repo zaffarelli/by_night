@@ -86,7 +86,7 @@ class WawwodCollector {
             let action = $(this).attr('action');
             let param = $(this).attr('param');
             let stories = me.d3.getStories();
-            let url = 'ajax/action/' + action + '/' + param+"__"+stories + '/';
+            let url = 'ajax/action/' + action + '/' + param + "__" + stories + '/';
             $.ajax({
                 url: url,
                 success: function (answer) {
@@ -162,6 +162,18 @@ class WawwodCollector {
         });
     }
 
+    registerToggle() {
+        let me = this;
+        $('.toggle').off().on('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log('Toggle clock!')
+            let tgt = $(this).attr('param');
+            $('.'+tgt).toggleClass('hidden');
+            me.rebootLinks();
+        });
+    }
+
     rebootLinks() {
         let me = this;
         _.defer(function () {
@@ -170,6 +182,7 @@ class WawwodCollector {
             me.registerNav();
             me.registerDisplay();
             me.registerAction();
+            me.registerToggle();
             $('#go').off();
             $('#go').on('click', function (event) {
                 event.preventDefault();
