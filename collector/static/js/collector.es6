@@ -23,6 +23,7 @@ class WawwodCollector {
     loadAjax() {
         let me = this;
         $('.charlist').addClass('hidden');
+        $('.storyboard_handler').addClass('hidden');
     }
 
     registerDisplay() {
@@ -102,6 +103,29 @@ class WawwodCollector {
         });
     }
 
+    registerCollectorAction() {
+        let me = this;
+        $('.collector_action').off().on('click', function (event) {
+            let action = $(this).attr('action');
+            let param = $('#userinput').val();
+            let newparam = (param.split(" ")).join("_");
+            let url = 'ajax/collector_action/' + action + '/' + newparam +'/';
+            $.ajax({
+                url: url,
+                success: function (answer) {
+                    console.log("ok")
+                    me.rebootLinks();
+                },
+                error: function (answer) {
+                    console.error(answer);
+                    me.rebootLinks();
+                },
+            });
+        });
+    }
+
+
+
     registerSwitch() {
         let me = this;
         $('.switch').off().on('click', function (event) {
@@ -167,7 +191,7 @@ class WawwodCollector {
         $('.toggle').off().on('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            console.log('Toggle clock!')
+            console.log('Toggle click!')
             let tgt = $(this).attr('param');
             $('.'+tgt).toggleClass('hidden');
             me.rebootLinks();
@@ -183,6 +207,7 @@ class WawwodCollector {
             me.registerDisplay();
             me.registerAction();
             me.registerToggle();
+            me.registerCollectorAction();
             $('#go').off();
             $('#go').on('click', function (event) {
                 event.preventDefault();

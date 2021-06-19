@@ -332,7 +332,7 @@ class Storytelling {
             .call(d3.behavior.zoom()
                 .x(me.x)
                 .y(me.y)
-                .scaleExtent([0.25, 4])
+                .scaleExtent([1, 4])
                 .on("zoom", function () {
                     let drawing = me.vis.select("#storyboard");
                     drawing.attr("transform", function () {
@@ -380,10 +380,10 @@ class Storytelling {
         me.back.append('rect')
             .attr('width', me.width)
             .attr('height', me.height)
-            .style('fill', 'white')
+            .style('fill', '#FFF')
             .style('stroke', me.draw_stroke)
             .style('stroke-width', '0')
-            .attr('opacity', 1.0)
+            .attr('opacity', 0.5)
         ;
         // Grid
         if (me.debug) {
@@ -590,7 +590,7 @@ class Storytelling {
                         success: function (answer) {
                             $('.details').html(answer)
                             $('.details').removeClass('hidden');
-                            //me.co.rebootlinks();
+                            me.co.rebootLinks();
                         },
                         error: function (answer) {
                             console.log('View error...' + answer);

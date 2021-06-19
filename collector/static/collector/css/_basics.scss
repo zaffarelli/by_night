@@ -1,12 +1,10 @@
 @charset "UTF-8";
-
-
-$panel_background: #136;
-$panel_color: #FFF;
-$panel_border: #CCC;
+$panel_background: #474747;
+$panel_color: lighten(desaturate($panel_background,50%),50%);
+$panel_border: darken($panel_color,40%);
 $panel_shadow: darken($panel_background, 5%);
-$panel_plank_background: lighten($panel_background, 5%);
-$panel_shard_background: lighten($panel_background, 15%);
+$panel_plank_background: darken($panel_background, 5%);
+$panel_shard_background: darken($panel_background, 15%);
 $panel_smooth_background: grayscale($panel_background);
 
 
@@ -18,11 +16,11 @@ $button_background: #bd851c;
 
 
 $body_color: #101010;
-$plate_color: #C0C0C0;
+$plate_color: lighten($panel_color,10%);
 $plate_highlight: #FFFFFF;
 $plate: #3a343e;
 $plate_shadow: #101010;
-$plate_selected: lighten($plate, 10%);
+$plate_selected: complement($panel_background);
 $dark_plate: darken($plate, 5%);
 $very_dark_plate: darken($dark_plate, 5%);
 $focus_color: #F781F7;
@@ -100,11 +98,11 @@ $anarchs_fill: #252572;
   background: $panel_background;
   color: $panel_color;
   border: 1px solid $panel_border;
-  border-radius: 5px;
-  padding: 5px;
-  box-shadow: 0 0 5px $panel_shadow;
+  border-radius: 3px;
+  padding: 3px;
+  box-shadow: 0 0 3px $panel_shadow;
   font-family: Roboto;
-  font-size: 9pt;
+  font-size: 10pt;
 }
 
 @mixin wawwod_panel {

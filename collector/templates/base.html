@@ -30,41 +30,30 @@
 </head>
 <body>
 <ul class='bar'>
-<!--    <li class="pull_down chronicle">-->
-<!--    {{chronicle_name}}-->
-<!--    </li>-->
-    <li class="pull_down" id="chronicle_menu">
-        <i id='toggle_chronicle' class='fa fa-building'></i>&nbsp;Chronicles
-        <ul class="drop_down">
-            {% include "collector/page/chronicles.html" with c=chronicles%}
-            <HR/>
-            <li class="display" action="storytelling">Storytelling</li>
-        </ul>
-    </li>
     <li class="pull_down">
         <i id='toggle_list' class='fa fa-users'></i>&nbsp;Creatures
         <ul class="drop_down">
-            <li class="list" id="all">All</li>
+            <li class="list" id="all">List: All</li>
             <HR/>
-            <li class="list" id="sabbat">Sabbat</li>
-            <li class="list" id="camarilla">Camarilla</li>
-            <li class="list" id="vtm">All Ghouls</li>
+            <li class="list" id="sabbat">List: Sabbat</li>
+            <li class="list" id="camarilla">List: Camarilla</li>
+
+            <li class="list" id="garou">List: Garous</li>
+
+
+            <li class="list" id="ctd">List: Changeling the Dreaming</li>
+            <li class="list" id="mta">List: Mage the Ascension</li>
+            <li class="list" id="vtm">List: Vampire the Masquerade</li>
+            <li class="list" id="wta">List: Werewolf the Apocalypse</li>
+            <li class="list" id="wto">List: Wraith the Oblivion</li>
+
+            <li class="list" id="pentex">List: Black Spirals & Fomori</li>
+            <li class="list" id="mortals">List: Mortals</li>
+            <li class="list" id="new">List: New creatures</li>
             <HR/>
-            <li class="list" id="garou">Garous</li>
-            <li class="list" id="wta">All Garous & Kinfolks</li>
-            <li class="list" id="pentex">Black Spirals & Fomori</li>
+            <li class="collector_action" action="add_creature">Add new creature</li>
+            <li class="collector_action" action="refix_all">Refix all</li>
             <HR/>
-            <li class="list" id="mortals">Mortals, Ghouls & Kinfolks</li>
-            <HR/>
-            <li class="list" id="players">Players</li>
-            <HR/>
-            <li class="action" id="add_creature">Add new creature</li>
-            <li class="action" id="refix_all">Refix all</li>
-        </ul>
-    </li>
-    <li class="pull_down">
-        <i id='toggle_lineage' class='fa fa-sitemap'></i>&nbsp;Display
-        <ul class="drop_down">
             <li class="display" action="kindred_lineage">Kindred Lineage</li>
             <li class="display" action="kindred_lineage" param="Camarilla">Camarilla Lineage</li>
             <li class="display" action="kindred_lineage" param="Sabbat">Sabbat Lineage</li>
@@ -76,6 +65,14 @@
         </ul>
     </li>
     <li class="pull_down">
+        <i id='toggle_list' class='fa fa-users'></i>&nbsp;Storytelling
+        <ul class="drop_down">
+            {% include "collector/page/chronicles.html" with c=chronicles%}
+            <HR/>
+            <li class="display" action="storytelling">Storytelling</li>
+        </ul>
+    </li>
+    <li class="pull_down">
         <i id='toggle_chronicle' class='fa fa-cogs'></i>&nbsp;Options
         <ul class="drop_down">
             <li class="action" id="settings">Settings</li>
@@ -83,7 +80,7 @@
             <li class="toggle" action="toggle" param="details">Show/Hide details</li>
         </ul>
     </li>
-    <input type='text' id='userinput' placeholder='Free text here...'>
+
 </ul>
 
 
@@ -110,8 +107,10 @@
             <div class="plank action" id="create_link" action="create_link">Clear Selection</div>
             <textarea class="plank text" id="text_edit"></textarea>
             <div class="plank tag action" id="resend" action="create_link"><i class="fa fa-arrow-right"></i></div>
+            <input type='text' id='userinput' placeholder='Free text here...'>
         </div>
     </div>
+
 </div>
 
 

@@ -142,3 +142,4 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = 'wawwod_static/'
 MEDIA_ROOT = 'wawwod_media/'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

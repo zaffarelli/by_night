@@ -145,22 +145,24 @@ def userinput(request):
     return HttpResponse(status=204)
 
 
-def add_creature(request):
+def add_creature(request, slug=None):
     if request.is_ajax:
-        slug = request.POST['creature']
+        # slug = request.POST['creature']
+        name = " ".join(slug.split("_"))
         chronicle = get_current_chronicle()
         item = Creature()
-        item.name = " ".join(slug.split("-"))
+        item.name = name
         item.chronicle = chronicle.acronym
-        item.creature = chronicle.main_creature
+        item.creature = 'mortal'
+        item.age = 25
         item.source = 'zaffarelli'
-        item.ghost = False
-        item.need_fix = True
+
+
         item.save()
         context = {'answer': 'creature added'}
-        return JsonResponse(context)
-    else:
+        print(item)
         return HttpResponse(status=204)
+
 
 def display_crossover_sheet(request, slug=None):
     if request.is_ajax:

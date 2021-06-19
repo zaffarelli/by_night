@@ -39,6 +39,18 @@ def find_stat_property(creature, statistic):
 
 
 STATS_NAMES = {
+    'changeling': {
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
+        'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'kenning',
+                    'streetwise', 'subterfuge'],
+        'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance', 'security',
+                   'stealth', 'survival'],
+        'knowledges': ['computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'mythlore', 'occult', 'politics',
+                       'science'],
+        'backgrounds': ['chimera', 'contacts', 'dreamers', 'gremayre', 'holdings', 'mentor', 'resources', 'retinue'
+                        'title', 'treasures']
+    },
     'fomori': {
         'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
                        'intelligence', 'wits'],
@@ -101,6 +113,18 @@ STATS_NAMES = {
         'backgrounds': ['allies', 'ancestors', 'contacts', 'equipment', 'favors', 'pure-breed', 'renown', 'resources',
                         'status', 'true faith']
     },
+    'mage': {
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
+        'talents': ['alertness', 'athletics', 'awareness', 'brawl', 'dodge', 'expression', 'intimidation', 'leadership',
+                    'streetwise', 'subterfuge'],
+        'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'meditation', 'melee', 'performance',
+                   'stealth', 'survival', 'technology'],
+        'knowledges': ['academics', 'computer', 'cosmology', 'enigmas', 'investigation', 'law', 'linguistics',
+                       'medicine', 'occult',  'science'],
+        'backgrounds': ['allies', 'arcane', 'avatar','contacts', 'destiny', 'dream', 'influence', 'library', 'node',
+                        'resources', 'wonder']
+    },
     'mortal': {
         'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
                        'intelligence', 'wits'],
@@ -112,7 +136,19 @@ STATS_NAMES = {
                        'occult', 'politics', 'science'],
         'backgrounds': ['allies', 'career', 'contacts', 'fame', 'family', 'equipment', 'influence',
                         'resources', 'status', 'true faith']
-    }
+    },
+    'wraith': {
+        'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
+                       'intelligence', 'wits'],
+        'talents': ['alertness', 'athletics', 'awareness',  'brawl', 'dodge', 'empathy', 'expression', 'intimidation',
+                    'streetwise', 'subterfuge'],
+        'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'meditation',  'melee', 'performance',
+                   'repair', 'stealth'],
+        'knowledges': ['bureaucracy','computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'occult', 'politics',
+                       'science'],
+        'backgrounds': ['allies', 'artifact', 'contacts', 'eidolon', 'haunt', 'mentor', 'memoriam', 'notoriety',
+                        'status', 'wealth']
+    },
 }
 
 STATS_TEMPLATES = {
@@ -133,6 +169,13 @@ STATS_TEMPLATES = {
         'freebies': '21'
     },
     'garou': {
+        'attributes': '7/5/3',
+        'abilities': '13/9/5',
+        'gifts': '5',
+        'backgrounds': '5',
+        'freebies': '15'
+    },
+    'mage': {
         'attributes': '7/5/3',
         'abilities': '13/9/5',
         'gifts': '5',
@@ -263,4 +306,20 @@ GM_SHORTCUTS = {
     'kinfolk': [],
     'ghoul': [],
     'fomori': [],
+}
+
+bloodpool = {
+    13: 10,
+    12: 11,
+    11: 12,
+    10: 13,
+    9: 14,
+    8: 15,
+    7: 20,
+    6: 30,
+    5: 50,
+    4: 70,
+    3: 100,
+    2: 100,
+    1: 100,
 }

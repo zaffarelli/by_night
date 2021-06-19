@@ -6,3 +6,13 @@ def json_default(value):
         return dict(year=value.year, month=value.month, day=value.day)
     else:
         return value.__dict__
+
+
+def toRID(txt):
+    s = txt.lower()
+    x = s.replace(' ', '_').replace("'", '').replace('é', 'e') \
+        .replace('è', 'e').replace('ë', 'e').replace('â', 'a') \
+        .replace('ô', 'o').replace('"', '').replace('ï', 'i') \
+        .replace('à', 'a').replace('-', '').replace('ö', 'oe') \
+        .replace('ä', 'ae').replace('ü', 'ue').replace('ß', 'ss')
+    return x.lower()

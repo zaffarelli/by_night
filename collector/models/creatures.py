@@ -2,36 +2,21 @@ from django.db import models
 from django.contrib import admin
 import json
 import logging
-from collector.utils.wod_reference import get_current_chronicle, find_stat_property, STATS_NAMES, GM_SHORTCUTS
-from collector.utils.helper import json_default
+from collector.utils.wod_reference import get_current_chronicle, find_stat_property, STATS_NAMES, GM_SHORTCUTS, bloodpool
+from collector.utils.helper import json_default, toRID
 
 logger = logging.Logger(__name__)
 chronicle = get_current_chronicle()
 
-bloodpool = {
-    13: 10,
-    12: 11,
-    11: 12,
-    10: 13,
-    9: 14,
-    8: 15,
-    7: 20,
-    6: 30,
-    5: 50,
-    4: 70,
-    3: 100,
-    2: 100,
-    1: 100,
-}
 
-GAROU_TALENTS = ["Alertness", "Athletics", "Brawl", "Dodge", "Empathy", "Expression", "Intimidation", "Primal-Urge",
-                 "Streetwise", "Subterfuge"]
-GAROU_SKILLS = ["Animal Ken", "Crafts", "Drive", "Etiquette", "Firearms", "Leadership", "Melee", "Performance",
-                "Stealth", "Survival"]
-GAROU_KNOWLEDGES = ["Computer", "Enigmas", "Investigation", "Law", "Linguistics", "Medicine", "Occult", "Politics",
-                    "Rituals", "Science"]
-GAROU_BACKGROUNDS = ["Allies", "Ancestors", "Contacts", "Fetish", "Kinfolk", "Mentor", "Pure Breed", "Resources",
-                     "Rites", "Totem"]
+# GAROU_TALENTS = ["Alertness", "Athletics", "Brawl", "Dodge", "Empathy", "Expression", "Intimidation", "Primal-Urge",
+#                  "Streetwise", "Subterfuge"]
+# GAROU_SKILLS = ["Animal Ken", "Crafts", "Drive", "Etiquette", "Firearms", "Leadership", "Melee", "Performance",
+#                 "Stealth", "Survival"]
+# GAROU_KNOWLEDGES = ["Computer", "Enigmas", "Investigation", "Law", "Linguistics", "Medicine", "Occult", "Politics",
+#                     "Rituals", "Science"]
+# GAROU_BACKGROUNDS = ["Allies", "Ancestors", "Contacts", "Fetish", "Kinfolk", "Mentor", "Pure Breed", "Resources",
+#                      "Rites", "Totem"]
 
 
 class Creature(models.Model):
@@ -41,12 +26,11 @@ class Creature(models.Model):
 
     player = models.CharField(max_length=32, blank=True, default='')
     name = models.CharField(max_length=128, default='')
-    rid = models.CharField(max_length=128, blank=True, default='', primary_key=True)
+    rid = models.CharField(max_length=128, blank=True, default='')
     nickname = models.CharField(max_length=128, blank=True, default='')
     primogen = models.BooleanField(default=False)
     mythic = models.BooleanField(default=False)
     family = models.CharField(max_length=32, blank=True, default='')
-
     auspice = models.PositiveIntegerField(default=0)
     breed = models.PositiveIntegerField(default=0)
     domitor = models.CharField(max_length=128, blank=True, default='')
@@ -74,6 +58,7 @@ class Creature(models.Model):
     position = models.CharField(max_length=64, blank=True, default='')
     maj = models.PositiveIntegerField(default=0)
     need_fix = models.BooleanField(default=False)
+    is_new = models.BooleanField(default=True)
     freebiedif = models.IntegerField(default=0)
     freebies = models.IntegerField(default=0, blank=True)
     expectedfreebies = models.IntegerField(default=0)
@@ -91,18 +76,87 @@ class Creature(models.Model):
     total_knowledges = models.IntegerField(default=0)
     total_backgrounds = models.IntegerField(default=0)
     total_gifts = models.IntegerField(default=0)
-    path = models.CharField(max_length=64, default='Humanity')
+
     nature = models.CharField(max_length=32, blank=True, default='')
     demeanor = models.CharField(max_length=32, blank=True, default='')
     condition = models.CharField(max_length=32, blank=True, default='OK')
     territory = models.CharField(max_length=128, blank=True, default='')
     weakness = models.CharField(max_length=128, blank=True, default='')
+
     power1 = models.PositiveIntegerField(default=1)
     power2 = models.PositiveIntegerField(default=1)
-    willpower = models.PositiveIntegerField(default=1)
     level0 = models.PositiveIntegerField(default=0)
     level1 = models.PositiveIntegerField(default=0)
     level2 = models.PositiveIntegerField(default=0)
+
+    # All
+    willpower = models.PositiveIntegerField(default=1)
+
+    #CTD
+    glamour = models.PositiveIntegerField(default=0)
+    banality = models.PositiveIntegerField(default=0)
+    realm0 = models.CharField(max_length=64, blank=True, default='')
+    realm1 = models.CharField(max_length=64, blank=True, default='')
+    realm2 = models.CharField(max_length=64, blank=True, default='')
+    realm3 = models.CharField(max_length=64, blank=True, default='')
+    realm4 = models.CharField(max_length=64, blank=True, default='')
+    legacies = models.CharField(max_length=64, blank=True, default='')
+
+    # VTM
+    path = models.CharField(max_length=64, default='Humanity')
+    humanity = models.PositiveIntegerField(default=0)
+    bloodpool = models.PositiveIntegerField(default=0)
+    virtue0 = models.PositiveIntegerField(default=0)
+    virtue1 = models.PositiveIntegerField(default=0)
+    virtue2 = models.PositiveIntegerField(default=0)
+
+    # WTA
+    gnosis = models.PositiveIntegerField(default=0)
+    rage = models.PositiveIntegerField(default=0)
+    glory = models.PositiveIntegerField(default=0)
+    honor = models.PositiveIntegerField(default=0)
+    wisdom = models.PositiveIntegerField(default=0)
+
+    # MTA
+    arete = models.PositiveIntegerField(default=0)
+    quintessence = models.PositiveIntegerField(default=0)
+    paradox = models.PositiveIntegerField(default=0)
+    dynamic = models.PositiveIntegerField(default=0)
+    entropic = models.PositiveIntegerField(default=0)
+    static = models.PositiveIntegerField(default=0)
+
+    #WTO
+    corpus = models.PositiveIntegerField(default=0)
+    pathos = models.PositiveIntegerField(default=0)
+    regret = models.CharField(max_length=64, blank=True, default='')
+    passion0 = models.CharField(max_length=64, blank=True, default='')
+    passion1 = models.CharField(max_length=64, blank=True, default='')
+    passion2 = models.CharField(max_length=64, blank=True, default='')
+    passion3 = models.CharField(max_length=64, blank=True, default='')
+    passion4 = models.CharField(max_length=64, blank=True, default='')
+    fetter0 = models.CharField(max_length=64, blank=True, default='')
+    fetter1 = models.CharField(max_length=64, blank=True, default='')
+    fetter2 = models.CharField(max_length=64, blank=True, default='')
+    fetter3 = models.CharField(max_length=64, blank=True, default='')
+    fetter4 = models.CharField(max_length=64, blank=True, default='')
+
+    angst = models.PositiveIntegerField(default=0)
+    psyche_willpower = models.PositiveIntegerField(default=0)
+    psyche = models.CharField(max_length=32, blank=True, default='')
+    psyche_archetype = models.CharField(max_length=32, blank=True, default='')
+    darkpassion0 = models.CharField(max_length=64, blank=True, default='')
+    darkpassion1 = models.CharField(max_length=64, blank=True, default='')
+    darkpassion2 = models.CharField(max_length=64, blank=True, default='')
+    darkpassion3 = models.CharField(max_length=64, blank=True, default='')
+    darkpassion4 = models.CharField(max_length=64, blank=True, default='')
+    thorn0 = models.CharField(max_length=64, blank=True, default='')
+    thorn1 = models.CharField(max_length=64, blank=True, default='')
+    thorn2 = models.CharField(max_length=64, blank=True, default='')
+    thorn3 = models.CharField(max_length=64, blank=True, default='')
+    thorn4 = models.CharField(max_length=64, blank=True, default='')
+
+
+
     summary = models.TextField(default='', blank=True, max_length=2048)
     attribute0 = models.PositiveIntegerField(default=1)
     attribute1 = models.PositiveIntegerField(default=1)
@@ -190,6 +244,8 @@ class Creature(models.Model):
     rite8 = models.CharField(max_length=64, blank=True, default='')
     rite9 = models.CharField(max_length=64, blank=True, default='')
 
+
+
     @property
     def shapeshifter(self):
         glabro = {'strength': +2, 'dexterity': 0, 'stamina': +2,
@@ -268,6 +324,14 @@ class Creature(models.Model):
 
     def fix_kindred(self):
         logger.info(f'Fixing kindred')
+        
+        self.humanity = self.power1
+        self.bloodpool = self.power2
+        self.virtue0 = self.level0
+        self.virtue1 = self.level1
+        self.virtue2 = self.level2
+        
+        
         # Embrace and Age
         condi = self.condition.split('-')
         if condi.count == 2:
@@ -286,28 +350,29 @@ class Creature(models.Model):
         #         break
         self.expectedfreebies = self.freebies_per_age_threshold
         # Willpower
-        if self.willpower < self.level2:
-            self.willpower = self.level2
+        if self.willpower < self.virtue2:
+            self.willpower = self.virtue2
         # Humanity
-        if self.power1 < self.level0 + self.level1:
-            self.power1 = self.level0 + self.level1
+        if self.humanity < self.virtue0 + self.virtue1:
+            self.humanity = self.virtue0 + self.virtue1
         # Bloodpool
-        self.power2 = bloodpool[13 - self.background3]
+        self.bloodpool = bloodpool[13 - self.value_of('generation')]
 
         self.display_gauge = self.value_of('generation') + self.value_of('status') + int(self.trueage / 50)
         self.display_pole = self.groupspec
+        self.is_new = False
 
     def fix_ghoul(self):
         self.display_gauge = 1
-        if self.domitor:
+        if self.sire:
             if self.family == '':
-                domitor = Creature.objects.get(name=self.domitor)
+                domitor = Creature.objects.get(name=self.sire)
                 self.family = domitor.family
                 self.faction = domitor.faction
                 if domitor:
                     self.display_gauge = domitor.display_gauge / 3
         self.expectedfreebies = self.freebies_per_immortal_age
-        self.power2 = 10
+        self.bloodpool = 10
         self.display_pole = self.groupspec
 
     def fix_mortal(self):
@@ -333,8 +398,19 @@ class Creature(models.Model):
         self.display_gauge = self.power2 * 2
         self.display_pole = self.groupspec
 
+    def fix_mage(self):
+        self.expectedfreebies = self.freebies_per_mortal_age
+
     def fix_garou(self):
         self.trueage = self.age
+        
+        self.rage = self.power1
+        self.gnosis = self.power2
+        self.glory = self.level0
+        self.honor = self.level1
+        self.wisdom = self.level2
+        
+        
         # Tribe
         if self.family in ["Bone Gnawer", "Children of Gaia", "Stargazer", "Wendigo"]:
             if self.willpower < 4:
@@ -342,114 +418,116 @@ class Creature(models.Model):
         else:
             if self.willpower < 3:
                 self.willpower = 3
+                
+                
         # Auspice
         if self.auspice == 0:
             # Initial Renown
-            if self.level0 + self.level1 + self.level2 < 3:
-                self.level0 = 1
-                self.level1 = 1
-                self.level2 = 1
+            if self.glory + self.honor + self.wisdom < 3:
+                self.glory = 1
+                self.honor = 1
+                self.wisdom = 1
             # Rank
-            if self.level0 + self.level1 + self.level2 >= 25:
+            if self.glory + self.honor + self.wisdom >= 25:
                 self.rank = 5
-            elif self.level0 + self.level1 + self.level2 >= 19:
+            elif self.glory + self.honor + self.wisdom >= 19:
                 self.rank = 4
-            elif self.level0 + self.level1 + self.level2 >= 13:
+            elif self.glory + self.honor + self.wisdom >= 13:
                 self.rank = 3
-            elif self.level0 + self.level1 + self.level2 >= 7:
+            elif self.glory + self.honor + self.wisdom >= 7:
                 self.rank = 2
-            elif self.level0 + self.level1 + self.level2 >= 3:
+            elif self.glory + self.honor + self.wisdom >= 3:
                 self.rank = 1
             # Initial Rage
-            if self.power1 < 1:
-                self.power1 = 1
+            if self.rage < 1:
+                self.rage = 1
         elif self.auspice == 1:  # Theurge
             # Initial Renown
-            if self.level2 < 3:
-                self.level2 = 3
+            if self.wisdom < 3:
+                self.wisdem = 3
             # Rank
-            if self.level0 >= 4 and self.level1 >= 9 and self.level2 >= 10:
+            if self.glory >= 4 and self.honor >= 9 and self.wisdom >= 10:
                 self.rank = 5
-            elif self.level0 >= 4 and self.level1 >= 2 and self.level2 >= 9:
+            elif self.glory >= 4 and self.honor >= 2 and self.wisdom >= 9:
                 self.rank = 4
-            elif self.level0 >= 2 and self.level1 >= 1 and self.level2 >= 7:
+            elif self.glory >= 2 and self.honor >= 1 and self.wisdom >= 7:
                 self.rank = 3
-            elif self.level0 >= 1 and self.level1 >= 0 and self.level2 >= 5:
+            elif self.glory >= 1 and self.honor >= 0 and self.wisdom >= 5:
                 self.rank = 2
-            elif self.level0 >= 0 and self.level1 >= 0 and self.level2 >= 3:
+            elif self.glory >= 0 and self.honor >= 0 and self.wisdom >= 3:
                 self.rank = 1
             # Initial Rage
-            if self.power1 < 2:
-                self.power1 = 2
+            if self.rage < 2:
+                self.rage = 2
         elif self.auspice == 2:  # Philodox
             # Initial Renown
-            if self.level1 < 3:
-                self.level1 = 3
+            if self.honor < 3:
+                self.honor = 3
             # Initial Rage
-            if self.power1 < 3:
-                self.power1 = 3
+            if self.rage < 3:
+                self.rage = 3
             # Rank
-            if self.level0 >= 4 and self.level1 >= 10 and self.level2 >= 9:
+            if self.glory >= 4 and self.honor >= 10 and self.wisdom >= 9:
                 self.rank = 5
-            elif self.level0 >= 3 and self.level1 >= 8 and self.level2 >= 4:
+            elif self.glory >= 3 and self.honor >= 8 and self.wisdom >= 4:
                 self.rank = 4
-            elif self.level0 >= 2 and self.level1 >= 6 and self.level2 >= 2:
+            elif self.glory >= 2 and self.honor >= 6 and self.wisdom >= 2:
                 self.rank = 3
-            elif self.level0 >= 1 and self.level1 >= 4 and self.level2 >= 1:
+            elif self.glory >= 1 and self.honor >= 4 and self.wisdom >= 1:
                 self.rank = 2
-            elif self.level0 >= 0 and self.level1 >= 3 and self.level2 >= 0:
+            elif self.glory >= 0 and self.honor >= 3 and self.wisdom >= 0:
                 self.rank = 1
         elif self.auspice == 3:  # Galliard
             # Initial Renown
-            if self.level0 < 2:
-                self.level0 = 2
-            if self.level2 < 1:
-                self.level2 = 1
+            if self.glory < 2:
+                self.glory = 2
+            if self.wisdom < 1:
+                self.wisdom = 1
             # Initial Rage
-            if self.power1 < 4:
-                self.power1 = 4
+            if self.rage < 4:
+                self.rage = 4
             # Rank
-            if self.level0 >= 9 and self.level1 >= 5 and self.level2 >= 9:
+            if self.glory >= 9 and self.honor >= 5 and self.wisdom >= 9:
                 self.rank = 5
-            elif self.level0 >= 7 and self.level1 >= 2 and self.level2 >= 6:
+            elif self.glory >= 7 and self.honor >= 2 and self.wisdom >= 6:
                 self.rank = 4
-            elif self.level0 >= 4 and self.level1 >= 2 and self.level2 >= 4:
+            elif self.glory >= 4 and self.honor >= 2 and self.wisdom >= 4:
                 self.rank = 3
-            elif self.level0 >= 4 and self.level1 >= 2 and self.level2 >= 2:
+            elif self.glory >= 4 and self.honor >= 2 and self.wisdom >= 2:
                 self.rank = 2
-            elif self.level0 >= 2 and self.level1 >= 0 and self.level2 >= 1:
+            elif self.glory >= 2 and self.honor >= 0 and self.wisdom >= 1:
                 self.rank = 1
         elif self.auspice == 4:  # Ahroun
             # Initial Renown
-            if self.level0 < 2:
-                self.level0 = 2
-            if self.level1 < 1:
-                self.level1 = 1
+            if self.glory < 2:
+                self.glory = 2
+            if self.honor < 1:
+                self.honor = 1
             # Initial Rage
-            if self.power1 < 5:
-                self.power1 = 5
+            if self.rage < 5:
+                self.rage = 5
             # Rank
-            if self.level0 >= 10 and self.level1 >= 9 and self.level2 >= 4:
+            if self.glory >= 10 and self.honor >= 9 and self.wisdom >= 4:
                 self.rank = 5
-            elif self.level0 >= 9 and self.level1 >= 5 and self.level2 >= 2:
+            elif self.glory >= 9 and self.honor >= 5 and self.wisdom >= 2:
                 self.rank = 4
-            elif self.level0 >= 6 and self.level1 >= 3 and self.level2 >= 1:
+            elif self.glory >= 6 and self.honor >= 3 and self.wisdom >= 1:
                 self.rank = 3
-            elif self.level0 >= 4 and self.level1 >= 1 and self.level2 >= 1:
+            elif self.glory >= 4 and self.honor >= 1 and self.wisdom >= 1:
                 self.rank = 2
-            elif self.level0 >= 2 and self.level1 >= 1 and self.level2 >= 0:
+            elif self.glory >= 2 and self.honor >= 1 and self.wisdom >= 0:
                 self.rank = 1
         # Breed
         if self.breed == 0:  # Homid
-            if self.power2 < 1:
-                self.power2 = 1
+            if self.gnosis < 1:
+                self.gnosis = 1
         elif self.breed == 1:  # Metis
-            if self.power2 < 3:
-                self.power2 = 3
+            if self.gnosis < 3:
+                self.gnosis = 3
         elif self.breed == 2:  # Lupus
-            if self.power2 < 5:
-                self.power2 = 5
-        self.display_gauge = self.level0 + self.level1 + self.level2
+            if self.gnosis < 5:
+                self.gnosis = 5
+        self.display_gauge = self.glory + self.honor + self.wisdom
         if self.breed != 1:
             self.display_gauge += 1
         self.display_pole = self.groupspec
@@ -466,13 +544,7 @@ class Creature(models.Model):
 
 
     def update_rid(self):
-        s = self.name.lower()
-        x = s.replace(' ', '_').replace("'", '').replace('é', 'e') \
-            .replace('è', 'e').replace('ë', 'e').replace('â', 'a') \
-            .replace('ô', 'o').replace('"', '').replace('ï', 'i') \
-            .replace('à', 'a').replace('-', '').replace('ö', 'oe') \
-            .replace('ä', 'ae').replace('ü', 'ue').replace('ß', 'ss')
-        self.rid = x.lower()
+        self.rid = toRID(self.name)
 
     def fix(self):
         logger.info(f'Fixing ............ [{self.name}]')
@@ -486,6 +558,10 @@ class Creature(models.Model):
             # at:7/5/3 ab:13/9/5 b:5 g:21 rgw:16 f:15
             self.freebies = -((7 + 5 + 3 + 9) * 5 + (13 + 9 + 5) * 2 + 5 + 7 * 3 + 16 + 15)
             self.fix_garou()
+        elif self.creature == 'mage':
+            # at:7/5/3 ab:13/9/5 b:5 g:21 rgw:16 f:15
+            self.freebies = -((7 + 5 + 3 + 9) * 5 + (13 + 9 + 5) * 2 + 5 + 7 * 3 + 16 + 15)
+            self.fix_mage()
         elif self.creature == 'ghoul':
             self.fix_ghoul()
         elif self.creature == 'kinfolk':
@@ -650,11 +726,11 @@ class Creature(models.Model):
             f'Talents\t({self.total_talents})\tSkills\t({self.total_skills})\tKnowledges\t({self.total_knowledges})\t\n')
         for n in range(10):
             lines.append(
-                f'{GAROU_TALENTS[n]}\t{self.val_as_dots(getattr(self, f"talent{n}"))}\t{GAROU_SKILLS[n]}\t{self.val_as_dots(getattr(self, f"skill{n}"))}\t{GAROU_KNOWLEDGES[n]}\t{self.val_as_dots(getattr(self, f"knowledge{n}"))}\n')
+                f'{STATS_NAMES[self.creature]["talents"][n]}\t{self.val_as_dots(getattr(self, f"talent{n}"))}\t{STATS_NAMES[self.creature]["skills"][n]}\t{self.val_as_dots(getattr(self, f"skill{n}"))}\t{STATS_NAMES[self.creature]["knowledges"][n]}\t{self.val_as_dots(getattr(self, f"knowledge{n}"))}\n')
         blines = []
         for n in range(10):
             if getattr(self, f"background{n}") > 0:
-                blines.append(f'{GAROU_BACKGROUNDS[n]} ({getattr(self, f"background{n}")})')
+                blines.append(f'{STATS_NAMES[self.creature]["backgrounds"][n]} ({getattr(self, f"background{n}")})')
         lines.append(f'Backgrounds: {", ".join(blines)}.\n')
         glines = []
         for n in range(20):
@@ -748,31 +824,33 @@ class Creature(models.Model):
             else:
                 self.display_gauge = 1
 
-    def json_str(self):
-        sire = ''
-        if self.domitor:
-            sire = self.domitor
-        else:
-            sire = self.sire
-        d = {
-            'name': self.name,
-            'clan': self.family,
-            'family': self.root_family(),
-            'condition': self.condition,
-            'status': self.status,
-            'sire': sire,
-            'generation': (13 - self.background3),
-            'ghost': self.ghost,
-            'faction': self.faction,
-            'rid': self.rid,
-            'children': []
-        }
-        return d
+    # def json_str(self):
+    #     sire = ''
+    #     if self.domitor:
+    #         sire = self.domitor
+    #     else:
+    #         sire = self.sire
+    #     d = {
+    #         'name': self.name,
+    #         'clan': self.family,
+    #         'family': self.root_family(),
+    #         'condition': self.condition,
+    #         'status': self.status,
+    #         'sire': sire,
+    #         'generation': (13 - self.background3),
+    #         'ghost': self.ghost,
+    #         'faction': self.faction,
+    #         'rid': self.rid,
+    #         'children': []
+    #     }
+    #     return d
 
     def find_lineage(self, lockup=False):
         """ Find the full lineage for this character
         """
-        lineage = self.json_str()
+        lineage = self.toJSON()
+        lineage['children'] = []
+        lineage['generation'] = 13 - self.background3
         infans = Creature.objects.filter(creature='kindred', sire=self.name)
         if infans:
             for childer in infans:
@@ -866,5 +944,5 @@ class CreatureAdmin(admin.ModelAdmin):
         'status', 'embrace', 'condition']
     ordering = ['name', 'group', 'creature']
     actions = [refix, set_male, set_female, push_to_munich, push_to_newyork, push_to_world]
-    list_filter = ['chronicle', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature', 'mythic','ghost']
+    list_filter = ['chronicle','is_new', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature', 'mythic','ghost']
     search_fields = ['name']

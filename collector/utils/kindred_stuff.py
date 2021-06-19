@@ -211,9 +211,9 @@ def build_per_primogen(param=None):
     # Improvise empty sires
     for kindred in kindreds:
         gen = 13 - kindred.background3
-        k = kindred.json_str()
+        k = kindred.toJSON()
         if kindred.sire == '':
-            k['sire'] = f'temporary_{improvise_id()}_{gen-1}_{k["name"]}_{k["clan"]}'
+            k['sire'] = f'temporary_{improvise_id()}_{gen-1}_{k["name"]}_{k["family"]}'
         else:
             k['sire'] = kindred.sire
         cainites[f'{gen}'].append(k)

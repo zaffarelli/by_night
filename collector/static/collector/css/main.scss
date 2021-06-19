@@ -1,820 +1,815 @@
 @import 'basics';
 
 @mixin body_background {
-    background: transparent url('../colorful-grunge-texture-10.jpg') fixed;// 100% 100% no-repeat fixed;
+  background: transparent url('../colorful-grunge-texture-10.jpg') fixed; // 100% 100% no-repeat fixed;
 }
-
 
 
 @mixin kinfolk_taint {
-    background: repeating-linear-gradient(90deg, $wyld_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $wyld_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
 }
 
 @mixin mortal_taint {
-    background: repeating-linear-gradient(90deg, $weaver_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $weaver_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
 }
 
 
 @mixin fomori_taint {
-    background: repeating-linear-gradient(90deg, $wyrm_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $wyrm_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
 }
 
 @mixin ghoul_taint {
-    background: repeating-linear-gradient(90deg, $camarilla_fill, $mortal_fill 25%, $wyrm_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $camarilla_fill, $mortal_fill 25%, $wyrm_counter_fill 100%);
 }
 
 
 @mixin pentex_taint {
-    background: repeating-linear-gradient(90deg, $wyrm_fill, $garou_fill 25%, $wyrm_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $wyrm_fill, $garou_fill 25%, $wyrm_counter_fill 100%);
 }
 
 @mixin gaia_taint {
-    background: repeating-linear-gradient(90deg, $wyld_fill, $garou_fill 25%, $wyld_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $wyld_fill, $garou_fill 25%, $wyld_counter_fill 100%);
 }
 
 @mixin sabbat_taint {
-    background: repeating-linear-gradient(90deg, $sabbat_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $sabbat_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
 }
 
 @mixin camarilla_taint {
-    background: repeating-linear-gradient(90deg, $camarilla_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $camarilla_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
 }
 
 @mixin inconnu_taint {
-    background: repeating-linear-gradient(90deg, $inconnu_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $inconnu_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
 }
 
 @mixin anarchs_taint {
-    background: repeating-linear-gradient(90deg, $anarchs_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
+  background: repeating-linear-gradient(90deg, $anarchs_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
 }
 
 
 body {
-    font-family: Texte;
-    @include body_background;
-    color: $body_color;
-    min-height:98%;
+  font-family: Texte;
+  @include body_background;
+  color: $body_color;
+  min-height: 98%;
 }
 
 
-body .wrapper .charlist {
-
-    & .pagination {
-        text-align: center;
-        margin-top: 1em;
-        width: $list_width;
-        
-        & a, & strong, & span.nav {
-            margin: 0 0.2em;
-            display: inline-block;
-            color: $plate_highlight;
-            font-size: 0.7em;
-            font-family: 'TexteLibre';
-            padding: 0.3em 0.4em;
-            text-decoration: none;
-            cursor: pointer;
-            background: $very_dark_plate;
-            border-radius: 5px;
-            width: 2ex;
-        }
-        
-        & span.nav {
-            color: $plate_color;
-            background: $dark_plate;
-        }
-    }
-    
-    & .creature_actions {
-        display: inline-block;
-        cursor: pointer;
-        color: black;
-        padding: 2px;
-        border: 1px solid transparent;
-        border-radius: 2px;
-        
-        & a, & span.nav {
-            cursor: pointer;
-            color: #6a6a6a;
-        }
-    }
-    
-    & ul, & ol {
-        width: $list_width;
-        text-indent: 0;
-        margin-left: 0;
-        padding-left: 0;
-        list-style-type: none;
-        
-        & li {
-            margin: 0;
-        }
-    }
-}
+//body .wrapper .charlist {
+//
+//
+//}
 
 
 .subsection {
-    font-weight: bold;
-    color: #DBCA86;
-    text-decoration: underline;
+  font-weight: bold;
+  color: #DBCA86;
+  text-decoration: underline;
 }
 
 .pdflink {
-    color: #E5DECA;
-    text-decoration: none;
-    background: #1d1d1d;
-    display: inline-block;
-    padding: 3px;
+  color: #E5DECA;
+  text-decoration: none;
+  background: #1d1d1d;
+  display: inline-block;
+  padding: 3px;
 }
 
 .ping {
-    background: orange;
+  background: orange;
 }
 
-.avatar_link {
-    margin: 0.5em 1ex 0.5em 1ex;
-    box-shadow: 2px 2px 8px #040404;
-    padding: 2px;
-    border: 1px solid black;
-    font-size: 0.73em;
-    border-radius: 0 0 5px 0;
-    background: $plate;
-    color: $plate_color;
-    
-    & a {
-        color: $plate_color;
-        text-decoration: none;
-        
-        &:hover {
-            color: $plate;
-        }
-        
-        & .small {
-            font-size: 0.75em;
-        }
-    }
-    
-}
 
 .toggle_name {
-    font-weight: bold;
-    font-style: normal;
-    font-family: Titre;
-    width: auto;
-    display: inline-block;
+  font-weight: bold;
+  font-style: normal;
+  font-family: Titre;
+  width: auto;
+  display: inline-block;
 }
 
 
 .waiting {
-    cursor: progress;
-    opacity: 0.95;
+  cursor: progress;
+  opacity: 0.95;
 }
 
 .golden {
-    color: #ffcc22;
+  color: #ffcc22;
 }
 
 .blank {
-    color: #C0C0C0;
-    opacity: 0.5;
+  color: #C0C0C0;
+  opacity: 0.5;
 }
 
 .embedded_link {
-    color: #DBCA86;
-    text-decoration: none;
+  color: #DBCA86;
+  text-decoration: none;
 }
 
 .custom_glance {
-    cursor: help;
+  cursor: help;
 }
 
 .shown {
-    display: block;
+  display: block;
 }
 
 .noPDF:before {
-    content: '(x) ';
+  content: '(x) ';
 }
 
 
 /* Normal --------------------------------------------------------------------*/
 @media all and (min-width: 1024px) {
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        
-        & input#userinput {
-            order: 2;
-            border: 1px solid silver;
-            border-radius: 5px;
-            box-shadow: 0 0 5px black;
-            display: inline-block;
-            font-size: 12px;
-            padding: 3px;
-            margin: 0 3px 0 3px;
-            height: 18px;
-        }
-    }
-    .wrapper {
-        background: transparent url() 100% 100% no-repeat fixed;
-        z-index: 60;
-        width: 100%;
-        min-height: 1200px;
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
-        padding-top: 0;
-        margin: 0;
-
-        
-        & .caine_roots {
-            background: transparent;
-            width: 100%;
-            display: block;
-            z-index: 60;
-            padding: 0;
-            margin: 0;
-        }
-        
-        & .details {
-            background: transparent;
-            width: auto;
-            right: 0px;
-            left: auto;
-            top: auto;
-            bottom: 0px;
-            display: block;
-            position: fixed;
-            z-index: 110;
-            transition: all 0.3s ease;
-            box-shadow:-5px -5px 10px $dark_plate;
-            &.hidden {
-                transition: all 0.3s ease;
-                transform: translateX(1000px);
-            }
-        }
+    & input#userinput, & #text_edit {
+      order: 2;
+      border: 1px solid silver;
+      border-radius: 5px;
+      box-shadow: 0 0 5px black;
+      display: inline-block;
+      font-size: 12px;
+      padding: 3px;
+      margin: 1px 3px 1px 3px;
+      height: 18px;
+      background:#C0C0C0;
+      color:black;
     }
+    & #text_edit{
+      height:54px;
+    }
+  }
+  .wrapper {
+    background: transparent url() 100% 100% no-repeat fixed;
+    z-index: 60;
+    width: 100%;
+    min-height: 1200px;
+
+    padding-top: 0;
+    margin: 0;
+
+
+    & .caine_roots {
+      background: transparent;
+      width: 100%;
+      display: block;
+      z-index: 60;
+      padding: 0;
+      margin: 0;
+    }
+
+    & .details {
+      background: transparent;
+      width: auto;
+      right: 0px;
+      left: auto;
+      top: auto;
+      bottom: 0px;
+      display: block;
+      position: fixed;
+      z-index: 110;
+      transition: all 0.3s ease;
+      box-shadow: -5px -5px 10px $dark_plate;
+
+      &.hidden {
+        transition: all 0.3s ease;
+        transform: translateX(1000px);
+      }
+    }
+  }
 }
 
 
 .charlist {
-    background: $plate;
-    border-radius: 5px;
-    border: 1px solid $very_dark_plate;
+  @include panel;
+  & .pagination {
+    text-align: center;
+    margin-top: 1em;
     width: $list_width;
-    display: block;
-    position: fixed;
-    z-index: 70;
-    padding-top: 0px;
-    margin: auto;
-    top: 32px;
-    bottom: auto;
-    left: 5px;
-    right: auto;
-    box-shadow: 0 0 5px $very_dark_plate;
-    transition: all 0.3s ease;
-    
-    &.hidden {
-        transform: translateY(-980px);
-        transition: all 0.3s ease;
+
+    & a, & strong, & span.nav {
+      @include panel;
+      margin: 0 0.2em;
+      display: inline-block;
+      color: $plate_highlight;
+      font-size: 0.7em;
+      font-family: 'TexteLibre';
+      padding: 0.3em 0.4em;
+      text-decoration: none;
+      cursor: pointer;
+      background: $very_dark_plate;
+      border-radius: 5px;
+      width: 2ex;
     }
+  }
+
+  & .avatar_link {
+    @include panel;
+
+    margin:2px;
+
+    padding: 2px;
+    border-radius: 0 0 5px 0;
+    border-color: darken($panel_border,30%);
+    & a {
+      text-decoration: none;
+    }
+  }
+
+  & ul {
+    width: $list_width;
+    text-indent: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    & li {
+      padding: 0;
+      margin: 0;
+
+    }
+
+
+  }
+
+  @include panel;
+  //background: $plate;
+  border-radius: 5px;
+
+  width: $list_width;
+  display: block;
+  position: fixed;
+  z-index: 70;
+  padding-top: 0px;
+  margin: auto;
+  top: 0;
+  bottom: auto;
+  right: 5px;
+  left: auto;
+  box-shadow: 0 0 5px $very_dark_plate;
+  transition: all 0.3s ease;
+
+
+  &.hidden {
+    transform: translateY(-1800px);
+    transition: all 0.3s ease;
+  }
+
+  border-color: $panel_border;
 }
 
 
 /* Details - Creature Block */
 .creature {
-    font-size: 9pt;
-    border-radius: 8px;
-    background: transparent;
-    
-    &.navigator {
-        background: #101010;
-        color: #D0D0D0;
-        text-align: center;
+  font-size: 9pt;
+  border-radius: 8px;
+  background: transparent;
+
+  &.navigator {
+    background: #101010;
+    color: #D0D0D0;
+    text-align: center;
+    font-family: TexteLibre;
+    font-size: 16px;
+  }
+
+  & a {
+    &:visited, &:link, &:hover, &:active {
+      color: black;
+    }
+  }
+
+  & strong {
+    font-family: Titre;
+    font-weight: normal;
+    font-size: 2em;
+    line-height: 1.4em;
+  }
+
+  & table {
+    font-family: Texte;
+    color: black;
+    background: #303030;
+    border: 1px solid $plate_color;
+    border-radius: 10px 0 0 0;
+    box-shadow: -2px -2px 8px $plate_shadow;
+    margin: auto;
+
+    & tr {
+      padding: 0;
+      margin: 0;
+
+      & th {
+        background: $plate;
+        color: #fff;
+        font-size: 9pt;
         font-family: TexteLibre;
-        font-size: 16px;
-    }
-    
-    & a {
-        &:visited, &:link, &:hover, &:active {
-            color: black;
-        }
-    }
-    
-    & strong {
-        font-family: Titre;
         font-weight: normal;
-        font-size: 2em;
-        line-height: 1.4em;
-    }
-    
-    & table {
-        font-family: Texte;
-        color: black;
-        background: #303030;
-        border: 1px solid $plate_color;
-        border-radius: 10px 0 0 0;
-        box-shadow: -2px -2px 8px $plate_shadow;
-        margin: auto;
-        
-        & tr {
-            padding: 0;
-            margin: 0;
-            
-            & th {
-                background: $plate;
-                color: #fff;
-                font-size: 9pt;
-                font-family: TexteLibre;
-                font-weight: normal;
-                margin: 0;
-                border: none;
-                width: 110px;
-                border: 2px solid transparent;
-                padding: 1px;
-                
-                &[colspan='5'] {
-                    background: $very_dark_plate;
-                    height: 90px;
-                    padding: 0;
-                    padding-left: 3ex;
-                    text-align: left;
-                }
-                
-                &.clan_logo {
-                    background: $very_dark_plate;
-                    overflow: hidden;
-                    padding: 0;
-                    
-                    & img {
-                        width: 80px;
-                        filter: invert(75%);
-                    }
-                }
-                
-                &.back {
-                    background: $very_dark_plate;
-                }
-            }
-            
-            &:last-child th {
-                border-radius: 0 0 6px 6px;
-            }
-            
-            & td {
-                font-size: 8pt;
-                font-family: TexteLibre;
-                text-align: left;
-                margin: 0;
-                padding: 1px;
-                width: 110px;
-                background: transparent;
-                border: 2px solid transparent;
-                color: #E0E0E0;
-                
-                &[colspan='2'], &[colspan='8'] {
-                    border-radius: 5px;
-                    background: #101010;
-                    color: #E0E0E0;
-                    text-align: center;
-                    font-family: Titre;
-                    font-size: 12pt;
-                }
-                
-                &.topic {
-                    background: transparent;
-                    font-size: 8pt;
-                    font-family: TexteLibre;
-                    text-align: left;
-                    margin: 0;
-                    padding: 1px;
-                }
-                
-                &.editable {
-                    &.userinput.focus {
-                        border-color: $focus_color;
-                    }
-                }
-            }
+        margin: 0;
+        border: none;
+        width: 110px;
+        border: 2px solid transparent;
+        padding: 1px;
+
+        &[colspan='5'] {
+          background: $very_dark_plate;
+          height: 90px;
+          padding: 0;
+          padding-left: 3ex;
+          text-align: left;
         }
-        
-        &.freewidth tr td {
-            width: auto;
+
+        &.clan_logo {
+          background: $very_dark_plate;
+          overflow: hidden;
+          padding: 0;
+
+          & img {
+            width: 80px;
+            filter: invert(75%);
+          }
         }
+
+        &.back {
+          background: $very_dark_plate;
+        }
+      }
+
+      &:last-child th {
+        border-radius: 0 0 6px 6px;
+      }
+
+      & td {
+        font-size: 8pt;
+        font-family: TexteLibre;
+        text-align: left;
+        margin: 0;
+        padding: 1px;
+        width: 110px;
+        background: transparent;
+        border: 2px solid transparent;
+        color: #E0E0E0;
+
+        &[colspan='2'], &[colspan='8'] {
+          border-radius: 5px;
+          background: #101010;
+          color: #E0E0E0;
+          text-align: center;
+          font-family: Titre;
+          font-size: 12pt;
+        }
+
+        &.topic {
+          background: transparent;
+          font-size: 8pt;
+          font-family: TexteLibre;
+          text-align: left;
+          margin: 0;
+          padding: 1px;
+        }
+
+        &.editable {
+          &.userinput.focus {
+            border-color: $focus_color;
+          }
+        }
+      }
     }
-    
-    
+
+    &.freewidth tr td {
+      width: auto;
+    }
+  }
+
+
 }
 
 .mortal {
-    & table {
-        & tr.tainted {
-            @include mortal_taint;
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include mortal_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 .fomori {
-    & table {
-        & tr.tainted {
-            @include fomori_taint;
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include fomori_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 
 .Camarilla.kindred {
-    & table {
-        & tr.tainted {
-            @include camarilla_taint;
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include camarilla_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 .Sabbat.kindred {
-    & table {
-        & tr.tainted {
-            @include sabbat_taint;
-            
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include sabbat_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 
 .ghoul {
-    & table {
-        & tr.tainted {
-            @include ghoul_taint;
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include ghoul_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 .garou {
-    & table {
-        & tr.tainted {
-            @include gaia_taint;
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include gaia_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 .kinfolk {
-    & table {
-        & tr.tainted {
-            @include kinfolk_taint;
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include kinfolk_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 .Pentex {
-    & table {
-        & tr.tainted {
-            @include pentex_taint;
-            & th.tainted {
-                background: transparent;
-            }
-        }
+  & table {
+    & tr.tainted {
+      @include pentex_taint;
+
+      & th.tainted {
+        background: transparent;
+      }
     }
+  }
 }
 
 
-
-
 .list .goodies {
-    width: auto;
-    height: auto;
-    margin: 5px;
-    text-align: center;
-    padding: 5px;
-    
-    & span {
-        cursor: pointer;
-        font-family: Titre;
-    }
+  width: auto;
+  height: auto;
+  margin: 5px;
+  text-align: center;
+  padding: 5px;
+
+  & span {
+    cursor: pointer;
+    font-family: Titre;
+  }
 }
 
 
 .bar {
-    position: fixed;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    width: 100%;
-    top: 0;
-    padding: 3px;
-    height: auto;
-    background: transparent;
-    margin: 0;
-    color: white;
-    z-index: 100;
-    
-    & .pull_down {
-        order: 1;
-        display: inline-block;
+  position: fixed;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: 100%;
+  top: 0;
+  padding: 3px;
+  height: auto;
+  background: transparent;
+  margin: 0;
+  color: white;
+  z-index: 100;
 
-        font-family: TexteLibre;
-        font-size: 12px;
-        height: 24px;
+  & .pull_down {
+    order: 1;
+    display: inline-block;
 
-        margin: 0 3px 0 3px;
-        width:300px;
+    font-family: TexteLibre;
+    font-size: 12px;
+    height: 24px;
 
-        @include panel;
-        &.chronicle{
-            font-family: Titre;
-            font-size: 16px;
-            text-align: center;
-        }
-        
-        & ul.drop_down {
-            display: none;
+    margin: 0 3px 0 3px;
+    width: 300px;
 
-            list-style-type: none;
-            text-indent: 0;
-            margin-left: 0;
-            padding-left: 2ex;
+    @include panel;
 
-            & li {
-                color: $plate_color;
-                padding: 2px;
-                margin: 2px;
-                border-radius: 5px;
-            }
-        }
-        
-        &:hover {
-
-            height: auto;
-
-            
-            & ul.drop_down {
-                display: block;
-
-                
-                & li.wod {
-                    background: $plate_selected;
-                }
-                
-                
-                & li:hover {
-                    color: $plate_highlight;
-                    background: complement($panel_background);
-                    cursor: pointer;
-                }
-            }
-        }
+    &.chronicle {
+      font-family: Titre;
+      font-size: 16px;
+      text-align: center;
     }
+
+    & ul.drop_down {
+      display: none;
+
+      list-style-type: none;
+      text-indent: 0;
+      margin-left: 0;
+      padding-left: 2ex;
+
+      & li {
+        color: $plate_color;
+        padding: 2px;
+        margin: 2px;
+        border-radius: 5px;
+      }
+    }
+
+    &:hover {
+
+      height: auto;
+
+
+      & ul.drop_down {
+        display: block;
+
+
+        & li.wod {
+          background: $plate_selected;
+        }
+
+
+        & li:hover {
+          color: $plate_highlight;
+          background: complement($panel_background);
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
 
 #caine_roots {
-    text-align: center;
-    font-size: 14px;
+  text-align: center;
+  font-size: 14px;
 }
 
 svg {
-    margin: 10px;
-    border: 1px dashed  #111;
-    background: transparent;//#A1A; //silver;
-    margin-top: 50px;
+  margin: 10px;
+  border: 1px dashed #111;
+  background: transparent; //#A1A; //silver;
+  margin-top: 50px;
 
 
+  //     height: auto;
+  //     width: 100%;
 
-
-//     height: auto;
-//     width: 100%;
-    
-    rect {
-        &.overlay {
-            cursor: move;
-            stroke-width: 0px;
-            stroke: #701070;
-            fill: transparent; //#C0C0C0;
-            opacity: 0.25;
-        }
-        
-        &.band {
-            fill: #AAA;
-            stroke: #505050;
-            stroke-width: 0;
-            
-            &.ghost {
-                opacity: $ghost_opacity;
-            }
-            
-            &.dead {
-                fill: #A09090;
-            }
-        }
-        
-        &.frame {
-            fill: transparent;
-            stroke: #888;
-            stroke-width: 1pt;
-            
-            &.ghost {
-                opacity: $ghost_opacity;
-            }
-            
-            &.dead {
-                stroke: #A09090;
-                stroke-width: 3pt;
-            }
-
-        }
-        
-        &.plate {
-            fill: $dark_plate;
-            stroke: #888;
-            stroke-width: 0.5px;
-            
-            &.Sabbat {
-                fill: #401010;
-            }
-            
-            &.Camarilla {
-                fill: #104010;
-            }
-            
-            &.Anarchs {
-                fill: #101040;
-            }
-            
-            &.Inconnu {
-                fill: #401020;
-            }
-            
-            &.dead {
-                //fill: #433;
-            }
-        }
-        
-        &.ghost {
-            opacity: $ghost_opacity;
-        }
+  rect {
+    &.overlay {
+      cursor: move;
+      stroke-width: 0px;
+      stroke: #701070;
+      fill: transparent; //#C0C0C0;
+      opacity: 0.25;
     }
-    
-    & .ghost {
-        fill: none;
-        stroke: #666;
-        stroke-width: 0.25px;
+
+    &.band {
+      fill: #AAA;
+      stroke: #505050;
+      stroke-width: 0;
+
+      &.ghost {
         opacity: $ghost_opacity;
-        stroke-dasharray: "10";
+      }
+
+      &.dead {
+        fill: #A09090;
+      }
     }
-    
-    & .link {
-        fill: none;
-        stroke: #FEB;
-        stroke-width: 6px;
-        opacity: 0.5;
-        
-        &.ghost {
-            stroke: #CCC;
-            stroke-width: 3px;
-            opacity: $ghost_opacity;
-        }
+
+    &.frame {
+      fill: transparent;
+      stroke: #888;
+      stroke-width: 1pt;
+
+      &.ghost {
+        opacity: $ghost_opacity;
+      }
+
+      &.dead {
+        stroke: #A09090;
+        stroke-width: 3pt;
+      }
+
     }
-    
-    & .name {
-        font-size: 1em;
-        font-family: "Titre";
-        stroke: #666;
-        fill: #000;
-        stroke-width: 0.7px;
-        cursor: pointer;
-        
-        &:hover {
-            fill: $plate_highlight;
-            stroke: #000;
-        }
+
+    &.plate {
+      fill: $dark_plate;
+      stroke: #888;
+      stroke-width: 0.5px;
+
+      &.Sabbat {
+        fill: #401010;
+      }
+
+      &.Camarilla {
+        fill: #104010;
+      }
+
+      &.Anarchs {
+        fill: #101040;
+      }
+
+      &.Inconnu {
+        fill: #401020;
+      }
+
+      &.dead {
+        //fill: #433;
+      }
     }
-    
-    & .property {
-        font-family: "TexteLibre";
-        font-size: 0.8em;
-        stroke: #888;
-        fill: #fff;
-        stroke-width: 0.6px;
+
+    &.ghost {
+      opacity: $ghost_opacity;
     }
+  }
+
+  & .ghost {
+    fill: none;
+    stroke: #666;
+    stroke-width: 0.25px;
+    opacity: $ghost_opacity;
+    stroke-dasharray: "10";
+  }
+
+  & .link {
+    fill: none;
+    stroke: #FEB;
+    stroke-width: 6px;
+    opacity: 0.5;
+
+    &.ghost {
+      stroke: #CCC;
+      stroke-width: 3px;
+      opacity: $ghost_opacity;
+    }
+  }
+
+  & .name {
+    font-size: 1em;
+    font-family: "Titre";
+    stroke: #666;
+    fill: #000;
+    stroke-width: 0.7px;
+    cursor: pointer;
+
+    &:hover {
+      fill: $plate_highlight;
+      stroke: #000;
+    }
+  }
+
+  & .property {
+    font-family: "TexteLibre";
+    font-size: 0.8em;
+    stroke: #888;
+    fill: #fff;
+    stroke-width: 0.6px;
+  }
 }
 
 .tooltip {
-    position: absolute;
-    opacity:0;
-    text-align: center;
-    color: black;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 2px;
-    width: 120px;
-    height: 160px;
-    pointer-events: none;
-    font-family: "TexteLibre";
-    font-size: 8pt;
-    background: #C0C0C0;
-    padding-left: 15px;
-    padding-right: 15px;
-    box-shadow: 0 0 15px #222;
-    zindex:45000;
-    & strong {
-        font-variant: small-caps;
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-    @include panel;
+  position: absolute;
+  opacity: 0;
+  text-align: center;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  width: 120px;
+  height: 160px;
+  pointer-events: none;
+  font-family: "TexteLibre";
+  font-size: 8pt;
+  background: #C0C0C0;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-shadow: 0 0 15px #222;
+  zindex: 45000;
+
+  & strong {
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  @include panel;
 }
 
 
 svg .node_circle {
-    fill: #AAA;
-    stroke: #A22;
-    stroke-width: 3pt;
-    
-    &.wyld {
-        fill: $wyld_fill;
-        fill: #B74;
-        
-        &.kinfolk {
-            fill: #DA7;
-        }
+  fill: #AAA;
+  stroke: #A22;
+  stroke-width: 3pt;
+
+  &.wyld {
+    fill: $wyld_fill;
+    fill: #B74;
+
+    &.kinfolk {
+      fill: #DA7;
     }
-    
-    &.wyrm {
-        fill: $wyrm_fill;
-    }
-    
-    &.weaver {
-        fill: $weaver_fill;
-    }
-    
-    &.balanced {
-        stroke-width: 2pt;
-        stroke: #333;
-    }
+  }
+
+  &.wyrm {
+    fill: $wyrm_fill;
+  }
+
+  &.weaver {
+    fill: $weaver_fill;
+  }
+
+  &.balanced {
+    stroke-width: 2pt;
+    stroke: #333;
+  }
 }
 
 .footnote {
-    text-align: center;
-    width: 100%;
-    background: transparent;
-    color: white;
-    padding: 5px;
-    font-family: TexteLibre;
-    font-size: 11px;
+  text-align: center;
+  width: 100%;
+  background: transparent;
+  color: white;
+  padding: 5px;
+  font-family: TexteLibre;
+  font-size: 11px;
 
-    & span.display{
-        color: $focus_color;
-        cursor: pointer;
+  & span.display {
+    color: $focus_color;
+    cursor: pointer;
+  }
+
+  & a {
+    &:visited, &link, &:active, :hover {
+      color: red;
     }
 
-    & a {
-        &:visited, &link, &:active, :hover {
-            color: red;
-        }
-        
-        color: red;
-    }
+    color: red;
+  }
 }
 
-td.editable.updown{
-    & i.blank.focus{
-        color:$focus_color;
-    }
+td.editable.updown {
+  & i.blank.focus {
+    color: $focus_color;
+  }
 }
 
-#d3area{
-    width: 90%;
+#d3area {
+  width: 90%;
 }
 
-div.creature_links{
-    display:inline-block;
-    float:right;
-    & i{
-        margin-left:1ex;
-        &:hover{
-            color: $focus_color;
-        }
+div.creature_links {
+  display: inline-block;
+  float: right;
+
+  & i {
+    margin-left: 1ex;
+
+    &:hover {
+      color: $focus_color;
     }
+  }
 
 }

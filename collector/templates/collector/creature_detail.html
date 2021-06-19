@@ -11,6 +11,8 @@
         {% include "./creature/ghoul.html" with c=c %}
     {% elif c.creature == 'garou' %}
         {% include "./creature/garou.html" with c=c%}
+    {% elif c.creature == 'mage' %}
+        {% include "./creature/mage.html" with c=c%}
     {% elif c.creature == 'fomori' %}
         {% include "./creature/fomori.html" with c=c%}
     {% else %}

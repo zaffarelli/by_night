@@ -2,7 +2,6 @@ from django import template
 import re
 import string
 
-
 register = template.Library()
 
 
@@ -15,8 +14,8 @@ def as_bullets(value, options=''):
     else:
         tokens = options.split(',')
         max = int(tokens[0])
-    one = '<i class="fas fa-circle fa-xs" title="%d"></i>'%(value)
-    blank = '<i class="fas fa-circle fa-xs blank" title="%d"></i>'%(value)
+    one = '<i class="fas fa-circle fa-xs" title="%d"></i>' % (value)
+    blank = '<i class="fas fa-circle fa-xs blank" title="%d"></i>' % (value)
     x = 0
     res = ''
     while x < max:
@@ -24,9 +23,9 @@ def as_bullets(value, options=''):
             res += one
         else:
             res += blank
-        if (x+1) % 10 == 0:
+        if (x + 1) % 10 == 0:
             res += '<br/>'
-        elif (x+1) % 5 == 0:
+        elif (x + 1) % 5 == 0:
             res += '&nbsp;'
         x += 1
     return res
@@ -44,7 +43,6 @@ def as_entry(stack, x_field=''):
     return f'<div class="plank entry"><div class="shard label">{x_field}</div><div class="shard data editable userinput" id="{x_id}__{x_field}">{x_trait}</div></div>'
 
 
-
 @register.filter(name='as_stat_name')
 def as_stat_name(stack, x_field=''):
     x_creature, x_id = stack
@@ -57,6 +55,5 @@ def as_editable_updown(value, options=''):
     keys = options.split(',')
     aid = int(keys[0])
     afield = keys[1]
-    res = "<td class='editable updown' id='%d_%s'>"%(aid,afield)
+    res = "<td class='editable updown' id='%d_%s'>" % (aid, afield)
     return res
-

@@ -20,5 +20,6 @@
     {{ c.is_downtime|param_stack:c.id|as_entry:"is Downtime"|safe }}
     {{ c.links_from|param_stack:c.id|as_entry:"Links From"|safe }}
     {{ c.links_to|param_stack:c.id|as_entry:"Links To"|safe }}
+    {{ c.verified_cast|param_stack:c.id|as_entry:"Cast"|safe }}
 
 </div>
