@@ -211,7 +211,9 @@ def build_per_primogen(param=None):
     # Improvise empty sires
     for kindred in kindreds:
         gen = 13 - kindred.background3
-        k = kindred.toJSON()
+        # k = kindred.toJSON()
+        k = kindred.json_str()
+        print(k)
         if kindred.sire == '':
             k['sire'] = f'temporary_{improvise_id()}_{gen-1}_{k["name"]}_{k["family"]}'
         else:
@@ -280,7 +282,7 @@ def domitor_from_sire():
 
 def build_gaia_wheel():
     chronicle = get_current_chronicle()
-    creatures = Creature.objects.filter(chronicle=chronicle.acronym).exclude(mythic=True).exclude(ghost=True).order_by(
+    creatures = Creature.objects.filter(chronicle=chronicle.acronym).exclude(mythic=True).exclude(ghost=True).exclude(condition='DEAD').order_by(
         '-faction', 'display_pole')
     for creature in creatures:
         creature.need_fix = True
@@ -302,6 +304,7 @@ def build_gaia_wheel():
             'auspice': c.auspice,
             'breed': c.breed,
             'rank': c.rank,
+            'condition': c.condition,
             'rid': c.rid,
             'position': c.position,
             'status': c.status

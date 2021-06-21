@@ -42,13 +42,13 @@ STATS_NAMES = {
     'changeling': {
         'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
                        'intelligence', 'wits'],
-        'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'kenning',
+        'talents': ['alertness', 'athletics', 'brawl', 'empathy', 'expression', 'intimidation', 'kenning', 'leadership',
                     'streetwise', 'subterfuge'],
-        'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance', 'security',
+        'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'larceny', 'melee', 'performance',
                    'stealth', 'survival'],
         'knowledges': ['computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'mythlore', 'occult', 'politics',
                        'science'],
-        'backgrounds': ['chimera', 'contacts', 'dreamers', 'gremayre', 'holdings', 'mentor', 'resources', 'retinue'
+        'backgrounds': ['chimera', 'contacts', 'dreamers', 'gremayre', 'holdings', 'mentor', 'resources', 'retinue',
                         'title', 'treasures']
     },
     'fomori': {
@@ -56,7 +56,7 @@ STATS_NAMES = {
                        'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
-        'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
+        'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
         'knowledges': ['bureaucracy', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
@@ -69,7 +69,7 @@ STATS_NAMES = {
                        'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'primal-urge',
                     'streetwise', 'subterfuge'],
-        'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
+        'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
         'knowledges': ['computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'occult', 'politics',
                        'rituals', 'science'],
@@ -81,7 +81,7 @@ STATS_NAMES = {
                        'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
-        'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
+        'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
         'knowledges': ['academics', 'computer', 'finance', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
@@ -93,7 +93,7 @@ STATS_NAMES = {
                        'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'leadership',
                     'streetwise', 'subterfuge'],
-        'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'melee', 'performance', 'security',
+        'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'melee', 'performance', 'security',
                    'stealth', 'survival'],
         'knowledges': ['academics', 'computer', 'finance', 'investigation', 'law', 'linguistics', 'medicine', 'occult',
                        'politics',
@@ -106,7 +106,7 @@ STATS_NAMES = {
                        'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
-        'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
+        'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
         'knowledges': ['academics', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
@@ -130,7 +130,7 @@ STATS_NAMES = {
                        'intelligence', 'wits'],
         'talents': ['alertness', 'athletics', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation', 'intuition',
                     'streetwise', 'subterfuge'],
-        'skills': ['animal ken', 'craft', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
+        'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'melee', 'performance',
                    'stealth', 'survival'],
         'knowledges': ['academics', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
                        'occult', 'politics', 'science'],
@@ -144,8 +144,8 @@ STATS_NAMES = {
                     'streetwise', 'subterfuge'],
         'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'meditation',  'melee', 'performance',
                    'repair', 'stealth'],
-        'knowledges': ['bureaucracy','computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'occult', 'politics',
-                       'science'],
+        'knowledges': ['bureaucracy', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'occult',
+                       'politics', 'science'],
         'backgrounds': ['allies', 'artifact', 'contacts', 'eidolon', 'haunt', 'mentor', 'memoriam', 'notoriety',
                         'status', 'wealth']
     },
@@ -155,15 +155,18 @@ STATS_TEMPLATES = {
     'changeling': {
         'attributes': '7/5/3',
         'abilities': '13/9/5',
-        'arts': '3',
+        'traits': '3',
         'realms': '5',
+        'glamour': '4',
+        'willpower': '4',
+        'banality': '3',
         'backgrounds': '5',
         'freebies': '15'
     },
     'fomori': {
         'attributes': '6/4/3',
         'abilities': '11/7/5',
-        'disciplines': '1',
+        'traits': '1',
         'backgrounds': '7',
         'willpower': '3',
         'freebies': '21'
@@ -171,14 +174,14 @@ STATS_TEMPLATES = {
     'garou': {
         'attributes': '7/5/3',
         'abilities': '13/9/5',
-        'gifts': '5',
+        'traits': '3',
         'backgrounds': '5',
         'freebies': '15'
     },
     'mage': {
         'attributes': '7/5/3',
         'abilities': '13/9/5',
-        'gifts': '5',
+        'traits': '5',
         'backgrounds': '5',
         'freebies': '15'
     },
@@ -306,6 +309,9 @@ GM_SHORTCUTS = {
     'kinfolk': [],
     'ghoul': [],
     'fomori': [],
+    'mage': [],
+    'changeling': [],
+    'wraith': [],
 }
 
 bloodpool = {

@@ -101,8 +101,12 @@ def as_discipline2(stack, x_field=''):
 @register.filter(name='as_stat_name')
 def as_stat_name(stack, x_field=''):
     x_creature, x_id = stack
-    value = STATS_NAMES[str(x_creature)][x_field + 's'][int(x_id)]
-    return value.title()
+    try:
+        value = STATS_NAMES[str(x_creature)][x_field + 's'][int(x_id)]
+        return value.title()
+    except:
+        print(x_creature, x_id, x_field)
+        return "ERROR"
 
 
 @register.filter(name='as_editable_updown')
@@ -166,4 +170,10 @@ def as_tribe_plural(value):
 def to_tribe_logo(val):
     logo_str = '_'.join(val.lower().split(' '))
     res = f'<img src="/static/collector/tribes/{logo_str}.webp"> '
+    return res
+
+@register.filter(name='to_tradition_logo')
+def to_tradition_logo(val):
+    logo_str = '_'.join(val.lower().split(' '))
+    res = f'<img src="/static/collector/traditions/{logo_str}.webp"> '
     return res

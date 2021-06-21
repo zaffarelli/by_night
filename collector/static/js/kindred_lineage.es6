@@ -100,12 +100,12 @@ class KindredLineage {
     init() {
         let me = this;
         me.root = me.data[0];
-        me.boxWidth = 160;
-        me.boxHeight = 50;
-        me.width = parseInt($(me.parent).css("width"),10);
+        me.boxWidth = 150;
+        me.boxHeight = 30;
+        me.width = parseInt($(me.parent).css("width"));
         me.height = me.width*0.58;
-        me.w = me.width*1.5;
-        me.h = me.height*1.5;
+        me.w = me.width*1;
+        me.h = me.height*1;
         me.i = 0;
         me.x = d3.scale.linear().domain([0, me.w]).range([0, me.width]);
         me.y = d3.scale.linear().domain([0, me.h]).range([0, me.height]);
@@ -116,7 +116,7 @@ class KindredLineage {
             .attr("height", me.height)
             .append("svg:g")
             .attr("transform", "translate(0,0)")
-            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([2, 8]).on("zoom", function(e){
+            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([1, 1]).on("zoom", function(e){
                 console.log("zoom");
                 let nodes = me.vis.selectAll("g.node");
                 nodes.attr("transform", function(d){
@@ -129,7 +129,7 @@ class KindredLineage {
                     let sourceY = me.y(d.target.parent.y);
                     let targetX = me.x(d.target.x);
                     let targetY = me.y(d.target.y);
-                    let halfY = sourceY + (targetY - sourceY) / 2
+                    let halfY = sourceY + (targetY - sourceY) /2
                     result = "M" + sourceX + "," + sourceY + " C" + sourceX + "," + halfY + " " + targetX + "," + halfY + " " + targetX + "," + targetY;
                     return result;
                 });
@@ -161,8 +161,10 @@ class KindredLineage {
         me.duration = d3.event && d3.event.altKey ? 5000 : 500;
         me.nodes = me.tree.nodes(me.root).reverse();
         let i = 0;
+        let rootNode = me.nodes[me.nodes.length-1]
         me.nodes.forEach(function(d) {
-            d.y = d.depth * me.boxHeight * 1;
+            d.y = d.depth * me.boxHeight * 8;
+            d.x = 8 * (d.x - rootNode.x)
         });
 
 
@@ -242,6 +244,7 @@ class KindredLineage {
                     toggleSimple(d);
                 } else {
                     toggle(d);
+
                 }
                 me.update(d);
 
@@ -249,7 +252,7 @@ class KindredLineage {
         // TEXT
         me.nodeEnter.append("text")
             .attr('class', function(d) {
-                let c = 'name';
+                let c = 'kindred_name';
                 if (d.ghost) c += ' ghost';
                 return c;
             })
@@ -282,7 +285,7 @@ class KindredLineage {
                             $('.details').html(answer)
                             $('li').removeClass('selected');
                             $('.details').removeClass('hidden');
-                            co.rebootlinks();
+                            me.co.rebootLinks();
                         },
                         error: function(answer) {
                             console.log('View error...' + answer);

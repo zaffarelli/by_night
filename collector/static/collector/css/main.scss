@@ -1,51 +1,6 @@
 @import 'basics';
 
-@mixin body_background {
-  background: transparent url('../colorful-grunge-texture-10.jpg') fixed; // 100% 100% no-repeat fixed;
-}
-
-
-@mixin kinfolk_taint {
-  background: repeating-linear-gradient(90deg, $wyld_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
-}
-
-@mixin mortal_taint {
-  background: repeating-linear-gradient(90deg, $weaver_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
-}
-
-
-@mixin fomori_taint {
-  background: repeating-linear-gradient(90deg, $wyrm_fill, $mortal_fill 25%, $mortal_counter_fill 100%);
-}
-
-@mixin ghoul_taint {
-  background: repeating-linear-gradient(90deg, $camarilla_fill, $mortal_fill 25%, $wyrm_counter_fill 100%);
-}
-
-
-@mixin pentex_taint {
-  background: repeating-linear-gradient(90deg, $wyrm_fill, $garou_fill 25%, $wyrm_counter_fill 100%);
-}
-
-@mixin gaia_taint {
-  background: repeating-linear-gradient(90deg, $wyld_fill, $garou_fill 25%, $wyld_counter_fill 100%);
-}
-
-@mixin sabbat_taint {
-  background: repeating-linear-gradient(90deg, $sabbat_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
-}
-
-@mixin camarilla_taint {
-  background: repeating-linear-gradient(90deg, $camarilla_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
-}
-
-@mixin inconnu_taint {
-  background: repeating-linear-gradient(90deg, $inconnu_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
-}
-
-@mixin anarchs_taint {
-  background: repeating-linear-gradient(90deg, $anarchs_fill, $kindred_fill 25%, $wyrm_counter_fill 100%);
-}
+$dead_background: #321;
 
 
 body {
@@ -54,12 +9,6 @@ body {
   color: $body_color;
   min-height: 98%;
 }
-
-
-//body .wrapper .charlist {
-//
-//
-//}
 
 
 .subsection {
@@ -140,11 +89,12 @@ body {
       padding: 3px;
       margin: 1px 3px 1px 3px;
       height: 18px;
-      background:#C0C0C0;
-      color:black;
+      background: #C0C0C0;
+      color: black;
     }
-    & #text_edit{
-      height:54px;
+
+    & #text_edit {
+      height: 54px;
     }
   }
   .wrapper {
@@ -169,7 +119,7 @@ body {
     & .details {
       background: transparent;
       width: auto;
-      right: 0px;
+      right: 10px;
       left: auto;
       top: auto;
       bottom: 0px;
@@ -190,6 +140,7 @@ body {
 
 .charlist {
   @include panel;
+
   & .pagination {
     text-align: center;
     margin-top: 1em;
@@ -214,11 +165,12 @@ body {
   & .avatar_link {
     @include panel;
 
-    margin:2px;
+    margin: 2px;
 
     padding: 2px;
     border-radius: 0 0 5px 0;
-    border-color: darken($panel_border,30%);
+    border-color: darken($panel_border, 30%);
+
     & a {
       text-decoration: none;
     }
@@ -273,19 +225,19 @@ body {
   border-radius: 8px;
   background: transparent;
 
-  &.navigator {
-    background: #101010;
-    color: #D0D0D0;
-    text-align: center;
-    font-family: TexteLibre;
-    font-size: 16px;
-  }
+  //&.navigator {
+  //  background: #101010;
+  //  color: #D0D0D0;
+  //  text-align: center;
+  //  font-family: TexteLibre;
+  //  font-size: 16px;
+  //}
 
-  & a {
-    &:visited, &:link, &:hover, &:active {
-      color: black;
-    }
-  }
+  //& a {
+  //  &:visited, &:link, &:hover, &:active {
+  //    color: black;
+  //  }
+  //}
 
   & strong {
     font-family: Titre;
@@ -298,9 +250,9 @@ body {
     font-family: Texte;
     color: black;
     background: #303030;
-    border: 1px solid $plate_color;
+    border: 1px solid transparent;
     border-radius: 10px 0 0 0;
-    box-shadow: -2px -2px 8px $plate_shadow;
+    box-shadow: -2px -2px 8px $panel_shadow;
     margin: auto;
 
     & tr {
@@ -308,16 +260,7 @@ body {
       margin: 0;
 
       & th {
-        background: $plate;
-        color: #fff;
-        font-size: 9pt;
-        font-family: TexteLibre;
-        font-weight: normal;
-        margin: 0;
-        border: none;
-        width: 110px;
-        border: 2px solid transparent;
-        padding: 1px;
+        padding: 5px;
 
         &[colspan='5'] {
           background: $very_dark_plate;
@@ -331,6 +274,8 @@ body {
           background: $very_dark_plate;
           overflow: hidden;
           padding: 0;
+          height: 50px;
+          overflow-y: hidden;
 
           & img {
             width: 80px;
@@ -341,10 +286,34 @@ body {
         &.back {
           background: $very_dark_plate;
         }
+
+        //@include panel;
+        background: $panel_background;
+        color: $panel_color;
+        font-size: 8pt;
+        font-family: TexteLibre;
+        font-weight: normal;
+        margin: 0;
+        border: none;
+        width: 110px;
+        border: 1px solid $very_dark_plate;
+        padding: 1px;
+
+        height: auto;
+        padding: 0;
+
+        &.tainted {
+          border-color: transparent;
+        }
+
+      }
+
+      &:first-child th {
+        border-radius: 3px 6px 0 0;
       }
 
       &:last-child th {
-        border-radius: 0 0 6px 6px;
+        border-radius: 0 0 3px 6px;
       }
 
       & td {
@@ -355,15 +324,16 @@ body {
         padding: 1px;
         width: 110px;
         background: transparent;
-        border: 2px solid transparent;
-        color: #E0E0E0;
+        border: 1px solid transparent;
+        color: $panel_color;
+        text-align: center;
 
         &[colspan='2'], &[colspan='8'] {
           border-radius: 5px;
-          background: #101010;
-          color: #E0E0E0;
+          background: $panel_shadow;
+          color: $panel_color;
           text-align: center;
-          font-family: Titre;
+          font-family: "Marcellus SC";
           font-size: 12pt;
         }
 
@@ -392,14 +362,20 @@ body {
 
 }
 
+
+table {
+  & tr.tainted {
+    & th.tainted {
+      border: none;
+      background: transparent;
+    }
+  }
+}
+
 .mortal {
   & table {
     & tr.tainted {
       @include mortal_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
     }
   }
 }
@@ -408,35 +384,47 @@ body {
   & table {
     & tr.tainted {
       @include fomori_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
     }
   }
 }
-
 
 .Camarilla.kindred {
   & table {
     & tr.tainted {
       @include camarilla_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
     }
   }
 }
+
+.changeling {
+  & table {
+    & tr.tainted {
+      @include changeling_taint;
+    }
+  }
+}
+
+.wraith {
+  & table {
+    & tr.tainted {
+      @include wraith_taint;
+    }
+  }
+}
+
+.mage {
+  & table {
+    & tr.tainted {
+      @include mage_taint;
+    }
+  }
+}
+
 
 .Sabbat.kindred {
   & table {
     & tr.tainted {
       @include sabbat_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
     }
   }
 }
@@ -446,10 +434,6 @@ body {
   & table {
     & tr.tainted {
       @include ghoul_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
     }
   }
 }
@@ -457,11 +441,7 @@ body {
 .garou {
   & table {
     & tr.tainted {
-      @include gaia_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
+      @include garou_taint;
     }
   }
 }
@@ -470,10 +450,6 @@ body {
   & table {
     & tr.tainted {
       @include kinfolk_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
     }
   }
 }
@@ -482,10 +458,6 @@ body {
   & table {
     & tr.tainted {
       @include pentex_taint;
-
-      & th.tainted {
-        background: transparent;
-      }
     }
   }
 }
@@ -596,32 +568,18 @@ svg {
   //     height: auto;
   //     width: 100%;
 
-  rect {
+  & rect {
     &.overlay {
       cursor: move;
       stroke-width: 0px;
       stroke: #701070;
-      fill: transparent; //#C0C0C0;
+      fill: #C0C0C0;
       opacity: 0.25;
     }
 
     &.band {
-      fill: #AAA;
-      stroke: #505050;
-      stroke-width: 0;
-
-      &.ghost {
-        opacity: $ghost_opacity;
-      }
-
-      &.dead {
-        fill: #A09090;
-      }
-    }
-
-    &.frame {
-      fill: transparent;
-      stroke: #888;
+      fill: #333;
+      stroke: #666;
       stroke-width: 1pt;
 
       &.ghost {
@@ -629,35 +587,49 @@ svg {
       }
 
       &.dead {
-        stroke: #A09090;
-        stroke-width: 3pt;
+        fill: $dead_background;
+      }
+    }
+
+    &.frame {
+      fill: transparent;
+      stroke: #CCC;
+      stroke-width: 1pt;
+
+      &.ghost {
+        opacity: $ghost_opacity;
+      }
+
+      &.dead {
+        stroke: $dead_background;
+
       }
 
     }
 
     &.plate {
-      fill: $dark_plate;
+      fill: transparent;
       stroke: #888;
       stroke-width: 0.5px;
 
       &.Sabbat {
-        fill: #401010;
+        fill: #211;
       }
 
       &.Camarilla {
-        fill: #104010;
+        fill: #121;
       }
 
       &.Anarchs {
-        fill: #101040;
+        fill: #112;
       }
 
       &.Inconnu {
-        fill: #401020;
+        fill: #212;
       }
 
       &.dead {
-        //fill: #433;
+        fill: $dead_background;
       }
     }
 
@@ -676,7 +648,7 @@ svg {
 
   & .link {
     fill: none;
-    stroke: #FEB;
+    stroke: #BBB;
     stroke-width: 6px;
     opacity: 0.5;
 
@@ -703,7 +675,7 @@ svg {
 
   & .property {
     font-family: "TexteLibre";
-    font-size: 0.8em;
+    font-size: 9pt;
     stroke: #888;
     fill: #fff;
     stroke-width: 0.6px;
@@ -732,7 +704,7 @@ svg {
   & strong {
     font-variant: small-caps;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.6em;
   }
 
   @include panel;
@@ -740,30 +712,33 @@ svg {
 
 
 svg .node_circle {
-  fill: #AAA;
-  stroke: #A22;
+  fill: $panel_color;
+  stroke: $focus_color;
   stroke-width: 3pt;
 
   &.wyld {
     fill: $wyld_fill;
-    fill: #B74;
 
     &.kinfolk {
-      fill: #DA7;
+      fill: $garou_fill;
+    }
+
+    &.kinfolk {
+      fill: $kinfolk_fill;
     }
   }
 
   &.wyrm {
-    fill: $wyrm_fill;
+    fill: $camarilla_fill;
   }
 
   &.weaver {
-    fill: $weaver_fill;
+    fill: $mortal_fill;
   }
 
   &.balanced {
-    stroke-width: 2pt;
-    stroke: #333;
+    stroke-width: 1pt;
+    stroke: $panel_color;
   }
 }
 
@@ -812,4 +787,51 @@ div.creature_links {
     }
   }
 
+}
+
+
+.avatar_link {
+  &.ghoul {
+    background: $ghoul_fill;
+  }
+
+  &.kinfolk {
+    background: $kinfolk_fill;
+  }
+
+  &.kindred {
+    background: $kindred_fill;
+  }
+
+  &.garou {
+    background: $garou_fill;
+  }
+
+  &.mage {
+    background: $mage_fill;
+  }
+
+  &.wraith {
+    background: $wraith_fill;
+  }
+
+  &.changeling {
+    background: $changeling_fill;
+  }
+}
+
+
+.creature_img {
+  filter: invert(90%);
+  box-shadow: 2px 2px 5px #111;
+}
+
+
+text.kindred_name {
+  & tspan {
+    font-family: "Marcellus SC";
+    font-size: 9pt;
+    fill:#EEE;
+    stroke:#CCC;
+  }
 }

@@ -7,6 +7,9 @@
             {{c.family|as_tribe_plural|to_tribe_logo|safe}}
         {% elif c.creature == "kindred" %}
             {{c.family|to_logo|safe}}
+        {% elif c.creature == "mage" %}
+            {{c.family|to_tradition_logo|safe}}
+
         {% elif c.creature == "kinfolk" %}
             {{"kinfolk"|to_logo|safe}}
         {% else %}

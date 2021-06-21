@@ -226,7 +226,7 @@ class GaiaWheel {
             .attr("y2",function(d){
                 return d.y2;
             })
-            .style('stroke','#222')
+            .style('stroke','#AAA')
             .style('stroke-width','1pt')
             .style('stroke-dasharray','7 3')
             .style('fill','transparent')
@@ -303,11 +303,18 @@ class GaiaWheel {
         node_cross.append('path')
             .attr("transform","rotate("+(-me.global_rotation)+")")
             .attr("d",function(d){
-                return "M 0 10 v -20 M 10 0 h -20 "
+                let s = 8;
+                return "M 0 "+s+" v -"+(s*2)+" M "+s+" 0 h -"+(s*2)+" "
             })
             .style("fill",'transparent')
-            .style("stroke",'#000')
-            .style("stroke-width",'1pt')
+            .style("stroke",function(d){
+                let x = (d.condition=="DEAD" ? "#A22":(d.condition=="MISSING" ? "#FC4":"#111"))
+                return x;
+            })
+            .style("stroke-width",function(d){
+                let x = (d.condition=="DEAD" ? "7pt":(d.condition=="MISSING" ? "7pt":"1pt"))
+                return x;
+            })
             ;
         node_cross.append('text')
             .attr("transform","rotate("+(-me.global_rotation)+")")
@@ -315,7 +322,7 @@ class GaiaWheel {
             .style("text-anchor",'middle')
             .style("font-family",'Lato')
             .style("font-size",'8pt')
-            .style("fill",'#111')
+            .style("fill",'#CCC')
             .style("stroke",'#888')
             .style("stroke-width",'0.5pt')
             .text(function(d){
@@ -324,7 +331,8 @@ class GaiaWheel {
                 words.forEach(function(word,k){
                     name += word[0];
                 })
-                return name;//+" ("+d.order+" / "+(Math.round(d.angular*100)/100)+")";
+                let x = (d.condition=="DEAD" ? "(D)":(d.condition=="MISSING" ? "(M)":""))
+                return name + x;//+" ("+d.order+" / "+(Math.round(d.angular*100)/100)+")";
             })
             ;
         node_cross.append("circle")

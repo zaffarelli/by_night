@@ -1,6 +1,7 @@
 # exec(open('scripts/wawwod_tools.py').read())
 from collector.models.creatures import Creature
 from collector.utils.wod_reference import ARCHETYPES
+import xmltodict
 import random
 
 
@@ -11,6 +12,7 @@ class ToolsForWawwod:
         print('    2 - Check lineage strength. (kindreds)')
         print('    3 - Randomize nature and demeanor when empty. (all)')
         print('    4 - Retrieve ghouls and childers (kindred)')
+        print('    5 - XML rescue (kindred)')
         print('    0 - Quit')
         topic = ''
         while topic != '0':
@@ -23,6 +25,8 @@ class ToolsForWawwod:
                 self.randomize_archetypes()
             elif topic == '4':
                 self.retrieve_ghouls_and_childers()
+            elif topic == '5':
+                self.xml_rescue()
 
     def fmt(self, txt):
         new_txt = "\033[1;39m".join(txt.split('µ'))
@@ -105,8 +109,39 @@ class ToolsForWawwod:
         for c in childers:
             print(f'--> {self.fmt(c.name)} [{c.rid}]')
 
+    def xml_rescue(self):
+        # import xml.dom.minidom
+        # import xml.etree.ElementTree as ET
+        # mytree = ET.parse('scripts/creatures.xml')
+        # myroot = mytree.getroot()
+        # for x in myroot[0]:
+        #     for f in x:
+        #         pk = f.find('rid').text
+        #         print(pk)
 
-
-
+        with open('scripts/creatures.xml') as fd:
+            doc = xmltodict.parse(fd.read())
+        for creature in doc['django-objects']['object']:
+            print(creature['@pk'])
+            c = Creature.objects.get(rid=creature['@pk'])
+            print(c)
+            for field in creature['field']:
+                if field['@name'] == 'age':
+                    c.age = int(field['#text'])
+                    print(field['@name'], field['#text'])
+                if field['@name'] == 'creature':
+                    c.creature = field['#text']
+                    print(field['@name'], field['#text'])
+                if field['@name'] == 'trueage':
+                    c.trueage = int(field['#text'])
+                    print(field['@name'], field['#text'])
+                if field['@name'] == 'embrace':
+                    c.embrace = int(field['#text'])
+                    print(field['@name'], field['#text'])
+                if field['@name'] == 'torpor':
+                    c.torpor = int(field['#text'])
+                    print(field['@name'], field['#text'])
+                c.need_fix = True
+                c.save()
 
 ToolsForWawwod()

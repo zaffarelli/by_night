@@ -41,52 +41,38 @@ def change_chronicle(request, slug=None):
         context = prepare_index(request)
         return render(request, 'collector/index.html', context=context)
 
-def get_list(request, pid, slug):
+
+def get_list(request, pid=1, slug=None):
+    print(slug)
+    print(chronicle.acronym)
     if request.is_ajax:
-        if slug == 'sabbat':
-            creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)\
-                .filter(faction='Sabbat', creature='kindred')
-        elif slug == 'players':
-            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(player='')
-        elif slug == 'camarilla':
-            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)\
-                .filter(faction='Camarilla',creature='kindred')
-        elif slug == 'vtm':
-            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)\
-                .filter(creature__in=['ghoul'])
-        elif slug == 'wta':
-            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)\
-                .filter(creature__in=['garou','kinfolk'])
-        elif slug == 'mortals':
-            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)\
-                .filter(creature__in=['mortal','ghoul','kinfolk','fomori'])
-        elif slug == 'garou':
-            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)\
-                .filter(creature__in=['garou'])
-        elif slug == 'pentex':
-            creature_items = Creature.objects.filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)\
-                .filter(faction='Pentex',creature__in=['garou','kinfolk','fomori'])
+        if 'vtm' == slug:
+            print('vampires')
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, creature__in=['ghoul', 'kindred'])\
+                .order_by('name')
+        elif 'mta' == slug:
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, creature__in=['mage'])\
+                .order_by('name')
+        elif 'wta' == slug:
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, creature__in=['garou', 'kinfolk'])\
+                .order_by('name')
+        elif 'ctd' == slug:
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, creature__in=['changeling'])\
+                .order_by('name')
+        elif 'wto' == slug:
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, creature__in=['wraith'])\
+                .order_by('name')
+        elif 'mor' == slug:
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, creature__in=['mortal'])\
+                .order_by('name')
+        elif 'new' == slug:
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, is_new=True).order_by('name')
+        elif 'pen' == slug:
+            creature_items = Creature.objects.filter(chronicle=chronicle.acronym, faction='Pentex',
+                                                     creature__in=['garou', 'kinfolk', 'fomori']).order_by('name')
         else:
-            creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym)\
-                .order_by('name')\
-                .exclude(ghost=True)
-        paginator = Paginator(creature_items, 20)
+            creature_items = Creature.objects.all().filter(chronicle=chronicle.acronym).order_by('name')
+        paginator = Paginator(creature_items, 25)
         creature_items = paginator.get_page(pid)
         list_context = {'creature_items': creature_items}
         list_template = get_template('collector/list.html')
@@ -94,6 +80,7 @@ def get_list(request, pid, slug):
         answer = {
             'list': list_html,
         }
+        print(answer)
         return JsonResponse(answer)
     else:
         return HttpResponse(status=204)
