@@ -14,5 +14,5 @@ def toRID(txt):
         .replace('è', 'e').replace('ë', 'e').replace('â', 'a') \
         .replace('ô', 'o').replace('"', '').replace('ï', 'i') \
         .replace('à', 'a').replace('-', '').replace('ö', 'oe') \
-        .replace('ä', 'ae').replace('ü', 'ue').replace('ß', 'ss')
+        .replace('ä', 'ae').replace('ü', 'ue').replace('ß', 'ss').replace('ç', 'c')
     return x.lower()

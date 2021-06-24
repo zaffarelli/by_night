@@ -166,6 +166,18 @@ def as_tribe_plural(value):
     return plural
 
 
+@register.filter(name='from_rid')
+def from_rid(value):
+    from collector.models.creatures import Creature
+    name =  f'Not found: ({value})'
+    if value != '':
+        sire = Creature.objects.filter(rid=value)
+        if len(sire) == 1:
+            name = sire.first().name
+    return name
+
+
+
 @register.filter(name='to_tribe_logo')
 def to_tribe_logo(val):
     logo_str = '_'.join(val.lower().split(' '))

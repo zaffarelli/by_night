@@ -59,7 +59,7 @@
         <th></th>
         <td></td>
         {% endif %}
-        {% if c.creature == 'kindred' %}
+        {% if c.creature == 'kindred' or c.creature == 'ghoul' %}
             <th>Sire</th>
             <td class='editable userinput' id='{{c.rid}}__sire'>{{ c.sire }}</td>
         {% elif c.creature == 'garou' %}

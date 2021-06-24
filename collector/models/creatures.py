@@ -902,6 +902,30 @@ class Creature(models.Model):
         else:
             self.status = 'OK+'
 
+    @property
+    def toDict(self):
+        d = {
+            'name': self.name,
+            'player': self.player,
+            'creature': self.creature,
+            'family': self.family,
+            'faction': self.faction,
+            'group': self.group,
+            'groupspec': self.groupspec,
+            'display_gauge': self.display_gauge,
+            'display_pole': self.display_pole,
+            'freebies': self.freebies,
+            'auspice': self.auspice,
+            'breed': self.breed,
+            'rank': self.rank,
+            'condition': self.condition,
+            'rid': self.rid,
+            'position':self.position,
+            'status': self.status,
+            'generation': self.generation,
+            'ghouls': ",".join(self.retainers)
+        }
+        return d
 
     def json_str(self):
         sire = ''
@@ -920,7 +944,8 @@ class Creature(models.Model):
             'ghost': self.ghost,
             'faction': self.faction,
             'rid': self.rid,
-            'children': []
+            'children': [],
+            'ghouls': ",".join(self.retainers)
         }
         return d
 
@@ -941,9 +966,22 @@ class Creature(models.Model):
         return lineage
 
     @property
+    def retainers(self):
+        list = []
+        if self.creature == 'kindred':
+            ghouls = Creature.objects.filter(sire=self.rid, creature='ghoul')
+            cnt = self.value_of('retainers')
+            for g in ghouls:
+                list.append(g.name)
+            if len(ghouls) < cnt:
+                for x in range(cnt - len(ghouls)):
+                    list.append(f'Unknown {x}')
+        return list
+
+    @property
     def generation(self):
         if self.creature == 'kindred':
-            return 13 - self.background3
+            return 13 - self.value_of('generation')
         else:
             return 0
 
@@ -1041,7 +1079,7 @@ def randomize_backgrounds(modeladmin, request, queryset):
 
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
-        'name', 'rid', 'sire', 'player', 'total_backgrounds', 'total_physical', 'total_social', 'total_mental', 'total_talents', 'total_skills', 'total_knowledges', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
+        'name', 'rid', 'sire', 'player','retainers', 'total_backgrounds', 'total_physical', 'total_social', 'total_mental', 'total_talents', 'total_skills', 'total_knowledges', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
         'faction',
         'status', 'embrace', 'condition']
     ordering = ['name', 'group', 'creature']

@@ -143,7 +143,8 @@ def check_caine_roots():
 
 def blank_str(name, gen, sire, clan=''):
     root_family = clan.replace(' Antitribu', '')
-    return {'name': name, 'clan': clan, 'family': root_family, 'sire': sire, 'condition': 'OK', 'status': 'OK', 'generation': gen,
+    return {'name': name, 'clan': clan, 'family': root_family, 'sire': sire, 'condition': 'OK', 'status': 'OK',
+            'generation': gen,
             'ghost': True, 'mythic': False, 'faction': '', 'children': []}
 
 
@@ -205,17 +206,19 @@ def build_per_primogen(param=None):
     chronicle = get_current_chronicle()
     cainites = create_mythics()
     if param is None:
-        kindreds = Creature.objects.filter(creature='kindred', ghost=False, mythic=False, chronicle=chronicle.acronym).order_by('family')
+        kindreds = Creature.objects.filter(creature='kindred', ghost=False, mythic=False,
+                                           chronicle=chronicle.acronym).order_by('family')
     else:
-        kindreds = Creature.objects.filter(creature='kindred', faction=param, ghost=False, mythic=False, chronicle=chronicle.acronym).order_by('family')
+        kindreds = Creature.objects.filter(creature='kindred', faction=param, ghost=False, mythic=False,
+                                           chronicle=chronicle.acronym).order_by('family')
     # Improvise empty sires
     for kindred in kindreds:
         gen = 13 - kindred.background3
         # k = kindred.toJSON()
         k = kindred.json_str()
-        print(k)
+        print(k['ghouls'])
         if kindred.sire == '':
-            k['sire'] = f'temporary_{improvise_id()}_{gen-1}_{k["name"]}_{k["family"]}'
+            k['sire'] = f'temporary_{improvise_id()}_{gen - 1}_{k["name"]}_{k["family"]}'
         else:
             k['sire'] = kindred.sire
         cainites[f'{gen}'].append(k)
@@ -226,7 +229,7 @@ def build_per_primogen(param=None):
             if gen > 1:
                 if k['sire'].startswith('temporary_'):
                     sire = None
-                    for item in cainites[f'{gen-1}']:
+                    for item in cainites[f'{gen - 1}']:
                         if item.get('sire') == k['sire']:
                             sire = item
                     if sire is None:
@@ -234,30 +237,30 @@ def build_per_primogen(param=None):
                         sire = blank_str(words[1], words[2], "TBD", words[4])
                         sire['children'].append(k)
                         k['sire'] = sire['name']
-                        cainites[f'{gen-1}'].append(sire)
+                        cainites[f'{gen - 1}'].append(sire)
                 else:
                     if k["sire"] == "TBD":
                         # We need here to find a matchingsire according to clan
                         found = None
-                        for s in cainites[f'{gen-1}']:
+                        for s in cainites[f'{gen - 1}']:
                             if s["family"] == k["family"]:
                                 k["sire"] = s["name"]
                                 s["children"].append(k)
                                 found = s
                                 break
                         if found is None:
-                            sire = blank_str(improvise_id(), gen-1, "TBD", k['clan'])
+                            sire = blank_str(improvise_id(), gen - 1, "TBD", k['clan'])
                             sire['children'].append(k)
                             k['sire'] = sire['name']
                             cainites[f'{gen - 1}'].append(sire)
                     else:
                         sire = None
-                        for item in cainites[f'{gen-1}']:
+                        for item in cainites[f'{gen - 1}']:
                             if item['name'] == k["sire"]:
                                 sire = item
                                 sire['children'].append(k)
                         if sire is None:
-                            sire = blank_str(k['sire'], gen-1, "TBD", k['clan'])
+                            sire = blank_str(k['sire'], gen - 1, "TBD", k['clan'])
                             sire['children'].append(k)
                             k['sire'] = sire['name']
                             cainites[f'{gen - 1}'].append(sire)
@@ -282,7 +285,7 @@ def domitor_from_sire():
 
 def build_gaia_wheel():
     chronicle = get_current_chronicle()
-    creatures = Creature.objects.filter(chronicle=chronicle.acronym).exclude(mythic=True).exclude(ghost=True).exclude(condition='DEAD').order_by(
+    creatures = Creature.objects.filter(chronicle=chronicle.acronym).exclude(mythic=True).exclude(condition="DEAD").exclude(ghost=True).order_by(
         '-faction', 'display_pole')
     for creature in creatures:
         creature.need_fix = True
@@ -290,32 +293,43 @@ def build_gaia_wheel():
     wyrm_list = []
     weaver_list = []
     wyld_list = []
+    sabbat_list = []
+    pentex_list = []
+    traditions_list = []
+
     for c in creatures:
-        creature_dict = {
-            'name': c.name,
-            'player': c.player,
-            'creature': c.creature,
-            'family': c.family,
-            'group': c.group,
-            'groupspec': c.groupspec,
-            'display_gauge': c.display_gauge,
-            'display_pole': c.display_pole,
-            'freebies': c.freebies,
-            'auspice': c.auspice,
-            'breed': c.breed,
-            'rank': c.rank,
-            'condition': c.condition,
-            'rid': c.rid,
-            'position': c.position,
-            'status': c.status
-        }
-        if (c.faction == 'Camarilla') or (c.faction == 'Sabbat') or (c.faction == 'Independant') or (c.faction == 'Anarchs') or (
-                c.faction == 'Inconnu') or (c.faction == 'Pentex'):
+        creature_dict = c.toDict
+        if (c.faction == 'Camarilla')  or (c.faction == 'Independant') or (
+                c.faction == 'Anarchs') or (
+                c.faction == 'Inconnu') :
             wyrm_list.append(creature_dict)
+        elif (c.faction == 'Sabbat'):
+            sabbat_list.append(creature_dict)
+        elif (c.faction == 'Pentex'):
+            pentex_list.append(creature_dict)
         elif (c.faction == 'Gaia'):
             wyld_list.append(creature_dict)
+        elif (c.creature == 'mage'):
+            traditions_list.append(creature_dict)
+
         else:
             weaver_list.append(creature_dict)
-    d3js_data = {'weaver': weaver_list, 'wyrm': wyrm_list, 'wyld': wyld_list}
+    d3js_data = {
+        'lists': [
+            {'name': 'mortals', 'index': 0, 'color': '#28F', 'value': 2, 'start': 0, 'font': 'weaver',
+             'collection': weaver_list},
+            {'name': 'camarilla', 'index': 1, 'color': '#2A2', 'value': 3, 'start': 2, 'font': 'wyrm',
+             'collection': wyrm_list},
+            {'name': 'sabbat', 'index': 2, 'color': '#DE2', 'value': 1, 'start': 5, 'font': 'wyrm',
+             'collection': sabbat_list},
+            {'name': 'pentex', 'index': 3, 'color': '#25A', 'value': 1, 'start': 6, 'font': 'wyrm',
+             'collection': pentex_list},
+
+            {'name': 'garou', 'index': 4, 'color': '#A82', 'value': 4, 'start': 7, 'font': 'wyld',
+             'collection': wyld_list},
+            {'name': 'magick', 'index': 5, 'color': '#848', 'value': 1, 'start': 11, 'font': 'wyld',
+             'collection': traditions_list},
+        ]
+    }
     all = json.dumps(d3js_data, indent=4, sort_keys=False)
     return all

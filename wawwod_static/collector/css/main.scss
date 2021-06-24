@@ -707,14 +707,14 @@ svg {
     font-size: 1.6em;
   }
 
-  @include panel;
+
 }
 
 
 svg .node_circle {
   fill: $panel_color;
   stroke: $focus_color;
-  stroke-width: 3pt;
+  stroke-width: 1pt;
 
   &.wyld {
     fill: $wyld_fill;

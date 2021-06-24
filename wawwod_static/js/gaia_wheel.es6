@@ -259,6 +259,7 @@ class GaiaWheel {
                   let auspices = ['Ragabash','Theurge','Philodox','Galliard','Ahroun'];
                   let str = ''
                   str += "<strong>"+d.name+"</strong>";
+                  str += "<br/>"+d.creature+"";
                     if (d.creature == 'garou'){
                         str += "<br/><i>Rank "+d.rank;
                         str += " "+breeds[d.breed];

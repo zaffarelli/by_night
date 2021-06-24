@@ -164,7 +164,7 @@ class KindredLineage {
         let rootNode = me.nodes[me.nodes.length-1]
         me.nodes.forEach(function(d) {
             d.y = d.depth * me.boxHeight * 8;
-            d.x = 8 * (d.x - rootNode.x)
+            d.x = 6 * (d.x - rootNode.x)
         });
 
 

@@ -31,7 +31,7 @@
         {%endif%}
         {% if c.sire %}
             {% if c.creature == 'ghoul' %}
-            <br/>Ghoul of <em>{{ c.sire }}</em>
+            <br/>Ghoul of <em>{{ c.sire|from_rid }}</em>
             {% endif %}
         {%endif%}
         {% if c.patron %}

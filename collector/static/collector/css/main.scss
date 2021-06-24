@@ -690,8 +690,8 @@ svg {
   border: 1px solid black;
   border-radius: 5px;
   padding: 2px;
-  width: 120px;
-  height: 160px;
+  width: 160px;
+  height: 180px;
   pointer-events: none;
   font-family: "TexteLibre";
   font-size: 8pt;
@@ -707,34 +707,61 @@ svg {
     font-size: 1.6em;
   }
 
-  @include panel;
+  & ol {
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    text-align: left;
+
+    & li {
+    }
+  }
+
 }
 
 
 svg .node_circle {
   fill: $panel_color;
   stroke: $focus_color;
-  stroke-width: 3pt;
+  stroke-width: 1pt;
 
-  &.wyld {
-    fill: $wyld_fill;
 
-    &.kinfolk {
+    &.garou {
       fill: $garou_fill;
     }
 
     &.kinfolk {
       fill: $kinfolk_fill;
     }
-  }
 
-  &.wyrm {
-    fill: $camarilla_fill;
-  }
+    &.kindred {
+      fill: $kindred_fill;
+    }
 
-  &.weaver {
-    fill: $mortal_fill;
-  }
+
+    &.ghoul {
+      fill: $ghoul_fill;
+    }
+
+    &.fomori {
+      fill: $fomori_fill;
+    }
+
+     &.mage {
+      fill: $mage_fill;
+    }
+
+     &.changeling {
+      fill: $changeling_fill;
+    }
+
+     &.wraith {
+      fill: $wraith_fill;
+    }
+
+    &.mortal {
+      fill: $mortal_fill;
+    }
 
   &.balanced {
     stroke-width: 1pt;
@@ -831,7 +858,7 @@ text.kindred_name {
   & tspan {
     font-family: "Marcellus SC";
     font-size: 9pt;
-    fill:#EEE;
-    stroke:#CCC;
+    fill: #EEE;
+    stroke: #CCC;
   }
 }

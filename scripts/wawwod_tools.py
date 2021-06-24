@@ -100,10 +100,16 @@ class ToolsForWawwod:
         arid = input('  Sire/domitor full rid ? [marius_flavius_vespasianus] ')
         if arid == '':
             arid = 'marius_flavius_vespasianus'
-        ghouls = Creature.objects.filter(creature='ghoul',sire=arid)
+        domitor = Creature.objects.get(rid=arid)
+        r = domitor.value_of('retainers')
+        ghouls = Creature.objects.filter(creature='ghoul', sire=arid)
         print(f'Ghouls:')
+        print(f'Retainers : {r}')
         for g in ghouls:
             print(f'--> {self.fmt(g.name)} [{g.rid}]')
+            g.groupspec = domitor.groupspec
+            g.need_fix = True
+            g.save()
         childers = Creature.objects.filter(creature='kindred', sire=arid)
         print(f'Childers:')
         for c in childers:
