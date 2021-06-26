@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
 from collector.templatetags.wod_filters import as_bullets
-from collector.utils.kindred_stuff import build_per_primogen, build_gaia_wheel
+from collector.utils.data_collection import build_per_primogen, build_gaia_wheel
 from collector.utils.wod_reference import get_current_chronicle
 from collector.models.chronicles import Chronicle
 from collector.utils.wod_reference import STATS_NAMES

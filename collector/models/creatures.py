@@ -27,7 +27,8 @@ class Creature(models.Model):
         ordering = ['name']
 
     player = models.CharField(max_length=32, blank=True, default='')
-    name = models.CharField(max_length=128, default='')
+    name = models.CharField(max_length=128, default='', blank=True, null=True)
+    new_name = models.CharField(max_length=128, default='')
     rid = models.CharField(max_length=128, blank=True, default='')
     nickname = models.CharField(max_length=128, blank=True, default='')
     primogen = models.BooleanField(default=False)
@@ -589,8 +590,22 @@ class Creature(models.Model):
         self.expectedfreebies += self.extra
         self.summary = f'Freebies: {self.freebies}'
         self.calculate_freebies()
+        self.changeName()
         self.need_fix = False
-        self.is_new = False
+
+    def changeName(self):
+        if self.new_name != '':
+            all = Creature.objects.filter(sire=self.rid)
+            new_rid = toRID(self.new_name)
+            self.name = self.new_name
+            self.rid = new_rid
+            self.new_name = ''
+            for x in all:
+                x.sire = new_rid
+                x.need_fix = True
+                x.save()
+
+
 
     def val_as_dots(self, val):
         res = ''
@@ -944,6 +959,8 @@ class Creature(models.Model):
             'ghost': self.ghost,
             'faction': self.faction,
             'rid': self.rid,
+            'id': 0,
+            'key': self.id,
             'children': [],
             'ghouls': ",".join(self.retainers)
         }

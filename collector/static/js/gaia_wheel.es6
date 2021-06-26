@@ -15,24 +15,26 @@ class GaiaWheel {
     init() {
         let me = this;
         me.global_rotation = 0;
-        me.sector_size = 30;
+        me.sector_size = 15;
         me.sector_data = []
+        me.starts = []
         _.forEach(me.data, function (v, k) {
-            me.sector_data.push(v)
+            me.sector_data.push(v);
+            me.starts.push(v['start']*me.sector_size);
         });
         me.weaver = me.data[0]['collection'];
         me.wyrm = me.data[1]['collection'];
         me.wyld = me.data[2]['collection'];
 
-        me.boxWidth = 10;
+        me.boxWidth = 7;
         me.boxHeight = 4;
         let re = new RegExp("\d+");
         me.width = parseInt($(me.parent).css("width"));
         me.height = me.width;
         me.radius = 800;
         me.max_gauge = 25;
-        me.scales_stroke = "#989";
-        me.scales_stroke_special = "#656";
+        me.scales_stroke = "#999";
+        me.scales_stroke_special = "#666";
         me.base_dash = "2 10";
         me.radiused = d3.scaleLinear().domain([0, me.max_gauge]).range([me.radius, 200]);
         me.unradiused = d3.scaleLinear().domain([me.radius, 200]).range([0, me.max_gauge]);
@@ -59,31 +61,35 @@ class GaiaWheel {
         let radial_lines = me.svg.append("g")
             .attr("class", "radiuses")
             .selectAll("g")
-            .data(d3.range(0, 360, 10))
+            .data(d3.range(0, 360, 5))
         ;
         radial_lines.enter()
             .append("g")
             .attr("transform", function (d) {
-                return "translate(" + (me.width / 2) + "," + (me.height / 2) + ") rotate(" + (d) + ")";
+                return "translate(" + (me.width / 2) + "," + (me.height / 2) + ") rotate(" + (d-90) + ")";
             })
             .append("line")
             .style("stroke", function (d) {
-                let res = me.scales_stroke;
-                if ((d - me.global_rotation) % me.sector_size == 0) {
+                let res = "transparent";//me.scales_stroke;
+                console.log(me.starts)
+                if (me.starts.includes(d)) {
                     res = me.scales_stroke_special;
+                }
+                if (d ==0){
+                    res = "#a99";
                 }
                 return res;
             })
             .style("stroke-dasharray", function (d) {
                 let res = me.base_dash;
-                if ((d - me.global_rotation) % me.sector_size == 0) {
-                    res = "";
+                if (me.starts.includes(d)) {
+                    res = "20 5";
                 }
                 return res;
             })
             .style("stroke-width", function (d) {
                 let res = "0.25pt";
-                if ((d - me.global_rotation) % me.sector_size == 0) {
+                if (me.starts.includes(d)) {
                     res = "1pt";
                 }
                 return res;
@@ -156,7 +162,7 @@ class GaiaWheel {
         let poles = {}
         _.forEach(arr, function (d, idx) {
             d.order = idx;
-            d.angular = (((d.order + 1) * span / (total + 2)) + angle)  * me.sector_size -90 ;
+            d.angular = (((d.order + 1) * span / (total + 1)) + angle)  * me.sector_size -90 ;
             d.radial = me.radiused(d.display_gauge);
             d.x = Math.cos((d.angular) * Math.PI / 180) * d.radial;
             d.y = Math.sin((d.angular) * Math.PI / 180) * d.radial;
@@ -444,12 +450,11 @@ class GaiaWheel {
             .attr('font-size', "30pt")
             .attr('font-family',function(d){ return  d.data.font; })
             .style("fill", "#CCC")
-            .style("stroke", "#999")
+            .style("stroke", "#EEE")
             .text(function (d) {
-                console.log(d.data);
-                return d.data.name;
+                return d.data.name.charAt(0).toUpperCase() + d.data.name.slice(1);
             })
-            .attr("opacity", "0.10")
+            .attr("opacity", "0.3")
         ;
         let sector_out = sectors.exit();
         sector_out.remove();

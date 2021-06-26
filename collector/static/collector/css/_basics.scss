@@ -6,7 +6,8 @@ $panel_shadow: darken($panel_background, 50%);
 $panel_plank_background: darken($panel_background, 5%);
 $panel_shard_background: darken($panel_background, 15%);
 $panel_smooth_background: grayscale($panel_background);
-
+$dead_background: #FF4;
+$missing_background: #F4F;
 
 $st_color: #F0F0F0;
 $st_background: #305030;
@@ -23,7 +24,7 @@ $plate_shadow: #101010;
 $plate_selected: complement($panel_background);
 $dark_plate: darken($plate, 5%);
 $very_dark_plate: darken($dark_plate, 5%);
-$focus_color: #F781F7;
+$focus_color: #22C0F0;
 
 
 $list_width: 260px;
@@ -49,7 +50,7 @@ $camarilla_fill: #104010;
 $sabbat_fill: #401010;
 $inconnu_fill: #5d3636;
 $anarchs_fill: #252572;
-
+$independants_fill: #104c5e;
 
 @font-face {
   font-family: 'Titre';

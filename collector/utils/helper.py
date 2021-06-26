@@ -15,4 +15,4 @@ def toRID(txt):
         .replace('ô', 'o').replace('"', '').replace('ï', 'i') \
         .replace('à', 'a').replace('-', '').replace('ö', 'oe') \
         .replace('ä', 'ae').replace('ü', 'ue').replace('ß', 'ss').replace('ç', 'c')
-    return x.lower()
+    return f'_{x.lower()}'

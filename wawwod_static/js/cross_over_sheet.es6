@@ -87,8 +87,8 @@ class CrossOverSheet{
         me.logo_font = 'Trade Winds';
         //me.logo_font = 'Reggae One';
         me.base_font = 'Philosopher';
-        me.x = d3.scale.linear().domain([0, me.width]).range([0, me.width]);
-        me.y = d3.scale.linear().domain([0, me.height]).range([0, me.height]);
+        me.x = d3.scaleLinear().domain([0, me.width]).range([0, me.width]);
+        me.y = d3.scaleLinear().domain([0, me.height]).range([0, me.height]);
         me.pre_title = me.config['pre_title'];
         me.scenario = me.config['scenario'];
         me.post_title = me.config['post_title'];
@@ -136,9 +136,10 @@ class CrossOverSheet{
             .attr("height", me.height)
             .append("svg:g")
             .attr("transform", "translate(0,0)")
-            .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([2, 8]).on("zoom", function(e){
-                })
-            );
+            // .call(d3.behavior.zoom().x(me.x).y(me.y).scaleExtent([2, 8]).on("zoom", function(e){
+            //     })
+            // )
+        ;
         me.back = me.svg
             .append("g")
             .attr("class", "page")
@@ -639,10 +640,10 @@ class CrossOverSheet{
 
         me.title('Backgrounds ('+me.data['total_backgrounds']+')',ox+me.stepx*5,oy,me.character);
         if (me.data['creature']=='garou'){
-            me.title('Gifts ('+me.data['total_gifts']+')',ox+me.stepx*12,oy,me.character);
+            me.title('Gifts ('+me.data['total_traits']+')',ox+me.stepx*12,oy,me.character);
 
         }else if (me.data['creature']=='kindred') {
-            me.title('Disciplines ('+me.data['total_gifts']+')',ox+me.stepx*12,oy,me.character);
+            me.title('Disciplines ('+me.data['total_traits']+')',ox+me.stepx*12,oy,me.character);
             me.title('Virtues',ox+me.stepx*19,oy,me.character);
 
         }else{
@@ -660,14 +661,14 @@ class CrossOverSheet{
               me.reinHagenStat(me.config['labels'][stat+'s'][d],me.data[stat+d],x,y,stat,stat+d,me.character);
         });
 
-        stat = 'gift';
+        stat = 'trait';
         [0,1,2,3,4,5,6,7,8,9].forEach(function(d) {
               let x = ox+me.stepx*9;
               let y = oy + 0.5*me.stepy*(d);
               me.powerStat(me.data[stat+d],x,y,stat,stat+d,me.character);
         });
 
-        stat = 'level';
+        stat = 'virtue';
         let levels = [];
         if (me.data['creature']=='garou') {
             oy -= me.stepy*0.5;
@@ -675,7 +676,7 @@ class CrossOverSheet{
             [0,1,2].forEach(function(d) {
               let x = ox+me.stepx*19;
               let y = oy + 1.20*me.stepy*(d);
-              me.gaugeStat(levels[d],me.data[stat+d],x,y,me.character,true,true);
+              me.gaugeStat(levels[d],me.data[levels[d].toLowerCase()],x,y,me.character,true,true);
             });
         }else{
             levels = ['Conscience','Self-Control','Courage'];
@@ -829,15 +830,15 @@ class CrossOverSheet{
         me.gaugeStat('Willpower',me.data['willpower'],ox+me.stepx*12,oy,me.character,true);
         if (me.data['creature']=='garou'){
             oy += 1.7*me.stepy;
-            me.gaugeStat('Rage',me.data['power1'],ox+me.stepx*12,oy,me.character,true);
+            me.gaugeStat('Rage',me.data['rage'],ox+me.stepx*12,oy,me.character,true);
             oy += 1.5*me.stepy;
-            me.gaugeStat('Gnosis',me.data['power2'],ox+me.stepx*12,oy,me.character,true);
+            me.gaugeStat('Gnosis',me.data['gnosis'],ox+me.stepx*12,oy,me.character,true);
         }
         if (me.data['creature']=='kindred'){
             oy += 1.7*me.stepy;
-            me.gaugeStat('Humanity',me.data['power1'],ox+me.stepx*12,oy,me.character);
+            me.gaugeStat('Humanity',me.data['rage'],ox+me.stepx*12,oy,me.character);
             oy += 1.5*me.stepy;
-            me.gaugeStat('Blood Pool',me.data['power2'],ox+me.stepx*12,oy,me.character,true,true,20);
+            me.gaugeStat('Blood Pool',me.data['gnosis'],ox+me.stepx*12,oy,me.character,true,true,20);
 
         }
         oy = basey;

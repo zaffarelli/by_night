@@ -13,6 +13,7 @@ class ToolsForWawwod:
         print('    3 - Randomize nature and demeanor when empty. (all)')
         print('    4 - Retrieve ghouls and childers (kindred)')
         print('    5 - XML rescue (kindred)')
+        print('    6 - Sire as RID')
         print('    0 - Quit')
         topic = ''
         while topic != '0':
@@ -27,6 +28,8 @@ class ToolsForWawwod:
                 self.retrieve_ghouls_and_childers()
             elif topic == '5':
                 self.xml_rescue()
+            elif topic == '6':
+                self.sire_as_rid()
 
     def fmt(self, txt):
         new_txt = "\033[1;39m".join(txt.split('µ'))
@@ -114,6 +117,30 @@ class ToolsForWawwod:
         print(f'Childers:')
         for c in childers:
             print(f'--> {self.fmt(c.name)} [{c.rid}]')
+
+    def sire_as_rid(self):
+        all = Creature.objects.filter(chronicle='BAV', creature='kindred')
+        # for x in all:
+        #     x.need_fix = False
+        #     x.new_name = x.name
+        #     x.save()
+        for x in all:
+            print(f'{x.name} has sire {x.sire}')
+            if x.sire != '':
+                sire_as_name = Creature.objects.filter(name=x.sire)
+                if len(sire_as_name) == 1:
+                    print(f'       => {sire_as_name.first().rid}')
+                    x.sire = sire_as_name.first().rid
+                    x.need_fix = True
+                    x.save()
+                sire_as_rid = Creature.objects.filter(rid=f'_{x.sire}')
+                if len(sire_as_rid) == 1:
+                    print('rid found')
+                    x.sire = sire_as_rid.first().rid
+                    x.need_fix = True
+                    x.save()
+
+
 
     def xml_rescue(self):
         # import xml.dom.minidom

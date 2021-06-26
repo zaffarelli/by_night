@@ -1,7 +1,5 @@
 @import 'basics';
 
-$dead_background: #321;
-
 
 body {
   font-family: Texte;
@@ -76,7 +74,7 @@ body {
   body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hide;
     overflow-y: scroll;
 
     & input#userinput, & #text_edit {
@@ -558,128 +556,121 @@ table {
   font-size: 14px;
 }
 
-svg {
+svg.lineage {
   margin: 10px;
-  border: 1px dashed #111;
-  background: transparent; //#A1A; //silver;
+  border: 1px dashed #CCC;
+  background: transparent;
   margin-top: 50px;
 
 
-  //     height: auto;
-  //     width: 100%;
-
-  & rect {
-    &.overlay {
-      cursor: move;
-      stroke-width: 0px;
-      stroke: #701070;
-      fill: #C0C0C0;
-      opacity: 0.25;
-    }
-
-    &.band {
-      fill: #333;
-      stroke: #666;
-      stroke-width: 1pt;
-
-      &.ghost {
-        opacity: $ghost_opacity;
-      }
-
-      &.dead {
-        fill: $dead_background;
-      }
-    }
-
-    &.frame {
-      fill: transparent;
-      stroke: #CCC;
-      stroke-width: 1pt;
-
-      &.ghost {
-        opacity: $ghost_opacity;
-      }
-
-      &.dead {
-        stroke: $dead_background;
-
-      }
-
-    }
-
-    &.plate {
-      fill: transparent;
+  & .node {
+    & .property {
+      font-family: "Roboto";
+      font-size: 9pt;
       stroke: #888;
-      stroke-width: 0.5px;
+      fill: #fff;
+      stroke-width: 0.6px;
+    }
 
-      &.Sabbat {
-        fill: #211;
+    & rect {
+      &.band {
+        fill: #333;
+        stroke: #666;
+        stroke-width: 0.5pt;
+
+
       }
 
-      &.Camarilla {
-        fill: #121;
+      &.frame {
+        fill: transparent;
+        stroke: #FFF;
+        stroke-width: 1pt;
       }
 
-      &.Anarchs {
-        fill: #112;
-      }
+      &.plate {
+        fill: #444;
+        stroke: #888;
+        stroke-width: 0.5pt;
 
-      &.Inconnu {
-        fill: #212;
-      }
+        &.Camarilla {
+          fill: $camarilla_fill;
+        }
 
-      &.dead {
-        fill: $dead_background;
+        &.Anarchs {
+          fill: $anarchs_fill;
+        }
+
+        &.Sabbat {
+          fill: $sabbat_fill;
+        }
+
+        &.Independants {
+          fill: $independants_fill;
+        }
+
       }
     }
 
-    &.ghost {
+    &.dead {
+      & rect {
+        &.frame {
+          stroke: $dead_background;
+          stroke-width: 3pt;
+          stroke-linecap: butt;
+          stroke-opacity: 0.25;
+
+        }
+
+        &.band {
+          stroke-width: 0;
+          fill-opacity: 0.25;
+        }
+
+        &.plate {
+          stroke-width: 0;
+          fill-opacity: 0.25;
+        }
+      }
+    }
+
+    &.missing {
+      & rect {
+        &.frame {
+          stroke: $missing_background;
+          stroke-width: 3pt;
+          stroke-linecap: butt;
+          stroke-opacity: 0.25;
+        }
+
+        &.band {
+          stroke-width: 0;
+          fill-opacity: 0.75;
+        }
+
+        &.plate {
+          stroke-width: 0;
+          fill-opacity: 0.75;
+        }
+      }
+    }
+
+    & .ghost {
       opacity: $ghost_opacity;
     }
-  }
 
-  & .ghost {
-    fill: none;
-    stroke: #666;
-    stroke-width: 0.25px;
-    opacity: $ghost_opacity;
-    stroke-dasharray: "10";
   }
 
   & .link {
-    fill: none;
-    stroke: #BBB;
-    stroke-width: 6px;
-    opacity: 0.5;
+    fill: #A22;
+    fill-opacity: 0.15;
+    stroke: #A22;
+    stroke-width: 3pt;
 
     &.ghost {
-      stroke: #CCC;
-      stroke-width: 3px;
       opacity: $ghost_opacity;
     }
   }
 
-  & .name {
-    font-size: 1em;
-    font-family: "Titre";
-    stroke: #666;
-    fill: #000;
-    stroke-width: 0.7px;
-    cursor: pointer;
-
-    &:hover {
-      fill: $plate_highlight;
-      stroke: #000;
-    }
-  }
-
-  & .property {
-    font-family: "TexteLibre";
-    font-size: 9pt;
-    stroke: #888;
-    fill: #fff;
-    stroke-width: 0.6px;
-  }
 }
 
 .tooltip {
@@ -690,8 +681,8 @@ svg {
   border: 1px solid black;
   border-radius: 5px;
   padding: 2px;
-  width: 120px;
-  height: 160px;
+  width: 160px;
+  height: 180px;
   pointer-events: none;
   font-family: "TexteLibre";
   font-size: 8pt;
@@ -707,32 +698,59 @@ svg {
     font-size: 1.6em;
   }
 
+  & ol {
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    text-align: left;
+
+    & li {
+    }
+  }
 
 }
 
 
 svg .node_circle {
-  fill: $panel_color;
+  //fill: $panel_color;
   stroke: $focus_color;
-  stroke-width: 1pt;
+  stroke-width: 3pt;
 
-  &.wyld {
-    fill: $wyld_fill;
 
-    &.kinfolk {
-      fill: $garou_fill;
-    }
-
-    &.kinfolk {
-      fill: $kinfolk_fill;
-    }
+  &.garou {
+    fill: $garou_fill;
   }
 
-  &.wyrm {
-    fill: $camarilla_fill;
+  &.kinfolk {
+    fill: $kinfolk_fill;
   }
 
-  &.weaver {
+  &.kindred {
+    fill: $kindred_fill;
+  }
+
+
+  &.ghoul {
+    fill: $ghoul_fill;
+  }
+
+  &.fomori {
+    fill: $fomori_fill;
+  }
+
+  &.mage {
+    fill: $mage_fill;
+  }
+
+  &.changeling {
+    fill: $changeling_fill;
+  }
+
+  &.wraith {
+    fill: $wraith_fill;
+  }
+
+  &.mortal {
     fill: $mortal_fill;
   }
 
@@ -829,9 +847,30 @@ div.creature_links {
 
 text.kindred_name {
   & tspan {
-    font-family: "Marcellus SC";
-    font-size: 9pt;
-    fill:#EEE;
-    stroke:#CCC;
+    font-family: "Philosopher";
+    font-size: 12pt;
+    font-variant: small-caps;
+    fill: #FFF;
+    stroke: #DDD;
+
+    &.property tspan {
+      font-family: "Syne Mono";
+      font-size: 9pt;
+      fill: #EEE;
+      stroke: #CCC;
+    }
   }
+
+}
+
+
+.node {
+  fill: steelblue;
+  stroke: none;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
 }
