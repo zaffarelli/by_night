@@ -9,6 +9,8 @@ def json_default(value):
 
 
 def toRID(txt):
+    if txt == '':
+        return ''
     s = txt.lower()
     x = s.replace(' ', '_').replace("'", '').replace('é', 'e') \
         .replace('è', 'e').replace('ë', 'e').replace('â', 'a') \

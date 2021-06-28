@@ -706,7 +706,7 @@ class CrossOverSheet{
             oy += 2*me.stepy;
             me.statText('Generation',13-me.data['background3']+'th',ox+me.stepx*16,oy,'gener','gener',me.character);
             oy += 0.5*me.stepy;
-            me.statText('Sire',me.data['sire'],ox+me.stepx*16,oy,'sire','sire',me.character);
+            me.statText('Sire',me.data['sire_name'],ox+me.stepx*16,oy,'sire','sire',me.character);
         }
     }
 

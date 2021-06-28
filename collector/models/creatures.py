@@ -3,7 +3,7 @@ from django.contrib import admin
 import json
 import logging
 from collector.utils.wod_reference import get_current_chronicle, find_stat_property, STATS_NAMES, GM_SHORTCUTS, \
-    bloodpool, STATS_TEMPLATES
+    bloodpool, STATS_TEMPLATES, ARCHETYPES, CLANS_SPECIFICS
 from collector.utils.helper import json_default, toRID
 import random
 
@@ -27,8 +27,8 @@ class Creature(models.Model):
         ordering = ['name']
 
     player = models.CharField(max_length=32, blank=True, default='')
-    name = models.CharField(max_length=128, default='', blank=True, null=True)
-    new_name = models.CharField(max_length=128, default='')
+    name = models.CharField(max_length=128, default='')
+    new_name = models.CharField(max_length=128, default='', blank=True, null=True)
     rid = models.CharField(max_length=128, blank=True, default='')
     nickname = models.CharField(max_length=128, blank=True, default='')
     primogen = models.BooleanField(default=False)
@@ -41,6 +41,8 @@ class Creature(models.Model):
     groupspec = models.CharField(max_length=128, blank=True, default='')
     concept = models.CharField(max_length=128, blank=True, default='')
     age = models.PositiveIntegerField(default=0)
+    trueage = models.PositiveIntegerField(default=0)
+    embrace = models.IntegerField(default=0)
     faction = models.CharField(max_length=64, blank=True, default='')
     lastmod = models.DateTimeField(auto_now=True)
     chronicle = models.CharField(max_length=8, default='NYBN')
@@ -48,8 +50,7 @@ class Creature(models.Model):
     sex = models.BooleanField(default=False)
     display_gauge = models.IntegerField(default=0)
     display_pole = models.CharField(max_length=64, default='', blank=True)
-    trueage = models.PositiveIntegerField(default=0)
-    embrace = models.IntegerField(default=0)
+
     finaldeath = models.IntegerField(default=0)
     timeintorpor = models.PositiveIntegerField(default=0)
     picture = models.CharField(max_length=128, blank=True, default='')
@@ -347,17 +348,18 @@ class Creature(models.Model):
 
     def fix_kindred(self):
         logger.info(f'Fixing kindred')
-
-        
         # Embrace and Age
         condi = self.condition.split('-')
         if condi.count == 2:
             if condi[0] == 'DEAD':
                 self.finaldeath == int(condi[1])
-        if (int(self.age) > 0) and (int(self.trueage) >= int(self.age)):
-            self.embrace = chronicle.era - (int(self.trueage) - int(self.age))
-        else:
-            self.trueage = chronicle.era - int(self.embrace) + int(self.age)
+        self.embrace = int(self.embrace)
+        self.age = int(self.age)
+        self.trueage = int(self.trueage)
+        if self.embrace == 0:
+            self.embrace = chronicle.era - (self.trueage - self.age)
+        if self.trueage == 0:
+            self.trueage = chronicle.era - (self.embrace - self.age)
         self.expectedfreebies = self.freebies_per_age_threshold
         # Willpower
         if self.willpower < self.virtue2:
@@ -594,7 +596,7 @@ class Creature(models.Model):
         self.need_fix = False
 
     def changeName(self):
-        if self.new_name != '':
+        if self.new_name:
             all = Creature.objects.filter(sire=self.rid)
             new_rid = toRID(self.new_name)
             self.name = self.new_name
@@ -721,7 +723,9 @@ class Creature(models.Model):
     def randomize_abilities(self):
         # Initialize
         for t in range(10):
-            setattr(self, f'attribute{t}', 0)
+            setattr(self, f'talent{t}', 0)
+            setattr(self, f'skill{t}', 0)
+            setattr(self, f'knowledge{t}', 0)
         # Grab relevant values per creature
         abilities_points = STATS_TEMPLATES[self.creature]['abilities'].split('/')
         abilities = []
@@ -752,43 +756,38 @@ class Creature(models.Model):
                 backgrounds -= 1
                 setattr(self, stat, value + 1)
 
-    def randomize_kinfolk(self):
-        # self.willpower = 3
-        # for t in range(10):
-        #     setattr(self, f'attribute{t}', 1)
-        #     setattr(self, f'talent{t}', 0)
-        #     setattr(self, f'skill{t}', 0)
-        #     setattr(self, f'knowledge{t}', 0)
-        #     setattr(self, f'background{t}', 0)
-        # attributes = [2, 5, 8]
-        # random.shuffle(attributes)
-        # abilities = ["talent", "skill", "knowledge"]
-        # random.shuffle(abilities)
-        # attribute_points = [6, 4, 3]
-        # abilities_points = [11, 7, 4]
-        # for t in range(3):
-        #     while attribute_points[t] > 0:
-        #         attribute_points[t] -= 1
-        #         a = random.randrange(0, 3)
-        #         stat = f'attribute{attributes[t] - a}'
-        #         v = getattr(self, stat)
-        #         setattr(self, stat, v + 1)
-        # for t in range(3):
-        #     while abilities_points[t] > 0:
-        #         abilities_points[t] -= 1
-        #         a = random.randrange(0, 10)
-        #         stat = f'{abilities[t]}{a}'
-        #         v = getattr(self, stat)
-        #         setattr(self, stat, v + 1)
-        # for i in range(5):
-        #     a = random.randrange(0, 10)
-        #     stat = f'background{a}'
-        #     v = getattr(self, stat)
-        #     setattr(self, stat, v + 1)
-        # self.condition = "OK"
-        # self.need_fix = True
-        # self.save()
-        pass
+    def randomize_archetypes(self):
+        if not self.nature:
+            self.nature = random.choice(ARCHETYPES)
+        if not self.demeanor:
+            self.demeanor = random.choice(ARCHETYPES)
+
+    def randomize_all(self):
+        self.randomize_attributes()
+        self.randomize_abilities()
+        self.randomize_archetypes()
+        self.randomize_backgrounds()
+        if self.creature == 'kindred':
+            if self.family:
+                for i in range(16):
+                    setattr(self, f'trait{i}', '')
+                x = 0
+                for d in CLANS_SPECIFICS[self.family]['disciplines']:
+                    setattr(self, f'trait{x}', d)
+                    x+=1
+                    print(d)
+            virtues = 7
+            self.virtue0 = 1
+            self.virtue1 = 1
+            self.virtue2 = 1
+            while virtues > 0:
+                a = random.randrange(0, 3)
+                v = getattr(self, f'virtue{a}')
+                if v < 5:
+                    setattr(self, f'virtue{a}', v+1)
+                    virtues -= 1
+            self.weakness = CLANS_SPECIFICS[self.family]['clan_weakness']
+
 
     # def extract_raw(self):
     #     # filename = f'./raw/{self.rid}.txt'
@@ -862,9 +861,10 @@ class Creature(models.Model):
                 self.freebies -= int(flaw.split('(')[1].replace('(', '').replace(')', ''))
         # Traits
         self.total_traits = 0
-        for i in range(10):
+        for i in range(16):
             trait = getattr(self, f'trait{i}')
-            if trait != '':
+            print(trait)
+            if trait:
                 self.total_traits += int(trait.split('(')[1].replace('(', '').replace(')', ''))
         # Sort traits
         traits = []
@@ -918,6 +918,14 @@ class Creature(models.Model):
             self.status = 'OK+'
 
     @property
+    def sire_name(self):
+        sires = Creature.objects.filter(rid=self.sire)
+        if len(sires) == 1:
+            return sires.first().name
+        return ''
+
+
+    @property
     def toDict(self):
         d = {
             'name': self.name,
@@ -961,6 +969,7 @@ class Creature(models.Model):
             'rid': self.rid,
             'id': 0,
             'key': self.id,
+            'trueage': self.trueage,
             'children': [],
             'ghouls': ",".join(self.retainers)
         }
@@ -1086,6 +1095,7 @@ def randomize_abilities(modeladmin, request, queryset):
         creature.save()
     short_description = 'Randomize Abilities'
 
+
 def randomize_backgrounds(modeladmin, request, queryset):
     for creature in queryset:
         creature.randomize_backgrounds()
@@ -1094,12 +1104,28 @@ def randomize_backgrounds(modeladmin, request, queryset):
     short_description = 'Randomize Backgrounds'
 
 
+def randomize_archetypes(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.randomize_archetypes()
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Randomize Backgrounds'
+
+def randomize_all(modeladmin, request, queryset):
+    for creature in queryset:
+        creature.randomize_all()
+        creature.need_fix = True
+        creature.save()
+    short_description = 'Randomize All'
+
+
+
 class CreatureAdmin(admin.ModelAdmin):
     list_display = [  # 'domitor',
         'name', 'rid', 'sire', 'player','retainers', 'total_backgrounds', 'total_physical', 'total_social', 'total_mental', 'total_talents', 'total_skills', 'total_knowledges', 'family', 'display_gauge', 'display_pole', 'freebies', 'concept', 'groupspec',
         'faction',
         'status', 'embrace', 'condition']
     ordering = ['name', 'group', 'creature']
-    actions = [randomize_backgrounds, randomize_attributes, randomize_abilities, refix, set_male, set_female, push_to_munich, push_to_newyork, push_to_world]
-    list_filter = ['chronicle', 'is_new', 'group', 'patron', 'groupspec', 'faction', 'family', 'creature', 'mythic', 'ghost']
+    actions = [randomize_backgrounds, randomize_all, randomize_archetypes, randomize_attributes, randomize_abilities, refix, set_male, set_female, push_to_munich, push_to_newyork, push_to_world]
+    list_filter = ['chronicle', 'is_new', 'primogen', 'group', 'sire', 'groupspec', 'faction', 'family', 'creature', 'mythic', 'ghost']
     search_fields = ['name']

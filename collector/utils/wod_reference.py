@@ -16,6 +16,7 @@ def get_current_chronicle():
         ch = first_chronicle
     return ch
 
+
 def set_chronicle(acro):
     for c in Chronicle.objects.all():
         if c.acronym == acro:
@@ -46,7 +47,8 @@ STATS_NAMES = {
                     'streetwise', 'subterfuge'],
         'skills': ['animal ken', 'crafts', 'drive', 'etiquette', 'firearms', 'larceny', 'melee', 'performance',
                    'stealth', 'survival'],
-        'knowledges': ['computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'mythlore', 'occult', 'politics',
+        'knowledges': ['computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'mythlore', 'occult',
+                       'politics',
                        'science'],
         'backgrounds': ['chimera', 'contacts', 'dreamers', 'gremayre', 'holdings', 'mentor', 'resources', 'retinue',
                         'title', 'treasures']
@@ -121,8 +123,8 @@ STATS_NAMES = {
         'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'meditation', 'melee', 'performance',
                    'stealth', 'survival', 'technology'],
         'knowledges': ['academics', 'computer', 'cosmology', 'enigmas', 'investigation', 'law', 'linguistics',
-                       'medicine', 'occult',  'science'],
-        'backgrounds': ['allies', 'arcane', 'avatar','contacts', 'destiny', 'dream', 'influence', 'library', 'node',
+                       'medicine', 'occult', 'science'],
+        'backgrounds': ['allies', 'arcane', 'avatar', 'contacts', 'destiny', 'dream', 'influence', 'library', 'node',
                         'resources', 'wonder']
     },
     'mortal': {
@@ -140,11 +142,12 @@ STATS_NAMES = {
     'wraith': {
         'attributes': ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'appearance', 'perception',
                        'intelligence', 'wits'],
-        'talents': ['alertness', 'athletics', 'awareness',  'brawl', 'dodge', 'empathy', 'expression', 'intimidation',
+        'talents': ['alertness', 'athletics', 'awareness', 'brawl', 'dodge', 'empathy', 'expression', 'intimidation',
                     'streetwise', 'subterfuge'],
-        'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'meditation',  'melee', 'performance',
+        'skills': ['crafts', 'drive', 'etiquette', 'firearms', 'leadership', 'meditation', 'melee', 'performance',
                    'repair', 'stealth'],
-        'knowledges': ['bureaucracy', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine', 'occult',
+        'knowledges': ['bureaucracy', 'computer', 'enigmas', 'investigation', 'law', 'linguistics', 'medicine',
+                       'occult',
                        'politics', 'science'],
         'backgrounds': ['allies', 'artifact', 'contacts', 'eidolon', 'haunt', 'mentor', 'memoriam', 'notoriety',
                         'status', 'wealth']
@@ -292,8 +295,8 @@ AUSPICES = ['Ragabasch', 'Theurge', 'Philodox', 'Galliard', 'Ahroun']
 
 RANKS = ['Cliath', 'Fostern', 'Adren', 'Athro', 'Elder']
 
-FONTSET = ['Cinzel', 'Trade+Winds', 'Imprima', 'Roboto', 'Philosopher', 'Ruda', 'Khand', 'Allura', 'Gochi+Hand', 'Reggae+One', 'Syne+Mono', 'Zilla+Slab', 'Spartan']
-
+FONTSET = ['Cinzel', 'Trade+Winds', 'Imprima', 'Roboto', 'Philosopher', 'Ruda', 'Khand', 'Allura', 'Gochi+Hand',
+           'Reggae+One', 'Syne+Mono', 'Zilla+Slab', 'Spartan']
 
 GM_SHORTCUTS = {
     'garou': [
@@ -328,4 +331,129 @@ bloodpool = {
     3: 100,
     2: 100,
     1: 100,
+}
+
+CLANS_SPECIFICS = {
+    'Assamite': {
+        'disciplines': ['Celerity (1)', 'Obfuscate (1)', 'Quietus (1)'],
+        'clan_weakness': 'Kindred blood addiction'
+    },
+    'Assamite Antitribu': {
+        'disciplines': ['Celerity (1)', 'Obfuscate (1)', 'Quietus (1)'],
+        'clan_weakness': 'Kindred blood addiction'
+    },
+    'Blood Brother': {
+        'disciplines': ['Fortitude (1)', 'Potence (1)', 'Sanguinus (1)'],
+        'clan_weakness': 'No Embrace'
+    },
+    'Brujah': {
+        'disciplines': ['Celerity (1)', 'Potence (1)', 'Presence (1)'],
+        'clan_weakness': 'Short fuse'
+    },
+    'Brujah Antitribu': {
+        'disciplines': ['Celerity (1)', 'Potence (1)', 'Presence (1)'],
+        'clan_weakness': 'Short fuse'
+    },
+    'Caitiff': {
+        'disciplines': [],
+        'clan_weakness': ''
+    },
+    'Gangrel': {
+        'disciplines': ['Animalism (1)', ' Fortitude (1)', 'Protean (1)'],
+        'clan_weakness': 'Animal traits'
+
+    },
+    'Gangrel Antitribu': {
+        'disciplines': ['Celerity (1)', 'Obfuscate (1)', 'Protean (1)'],
+        'clan_weakness': 'Animal traits'
+    },
+    'Gargoyle': {
+        'disciplines': ['Fortitude (1)', 'Potence (1)', 'Visceratika (1)'],
+        'clan_weakness': ''
+    },
+    'Giovanni': {
+        'disciplines': ['Dominate (1)', 'Necromancy (1)', 'Potence (1)'],
+        'clan_weakness': 'Painful kiss'
+    },
+    'Harbinger of Skulls': {
+        'disciplines': ['Auspex (1)', 'Fortitude (1)', 'Necromancy (1)'],
+        'clan_weakness': 'Corpse Appeareance'
+    },
+    'Kiasyd': {
+        'disciplines': ['Dominate (1)', ' Mytherceria (1)', 'Obtenebration (1)'],
+        'clan_weakness': 'Cold Iron Sensitive'
+    },
+    'Lasombra': {
+        'disciplines': ['Dominate (1)', 'Obtenebration (1)', 'Potence (1)'],
+        'clan_weakness': 'No reflection'
+    },
+    'Lasombra Antitribu': {
+        'disciplines': ['Dominate (1)', 'Obtenebration (1)', 'Potence (1)'],
+        'clan_weakness': 'No reflection'
+    },
+    'Malkavian': {
+        'disciplines': ['Auspex (1)', 'Dementation (1)', 'Obfuscate (1)'],
+        'clan_weakness': 'Derangement'
+    },
+    'Malkavian Antitribu': {
+        'disciplines': ['Auspex (1)', 'Dementation (1)', 'Obfuscate (1)'],
+        'clan_weakness': 'Derangement'
+
+    },
+    'Nosferatu': {
+        'disciplines': ['Animalism (1)', 'Obfuscate (1)', 'Potence (1)'],
+        'clan_weakness': 'Hideous Appearence'
+    },
+    'Nosferatu Antitribu': {
+        'disciplines': ['Animalism (1)', 'Obfuscate (1)', 'Potence (1)'],
+        'clan_weakness': 'Hideous Appearence'
+    },
+    'Panders': {
+        'disciplines': [],
+        'clan_weakness': ''
+    },
+    'Ravnos': {
+        'disciplines': ['Animalism (1)', 'Chimerstry (1)', 'Fortitude (1)'],
+        'clan_weakness': 'Vice addiction'
+    },
+    'Ravnos Antitribu': {
+        'disciplines': ['Animalism (1)', 'Chimerstry (1)', 'Fortitude (1)'],
+        'clan_weakness': 'Vice addiction'
+    },
+    'Salubri Antitribu': {
+        'disciplines': ['Auspex (1)', 'Fortitude (1)', 'Valeren (1)'],
+        'clan_weakness': 'Must feed under passion'
+    },
+    'Setite': {
+        'disciplines': ['Obfuscate (1)', 'Presence (1)', 'Serpentis (1)'],
+        'clan_weakness': 'Light sensitive'
+    },
+    'Setite Antitribu': {
+        'disciplines': ['Obfuscate (1)', 'Presence (1)', 'Serpentis (1)'],
+        'clan_weakness': 'Light sensitive'
+    },
+    'Toreador': {
+        'disciplines': ['Auspex (1)', 'Celerity (1)', 'Presence (1)'],
+        'clan_weakness': 'Fascination'
+    },
+    'Toreador Antitribu': {
+        'disciplines': ['Auspex (1)', 'Celerity (1)', 'Presence (1)'],
+        'clan_weakness': 'Fascination'
+    },
+    'Tremere': {
+        'disciplines': ['Auspex (1)', 'Dominate (1)', 'Thaumaturgy (1)'],
+        'clan_weakness': 'Blood thrall'
+    },
+    'Tzimisce': {
+        'disciplines': ['Animalism (1)', 'Auspex (1)', 'Vicissitude (1)'],
+        'clan_weakness': 'Earth from the grave'
+    },
+    'Ventrue': {
+        'disciplines': ['Dominate (1)', 'Fortitude (1)', 'Presence (1)'],
+        'clan_weakness': 'Prey Exclusive'
+    },
+    'Ventrue Antitribu': {
+        'disciplines': ['Dominate (1)', 'Fortitude (1)', 'Presence (1)'],
+        'clan_weakness': 'Prey Exclusive'
+    }
 }

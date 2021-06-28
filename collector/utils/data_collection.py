@@ -203,6 +203,15 @@ def create_mythics():
     kindred_stack.append(blank_str('Troile', 4, "_brujah", 'Brujah'))
     kindred_stack.append(blank_str('Augustus Giovanni', 4, "_cappadocius", 'Giovanni'))
     kindred_stack.append(blank_str('Tremere', 4, "_saulot", 'Tremere'))
+
+    kindred_stack.append(blank_str('Outcast', 5, "_troile", 'Caitiff'))
+    kindred_stack.append(blank_str('Pander', 6, "_outcast", 'Panders'))
+    kindred_stack.append(blank_str('Caitiff', 6, "_outcast", 'Caitiff'))
+    kindred_stack.append(blank_str('Blood Brother', 6, "_outcast", 'Blood Brothers'))
+    kindred_stack.append(blank_str('Gargoyle', 6, "_outcast", 'Gargoyle'))
+    kindred_stack.append(blank_str('Samedi', 6, "_outcast", 'Samedi'))
+    kindred_stack.append(blank_str('Baali', 6, "_outcast", 'Baali'))
+
     for k in kindred_stack:
         k['mythic'] = True
         generations[f'{k["generation"]}'].append(k)

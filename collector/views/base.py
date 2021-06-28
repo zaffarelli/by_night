@@ -134,7 +134,7 @@ def userinput(request):
 
 def add_creature(request, slug=None):
     if request.is_ajax:
-        # slug = request.POST['creature']
+        
         name = " ".join(slug.split("_"))
         chronicle = get_current_chronicle()
         item = Creature()
@@ -142,11 +142,39 @@ def add_creature(request, slug=None):
         item.chronicle = chronicle.acronym
         item.creature = 'mortal'
         item.age = 25
+        if slug == 'kindred':
+            item.creature = 'kindred'
+            item.age = 0
+            item.family = 'Caitiff'
+            item.faction = 'Camarilla'
+            item.randomize_backgrounds()
+            item.randomize_archetypes()
+            item.randomize_attributes()
+            item.randomize_abilities()
         item.source = 'zaffarelli'
-
-
         item.save()
         context = {'answer': 'creature added'}
+        print(item)
+        return HttpResponse(status=204)
+
+
+def add_kindred(request, slug=None):
+    if request.is_ajax:
+        name = " ".join(slug.split("_"))
+        chronicle = get_current_chronicle()
+        item = Creature()
+        item.name = name
+        item.chronicle = chronicle.acronym
+        item.creature = 'kindred'
+        item.age = 0
+        item.family = 'Caitiff'
+        item.faction = 'Camarilla'
+        item.randomize_backgrounds()
+        item.randomize_archetypes()
+        item.randomize_attributes()
+        item.randomize_abilities()
+        item.source = 'zaffarelli'
+        item.save()
         print(item)
         return HttpResponse(status=204)
 
@@ -168,8 +196,13 @@ def display_crossover_sheet(request, slug=None):
             post_title = "feat. Julius Von Blow"
         spe = c.get_specialities()
         shc = c.get_shortcuts()
+        j = c.toJSON()
+        k = json.loads(j)
+        k["sire_name"] = c.sire_name
+        j = json.dumps(k)
         settings = {'version': 1.0, 'labels': STATS_NAMES[c.creature], 'pre_title': pre_title, 'scenario': scenario, 'post_title': post_title, 'fontset': FONTSET, 'specialities': spe, 'shortcuts': shc}
-        crossover_sheet_context = {'settings': json.dumps(settings, sort_keys=True, indent=4), 'data': c.toJSON()}
+        crossover_sheet_context = {'settings': json.dumps(settings, sort_keys=True, indent=4), 'data': j}
+
         return JsonResponse(crossover_sheet_context)
 
 

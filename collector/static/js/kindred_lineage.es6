@@ -276,7 +276,7 @@ class KindredLineage {
             .attr('x', -me.boxWidth * 0.5)
             .attr('y', -me.boxHeight * 0)
             .attr('width', me.boxWidth * 1)
-            .attr('height', me.boxHeight * 2)
+            .attr('height', me.boxHeight * 4)
         ;
 
         r.append("rect")
@@ -284,7 +284,7 @@ class KindredLineage {
             .attr('x', -me.boxWidth * 0.5)
             .attr('y', -me.boxHeight * 1)
             .attr('width', me.boxWidth * 1)
-            .attr('height', me.boxHeight * 3)
+            .attr('height', me.boxHeight * 5)
             .on("click", function (e, d) {
                 console.log("Frame click " + d.id + " [" + d.data.name + "]!");
                 me.uncollapse(d)
@@ -385,7 +385,7 @@ class KindredLineage {
             });
 
         // Display of the properties
-        r.selectAll("text")
+        r.select("text.kindred_name")
             .append('tspan')
             .attr('class', 'property')
             .attr('text-anchor', 'start')
@@ -403,16 +403,40 @@ class KindredLineage {
                             str = d.data.generation + 'th gen.';
                             str += ' ' + d.data.clan;
                         }
-                        //str += " " + line_jump_code + " "  + d.data.sire;
-                        // if (d.condition != 'OK')
-                        //     str += ' ' + d.data.condition;
-                        // if (d.status != 'OK')
-                        //     str += ' ' + d.data.status;
+                        str += " " + line_jump_code + " "  + d.data.trueage;
                     }
                 }
                 return str
             })
             .call(me.wrap, me.boxWidth * 0.9);
+
+        // Display of the ghouls
+        r.select("text.kindred_name")
+            .append('tspan')
+            .attr('class', 'property')
+            .attr('text-anchor', 'middle')
+            .attr('x', me.boxWidth * 0)
+            .attr('y', me.boxHeight * 2)
+            .attr('dx', '0')
+            .attr('dy', '0')
+            .text(function (d) {
+                let str = '';
+                if (d.data.ghost == false) {
+                    if (d.data.ghouls != '') {
+                        str = 'GHOULS';
+                        let list = d.data.ghouls.split(',')
+                        _.forEach(list,function(x){
+                            str += " " + line_jump_code + " "  + x;
+                        })
+                    }
+                }
+                return str
+            })
+            .style('fill','#EEE')
+            .style('stroke','#BBB')
+            .style('stroke-width','0.5pt')
+            .call(me.wrap, me.boxWidth * 0.9);
+
         return r;
     }
 
@@ -447,8 +471,9 @@ class KindredLineage {
             .attr("d", function (d) {
                 return "M" + d.x + "," + (d.y - me.boxHeight)
                     + "C" + d.x + "," + (d.y + d.parent.y) / 2
-                    + " " + d.parent.x + "," + (d.y + d.parent.y) / 2
-                    + " " + d.parent.x + "," + (d.parent.y + me.boxHeight * 2);
+                    + " " + d.parent.x + "," + (d.y + d.parent.y+me.boxHeight*3) / 2
+                    + " " + d.parent.x + "," + (d.parent.y + me.boxHeight * 4);
+
             })
         ;
         let node = me.g.selectAll(".node")

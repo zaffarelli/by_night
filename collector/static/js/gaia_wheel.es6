@@ -363,7 +363,7 @@ class GaiaWheel {
                 return x;
             })
             .style("stroke-width", function (d) {
-                let x = (d.condition == "DEAD" ? "7pt" : (d.condition == "MISSING" ? "7pt" : "1pt"))
+                let x = (d.condition == "DEAD" ? "1pt" : (d.condition == "MISSING" ? "1pt" : "1pt"))
                 return x;
             })
         ;
@@ -470,6 +470,27 @@ class GaiaWheel {
             me.display_branch(v.start, v.collection, v.name, v.collection.length, v.value);
         })
     }
+
+    // zoomActivate() {
+    //     let me = this;
+    //     let zoom = d3.zoom()
+    //         .scaleExtent([0.25, 4]) // I don't want a zoom, i want panning :)
+    //         .on('zoom', function (event) {
+    //             me.g.selectAll('path')
+    //                 .attr('transform', event.transform);
+    //             me.g.selectAll('rect')
+    //                 .attr('transform', event.transform);
+    //             me.g.selectAll('text')
+    //                 .attr('transform', event.transform);
+    //             me.g.selectAll('circle')
+    //                 .attr('transform', event.transform);
+    //
+    //             me.g.selectAll('image')
+    //                 .attr('transform', event.transform);
+    //         });
+    //     me.svg.call(zoom);
+    // }
+
 
     perform() {
         let me = this;
