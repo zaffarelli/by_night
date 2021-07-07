@@ -235,6 +235,7 @@ class CrossOverSheet{
         me.decorationText(22.5,34.8,0,'end',me.base_font,me.small_font_size,me.draw_fill,me.draw_stroke,0.5,'Challenge:'+me.data['freebies'],me.back);
 
 
+
         // Sheet content
         me.character = me.back.append('g')
             .attr('class','xover_sheet');
@@ -836,9 +837,9 @@ class CrossOverSheet{
         }
         if (me.data['creature']=='kindred'){
             oy += 1.7*me.stepy;
-            me.gaugeStat('Humanity',me.data['rage'],ox+me.stepx*12,oy,me.character);
+            me.gaugeStat('Humanity',me.data['humanity'],ox+me.stepx*12,oy,me.character);
             oy += 1.5*me.stepy;
-            me.gaugeStat('Blood Pool',me.data['gnosis'],ox+me.stepx*12,oy,me.character,true,true,20);
+            me.gaugeStat('Blood Pool',me.data['bloodpool'],ox+me.stepx*12,oy,me.character,true,true,20);
 
         }
         oy = basey;
@@ -1061,6 +1062,11 @@ xmlns:xlink="http://www.w3.org/1999/xlink"> \
         me.data = character_data;
         me.guideline = me.data['guideline']
         me.drawWatermark();
+        if (me.data['condition'] == "DEAD"){
+
+            me.decorationText(12,16,0,'middle',me.logo_font,me.fat_font_size*3,me.shadow_fill,me.shadow_stroke,0.5,"DEAD",me.back,0.25);
+        }
+
         me.fillCharacter();
         me.drawButtons();
     }

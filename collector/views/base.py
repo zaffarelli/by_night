@@ -11,7 +11,7 @@ from collector.models.chronicles import Chronicle
 from collector.utils.wod_reference import STATS_NAMES
 import json
 from collector.utils.wod_reference import FONTSET
-
+from collector.utils.data_collection import improvise_id
 
 chronicle = get_current_chronicle()
 
@@ -154,7 +154,6 @@ def add_creature(request, slug=None):
         item.source = 'zaffarelli'
         item.save()
         context = {'answer': 'creature added'}
-        print(item)
         return HttpResponse(status=204)
 
 
@@ -175,7 +174,37 @@ def add_kindred(request, slug=None):
         item.randomize_abilities()
         item.source = 'zaffarelli'
         item.save()
-        print(item)
+        return HttpResponse(status=204)
+
+
+def add_ghoul(request, slug=None):
+    if request.is_ajax:
+        needed_ghouls = 0
+        domitor_rid = toRID(slug)
+        domitors = Creature.objects.filter(creature='kindred', rid=domitor_rid)
+        if len(domitors) == 1:
+            domitor = domitors.first()
+            ghouls = Creature.objects.filter(sire=domitor.rid)
+            if len(ghouls) < domitor.value_of('retainers'):
+                needed_ghouls = domitor.value_of('retainers') - len(ghouls)
+            for x in range(needed_ghouls):
+                item = Creature()
+                item.name = improvise_id()
+                item.chronicle = domitor.chronicle
+                item.creature = 'ghoul'
+                item.age = random.randrange(0,19)+20
+                item.family = domitor.family
+                item.groupspec = domitor.groupspec
+                item.sire = domitor.rid
+                item.faction = domitor.faction
+                item.randomize_backgrounds()
+                item.randomize_archetypes()
+                item.randomize_attributes()
+                item.randomize_abilities()
+                item.source = 'zaffarelli'
+                item.is_new = True
+                item.need_fix = True
+                item.save()
         return HttpResponse(status=204)
 
 

@@ -256,7 +256,41 @@ class Creature(models.Model):
     rite8 = models.CharField(max_length=64, blank=True, default='')
     rite9 = models.CharField(max_length=64, blank=True, default='')
 
+    @property
+    def creature_is(self,creature):
+        return self.creature == creature
 
+    @property
+    def is_ghoul(self):
+        return self.creature_is('ghoul')
+
+    @property
+    def is_kindred(self):
+        return self.creature_is('kindred')
+
+    @property
+    def is_mage(self):
+        return self.creature_is('mage')
+
+    @property
+    def is_garou(self):
+        return self.creature_is('garou')
+
+    @property
+    def is_kinfolk(self):
+        return self.creature_is('kinfolk')
+
+    @property
+    def is_changeling(self):
+        return self.creature_is('changeling')
+
+    @property
+    def is_mortal(self):
+        return self.creature_is('mortal')
+
+    @property
+    def is_undefined(self):
+        return self.creature_is('undefined')
 
     @property
     def shapeshifter(self):
